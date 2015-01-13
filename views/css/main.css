@@ -286,3 +286,6 @@ Gradient Background colors
 .text-light-gray {
   color: rgba(14, 14, 15, 0.19);
 }
+.none {
+  display: none;
+}
