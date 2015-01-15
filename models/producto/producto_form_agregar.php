@@ -166,7 +166,6 @@
 <script language="javascript" type="text/javascript">
     function fn_agregar_producto(){
         var str = $("#frm_producto").serialize();
-        console.log(str);
         $.ajax({
             url: '../models/producto/producto_agregar.php',
             data: str,

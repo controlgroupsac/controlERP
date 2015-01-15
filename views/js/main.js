@@ -157,14 +157,17 @@ function fn_mostrar_frm_modificar_producto(producto_id){
   });
 };
 
-/*UNIDAD DETALLE*/
+/**/
+/**/
+/**/
+/*UNIDAD*/
 $("#nuevaUnidad").click(function () {
   $("#div_oculto_unidad").load("../models/unidad/unidad_form_agregar.php", function(){
     $.blockUI({
       message: $('#div_oculto_unidad'),
       css:{
-        top: '5%',
-        width: '40%',
+        top: '10%',
+        width: '30%',
       }
     });
     $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
@@ -201,6 +204,62 @@ function fn_mostrar_frm_modificar_unidad(unidad_id){
   $("#div_oculto_unidad").load("../models/unidad/unidad_form_modificar.php", {unidad_id: unidad_id}, function(){
     $.blockUI({
       message: $('#div_oculto_unidad'),
+      css:{
+        top: '5%',
+        width: '40%'
+      }
+    }); 
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+};
+
+/**/
+/**/
+/**/
+/*MODEDA*/
+$("#nuevaMoneda").click(function () {
+  $("#div_oculto_moneda").load("../models/moneda/moneda_form_agregar.php", function(){
+    $.blockUI({
+      message: $('#div_oculto_moneda'),
+      css:{
+        top: '10%',
+        width: '30%',
+      }
+    });
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+});
+
+function fn_buscar_moneda(){
+  var str = $("#frm_buscar_moneda").serialize();
+  $.ajax({
+    url: '../models/moneda/moneda_listar.php',
+    type: 'get',
+    data: str,
+    success: function(data){
+      $("#div_listar_moneda").html(data);
+    }
+  });
+}
+function fn_eliminar_moneda(moneda_id){
+  var respuesta = confirm("Desea eliminar este moneda?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/moneda/moneda_eliminar.php',
+      data: 'moneda_id=' + moneda_id,
+      type: 'post',
+      success: function(data){
+        if(data!="")
+          alert(data);
+        fn_buscar_moneda()
+      }
+    });
+  }
+}
+function fn_mostrar_frm_modificar_moneda(moneda_id){
+  $("#div_oculto_moneda").load("../models/moneda/moneda_form_modificar.php", {moneda_id: moneda_id}, function(){
+    $.blockUI({
+      message: $('#div_oculto_moneda'),
       css:{
         top: '5%',
         width: '40%'

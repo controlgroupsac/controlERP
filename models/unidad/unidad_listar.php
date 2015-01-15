@@ -1,7 +1,7 @@
 <?php  
 	include "../../config/conexion.php"; 
     include("../../queries/query.php"); 
-    $query = "SELECT * FROM unidad";
+    $query = "SELECT * FROM `controlg_controlerp`.`unidad` ORDER BY `unidad`.unidad_id DESC" ;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);
