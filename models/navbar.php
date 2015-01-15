@@ -1,6 +1,3 @@
-
-
-
 <div id="sidebar" class="sidebar      h-sidebar                navbar-collapse collapse">
 	<script type="text/javascript">
 			try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
@@ -71,7 +68,7 @@
 
 					<ul class="submenu">
 						<li class="hover">
-							<a href="top-menu.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Top Menu
 							</a>
@@ -80,7 +77,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -102,7 +99,7 @@
 
 					<ul class="submenu">
 						<li class="hover">
-							<a href="top-menu.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Top Menu
 							</a>
@@ -111,7 +108,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -133,7 +130,7 @@
 
 					<ul class="submenu">
 						<li class="hover">
-							<a href="top-menu.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Top Menu
 							</a>
@@ -142,7 +139,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -164,7 +161,7 @@
 
 					<ul class="submenu">
 						<li class="hover">
-							<a href="top-menu.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Top Menu
 							</a>
@@ -173,7 +170,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -195,7 +192,7 @@
 
 					<ul class="submenu">
 						<li class="hover">
-							<a href="top-menu.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Top Menu
 							</a>
@@ -204,7 +201,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -251,7 +248,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -273,7 +270,7 @@
 
 					<ul class="submenu">
 						<li class="hover">
-							<a href="top-menu.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Top Menu
 							</a>
@@ -282,7 +279,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -304,7 +301,7 @@
 
 					<ul class="submenu">
 						<li class="hover">
-							<a href="top-menu.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Top Menu
 							</a>
@@ -313,7 +310,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -335,7 +332,7 @@
 
 					<ul class="submenu">
 						<li class="hover">
-							<a href="top-menu.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Top Menu
 							</a>
@@ -344,7 +341,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -366,7 +363,7 @@
 
 					<ul class="submenu">
 						<li class="hover">
-							<a href="top-menu.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Top Menu
 							</a>
@@ -375,7 +372,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -413,7 +410,7 @@
 
 					<ul class="submenu">
 						<li class="hover">
-							<a href="top-menu.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Top Menu
 							</a>
@@ -422,7 +419,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -444,7 +441,7 @@
 
 					<ul class="submenu">
 						<li class="hover">
-							<a href="top-menu.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Top Menu
 							</a>
@@ -453,7 +450,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -475,7 +472,7 @@
 
 					<ul class="submenu">
 						<li class="hover">
-							<a href="top-menu.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Top Menu
 							</a>
@@ -484,7 +481,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -580,63 +577,22 @@
 				<li id="configuration_socios" class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
-
-						Socios
-						<b class="arrow fa fa-angle-down"></b>
+						Clientes
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="top-menu.php">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="two-menu-1.php">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 
-				<li id="configuration_elementos" class="open hover">
+				<li id="configuration_proveedores" class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
-
-						Elementos
-						<b class="arrow fa fa-angle-down"></b>
+						Proveedores
 					</a>
+				</li>
 
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="top-menu.php">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="two-menu-1.php">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
+				<li id="configuration_productos" class="open hover">
+					<a href="productos.php">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Productos
+					</a>
 				</li>
 				
 				<li id="configuration_financieros" class="open hover">
@@ -651,7 +607,7 @@
 
 					<ul class="submenu">
 						<li class="hover">
-							<a href="top-menu.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Top Menu
 							</a>
@@ -660,7 +616,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -691,7 +647,7 @@
 						</li>
 
 						<li class="hover">
-							<a href="two-menu-1.php">
+							<a href="#">
 								<i class="menu-icon fa fa-caret-right"></i>
 								Two Menus 1
 							</a>
@@ -718,7 +674,7 @@
 
 			<ul class="submenu">
 				<li class="hover">
-					<a href="faq.php">
+					<a href="#">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Ayuda
 					</a>
@@ -727,7 +683,7 @@
 				</li>
 
 				<li class="hover">
-					<a href="error-404.php">
+					<a href="#">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Material de Entrenamiento
 					</a>
@@ -736,7 +692,7 @@
 				</li>
 
 				<li class="hover">
-					<a href="error-500.php">
+					<a href="#">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Manual (Descargar como PDF)
 					</a>
@@ -746,8 +702,4 @@
 			</ul>
 		</li>
 	</ul><!-- /.nav-list -->
-
-	<script type="text/javascript">
-		try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-	</script>
 </div>

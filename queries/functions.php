@@ -1,5 +1,5 @@
 <?php 
-$hostname_fastERP = "localhost"; $database_fastERP = "controlg_controlerp"; $username_fastERP = "controlg_main"; $password_fastERP = "E40186773."; $fastERP = mysql_connect($hostname_fastERP, $username_fastERP, $password_fastERP) or trigger_error(mysql_error(),E_USER_ERROR); 
+$hostname_fastERP = "localhost"; $database_fastERP = "controlg_controlerp"; $username_fastERP = "controlg_main"; $password_fastERP = "E40186773."; $fastERP = mysql_connect($hostname_fastERP, $username_fastERP, $password_fastERP) or trigger_error(mysql_error(),E_USER_ERROR);
 if (!function_exists("GetSQLValueString")) {
     function GetSQLValueString($theValue, $theType, $theDefinedValue = "", $theNotDefinedValue = "") 
     {
@@ -32,8 +32,7 @@ if (!function_exists("GetSQLValueString")) {
 }
 
 function query_array($query, $id, $campo){ /*Consulta de una tabla para crear un array con el ID y su CAMPO*/
-    include("../config/conexion.php");
-
+    global $database_fastERP, $fastERP;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);
@@ -46,8 +45,7 @@ function query_array($query, $id, $campo){ /*Consulta de una tabla para crear un
 }
 
 function query_table_campo($query, $campo){ /*Consulta de una tabla a un solo campo*/
-    include("../config/conexion.php");
-
+    global $database_fastERP, $fastERP;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);
@@ -60,8 +58,7 @@ function query_table_campo($query, $campo){ /*Consulta de una tabla a un solo ca
 
  /*Consulta de una tabla a un solo campo: CONSULTA, CAMPO de salida, etiquetaHTML, classCSS y ID para la etiquetaHTML*/
 function query_table_campo_etiqueta($query, $campo, $label, $classCSS, $ID){
-    include("../config/conexion.php");
-
+    global $database_fastERP, $fastERP;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);
@@ -73,8 +70,7 @@ function query_table_campo_etiqueta($query, $campo, $label, $classCSS, $ID){
 }
 
 function query_table_option($query, $id, $campo){ /*Consuta de una tabla, parametros seleccionados para un option en una etiqueta <select>*/
-    include("../config/conexion.php");
-
+    global $database_fastERP, $fastERP;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);
@@ -86,8 +82,7 @@ function query_table_option($query, $id, $campo){ /*Consuta de una tabla, parame
 }
 
 function query_table_option_comparar($query, $id, $campo, $id2){ /*Consuta de dos tablas, parametros seleccionados para un option en una etiqueta <select>, donde una de las etiquetas sera "selected"*/
-    include("../config/conexion.php");
-
+global $database_fastERP, $fastERP;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);
@@ -103,8 +98,7 @@ function query_table_option_comparar($query, $id, $campo, $id2){ /*Consuta de do
 }
 
 function query_table_optionlist($query, $campo){/*Consuta de una tabla, parametros seleccionados para un option en una etiqueta <select>*/
-    include("../config/conexion.php");
-
+    global $database_fastERP, $fastERP;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);

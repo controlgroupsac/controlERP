@@ -10,6 +10,7 @@
 
 		<!-- bootstrap & fontawesome -->
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="fonts/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
 		<link rel="stylesheet" href="css/main.css" type="text/css" />
 
@@ -49,46 +50,22 @@
 
 								<!-- Small boxes (Stat box) -->
 								<div class="row">
-									<!-- Datos de la empresa -->
-								    <div class="col-lg-12">
-										<div class="hr hr12 hr-double"></div>
-										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Modifica los datos de empresa">La empresa</h2>
+									<!-- Datos de los Productos -->
+								    <div class="col-lg-6">
+										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Unidades.">Unidad</h2>
 									</div><!--/span-->
 
-									<div class="col-xs-12 widget-container-col">
-										<div class="widget-box widget-color-orange">
-											<div class="widget-header">
-												<i class="fa fa-table"></i>
-												<h5 class="widget-title"> Datos de la empresa</h5>
-
-												<div class="widget-toolbar">
-													<a href="#" data-action="collapse">
-														<i class="1 ace-icon fa fa-chevron-up"></i>
-													</a>
-												</div>
-											</div>
-
-											<div class="widget-body">
-												<div class="widget-main scrollable" data-size="200">
-													<div id="div_listar_empresa"></div>
-	            									<div id="div_oculto_empresa" class="none"></div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-
-									<!-- Datos de los usuarios -->
-								    <div class="col-lg-12">
-										<div class="hr hr12 hr-double"></div>
-										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea cuentas de usuario para las personas a cargo de tu empresa. Puedes elegir entre Administrador y Empleado, de acuerdo al rol que deben cumplir. Al agregar un nuevo usuario, una invitación será automáticamente enviada a tu correo electrónico, desde la cual podrá ingresar a tu cuenta.">Gestión de usuarios</h2>
+									<!-- Datos de los Productos -->
+								    <div class="col-lg-6">
+										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Monedas.">Monedas</h2>
 									</div><!--/span-->
 
-									<div class="col-xs-12 widget-container-col">
+
+									<div class="col-xs-6 widget-container-col">
 										<div class="widget-box widget-color-blue">
 											<div class="widget-header">
 												<i class="fa fa-table"></i>
-												<h5 class="widget-title"> Lista de Usuarios</h5>
+												<h5 class="widget-title"> Lista de Unidad</h5>
 
 												<div class="widget-toolbar">
 													<a href="#" data-action="collapse">
@@ -97,14 +74,73 @@
 												</div>
 
 												<div class="widget-toolbar no-border">
-													<button class="btn btn-sm btn-success" id="nuevoUsuario"> Agregar usuario </button>
+													<button class="btn btn-sm btn-success" id="nuevaUnidad"> Agregar Unidad </button>
+												</div>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main scrollable" data-size="150">
+													<div id="div_listar_unidad"></div>
+	            									<div id="div_oculto_unidad" class="none"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+	
+									<div class="col-xs-6 widget-container-col">
+										<div class="widget-box widget-color-blue">
+											<div class="widget-header">
+												<i class="fa fa-table"></i>
+												<h5 class="widget-title"> Lista de Monedas</h5>
+
+												<div class="widget-toolbar">
+													<a href="#" data-action="collapse">
+														<i class="1 ace-icon fa fa-chevron-up"></i>
+													</a>
+												</div>
+
+												<div class="widget-toolbar no-border">
+													<button class="btn btn-sm btn-success" id="nuevaMoneda"> Agregar Moneda </button>
+												</div>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main scrollable" data-size="150">
+													<div id="div_listar_moneda"></div>
+	            									<div id="div_oculto_moneda" class="none"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+
+									<!-- Datos de los Productos -->
+								    <div class="col-lg-12">
+										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina productos para tu empresa.">Gestión de Productos</h2>
+									</div><!--/span-->
+
+									<div class="col-xs-12 widget-container-col">
+										<div class="widget-box widget-color-blue">
+											<div class="widget-header">
+												<i class="fa fa-table"></i>
+												<h5 class="widget-title"> Lista de Productos</h5>
+
+												<div class="widget-toolbar">
+													<a href="#" data-action="collapse">
+														<i class="1 ace-icon fa fa-chevron-up"></i>
+													</a>
+												</div>
+
+												<div class="widget-toolbar no-border">
+													<button class="btn btn-sm btn-success" id="nuevoProducto"> Agregar Producto </button>
 												</div>
 											</div>
 
 											<div class="widget-body">
 												<div class="widget-main scrollable" data-size="200">
-													<div id="div_listar_usuario"></div>
-	            									<div id="div_oculto_usuario" class="none"></div>
+													<div id="div_listar_producto"></div>
+	            									<div id="div_oculto_producto" class="none"></div>
 												</div>
 											</div>
 										</div>
@@ -129,6 +165,7 @@
 
 		<!-- basic scripts -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<!--[if !IE]> -->
 		<script type="text/javascript">
 			window.jQuery || document.write("<script src='js/vendor/jquery.min.js'>"+"<"+"/script>");
 		</script>
@@ -161,8 +198,7 @@
 		<script type="text/javascript">
 			jQuery(function($) {
 				$("#configuration").addClass("active");
-				$("#configuration_otro").addClass("active");
-				$("#configuration_otro_administracion").addClass("active");
+				$("#configuration_productos").addClass("active");
 
 				$('[data-rel=tooltip]').tooltip();
 				
@@ -196,3 +232,4 @@
 		</script>
 	</body>
 </html>
+

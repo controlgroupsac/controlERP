@@ -18,8 +18,8 @@ $("#nuevoUsuario").click(function () {
     $.blockUI({
       message: $('#div_oculto_usuario'),
       css:{
-        top: '5%',
-        width: '40%',
+        top: '2%',
+        width: '60%',
       }
     });
     $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
@@ -66,7 +66,9 @@ function fn_mostrar_frm_modificar_usuario(usuario_id){
 };
 
 
-/*Empresa*/
+
+
+/*EMPRESA*/
 function fn_buscar_empresa(){
   var str = $("#frm_buscar_empresa").serialize();
   $.ajax({
@@ -90,5 +92,126 @@ function fn_mostrar_frm_modificar_empresa(empresa_id){
     $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
   });
 };
+
+
+
+
+/*PRODUCTO DETALLE*/
+function fn_cerrar_producto(){
+  $.unblockUI({ 
+    onUnblock: function(){
+      fn_buscar_producto();
+      fn_buscar_unidad();
+    }
+  }); 
+};
+$("#nuevoProducto").click(function () {
+  $("#div_oculto_producto").load("../models/producto/producto_form_agregar.php", function(){
+    $.blockUI({
+      message: $('#div_oculto_producto'),
+      css:{
+        top: '5%',
+        width: '40%',
+      }
+    });
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+});
+
+function fn_buscar_producto(){
+  var str = $("#frm_buscar_producto").serialize();
+  $.ajax({
+    url: '../models/producto/producto_listar.php',
+    type: 'get',
+    data: str,
+    success: function(data){
+      $("#div_listar_producto").html(data);
+    }
+  });
+}
+function fn_eliminar_producto(producto_id){
+  var respuesta = confirm("Desea eliminar este producto?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/producto/producto_eliminar.php',
+      data: 'producto_id=' + producto_id,
+      type: 'post',
+      success: function(data){
+        if(data!="")
+          alert(data);
+        fn_buscar_producto()
+      }
+    });
+  }
+}
+function fn_mostrar_frm_modificar_producto(producto_id){
+  $("#div_oculto_producto").load("../models/producto/producto_form_modificar.php", {producto_id: producto_id}, function(){
+    $.blockUI({
+      message: $('#div_oculto_producto'),
+      css:{
+        top: '5%',
+        width: '40%'
+      }
+    }); 
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+};
+
+/*UNIDAD DETALLE*/
+$("#nuevaUnidad").click(function () {
+  $("#div_oculto_unidad").load("../models/unidad/unidad_form_agregar.php", function(){
+    $.blockUI({
+      message: $('#div_oculto_unidad'),
+      css:{
+        top: '5%',
+        width: '40%',
+      }
+    });
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+});
+
+function fn_buscar_unidad(){
+  var str = $("#frm_buscar_unidad").serialize();
+  $.ajax({
+    url: '../models/unidad/unidad_listar.php',
+    type: 'get',
+    data: str,
+    success: function(data){
+      $("#div_listar_unidad").html(data);
+    }
+  });
+}
+function fn_eliminar_unidad(unidad_id){
+  var respuesta = confirm("Desea eliminar este unidad?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/unidad/unidad_eliminar.php',
+      data: 'unidad_id=' + unidad_id,
+      type: 'post',
+      success: function(data){
+        if(data!="")
+          alert(data);
+        fn_buscar_unidad()
+      }
+    });
+  }
+}
+function fn_mostrar_frm_modificar_unidad(unidad_id){
+  $("#div_oculto_unidad").load("../models/unidad/unidad_form_modificar.php", {unidad_id: unidad_id}, function(){
+    $.blockUI({
+      message: $('#div_oculto_unidad'),
+      css:{
+        top: '5%',
+        width: '40%'
+      }
+    }); 
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+};
+
+
 fn_buscar_usuario();
 fn_buscar_empresa();
+fn_buscar_producto();
+fn_buscar_unidad();
