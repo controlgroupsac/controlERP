@@ -52,6 +52,71 @@
 								<div class="row">
 									<!-- Datos de los Productos -->
 								    <div class="col-lg-6">
+										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Categorias.">Categorias</h2>
+									</div><!--/span-->
+
+									<!-- Datos de los Productos -->
+								    <div class="col-lg-6">
+										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Impuestos.">Impuestos</h2>
+									</div><!--/span-->
+
+
+									<div class="col-xs-6 widget-container-col">
+										<div class="widget-box widget-color-blue">
+											<div class="widget-header">
+												<i class="fa fa-table"></i>
+												<h5 class="widget-title"> Lista de Categoria</h5>
+
+												<div class="widget-toolbar">
+													<a href="#" data-action="collapse">
+														<i class="1 ace-icon fa fa-chevron-up"></i>
+													</a>
+												</div>
+
+												<div class="widget-toolbar no-border">
+													<button class="btn btn-sm btn-success" id="nuevaCategoria"> Agregar Categoria </button>
+												</div>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main scrollable" data-size="150">
+													<div id="div_listar_categoria"></div>
+	            									<div id="div_oculto_categoria" class="none"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+	
+									<div class="col-xs-6 widget-container-col">
+										<div class="widget-box widget-color-blue">
+											<div class="widget-header">
+												<i class="fa fa-table"></i>
+												<h5 class="widget-title"> Lista de Impuestos</h5>
+
+												<div class="widget-toolbar">
+													<a href="#" data-action="collapse">
+														<i class="1 ace-icon fa fa-chevron-up"></i>
+													</a>
+												</div>
+
+												<div class="widget-toolbar no-border">
+													<button class="btn btn-sm btn-success" id="nuevaImpuesto"> Agregar Impuesto </button>
+												</div>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main scrollable" data-size="150">
+													<div id="div_listar_impuesto"></div>
+	            									<div id="div_oculto_impuesto" class="none"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+
+									<!-- Datos de los Productos -->
+								    <div class="col-lg-6">
 										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Unidades.">Unidad</h2>
 									</div><!--/span-->
 

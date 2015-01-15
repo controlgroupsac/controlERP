@@ -216,7 +216,7 @@ function fn_mostrar_frm_modificar_unidad(unidad_id){
 /**/
 /**/
 /**/
-/*MODEDA*/
+/*MONEDA*/
 $("#nuevaMoneda").click(function () {
   $("#div_oculto_moneda").load("../models/moneda/moneda_form_agregar.php", function(){
     $.blockUI({
@@ -270,7 +270,81 @@ function fn_mostrar_frm_modificar_moneda(moneda_id){
 };
 
 
+/**/
+/**/
+/**/
+/*categoria*/
+$("#nuevaCategoria").click(function () {
+  $("#div_oculto_categoria").load("../models/categoria/categoria_form_agregar.php", function(){
+    $.blockUI({
+      message: $('#div_oculto_categoria'),
+      css:{
+        top: '10%',
+        width: '30%',
+      }
+    });
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+});
+
+function fn_buscar_categoria(){
+  var str = $("#frm_buscar_categoria").serialize();
+  $.ajax({
+    url: '../models/categoria/categoria_listar.php',
+    type: 'get',
+    data: str,
+    success: function(data){
+      $("#div_listar_categoria").html(data);
+    }
+  });
+}
+function fn_eliminar_categoria(categoria_id){
+  var respuesta = confirm("Desea eliminar este categoria?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/categoria/categoria_eliminar.php',
+      data: 'categoria_id=' + categoria_id,
+      type: 'post',
+      success: function(data){
+        if(data!="")
+          alert(data);
+        fn_buscar_categoria()
+      }
+    });
+  }
+}
+function fn_mostrar_frm_modificar_categoria(categoria_id){
+  $("#div_oculto_categoria").load("../models/categoria/categoria_form_modificar.php", {categoria_id: categoria_id}, function(){
+    $.blockUI({
+      message: $('#div_oculto_categoria'),
+      css:{
+        top: '5%',
+        width: '40%'
+      }
+    }); 
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+};
+
+
 fn_buscar_usuario();
 fn_buscar_empresa();
 fn_buscar_producto();
 fn_buscar_unidad();
+fn_buscar_moneda();
+fn_buscar_categoria();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -2,20 +2,20 @@
     include "../../config/conexion.php"; 
     include "../../queries/functions.php"; 
 ?>
-<form action="javascript: fn_agregar_unidad();" class="form-horizontal" method="post" id="frm_unidad" enctype="multipart/form-data" >
+<form action="javascript: fn_agregar_moneda();" class="form-horizontal" method="post" id="frm_moneda" enctype="multipart/form-data" >
     <input type="hidden" id="fecha_registro" name="fecha_registro" value="<?php echo date("Y/m/d H:i:s"); ?>" />
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_producto();">&times;</button>
-        <h4 class="blue bigger">Agregar Unidad</h4>
+        <h4 class="blue bigger">Agregar undiad</h4>
     </div>
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="unidad"><b>unidad </b></label>
+                <label class="col-sm-3 control-label" for="moneda"><b>Moneda </b></label>
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="unidad" id="unidad" placeholder="unidad" value="unidad" required />
+                        <input type="text" class="input-xlarge" name="moneda" id="moneda" placeholder="moneda" value="moneda" required />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -32,6 +32,17 @@
                 </div>
             </div>
 
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="prefijo"><b>Prefijo </b></label>
+
+                <div class="col-sm-9">
+                    <span class=" input-icon">
+                        <input type="text" class="input-xlarge" name="prefijo" id="prefijo" placeholder="prefijo" value="prefijo" required />
+                        <i class="ace-icon fa fa-user"></i>
+                    </span>
+                </div>
+            </div>
+
             <div class="col-xs-12">
                 <div>
                     <a href="#" class="btn btn-small" data-dismiss="modal" onclick="fn_cerrar_producto();">Cancelar</a>
@@ -41,47 +52,53 @@
                         Agregar
                     </button>
                 </div>
-                <input type="hidden" name="MM_insert" value="frm_unidad">
+                <input type="hidden" name="MM_insert" value="frm_moneda">
 
             </div>
         </div>
     </div>
 </form>
 <script language="javascript" type="text/javascript">
-    function fn_agregar_unidad(){
-        var str = $("#frm_unidad").serialize();
+    function fn_agregar_moneda(){
+        var str = $("#frm_moneda").serialize();
         $.ajax({
-            url: '../models/unidad/unidad_agregar.php',
+            url: '../models/moneda/moneda_agregar.php',
             data: str,
             type: 'post',
             success: function(data){
                 if(data != "")
                     alert(data);
                 fn_cerrar_producto();
-                fn_buscar_unidad();
+                fn_buscar_moneda();
             }
         });
     };
     
-    $('#frm_unidad').validate({
+    $('#frm_moneda').validate({
         errorElement: 'span',
         errorClass: 'help-inline',
         focusInvalid: false,
         rules: {
-            unidad: {
+            moneda: {
                 required: true
             },
             abrev: {
+                required: true
+            },
+            prefijo: {
                 required: true
             }
         },
 
         messages: {
-            unidad: {
-                required: "<a data-original-title='The last tip!' title='Ingresa un unidad válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
+            moneda: {
+                required: "<a data-original-title='The last tip!' title='Ingresa un moneda válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
             },
             abrev: {
                 required: "<a data-original-title='The last tip!' title='Ingresa un abrev válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
+            },
+            prefijo: {
+                required: "<a data-original-title='The last tip!' title='Ingresa un prefijo válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
             }
         }
     });
