@@ -214,7 +214,7 @@
 			</ul>
 		</li>
 
-		<li class="open hover">
+		<li id="compras" class="open hover">
 			<a href="#" class="dropdown-toggle">
 				<i class="menu-icon fa fa-building"></i>
 				<span class="menu-text">
@@ -227,35 +227,11 @@
 			<b class="arrow"></b>
 
 			<ul class="submenu">
-				<li class="open hover">
-					<a href="#" class="dropdown-toggle">
+				<li id="compras_view" class="open hover">
+					<a href="compras_registro.php">
 						<i class="menu-icon fa fa-caret-right"></i>
-
 						Compras
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="orden-compra.php">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Orden de Compra
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 
 				<li class="open hover">

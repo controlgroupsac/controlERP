@@ -5,7 +5,7 @@
 			<li>
 				<a href="#">
 					<i class="menu-icon fa fa-tachometer"></i>
-					<span class="menu-text"> HEINER </span>
+					<span class="menu-text"> Dashboard </span>
 				</a>
 
 				<b class="arrow"></b>
@@ -21,7 +21,7 @@
 			</li>
 
 			<li>
-				<a href="#">
+				<a href="compras.php">
 					<i class="menu-icon fa fa-building"></i>
 					<span class="menu-text">Compras</span>
 				</a>

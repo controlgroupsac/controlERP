@@ -186,7 +186,7 @@
             success: function(data){
                 if(data != "")
                     alert(data);
-                fn_cerrar();
+                fn_cerrar_();
                 fn_buscar_usuario();
             }
         });

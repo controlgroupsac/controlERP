@@ -50,133 +50,139 @@
 
 								<!-- Small boxes (Stat box) -->
 								<div class="row">
+
+								    <div class="col-lg-12">
 									<!-- Datos de los Productos -->
-								    <div class="col-lg-6">
-										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Categorias.">Categorias</h2>
-									</div><!--/span-->
+									    <div class="col-lg-6">
+											<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Categorias.">Categorias</h2>
+										</div><!--/span-->
 
-									<!-- Datos de los Productos -->
-								    <div class="col-lg-6">
-										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Impuestos.">Impuestos</h2>
-									</div><!--/span-->
+										<!-- Datos de los Productos -->
+									    <div class="col-lg-6">
+											<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Impuestos.">Impuestos</h2>
+										</div><!--/span-->
 
 
-									<div class="col-xs-6 widget-container-col">
-										<div class="widget-box widget-color-blue">
-											<div class="widget-header">
-												<i class="fa fa-table"></i>
-												<h5 class="widget-title"> Lista de Categoria</h5>
+										<div class="col-xs-6 widget-container-col">
+											<div class="widget-box widget-color-blue">
+												<div class="widget-header">
+													<i class="fa fa-table"></i>
+													<h5 class="widget-title"> Lista de Categoria</h5>
 
-												<div class="widget-toolbar">
-													<a href="#" data-action="collapse">
-														<i class="1 ace-icon fa fa-chevron-up"></i>
-													</a>
+													<div class="widget-toolbar">
+														<a href="#" data-action="collapse">
+															<i class="1 ace-icon fa fa-chevron-up"></i>
+														</a>
+													</div>
+
+													<div class="widget-toolbar no-border">
+														<button class="btn btn-sm btn-success" id="nuevaCategoria"> Agregar Categoria </button>
+													</div>
 												</div>
 
-												<div class="widget-toolbar no-border">
-													<button class="btn btn-sm btn-success" id="nuevaCategoria"> Agregar Categoria </button>
+												<div class="widget-body">
+													<div class="widget-main scrollable" data-size="100">
+														<div id="div_listar_categoria"></div>
+		            									<div id="div_oculto_categoria" class="none"></div>
+													</div>
 												</div>
 											</div>
+										</div>
+		
+										<div class="col-xs-6 widget-container-col">
+											<div class="widget-box widget-color-blue">
+												<div class="widget-header">
+													<i class="fa fa-table"></i>
+													<h5 class="widget-title"> Lista de Impuestos</h5>
 
-											<div class="widget-body">
-												<div class="widget-main scrollable" data-size="150">
-													<div id="div_listar_categoria"></div>
-	            									<div id="div_oculto_categoria" class="none"></div>
+													<div class="widget-toolbar">
+														<a href="#" data-action="collapse">
+															<i class="1 ace-icon fa fa-chevron-up"></i>
+														</a>
+													</div>
+
+													<div class="widget-toolbar no-border">
+														<button class="btn btn-sm btn-success" id="nuevaImpuesto"> Agregar Impuesto </button>
+													</div>
+												</div>
+
+												<div class="widget-body">
+													<div class="widget-main scrollable" data-size="100">
+														<div id="div_listar_impuesto"></div>
+		            									<div id="div_oculto_impuesto" class="none"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div><!--/span-->
+
+
+
+								    <div class="col-lg-12">
+										<!-- Datos de los Productos -->
+									    <div class="col-lg-6">
+											<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Unidades.">Unidad</h2>
+										</div><!--/span-->
+
+										<!-- Datos de los Productos -->
+									    <div class="col-lg-6">
+											<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Monedas.">Monedas</h2>
+										</div><!--/span-->
+
+
+										<div class="col-xs-6 widget-container-col">
+											<div class="widget-box widget-color-blue">
+												<div class="widget-header">
+													<i class="fa fa-table"></i>
+													<h5 class="widget-title"> Lista de Unidad</h5>
+
+													<div class="widget-toolbar">
+														<a href="#" data-action="collapse">
+															<i class="1 ace-icon fa fa-chevron-up"></i>
+														</a>
+													</div>
+
+													<div class="widget-toolbar no-border">
+														<button class="btn btn-sm btn-success" id="nuevaUnidad"> Agregar Unidad </button>
+													</div>
+												</div>
+
+												<div class="widget-body">
+													<div class="widget-main scrollable" data-size="100">
+														<div id="div_listar_unidad"></div>
+		            									<div id="div_oculto_unidad" class="none"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+		
+										<div class="col-xs-6 widget-container-col">
+											<div class="widget-box widget-color-orange">
+												<div class="widget-header">
+													<i class="fa fa-table"></i>
+													<h5 class="widget-title"> Lista de Monedas</h5>
+
+													<div class="widget-toolbar">
+														<a href="#" data-action="collapse">
+															<i class="1 ace-icon fa fa-chevron-up"></i>
+														</a>
+													</div>
+
+													<div class="widget-toolbar no-border">
+														<button class="btn btn-sm btn-success" id="nuevaMoneda"> Agregar Moneda </button>
+													</div>
+												</div>
+
+												<div class="widget-body">
+													<div class="widget-main scrollable" data-size="100">
+														<div id="div_listar_moneda"></div>
+		            									<div id="div_oculto_moneda" class="none"></div>
+													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-	
-									<div class="col-xs-6 widget-container-col">
-										<div class="widget-box widget-color-blue">
-											<div class="widget-header">
-												<i class="fa fa-table"></i>
-												<h5 class="widget-title"> Lista de Impuestos</h5>
-
-												<div class="widget-toolbar">
-													<a href="#" data-action="collapse">
-														<i class="1 ace-icon fa fa-chevron-up"></i>
-													</a>
-												</div>
-
-												<div class="widget-toolbar no-border">
-													<button class="btn btn-sm btn-success" id="nuevaImpuesto"> Agregar Impuesto </button>
-												</div>
-											</div>
-
-											<div class="widget-body">
-												<div class="widget-main scrollable" data-size="150">
-													<div id="div_listar_impuesto"></div>
-	            									<div id="div_oculto_impuesto" class="none"></div>
-												</div>
-											</div>
-										</div>
-									</div>
-
-
-
-									<!-- Datos de los Productos -->
-								    <div class="col-lg-6">
-										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Unidades.">Unidad</h2>
-									</div><!--/span-->
-
-									<!-- Datos de los Productos -->
-								    <div class="col-lg-6">
-										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Monedas.">Monedas</h2>
-									</div><!--/span-->
-
-
-									<div class="col-xs-6 widget-container-col">
-										<div class="widget-box widget-color-blue">
-											<div class="widget-header">
-												<i class="fa fa-table"></i>
-												<h5 class="widget-title"> Lista de Unidad</h5>
-
-												<div class="widget-toolbar">
-													<a href="#" data-action="collapse">
-														<i class="1 ace-icon fa fa-chevron-up"></i>
-													</a>
-												</div>
-
-												<div class="widget-toolbar no-border">
-													<button class="btn btn-sm btn-success" id="nuevaUnidad"> Agregar Unidad </button>
-												</div>
-											</div>
-
-											<div class="widget-body">
-												<div class="widget-main scrollable" data-size="150">
-													<div id="div_listar_unidad"></div>
-	            									<div id="div_oculto_unidad" class="none"></div>
-												</div>
-											</div>
-										</div>
-									</div>
-	
-									<div class="col-xs-6 widget-container-col">
-										<div class="widget-box widget-color-blue">
-											<div class="widget-header">
-												<i class="fa fa-table"></i>
-												<h5 class="widget-title"> Lista de Monedas</h5>
-
-												<div class="widget-toolbar">
-													<a href="#" data-action="collapse">
-														<i class="1 ace-icon fa fa-chevron-up"></i>
-													</a>
-												</div>
-
-												<div class="widget-toolbar no-border">
-													<button class="btn btn-sm btn-success" id="nuevaMoneda"> Agregar Moneda </button>
-												</div>
-											</div>
-
-											<div class="widget-body">
-												<div class="widget-main scrollable" data-size="150">
-													<div id="div_listar_moneda"></div>
-	            									<div id="div_oculto_moneda" class="none"></div>
-												</div>
-											</div>
-										</div>
-									</div>
+								</div><!-- /.row -->
 
 
 
@@ -210,7 +216,6 @@
 											</div>
 										</div>
 									</div>
-								</div><!-- /.row -->
 
 								
 
