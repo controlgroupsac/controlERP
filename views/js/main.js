@@ -335,7 +335,7 @@ function fn_mostrar_frm_modificar_categoria(categoria_id){
 
 /*compra_det*/
 function fn_cerrar_compra(){
-  $.unblockUI({ 
+  $.unblockUI({  
     onUnblock: function(){
       fn_buscar_compra_det();
       fn_buscar_compras_registro();
@@ -356,6 +356,13 @@ $("#nuevaCompra_det").click(function () {
     });
     $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
   });
+});
+
+$("#descuento").focus(function () {
+  fn_buscar_compra_det();
+});
+$("#descuento").blur(function () {
+  fn_buscar_compra_det();
 });
 
 function fn_buscar_compra_det(){
@@ -509,13 +516,13 @@ function fn_eliminar_compras_registro(compras_registro_id){
     });
   }
 }
-function fn_mostrar_frm_modificar_compras_registro(compras_registro_id){
-  $("#div_oculto_compras_registro").load("../models/compra_registro/compras_registro_form_modificar.php", {compras_registro_id: compras_registro_id}, function(){
+function fn_mostrar_frm_modificar_compras_registro(compra_id){
+  $("#div_oculto_compras_registro").load("../models/compra_registro/compras_registro_form_modificar.php", {compra_id: compra_id}, function(){
     $.blockUI({
       message: $('#div_oculto_compras_registro'),
       css:{
         top: '10%',
-        width: '40%'
+        width: '30%'
       }
     }); 
     $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 

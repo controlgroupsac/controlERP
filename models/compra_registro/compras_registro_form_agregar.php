@@ -60,27 +60,4 @@
             }
         });
     };
-    
-    $('#frm_compra_registro').validate({
-        errorElement: 'span',
-        errorClass: 'help-inline',
-        focusInvalid: false,
-        rules: {
-            compra_registro: {
-                required: true
-            },
-            almacen_id: {
-                required: true
-            }
-        },
-
-        messages: {
-            compra_registro: {
-                required: "<a data-original-title='The last tip!' title='Ingresa un compra_registro válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
-            },
-            almacen_id: {
-                required: "<a data-original-title='The last tip!' title='Ingresa un almacen_id válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
-            }
-        }
-    });
 </script>

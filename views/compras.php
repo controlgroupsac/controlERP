@@ -167,7 +167,7 @@
 											</div>
 
 											<div class="widget-body">
-												<div class="widget-main scrollable" data-size="200">
+												<div class="widget-main scrollable" data-size="150">
 													<div id="div_listar_compra_det"></div>
 	            									<div id="div_oculto_compra_det" class="none"></div>
 												</div>
@@ -183,7 +183,7 @@
 								    			<label class="col-sm-3 control-label no-padding-right" for="descuento"> <strong>Descuento S/.</strong> </label>
 
 								    			<div class="col-sm-9">
-								    				<input class="form-control col-xs-10 col-sm-5 input-xlarge" name="descuento" id="descuento" type="text" value="18" />
+								    				<input class="form-control col-xs-10 col-sm-5 input-xlarge" name="descuento" id="descuento" type="text" value="0" />
 								    			</div>							    		
 							    			</div>							    		
 								    		<div class="form-group col-lg-4">

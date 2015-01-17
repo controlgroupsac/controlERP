@@ -16,17 +16,18 @@
 
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
+    $totalRows_table = mysql_num_rows($table);
     $row_table = mysql_fetch_assoc($table);
 	if ($totalRows_table == 0){
 		echo "No existen detalles de compra con ese ID";
 		exit;
 	}
 ?>
-<form action="javascript: fn_modificar_compra_det();" method="post" id="frm_compra_det" enctype="multipart/form-data" >
+<form action="javascript: fn_modificar_compra_det();" class="form-horizontal" method="post" id="frm_compra_det" enctype="multipart/form-data" >
     <input type="hidden" name="compra_det_id" id="compra_det_id" value="<?php echo $_POST['compra_det_id']; ?>" />
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_compra();">&times;</button>
-        <h4 class="blue bigger">Modificar undiad</h4>
+        <h4 class="blue bigger">Modificar Producto</h4>
     </div>
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
@@ -34,11 +35,9 @@
                 <label class="col-sm-3 control-label" for="producto_id"><b>Producto </b></label>
 
                 <div class="col-sm-9">
-                    <span class=" input-icon">
-                        <select class="form-control" name="producto_id" id="producto_id">
-                            <?php query_table_option_comparar("SELECT * FROM producto", "producto_id", "producto", $row_table['producto_id']) ?>
-                        </select>
-                    </span>
+                    <select class="form-control" name="producto_id" id="producto_id">
+                        <?php query_table_option_comparar("SELECT * FROM producto", "producto_id", "producto", $row_table['producto_id']) ?>
+                    </select>
                 </div>
             </div>
 

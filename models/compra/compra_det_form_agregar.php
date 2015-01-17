@@ -6,7 +6,7 @@
     <input type="hidden" id="compra_id" name="compra_id" value="<?php echo $_GET['compra_id']; ?>" />
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_compra();">&times;</button>
-        <h4 class="blue bigger">Agregar compra_det</h4>
+        <h4 class="blue bigger">Agregar Producto</h4>
     </div>
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
@@ -26,8 +26,8 @@
                 <label class="col-sm-3 control-label" for="cantidad"><b>cantidad </b></label>
 
                 <div class="col-sm-9">
-                    <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="cantidad" id="cantidad" placeholder="cantidad" value="1" required />
+                    <span class="input-icon">
+                        <input type="text" class="input-xlarge" name="cantidad" id="cantidad" placeholder="cantidad" required />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -37,8 +37,8 @@
                 <label class="col-sm-3 control-label" for="monto"><b>monto </b></label>
 
                 <div class="col-sm-9">
-                    <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="monto" id="monto" placeholder="monto" value="2.2" required />
+                    <span class="input-icon">
+                        <input type="text" class="input-xlarge" name="monto" id="monto" placeholder="monto" required />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -81,7 +81,7 @@
         errorClass: 'help-inline',
         focusInvalid: false,
         rules: {
-            compra_det: {
+            monto: {
                 required: true
             },
             cantidad: {
@@ -90,11 +90,11 @@
         },
 
         messages: {
-            compra_det: {
-                required: "<a data-original-title='The last tip!' title='Ingresa un compra_det válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
+            monto: {
+                required: "Campo requerido!"
             },
             cantidad: {
-                required: "<a data-original-title='The last tip!' title='Ingresa un cantidad válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
+                required: "Campo requerido!"
             }
         }
     });

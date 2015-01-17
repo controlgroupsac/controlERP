@@ -18,7 +18,7 @@
     $impuesto = $valor_neto * 0.18;
     $total = ($valor_neto - $_GET['descuento']) + $impuesto ;
 ?>
-<div class="col-lg-6">							    		
+<div class="col-lg-6 form-horizontal">							    		
 	<div class="form-group">
 		<label class="col-sm-3 control-label right" for="valor_neto"> <strong>Valor Neto</strong> </label>
 
