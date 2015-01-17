@@ -72,7 +72,6 @@
                     alert(data);
                 fn_cerrar_compra();
                 fn_buscar_compra_det();
-                fn_buscar_compra_det_precio();
             }
         });
     };

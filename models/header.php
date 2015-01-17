@@ -1,3 +1,29 @@
+<?php  
+	if (!isset($_SESSION)) { session_start(); } 
+	// ** Logout the current user. **
+	$logoutAction = $_SERVER['PHP_SELF']."?doLogout=true";
+	if ((isset($_SERVER['QUERY_STRING'])) && ($_SERVER['QUERY_STRING'] != "")){
+	  $logoutAction .="&". htmlentities($_SERVER['QUERY_STRING']);
+	}
+
+	if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true")){
+	  //to fully log out a visitor we need to clear the session varialbles
+	  $_SESSION['MM_Username'] = NULL;
+	  $_SESSION['MM_UserGroup'] = NULL;
+	  $_SESSION['PrevUrl'] = NULL;
+	  unset($_SESSION['MM_Username']);
+	  unset($_SESSION['MM_UserGroup']);
+	  unset($_SESSION['PrevUrl']);
+		
+	  $logoutGoTo = "../index.php";
+	  if ($logoutGoTo) {
+	    header("Location: $logoutGoTo");
+	    session_destroy();
+	    exit;
+	  }
+	}
+	$usuario=$_SESSION['usuario'];
+?>
 <div id="navbar" class="navbar navbar-default    navbar-collapse       h-navbar">
 	<script type="text/javascript">
 		try{ace.settings.check('navbar' , 'fixed')}catch(e){}
@@ -146,7 +172,7 @@
 								<img class="nav-user-photo" src="img/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>Bienvenido,</small>
-									Usuario
+									<?php echo $usuario; ?>
 								</span>
 
 								<i class="ace-icon fa fa-caret-down"></i>
@@ -170,7 +196,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="#">
+									<a href="<?php echo $logoutAction ?>">
 										<i class="ace-icon fa fa-power-off"></i>
 										Logout
 									</a>

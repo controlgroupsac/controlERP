@@ -58,6 +58,7 @@
 
 								<!-- Small boxes (Stat box) -->
 								<div class="row">
+									
 									<input type="hidden" name="compra_id" id="compra_id" value="<?php echo $_GET['compra_id']; ?>" />
 									<form action="#">
 								    	<div class="col-lg-4">								    		
@@ -121,7 +122,7 @@
 								    			</div>
 								    		</div>										
 										</div>
-								    	<div class="col-lg-2">								    		
+								    	<div class="col-lg-2">		
 								    		<div class="form-group">
 								    			<label class="control-label no-padding-right" for="fecha_doc"> <strong>Fecha Emisión</strong> </label>
 
@@ -179,9 +180,9 @@
 									<form action="#">
 								    	<div class="col-lg-6">								    		
 								    		<div class="form-group col-lg-12">
-								    			<label class="col-sm-2 control-label no-padding-right" for="descuento"> <strong>descuento</strong> </label>
+								    			<label class="col-sm-3 control-label no-padding-right" for="descuento"> <strong>Descuento S/.</strong> </label>
 
-								    			<div class="col-sm-10">
+								    			<div class="col-sm-9">
 								    				<input class="form-control col-xs-10 col-sm-5 input-xlarge" name="descuento" id="descuento" type="text" value="18" />
 								    			</div>							    		
 							    			</div>							    		

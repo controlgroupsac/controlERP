@@ -56,7 +56,7 @@
 
 
 								<!-- Small boxes (Stat box) -->
-								<div class="row">
+								<div class="row" id="div_compra_registro">
 									<!-- Datos de los Productos -->
 								    <div class="col-lg-12">
 										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina comprases.">compras</h2>
@@ -75,7 +75,7 @@
 												</div>
 
 												<div class="widget-toolbar no-border">
-													<button class="btn btn-sm btn-success" id="nuevaCompras_registro"> Agregar compras </button>
+													<button class="btn btn-sm btn-success" id="nuevaCompras_registro"> Agregar Compra </button>
 												</div>
 											</div>
 
@@ -89,7 +89,7 @@
 									</div>
 								</div>
 
-								
+								<div id="div_compra_formulario"></div>
 
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->

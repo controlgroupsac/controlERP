@@ -12,7 +12,6 @@
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $row_table = mysql_fetch_assoc($table);
-    $totalRows_table = mysql_num_rows($table);
 	if ($totalRows_table == 0){
 		echo "No existen categoriaes con ese ID";
 		exit;

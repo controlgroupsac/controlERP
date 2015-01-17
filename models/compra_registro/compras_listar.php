@@ -7,8 +7,7 @@
 			  AND compra.proveedor_id = proveedor.proveedor_id" ;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
-    $totalRows_table = mysql_num_rows($table);
-    $row_table = mysql_fetch_assoc($table);;
+    $row_table = mysql_fetch_assoc($table);
 ?>
 <div class="table-responsive">
 	<table id="simple-table" class="table table-striped table-bordered table-hover">

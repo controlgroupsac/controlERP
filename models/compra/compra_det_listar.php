@@ -20,6 +20,7 @@
 				<th>producto</th>
 				<th>cantidad</th>
 				<th>monto</th>
+				<th>Subtotal</th>
 
 				<th></th>
 			</tr>
@@ -32,6 +33,7 @@
 				<td><?php echo $row_table["producto"]; ?></td>
 				<td><?php echo $row_table["cantidad"]; ?></td>
 				<td><?php echo $row_table["monto"]; ?></td>
+				<td><?php echo $row_table["monto"] * $row_table["cantidad"]; ?></td>
 				<td>
 					<div class="hidden-sm hidden-xs btn-group">
 						<button class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_compra_det(<?=$row_table['compra_det_id']?>);">

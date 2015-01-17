@@ -6,7 +6,7 @@
     <input type="hidden" id="compra_id" name="compra_id" value="1" />
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_compra();">&times;</button>
-        <h4 class="blue bigger">Agregar compra_registro</h4>
+        <h4 class="blue bigger">Agregar Compra</h4>
     </div>
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
@@ -14,22 +14,18 @@
                 <label class="col-sm-3 control-label" for="proveedor_id"><b>proveedor </b></label>
 
                 <div class="col-sm-9">
-                    <span class=" input-icon">
-                        <select class="form-control" name="proveedor_id" id="proveedor_id">
-                            <?php query_table_option("SELECT * FROM proveedor", "proveedor_id", "proveedor") ?>
-                        </select>
-                    </span>
+                    <select class="form-control" name="proveedor_id" id="proveedor_id">
+                        <?php query_table_option("SELECT * FROM proveedor", "proveedor_id", "proveedor") ?>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-sm-3 control-label" for="almacen_id"><b>almacen </b></label>
 
                 <div class="col-sm-9">
-                    <span class=" input-icon">
-                        <select class="form-control" name="almacen_id" id="almacen_id">
-                            <?php query_table_option("SELECT * FROM almacen", "almacen_id", "almacen") ?>
-                        </select>
-                    </span>
+                    <select class="form-control" name="almacen_id" id="almacen_id">
+                        <?php query_table_option("SELECT * FROM almacen", "almacen_id", "almacen") ?>
+                    </select>
                 </div>
             </div>
 
@@ -60,7 +56,7 @@
                 if(data != "")
                     alert(data);
                 fn_cerrar_compra();
-                fn_buscar_compra_registro();
+                fn_buscar_compras_registro();
             }
         });
     };

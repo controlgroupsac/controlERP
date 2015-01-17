@@ -1,3 +1,64 @@
+<?php  
+	include "../config/conexion.php"; 
+	include "../config/basico.php";
+
+	if (!isset($_SESSION)) {
+	  session_start();
+	}
+
+// *** Validate request to login to this site.
+$usuario=$_SESSION['usuario'];
+$clave=$_SESSION['clave'];
+$ultimo_acceso=date("Y-m-d H:m:s");
+
+  $updateSQL = sprintf("UPDATE usuario SET ultimo_acceso='%s' WHERE usuario='%s' AND clave='%s'",
+                       fn_filtro($ultimo_acceso),
+                       fn_filtro(strtoupper($usuario)),
+                       fn_filtro(strtoupper($clave))
+               );
+
+  mysql_select_db($database_fastERP, $fastERP);
+  $Result1 = mysql_query($updateSQL, $fastERP) or die(mysql_error());
+
+
+
+// *** Validate request to login to this site.
+
+
+if (isset($_GET['usuario'])) {
+  $loginUsername=$_GET['usuario'];
+  $password=$_GET['clave'];
+  $MM_fldUserAuthorization = "";
+  $MM_redirectLoginSuccess = "index.php";
+  $MM_redirectLoginFailed = "../index.php";
+  $MM_redirecttoReferrer = false;
+  mysql_select_db($database_fastERP, $fastERP);
+  
+  $LoginRS__query=sprintf("SELECT usuario, clave FROM usuario WHERE usuario='%s' AND clave='%s'",
+    					  fn_filtro($loginUsername), 
+    					  fn_filtro($password)); 
+   
+  $LoginRS = mysql_query($LoginRS__query, $fastERP) or die(mysql_error());
+  $loginFoundUser = mysql_num_rows($LoginRS);
+
+  if ($loginFoundUser) {
+     $loginStrGroup = "";
+    
+	if (PHP_VERSION >= 5.1) {session_regenerate_id(true);} else {session_regenerate_id();}
+    //declare two session variables and assign them
+    $_SESSION['MM_Username'] = $loginUsername;
+    $_SESSION['MM_UserGroup'] = $loginStrGroup;	      
+
+    if (isset($_SESSION['PrevUrl']) && false) {
+      $MM_redirectLoginSuccess = $_SESSION['PrevUrl'];	
+    }
+    header("Location: " . $MM_redirectLoginSuccess );
+  }
+  else {
+    header("Location: ". $MM_redirectLoginFailed );
+  }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 	<head>

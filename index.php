@@ -45,21 +45,22 @@
 												<i class="ace-icon fa fa-coffee green"></i>
 												Por favor digite su información
 											</h4>
+											<span class="label label-important arrowed-in"><?php echo @$_REQUEST['usuarioDesconectado']; ?></span>
 
 											<div class="space-6"></div>
 
-											<form action="views/index.php">
+											<form action="loginProceso.php" method="get" name="form1" id="form1">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="Usuario" />
+															<input type="text" name="usuario" class="form-control" placeholder="Usuario" />
 															<i class="ace-icon fa fa-user"></i>
 														</span>
 													</label>
 
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control" placeholder="Password" />
+															<input type="password" name="clave" class="form-control" placeholder="Password" />
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
 													</label>
@@ -80,6 +81,7 @@
 
 													<div class="space-4"></div>
 												</fieldset>
+												<input type="hidden" name="MM_update" value="form1">
 											</form>
 										</div><!-- /.widget-main -->
 

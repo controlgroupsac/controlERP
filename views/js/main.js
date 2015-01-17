@@ -441,7 +441,7 @@ $("#registrar").click(function () {
   };
 
   $.ajax({
-    url: '../models/compra_registro/compras_agregar.php',
+    url: '../models/compra_registro/compras_registrar.php',
     type: 'post',
     data: data,
     success: function(data){
@@ -449,6 +449,25 @@ $("#registrar").click(function () {
     }
   });
   
+});
+$("#recibir").click(function () {
+  var compra_id = document.getElementById('compra_id');
+  var almacen_id = document.getElementById('almacen_id');
+
+  var data = {
+    compra_id: compra_id.value,
+    almacen_id: almacen_id.value
+  };
+      console.log(data);
+  
+  $.ajax({
+    url: '../models/compra_registro/compras_recibir.php',
+    type: 'get',
+    data: data,
+    success: function(data){
+      console.log("OK!");
+    }
+  });
 });
 
 $("#nuevaCompras_registro").click(function () {

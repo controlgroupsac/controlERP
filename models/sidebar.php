@@ -21,7 +21,7 @@
 			</li>
 
 			<li>
-				<a href="compras.php">
+				<a href="#">
 					<i class="menu-icon fa fa-building"></i>
 					<span class="menu-text">Compras</span>
 				</a>
