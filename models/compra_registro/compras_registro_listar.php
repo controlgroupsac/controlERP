@@ -32,39 +32,12 @@
 				<td><?php echo $row_table["total"]; ?></td>
 				<td>
 					<div class="hidden-sm hidden-xs btn-group">
-						<button class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_compras(<?=$row_table['compras_id']?>);">
-							<i class="ace-icon fa fa-pencil bigger-120"></i>
-						</button>
-
-						<button class="btn btn-xs btn-danger tooltip-error" data-rel="tooltip" data-placement="left" title="ANULAR!" onclick="javascript: fn_eliminar_compras(<?=$row_table['compras_id']?>);">
-							<i class="ace-icon fa fa-trash-o bigger-120"></i>
-						</button>
-					</div>
-
-					<div class="hidden-md hidden-lg">
-						<div class="inline pos-rel">
-							<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
-								<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-							</button>
-
-							<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-								<li>
-									<a href="javascript: fn_mostrar_frm_modificar_compras(<?=$row_table['compras_id']?>);" class="tooltip-success" data-rel="tooltip" title="Edit">
-										<span class="green">
-											<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="javascript: fn_eliminar_compras(<?=$row_table['compras_id']?>);" class="tooltip-error" data-rel="tooltip" title="ANULAR">
-										<span class="red">
-											<i class="ace-icon fa fa-trash-o bigger-120"></i>
-										</span>
-									</a>
-								</li>
-							</ul>
-						</div>
+						<a class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" href="compras.php?compra_id=<?php echo $row_table['compra_id']; ?>">
+							<span> <i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </span>
+						</a>
+						<a class="btn btn-xs btn-danger tooltip-error" data-rel="tooltip" data-placement="left" title="ANULAR!"  href="compras.php?compra_id=<?php echo $row_table['compra_id']; ?>">
+							<span> <i class="ace-icon fa fa-trash bigger-120"></i> </span>
+						</a>
 					</div>
 				</td>
 			</tr>

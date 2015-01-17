@@ -159,6 +159,9 @@
 
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
+			fn_buscar_usuario();
+			fn_buscar_empresa();
+			
 			jQuery(function($) {
 				$("#configuration").addClass("active");
 				$("#configuration_otro").addClass("active");

@@ -3,7 +3,7 @@
     include "../../queries/functions.php"; 
 ?>
 <form action="javascript: fn_agregar_compra_det();" class="form-horizontal" method="post" id="frm_compra_det" enctype="multipart/form-data" >
-    <input type="hidden" id="compra_id" name="compra_id" value="1" />
+    <input type="hidden" id="compra_id" name="compra_id" value="<?php echo $_GET['compra_id']; ?>" />
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_compra();">&times;</button>
         <h4 class="blue bigger">Agregar compra_det</h4>
@@ -72,6 +72,7 @@
                     alert(data);
                 fn_cerrar_compra();
                 fn_buscar_compra_det();
+                fn_buscar_compra_det_precio();
             }
         });
     };

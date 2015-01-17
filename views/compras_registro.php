@@ -138,6 +138,8 @@
 
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
+			fn_buscar_compras_registro();
+			
 			jQuery(function($) {
 				$("#compras").addClass("active");
 				$("#compras_view").addClass("active");

@@ -3,21 +3,16 @@
     include("../../queries/query.php"); 
     $query = "SELECT compra_det.compra_id, compra_det.cantidad, compra_det.monto, compra_det.compra_det_id, producto.producto
 			  FROM compra_det , compra , producto
-			  WHERE compra_det.compra_id = compra.compra_id 
+			  WHERE compra_det.compra_id = $_GET[compra_id]
+			  AND compra_det.compra_id = compra.compra_id 
 			  AND compra_det.producto_id = producto.producto_id
 			  ORDER BY `compra_det`.compra_det_id DESC" ;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);
     $row_table = mysql_fetch_assoc($table);
-
-    mysql_select_db($database_fastERP, $fastERP);
-	$query = "SELECT compra_id FROM compra ORDER BY compra_id DESC LIMIT 1";
-    $compra = mysql_query($query, $fastERP) or die(mysql_error());
-	$row_compra = mysql_fetch_assoc($compra);
 ?>
-<input type="text" id="compra_id" name="compra_id" value="<?php echo $row_compra['compra_id']; ?>" />
- <div class="table-responsive">
+<div class="table-responsive">
 	<table id="simple-table" class="table table-striped table-bordered table-hover">
 		<thead>
 			<tr>

@@ -342,8 +342,11 @@ function fn_cerrar_compra(){
     }
   }); 
 };
+
+var compra_id = document.getElementById('compra_id');
+var descuento = document.getElementById('descuento');
 $("#nuevaCompra_det").click(function () {
-  $("#div_oculto_compra_det").load("../models/compra/compra_det_form_agregar.php", function(){
+  $("#div_oculto_compra_det").load("../models/compra/compra_det_form_agregar.php?compra_id=" +compra_id.value, function(){
     $.blockUI({
       message: $('#div_oculto_compra_det'),
       css:{
@@ -358,11 +361,19 @@ $("#nuevaCompra_det").click(function () {
 function fn_buscar_compra_det(){
   var str = $("#frm_buscar_compra_det").serialize();
   $.ajax({
-    url: '../models/compra/compra_det_listar.php',
+    url: '../models/compra/compra_det_listar.php?compra_id=' +compra_id.value,
     type: 'get',
     data: str,
     success: function(data){
       $("#div_listar_compra_det").html(data);
+    }
+  });
+  $.ajax({
+    url: '../models/compra/compra_det_listar_precios.php?compra_id=' +compra_id.value+ '&descuento=' +descuento.value,
+    type: 'get',
+    data: 'compra_id=' +compra_id.value+ '&descuento=' +descuento.value,
+    success: function(data){
+      $("#div_listar_compra_det_precios").html(data);
     }
   });
 }
@@ -401,6 +412,45 @@ function fn_mostrar_frm_modificar_compra_det(compra_det_id){
 /**/
 /**/
 /*COMPRAS REGISTRO*/
+$("#registrar").click(function () {
+  var compra_id = document.getElementById('compra_id');
+  var almacen_id = document.getElementById('almacen_id');
+  var proveedor_id = document.getElementById('proveedor_id');
+  var comprobtipo_id = document.getElementById('comprobtipo_id');
+  var serie = document.getElementById('serie');
+  var numero = document.getElementById('numero');
+  var fecha_doc = document.getElementById('fecha_doc');
+  var impuesto1 = document.getElementById('impuesto1');
+  var valor_neto = document.getElementById('valor_neto');
+  var descuento = document.getElementById('descuento');
+  var total = document.getElementById('total');
+
+  var data = {
+    compra_id: compra_id.value,
+    almacen_id: almacen_id.value,
+    estado: 1,
+    proveedor_id: proveedor_id.value,
+    comprobtipo_id: comprobtipo_id.value,
+    serie: serie.value,
+    numero: numero.value,
+    fecha_doc: fecha_doc.value,
+    impuesto1: impuesto1.value,
+    valor_neto: valor_neto.value,
+    descuento: descuento.value,
+    total: total.value
+  };
+
+  $.ajax({
+    url: '../models/compra_registro/compras_agregar.php',
+    type: 'post',
+    data: data,
+    success: function(data){
+      console.log("OK");
+    }
+  });
+  
+});
+
 $("#nuevaCompras_registro").click(function () {
   $("#div_oculto_compras_registro").load("../models/compra_registro/compras_registro_form_agregar.php", function(){
     $.blockUI({
@@ -452,16 +502,6 @@ function fn_mostrar_frm_modificar_compras_registro(compras_registro_id){
     $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
   });
 };
-
-
-fn_buscar_usuario();
-fn_buscar_empresa();
-fn_buscar_producto();
-fn_buscar_unidad();
-fn_buscar_moneda();
-fn_buscar_categoria();
-fn_buscar_compra_det();
-fn_buscar_compras_registro();
 
 
 

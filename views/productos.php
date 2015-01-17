@@ -266,6 +266,11 @@
 
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
+			fn_buscar_producto();
+			fn_buscar_unidad();
+			fn_buscar_moneda();
+			fn_buscar_categoria();
+			
 			jQuery(function($) {
 				$("#configuration").addClass("active");
 				$("#configuration_productos").addClass("active");

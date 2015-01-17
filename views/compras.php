@@ -1,6 +1,7 @@
 <?php  
 	include "../config/conexion.php"; 
     include("../queries/query.php");
+    
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -57,6 +58,7 @@
 
 								<!-- Small boxes (Stat box) -->
 								<div class="row">
+									<input type="hidden" name="compra_id" id="compra_id" value="<?php echo $_GET['compra_id']; ?>" />
 									<form action="#">
 								    	<div class="col-lg-4">								    		
 								    		<div class="form-group">
@@ -82,8 +84,8 @@
 							    			<label class="col-sm-3 control-label text-right" for="estado"> <strong>estado</strong> </label>
 
 							    			<div class="col-sm-9">
-												<button class="btn btn-sm btn-danger" id="registrar"> Registrar </button>
-												<button class="btn btn-sm btn-success" id="recibir"> Recibir </button>
+												<button type="button" class="btn btn-sm btn-danger" id="registrar"> Registrar </button>
+												<button type="button" class="btn btn-sm btn-success" id="recibir"> Recibir </button>
 							    			</div>										
 										</div>
 									    <div class="col-lg-12">
@@ -187,42 +189,19 @@
 								    			<label class="col-sm-3 control-label right" for="igv"> <strong>IGV</strong> </label>
 
 								    			<div class="col-sm-9">
-								    				<input class="form-control col-xs-10 col-sm-5 input-xlarge" id="igv" id="igv" type="text" value="18" />
+								    				<input class="form-control col-xs-10 col-sm-5 input-xlarge" id="igv" id="igv" type="text" value="18" readonly />
 								    			</div>							    		
 							    			</div>							    		
 								    		<div class="form-group col-lg-4">
 								    			<label class="col-sm-3 control-label right" for="isc"> <strong>ISC</strong> </label>
 
 								    			<div class="col-sm-9">
-								    				<input class="form-control col-xs-10 col-sm-5 input-xlarge" id="isc" id="isc" type="text" value="18" />
+								    				<input class="form-control col-xs-10 col-sm-5 input-xlarge" id="isc" id="isc" type="text" value="0.02" readonly />
 								    			</div>
 								    		</div>										
 										</div>
 
-								    	<div class="col-lg-6">							    		
-								    		<div class="form-group">
-								    			<label class="col-sm-3 control-label no-padding-right" for="valor_neto"> <strong>valor_neto</strong> </label>
-
-								    			<div class="col-sm-9">
-								    				<input class="form-control col-xs-10 col-sm-5 input-xlarge" name="valor_neto" id="valor_neto" type="text" placeholder="valor neto" />
-								    			</div>
-								    		</div>								    		
-								    		<div class="form-group">
-								    			<label class="col-sm-3 control-label no-padding-right" for="impuesto1"> <strong>impuesto1</strong> </label>
-
-								    			<div class="col-sm-9">
-								    				<input class="form-control col-xs-10 col-sm-5 input-xlarge" name="impuesto1" id="impuesto1" type="text" placeholder="impuesto1" />
-								    			</div>
-								    		</div>								    		
-								    		<div class="form-group">
-								    			<label class="col-sm-3 control-label no-padding-right" for="total"> <strong>total</strong> </label>
-
-								    			<div class="col-sm-9">
-								    				<input class="form-control col-xs-10 col-sm-5 input-xlarge" name="total" id="total" type="text" placeholder="total" />
-								    			</div>
-								    		</div>				
-
-										</div>
+										<div id="div_listar_compra_det_precios"></div>
 									</form>
 								</div>
 
@@ -275,6 +254,9 @@
 
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
+			fn_buscar_compra_det();
+			fn_buscar_compras_registro();
+
 			jQuery(function($) {
 				$("#compras").addClass("active");
 				$("#compras_view").addClass("active");
