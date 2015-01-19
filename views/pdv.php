@@ -45,12 +45,6 @@
 
 
 
-						<div class="page-header">
-							<h1>
-								Ventas
-							</h1>
-						</div><!-- /.page-header -->
-
 						<div class="row">
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
@@ -59,7 +53,12 @@
 
 								<!-- Small boxes (Stat box) -->
 								<div class="row">
-									<div class="col-xs-9">
+									<div class="col-xs-8">
+										<h3>
+											Ventas
+										</h3>
+									</div>
+									<div class="col-xs-8">
 										<div class="row">
 											<div class="col-xs-12">
 												<span>Cusqueña 620 ml Caja	1 * 68,44 = 68,44	</span><br>
@@ -82,9 +81,46 @@
 										</div>
 									</div>
 
-									<div class="col-xs-3">
-										<div>
-											<span>.col-xs-1</span>
+									<div class="col-xs-4">
+										<div class="widget-box widget-color-blue border-none">
+											<div class="widget-body">
+												<div class="widget-main scrollable" data-size="400">
+													
+													<table id="simple-table" class="table table-striped table-bordered table-hover">
+														<thead>
+															<tr>
+																<th>Cant.</th>
+																<th>Precio</th>
+																<th>Dsct.</th>
+																<th>Subtot.</th>
+
+																<th></th>
+															</tr>
+														</thead>
+
+														<tbody>
+															<tr>
+																<td>1</td>
+																<td>S/. 6</td>
+																<td>S/. 6</td>
+																<td>6</td>
+
+																<td>
+																	<div class="hidden-sm hidden-xs btn-group">
+																		<button class="btn btn-xs btn-info">
+																			<i class="ace-icon fa fa-pencil bigger-120"></i>
+																		</button>
+
+																		<button class="btn btn-xs btn-danger">
+																			<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																		</button>
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div><!-- /.row -->

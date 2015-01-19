@@ -273,7 +273,9 @@ Gradient Background colors
 
 
 
-
+.border-none {
+  border: none;
+}
 .text-lg{
   font-size: 20px !important;
 }
