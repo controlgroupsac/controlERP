@@ -72,6 +72,7 @@
 															<div class="tabbable">
 																<div id="div_listar_categorias"></div>
 																<div id="div_listar_categorias_productos"></div>
+																<br>
 															</div>
 														</div>
 													</div>
@@ -140,7 +141,7 @@
 														<tbody>
 															<tr>
 																<td rowspan="4">
-																	<button class="btn btn-success btn-block">SUBTOTAL</button>
+																	<button class="btn btn-success btn-block">TERMINAR</button>
 																</td>
 															</tr>
 

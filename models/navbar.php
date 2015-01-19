@@ -57,7 +57,7 @@
 
 			<ul class="submenu">
 				<li id="ventas_view" class="open hover">
-					<a href="pdv.php">
+					<a href="ventas_registro.php">
 						<i class="menu-icon fa fa-caret-right"></i>
 						PDV
 					</a>

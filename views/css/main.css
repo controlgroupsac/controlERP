@@ -1,4 +1,6 @@
-
+th {
+  text-transform: capitalize;
+}
 /* Background colors */
 .bg-red,
 .bg-yellow,

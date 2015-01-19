@@ -612,9 +612,8 @@ function fn_mostrar_frm_modificar_compras_registro(compra_id){
 function fn_cerrar_ventas(){
   $.unblockUI({ 
     onUnblock: function(){
-      $("#div_oculto_usuarios").html("");
-      fn_buscar_usuario();
-      fn_buscar_empresa();
+      $("#div_listar_ventas_registro").html("");
+      fn_buscar_ventas_registro();
     }
   }); 
 };
@@ -639,4 +638,60 @@ function fn_buscar_ventas_categorias_productos(){
   });
 }
 
+
+/**/
+/**/
+/**/
+/*VENTAS REGISTRO*/
+function fn_buscar_ventas_registro(){
+  var str = $("#frm_buscar_ventas_registro").serialize();
+  $.ajax({
+    url: '../models/ventas_registro/ventas_registro_listar.php',
+    type: 'get',
+    data: str,
+    success: function(data){
+      $("#div_listar_ventas_registro").html(data);
+    }
+  });
+}
+function fn_eliminar_ventas_registro(ventas_registro_id){
+  var respuesta = confirm("Desea eliminar este ventas_registro?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/ventas_registro/ventas_registro_eliminar.php',
+      data: 'ventas_registro_id=' + ventas_registro_id,
+      type: 'post',
+      success: function(data){
+        if(data!="")
+          alert(data);
+        fn_buscar_ventas_registro()
+      }
+    });
+  }
+}
+function fn_mostrar_frm_modificar_ventas_registro(ventas_id){
+  $("#div_oculto_ventas_registro").load("../models/ventas_registro/ventas_registro_form_modificar.php", {ventas_id: ventas_id}, function(){
+    $.blockUI({
+      message: $('#div_oculto_ventas_registro'),
+      css:{
+        top: '10%',
+        width: '30%'
+      }
+    }); 
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+};
+
+$("#nuevaVentas_registro").click(function () {
+  $("#div_oculto_ventas_registro").load("../models/ventas_registro/ventas_registro_form_agregar.php", function(){
+    $.blockUI({
+      message: $('#div_oculto_ventas_registro'),
+      css:{
+        top: '10%',
+        width: '30%',
+      }
+    });
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+});
 
