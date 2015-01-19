@@ -240,13 +240,13 @@
 					</ul>
 				</li>
 
-				<li>
+				<!-- <li>
 					<a href="#">
 						<i class="ace-icon fa fa-envelope icon-animated-vertical"></i>
 						 Mensajes
 						<span class="badge badge-warning">5</span>
 					</a>
-				</li>
+				</li> -->
 			</ul>
 		</nav>
 	</div><!-- /.navbar-container -->

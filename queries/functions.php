@@ -56,6 +56,20 @@ function query_table_campo($query, $campo){ /*Consulta de una tabla a un solo ca
     }while ($row_table = mysql_fetch_assoc($table));
 }
 
+// select compra.serie from compra WHERE compra_id = 1
+function query_table_campo_comparar($tabla, $campo, $ID1, $ID2){ /*Consulta de una tabla a un solo campo, COMPARANDO un campo de entrada*/
+    global $database_fastERP, $fastERP;
+    $query = "SELECT " .$tabla. "." .$campo. " FROM " .$tabla. " WHERE " .$ID1. " = " .$ID2;
+    mysql_select_db($database_fastERP, $fastERP);
+    $table = mysql_query($query, $fastERP) or die(mysql_error());
+    $totalRows_table = mysql_num_rows($table);
+    $row_table = mysql_fetch_assoc($table);
+
+    do{
+        echo $row_table[$campo];
+    }while ($row_table = mysql_fetch_assoc($table));
+}
+
  /*Consulta de una tabla a un solo campo: CONSULTA, CAMPO de salida, etiquetaHTML, classCSS y ID para la etiquetaHTML*/
 function query_table_campo_etiqueta($query, $campo, $label, $classCSS, $ID){
     global $database_fastERP, $fastERP;
@@ -82,7 +96,7 @@ function query_table_option($query, $id, $campo){ /*Consuta de una tabla, parame
 }
 
 function query_table_option_comparar($query, $id, $campo, $id2){ /*Consuta de dos tablas, parametros seleccionados para un option en una etiqueta <select>, donde una de las etiquetas sera "selected"*/
-global $database_fastERP, $fastERP;
+    global $database_fastERP, $fastERP;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);

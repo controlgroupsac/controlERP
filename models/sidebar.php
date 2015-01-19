@@ -21,7 +21,7 @@
 			</li>
 
 			<li>
-				<a href="#">
+				<a href="compras_registro.php">
 					<i class="menu-icon fa fa-building"></i>
 					<span class="menu-text">Compras</span>
 				</a>

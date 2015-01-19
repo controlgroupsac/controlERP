@@ -1,6 +1,6 @@
 <?php
 	if(empty($_POST['compra_id'])){
-		echo "Por favor no altere el fuente";
+		echo "No encontrado!";
 		exit;
 	}
 
@@ -23,7 +23,7 @@
     <input type="hidden" name="compra_id" id="compra_id" value="<?php echo $_POST['compra_id']; ?>" />
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_compra();">&times;</button>
-        <h4 class="blue bigger">Modificar Producto</h4>
+        <h4 class="blue bigger">Modificar Compra</h4>
     </div>
     <div class="modal-body overflow-visible">
         <div class="row-fluid">

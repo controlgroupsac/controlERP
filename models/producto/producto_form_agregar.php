@@ -17,7 +17,7 @@
 
                         <div>
                             <span class=" input-icon">
-                                <input type="text" class="input-xlarge" name="producto" id="producto" value="" />
+                                <input type="text" class="input-xlarge" name="producto" id="producto" placeholder="Digite su producto" autofocus />
                                 <i class="ace-icon fa fa-user"></i>
                             </span>
                         </div>
@@ -163,7 +163,10 @@
         </div>
     </div>
 </form>
-<script language="javascript" type="text/javascript">
+<script type="text/javascript">
+    window.onload = function() {
+      var producto = document.getElementById("producto").focus();
+    }
     function fn_agregar_producto(){
         var str = $("#frm_producto").serialize();
         $.ajax({

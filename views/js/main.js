@@ -423,7 +423,7 @@ $("#registrar").click(function () {
   var compra_id = document.getElementById('compra_id');
   var almacen_id = document.getElementById('almacen_id');
   var proveedor_id = document.getElementById('proveedor_id');
-  var comprobtipo_id = document.getElementById('comprobtipo_id');
+  var condic_pago = document.getElementById('condic_pago');
   var serie = document.getElementById('serie');
   var numero = document.getElementById('numero');
   var fecha_doc = document.getElementById('fecha_doc');
@@ -437,7 +437,7 @@ $("#registrar").click(function () {
     almacen_id: almacen_id.value,
     estado: 1,
     proveedor_id: proveedor_id.value,
-    comprobtipo_id: comprobtipo_id.value,
+    condic_pago: condic_pago.value,
     serie: serie.value,
     numero: numero.value,
     fecha_doc: fecha_doc.value,
@@ -446,35 +446,101 @@ $("#registrar").click(function () {
     descuento: descuento.value,
     total: total.value
   };
+  var respuestaRegistrar = confirm("Realmente desea registrar esta COMPRA?. \nSi acepta, el documento no podrá ser modificado!");
+  if (respuestaRegistrar){
+    $.ajax({
+      url: '../models/compra_registro/compras_registrar.php',
+      type: 'post',
+      data: data,
+      success: function(data){
+        $("#proceso-registro").html(data);
+      }
+    });
+  }
+});
+$("#salir").click(function () {
+  var compra_id = document.getElementById('compra_id');
+  var almacen_id = document.getElementById('almacen_id');
+  var proveedor_id = document.getElementById('proveedor_id');
+  var condic_pago = document.getElementById('condic_pago');
+  var serie = document.getElementById('serie');
+  var numero = document.getElementById('numero');
+  var fecha_doc = document.getElementById('fecha_doc');
+  var impuesto1 = document.getElementById('impuesto1');
+  var valor_neto = document.getElementById('valor_neto');
+  var descuento = document.getElementById('descuento');
+  var total = document.getElementById('total');
 
-  $.ajax({
-    url: '../models/compra_registro/compras_registrar.php',
-    type: 'post',
-    data: data,
-    success: function(data){
-      console.log("OK");
-    }
-  });
-  
+  var data = {
+    compra_id: compra_id.value,
+    almacen_id: almacen_id.value,
+    estado: 1,
+    proveedor_id: proveedor_id.value,
+    condic_pago: condic_pago.value,
+    serie: serie.value,
+    numero: numero.value,
+    fecha_doc: fecha_doc.value,
+    impuesto1: impuesto1.value,
+    valor_neto: valor_neto.value,
+    descuento: descuento.value,
+    total: total.value
+  };
+  var respuesta = confirm("Desea conservar los cambios?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/compra_registro/compras_salir.php',
+      type: 'post',
+      data: data,
+      success: function(data){
+        $("#proceso-registro").html(data);
+        location.href="compras_registro.php";
+      }
+    });
+  }else{
+    location.href="compras_registro.php";
+  }
 });
 $("#recibir").click(function () {
   var compra_id = document.getElementById('compra_id');
   var almacen_id = document.getElementById('almacen_id');
-
-  var data = {
+  var data = { 
     compra_id: compra_id.value,
-    almacen_id: almacen_id.value
+    almacen_id: almacen_id.value 
   };
-      console.log(data);
+  var respuesta = confirm("Desea confirmar la RECEPCIÓN de los productos?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/compra_registro/compras_recibir.php',
+      type: 'get',
+      data: data,
+      success: function(data){
+        alert("Registrado!");
+        $("#proceso-registro").html(data);
+        console.log("OK!");
+      }
+    });
+  }
+});
+
+$("#rechazar").click(function () {
+  var compra_id = document.getElementById('compra_id');
+  var data = { compra_id: compra_id.value };
+
+  console.log(data);
   
-  $.ajax({
-    url: '../models/compra_registro/compras_recibir.php',
-    type: 'get',
-    data: data,
-    success: function(data){
-      console.log("OK!");
-    }
-  });
+  var respuesta = confirm("Desea eliminar este compras_registro?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/compra_registro/compras_rechazar.php',
+      type: 'get',
+      data: data,
+      success: function(data){
+        alert("Registrado!");
+        $("#proceso-registro").html(data);
+        console.log("OK!");
+      }
+    });
+  }
 });
 
 $("#nuevaCompras_registro").click(function () {
@@ -545,7 +611,7 @@ function fn_mostrar_frm_modificar_compras_registro(compra_id){
 
 // var almacen_id = document.getElementById('almacen_id').value;
   // var proveedor_id = document.getElementById('proveedor_id').value;
-  // var comprobtipo_id = document.getElementById('comprobtipo_id').value;
+  // var condic_pago = document.getElementById('condic_pago').value;
   // var serie = document.getElementById('serie').value;
   // var numero = document.getElementById('numero').value;
   // var fecha_doc = document.getElementById('fecha_doc').value;
@@ -557,7 +623,7 @@ function fn_mostrar_frm_modificar_compras_registro(compra_id){
   //   fecha_doc: fecha_doc,
   //   almacen_id: almacen_id,
   //   proveedor_id: proveedor_id,
-  //   comprobtipo_id: comprobtipo_id,
+  //   condic_pago: condic_pago,
   //   serie: serie,
   //   numero: numero,
   //   impuesto1: impuesto1,

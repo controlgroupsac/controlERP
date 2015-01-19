@@ -112,7 +112,7 @@
 
                     <div>
                         <span class="input-icon">
-                            <input type="text" class="input-xlarge" name="num_serie" id="num_serie" placeholder="Numero de serie" value="<?php echo $row_table['num_serie']; ?>ctos" />
+                            <input type="text" class="input-xlarge" name="num_serie" id="num_serie" placeholder="Numero de serie" value="<?php echo $row_table['num_serie']; ?>" />
                             <i class="ace-icon fa fa-user"></i>
                         </span>
                     </div>
@@ -180,7 +180,7 @@
 
                     <button type="submit" class="btn btn-small btn-primary">
                         <i class="fa fa-ok"></i>
-                        Agregar
+                        Guardar!
                     </button>
                 </div>
                 <input type="hidden" name="MM_insert" value="<?php echo $row_table['']; ?>to">

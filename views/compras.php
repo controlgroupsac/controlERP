@@ -1,7 +1,11 @@
 <?php  
 	include "../config/conexion.php"; 
     include("../queries/query.php");
-    
+    $query = "SELECT * FROM `controlg_controlerp`.`compra`
+			  WHERE compra.compra_id = $_GET[compra_id]";
+    mysql_select_db($database_fastERP, $fastERP);
+    $table = mysql_query($query, $fastERP) or die(mysql_error());
+    $row_table = mysql_fetch_assoc($table);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,7 +18,6 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 		<!-- bootstrap & fontawesome -->
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="fonts/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
 		<link rel="stylesheet" href="css/main.css" type="text/css" />
@@ -61,6 +64,7 @@
 									
 									<input type="hidden" name="compra_id" id="compra_id" value="<?php echo $_GET['compra_id']; ?>" />
 									<form action="#">
+										<div id="block1">
 								    	<div class="col-lg-4">								    		
 								    		<div class="form-group">
 								    			<label class="col-sm-3 control-label text-right" for="fecha"> <strong>fecha</strong> </label>
@@ -76,17 +80,34 @@
 
 								    			<div class="col-sm-9">
 								    				<select class="form-control" name="almacen_id" id="almacen_id">
-								    					<?php query_table_option("SELECT * FROM almacen", "almacen_id", "almacen") ?>
+								    					<?php query_table_option_comparar("SELECT * FROM almacen", "almacen_id", "almacen", $row_table['almacen_id']) ?>
 								    				</select>
 								    			</div>
 								    		</div>										
+										</div>
 										</div>
 								    	<div class="col-lg-4">	
 							    			<label class="col-sm-3 control-label text-right" for="estado"> <strong>estado</strong> </label>
 
 							    			<div class="col-sm-9">
-												<button type="button" class="btn btn-sm btn-danger" id="registrar"> Registrar </button>
-												<button type="button" class="btn btn-sm btn-success" id="recibir"> Recibir </button>
+							    				<div id="proceso-registro">
+		    					    				<?php if($row_table['estado'] == 1){ ?>
+		    					    					<span class="label label-lg label-yellow arrowed-right" id="registrar-span">En proceso... </span>  <!-- Fase 1 de la compra -->
+		    											<button type="button" class="btn btn-sm btn-danger" id="registrar"> Registrar </button> <!-- Fase 1 de la compra -->
+		    											<button type="button" class="btn btn-sm btn-info" id="salir"> Salir </button> <!-- Fase 1 de la compra -->
+		    										<?php } elseif($row_table['estado'] == 2) { ?>
+		    											<span class=" label label-lg label-pink arrowed-right" id="registrado" >Registrado</span> <!-- Fase 2 de la compra -->
+														<button type="button" class=" btn btn-sm btn-success" id="recibir"> Recibir </button> <!-- Fase 2 de la compra -->
+														<button type="button" class=" btn btn-sm btn-danger" id="rechazar"> Rechazar </button> <!-- Fase 2 de la compra -->
+		    										<?php } elseif($row_table['estado'] == 3) { ?>
+		    											<span class=" label label-lg label-success arrowed-right" id="recibido" >Recibido</span> <!-- Fase 3 de la compra -->
+														<a class="btn btn-xs btn-info" href="compras_registro.php">Cerrar</a>
+		    										<?php } else{ ?>
+		    											<span class=" label label-lg label-danger arrowed-right" id="rechazado" >Rechazado</span> <!-- Fase 3 de la compra -->
+                                                		<span class="label label-lg arrowed-right" id="anulado" >Anulado</span> <!-- Fase 3 de la compra -->
+														<a class="btn btn-xs btn-info" href="compras_registro.php">Cerrar</a>
+		    										<?php } ?>
+							    				</div>
 							    			</div>										
 										</div>
 									    <div class="col-lg-12">
@@ -98,7 +119,7 @@
 
 								    			<div>
 								    				<select class="form-control" id="proveedor_id" id="proveedor_id">
-								    					<?php query_table_option("SELECT * FROM proveedor", "proveedor_id", "proveedor") ?>
+								    					<?php query_table_option_comparar("SELECT * FROM proveedor", "proveedor_id", "proveedor", $row_table['proveedor_id']) ?>
 								    				</select>
 								    			</div>
 								    		</div>										
@@ -115,10 +136,10 @@
 								    				</select>
 								    			</div>
 								    			<div class="col-sm-4">
-								    				<input class="form-control" name="serie" id="serie" type="text" placeholder="serie" value="001-123456" />
+								    				<input class="form-control" name="serie" id="serie" type="text" placeholder="serie" value='<?php query_table_campo_comparar("compra", "serie", "compra_id", $_GET["compra_id"]) ?>' required />
 								    			</div>
 								    			<div class="col-sm-4">
-								    				<input class="form-control" name="numero" id="numero" type="text" placeholder="numero" value="001-123456" />
+								    				<input class="form-control" name="numero" id="numero" type="text" placeholder="numero" value='<?php query_table_campo_comparar("compra", "numero", "compra_id", $_GET["compra_id"]) ?>' required />
 								    			</div>
 								    		</div>										
 										</div>
@@ -133,13 +154,13 @@
 										</div>
 								    	<div class="col-lg-2">
 								    		<div class="form-group">
-								    			<label class="control-label no-padding-right" for="comprobtipo_id"> <strong>comprobtipo</strong> </label>
+								    			<label class="control-label no-padding-right" for="condic_pago"> <strong>Modo Pago</strong> </label>
 
 								    			<div>
-								    				<select class="form-control" id="comprobtipo_id" id="comprobtipo_id">
-								    					<option value="1">Boleta</option>
-								    					<option value="2">Factura</option>
-								    					<option value="3">Ticket</option>
+								    				<select class="form-control" id="condic_pago" id="condic_pago">
+								    					<option value="1" <?php if($row_table['condic_pago'] == '1') { echo "selected";} ?>>Efectivo</option>
+								    					<option value="2" <?php if($row_table['condic_pago'] == '2') { echo "selected";} ?>>Credito</option>
+								    					<option value="3" <?php if($row_table['condic_pago'] == '3') { echo "selected";} ?>>Tarjeta</option>
 								    				</select>
 								    			</div>
 								    		</div>										
@@ -303,6 +324,12 @@
 			   $('#sidebar2[data-sidebar-scroll=true]').ace_sidebar_scroll('reset', true);
 			})
 		</script>
+		<?php  
+    		if($row_table['estado'] == 2 ||$row_table['estado'] == 3 ||$row_table['estado'] == 4) { 
+    			echo "<script>jQuery('input, select, button').attr('disabled', 'true');</script>"; 
+    			echo "<script>jQuery('#recibir, #rechazar').removeAttr('disabled');</script>"; 
+    		}
+		?>
 	</body>
 </html>
 

@@ -84,8 +84,8 @@
 	$(document).ready(function(){
 		$("#frm_compra_det").validate({
 			submitHandler: function(form) {
-				var respuesta = confirm('\xBFDesea realmente modificar este detalle de compra?')
-				if (respuesta)
+				// var respuesta = confirm('\xBFDesea realmente modificar este detalle de compra?')
+				// if (respuesta)
 					form.submit();
 			}
 		});

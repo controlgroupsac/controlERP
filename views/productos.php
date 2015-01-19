@@ -64,7 +64,7 @@
 
 
 										<div class="col-xs-6 widget-container-col">
-											<div class="widget-box widget-color-blue">
+											<div class="widget-box widget-color-blue collapsed">
 												<div class="widget-header">
 													<i class="fa fa-table"></i>
 													<h5 class="widget-title"> Lista de Categoria</h5>
@@ -90,7 +90,7 @@
 										</div>
 		
 										<div class="col-xs-6 widget-container-col">
-											<div class="widget-box widget-color-blue">
+											<div class="widget-box widget-color-blue collapsed">
 												<div class="widget-header">
 													<i class="fa fa-table"></i>
 													<h5 class="widget-title"> Lista de Impuestos</h5>
@@ -131,7 +131,7 @@
 
 
 										<div class="col-xs-6 widget-container-col">
-											<div class="widget-box widget-color-blue">
+											<div class="widget-box widget-color-blue collapsed">
 												<div class="widget-header">
 													<i class="fa fa-table"></i>
 													<h5 class="widget-title"> Lista de Unidad</h5>
@@ -157,7 +157,7 @@
 										</div>
 		
 										<div class="col-xs-6 widget-container-col">
-											<div class="widget-box widget-color-orange">
+											<div class="widget-box widget-color-orange collapsed">
 												<div class="widget-header">
 													<i class="fa fa-table"></i>
 													<h5 class="widget-title"> Lista de Monedas</h5>

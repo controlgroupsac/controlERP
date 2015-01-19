@@ -43,7 +43,7 @@
 			<b class="arrow"></b>
 		</li>
 
-		<li class="open hover">
+		<li id="ventas" class="open hover">
 			<a href="#" class="dropdown-toggle">
 				<i class="menu-icon fa fa-building-o"></i>
 				<span class="menu-text">
@@ -56,159 +56,45 @@
 			<b class="arrow"></b>
 
 			<ul class="submenu">
-				<li class="open hover">
-					<a href="#" class="dropdown-toggle">
+				<li id="ventas_view" class="open hover">
+					<a href="pdv.php">
 						<i class="menu-icon fa fa-caret-right"></i>
-
+						PDV
+					</a>
+				</li>
+				<li class="open hover">
+					<a href="#">
+						<i class="menu-icon fa fa-caret-right"></i>
 						Cotizaciones
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 
 				<li class="open hover">
-					<a href="#" class="dropdown-toggle">
+					<a href="#">
 						<i class="menu-icon fa fa-caret-right"></i>
-
 						Facturación
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 				
 				<li class="open hover">
-					<a href="#" class="dropdown-toggle">
+					<a href="#">
 						<i class="menu-icon fa fa-caret-right"></i>
-
 						Envíos y devoluciones
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 				
 				<li class="open hover">
-					<a href="#" class="dropdown-toggle">
+					<a href="#">
 						<i class="menu-icon fa fa-caret-right"></i>
-
 						Consignación al cliente
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 
 				<li class="open hover">
-					<a href="#" class="dropdown-toggle">
+					<a href="#">
 						<i class="menu-icon fa fa-caret-right"></i>
-
 						Informes
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 
 			</ul>
@@ -237,125 +123,29 @@
 				<li class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
-
 						Notas de recibos
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 				
 				<li class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
-
 						Notas de recibos
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 				
 				<li class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
-
 						Consignación del proveedor
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 
 				<li class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
-
 						Informes
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 
 			</ul>
@@ -377,154 +167,24 @@
 				<li class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
-
 						Inventario físico
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 
 				<li class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
-
 						Cambios en valores de inventario
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 
 				<li class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
-
 						Informes
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 
-			</ul>
-		</li>
-
-		<li class="hover">
-			<a href="#" class="dropdown-toggle">
-				<i class="menu-icon fa fa-cubes"></i>
-				<span class="menu-text"> Produccion </span>
-
-				<b class="arrow fa fa-angle-down"></b>
-			</a>
-
-			<b class="arrow"></b>
-
-			<ul class="submenu">
-				<li class="hover">
-					<a href="form-elements.php">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Form Elements
-					</a>
-
-					<b class="arrow"></b>
-				</li>
-
-				<li class="hover">
-					<a href="form-elements-2.php">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Form Elements 2
-					</a>
-
-					<b class="arrow"></b>
-				</li>
-
-				<li class="hover">
-					<a href="form-wizard.php">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Wizard &amp; Validation
-					</a>
-
-					<b class="arrow"></b>
-				</li>
-
-				<li class="hover">
-					<a href="wysiwyg.php">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Wysiwyg &amp; Markdown
-					</a>
-
-					<b class="arrow"></b>
-				</li>
-
-				<li class="hover">
-					<a href="dropzone.php">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Dropzone File Upload
-					</a>
-
-					<b class="arrow"></b>
-				</li>
 			</ul>
 		</li>
 
@@ -574,32 +234,8 @@
 				<li id="configuration_financieros" class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-dollar"></i>
-
 						Financieros
-						<b class="arrow fa fa-angle-down"></b>
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Top Menu
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 				
 				<li id="configuration_otro" class="hover">
