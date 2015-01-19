@@ -414,12 +414,12 @@ function fn_mostrar_frm_modificar_compra_det(compra_det_id){
 
 
 
+$("#registrar").click(function () {
 /**/
 /**/
 /**/
 /**/
 /*COMPRAS REGISTRO*/
-$("#registrar").click(function () {
   var compra_id = document.getElementById('compra_id');
   var almacen_id = document.getElementById('almacen_id');
   var proveedor_id = document.getElementById('proveedor_id');
@@ -603,38 +603,40 @@ function fn_mostrar_frm_modificar_compras_registro(compra_id){
 
 
 
+/**/
+/**/
+/**/
+/**/
+/*VENTAS*/
+
+function fn_cerrar_ventas(){
+  $.unblockUI({ 
+    onUnblock: function(){
+      $("#div_oculto_usuarios").html("");
+      fn_buscar_usuario();
+      fn_buscar_empresa();
+    }
+  }); 
+};
+
+function fn_buscar_ventas_categorias(){
+  $.ajax({
+    url: '../models/ventas/ventas_listar_categorias.php',
+    type: 'get',
+    success: function(data){
+      $("#div_listar_categorias").html(data);
+    }
+  });
+}
+
+function fn_buscar_ventas_categorias_productos(){
+  $.ajax({
+    url: '../models/ventas/ventas_listar_categorias_productos.php',
+    type: 'get',
+    success: function(data){
+      $("#div_listar_categorias_productos").html(data);
+    }
+  });
+}
 
 
-
-
-
-
-// var almacen_id = document.getElementById('almacen_id').value;
-  // var proveedor_id = document.getElementById('proveedor_id').value;
-  // var condic_pago = document.getElementById('condic_pago').value;
-  // var serie = document.getElementById('serie').value;
-  // var numero = document.getElementById('numero').value;
-  // var fecha_doc = document.getElementById('fecha_doc').value;
-  // var impuesto1 = document.getElementById('impuesto1').value;
-  // var valor_neto = document.getElementById('valor_neto').value;
-  // var descuento = document.getElementById('descuento').value;
-  // var tota = document.getElementById('total').value;
-  // var data = {
-  //   fecha_doc: fecha_doc,
-  //   almacen_id: almacen_id,
-  //   proveedor_id: proveedor_id,
-  //   condic_pago: condic_pago,
-  //   serie: serie,
-  //   numero: numero,
-  //   impuesto1: impuesto1,
-  //   valor_neto: valor_neto,
-  //   descuento: descuento,
-  //   total: total
-  // };
-  // console.log(data);
-
-  // $.ajax({
-  //   url: '../models/compra_registro/compra_agregar.php',
-  //   type: 'get',
-  //   data: data
-  // });

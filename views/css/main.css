@@ -275,13 +275,16 @@ Gradient Background colors
 
 
 .text-lg{
-  font-size: 20px;
+  font-size: 20px !important;
 }
 .text-md{
-  font-size: 1em;
+  font-size: 1em !important;
 }
 .text-sm{
-  font-size: 10px;
+  font-size: 10px !important;
+}
+.text-xsm{
+  font-size: 8px !important;
 }
 .text-light-gray {
   color: rgba(14, 14, 15, 0.19);

@@ -67,248 +67,17 @@
 											</div>
 
 											<div class="col-xs-12">
-												<div class="tabbable">
-													<ul class="nav nav-tabs padding-12 tab-color-blue background-blue right" id="myTab4">
-														<li class="active">
-															<a data-toggle="tab" href="#home4">Bebida</a>
-														</li>
-
-														<li>
-															<a data-toggle="tab" href="#profile4">Categoría Predeterminada</a>
-														</li>
-
-														<li>
-															<a data-toggle="tab" href="#dropdown14">Embase</a>
-														</li>
-													</ul>
-
-													<div class="tab-content">
-														<div id="home4" class="tab-pane in active">
-															
-															
-																<!-- PAGE CONTENT BEGINS -->
-																<div>
-																	<ul class="ace-thumbnails clearfix">
-																		<li>
-																			<a href="assets/images/gallery/image-1.jpg" title="Photo Title" data-rel="colorbox">
-																				<img width="150" height="150" alt="150x150" src="assets/images/gallery/thumb-1.jpg" />
-																			</a>
-
-																			<div class="tags">
-																				<span class="label-holder">
-																					<span class="label label-info">breakfast</span>
-																				</span>
-
-																				<span class="label-holder">
-																					<span class="label label-danger">fruits</span>
-																				</span>
-
-																				<span class="label-holder">
-																					<span class="label label-success">toast</span>
-																				</span>
-
-																				<span class="label-holder">
-																					<span class="label label-warning arrowed-in">diet</span>
-																				</span>
-																			</div>
-
-																			<div class="tools">
-																				<a href="#">
-																					<i class="ace-icon fa fa-link"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-paperclip"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-pencil"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-times red"></i>
-																				</a>
-																			</div>
-																		</li>
-
-																		<li>
-																			<a href="assets/images/gallery/image-2.jpg" data-rel="colorbox">
-																				<img width="150" height="150" alt="150x150" src="assets/images/gallery/thumb-2.jpg" />
-																				<div class="text">
-																					<div class="inner">Sample Caption on Hover</div>
-																				</div>
-																			</a>
-																		</li>
-
-																		<li>
-																			<a href="assets/images/gallery/image-3.jpg" data-rel="colorbox">
-																				<img width="150" height="150" alt="150x150" src="assets/images/gallery/thumb-3.jpg" />
-																				<div class="text">
-																					<div class="inner">Sample Caption on Hover</div>
-																				</div>
-																			</a>
-
-																			<div class="tools tools-bottom">
-																				<a href="#">
-																					<i class="ace-icon fa fa-link"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-paperclip"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-pencil"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-times red"></i>
-																				</a>
-																			</div>
-																		</li>
-
-																		<li>
-																			<a href="assets/images/gallery/image-4.jpg" data-rel="colorbox">
-																				<img width="150" height="150" alt="150x150" src="assets/images/gallery/thumb-4.jpg" />
-																				<div class="tags">
-																					<span class="label-holder">
-																						<span class="label label-info arrowed">fountain</span>
-																					</span>
-
-																					<span class="label-holder">
-																						<span class="label label-danger">recreation</span>
-																					</span>
-																				</div>
-																			</a>
-
-																			<div class="tools tools-top">
-																				<a href="#">
-																					<i class="ace-icon fa fa-link"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-paperclip"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-pencil"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-times red"></i>
-																				</a>
-																			</div>
-																		</li>
-
-																		<li>
-																			<div>
-																				<img width="150" height="150" alt="150x150" src="assets/images/gallery/thumb-5.jpg" />
-																				<div class="text">
-																					<div class="inner">
-																						<span>Some Title!</span>
-
-																						<br />
-																						<a href="assets/images/gallery/image-5.jpg" data-rel="colorbox">
-																							<i class="ace-icon fa fa-search-plus"></i>
-																						</a>
-
-																						<a href="#">
-																							<i class="ace-icon fa fa-user"></i>
-																						</a>
-
-																						<a href="#">
-																							<i class="ace-icon fa fa-share"></i>
-																						</a>
-																					</div>
-																				</div>
-																			</div>
-																		</li>
-
-																		<li>
-																			<a href="assets/images/gallery/image-6.jpg" data-rel="colorbox">
-																				<img width="150" height="150" alt="150x150" src="assets/images/gallery/thumb-6.jpg" />
-																			</a>
-
-																			<div class="tools tools-right">
-																				<a href="#">
-																					<i class="ace-icon fa fa-link"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-paperclip"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-pencil"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-times red"></i>
-																				</a>
-																			</div>
-																		</li>
-
-																		<li>
-																			<a href="assets/images/gallery/image-1.jpg" data-rel="colorbox">
-																				<img width="150" height="150" alt="150x150" src="assets/images/gallery/thumb-1.jpg" />
-																			</a>
-
-																			<div class="tools">
-																				<a href="#">
-																					<i class="ace-icon fa fa-link"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-paperclip"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-pencil"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-times red"></i>
-																				</a>
-																			</div>
-																		</li>
-
-																		<li>
-																			<a href="assets/images/gallery/image-2.jpg" data-rel="colorbox">
-																				<img width="150" height="150" alt="150x150" src="assets/images/gallery/thumb-2.jpg" />
-																			</a>
-
-																			<div class="tools tools-top in">
-																				<a href="#">
-																					<i class="ace-icon fa fa-link"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-paperclip"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-pencil"></i>
-																				</a>
-
-																				<a href="#">
-																					<i class="ace-icon fa fa-times red"></i>
-																				</a>
-																			</div>
-																		</li>
-																	</ul>
-																</div><!-- PAGE CONTENT ENDS -->
-															<!-- /.col -->
-														</div>
-
-														<div id="profile4" class="tab-pane">
-															<p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid.</p>
-														</div>
-
-														<div id="dropdown14" class="tab-pane">
-															<p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade.</p>
+												<div class="widget-box widget-color-blue">
+													<div class="widget-body">
+														<div class="widget-main scrollable" data-size="400">
+															<div class="tabbable">
+																<div id="div_listar_categorias"></div>
+																<div id="div_listar_categorias_productos"></div>
+															</div>
 														</div>
 													</div>
 												</div>
+												
 											</div><!-- /.col -->
 										</div>
 									</div>
@@ -338,7 +107,10 @@
 
 		<!-- basic scripts -->
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="views/js/vendor/jquery-1.11.1.min.js"><\/script>')</script>
+		<!--[if !IE]> -->
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='js/vendor/jquery.min.js'>"+"<"+"/script>");
+		</script>
 
 		<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='js/vendor/jquery.mobile.custom.min.js'>"+"<"+"/script>");
@@ -358,15 +130,35 @@
 		<script src="js/vendor/bootstrap-datepicker.min.js" type="text/javascript"></script>
 
 
+		<!-- blockUI -->
+        <script language="javascript" type="text/javascript" src="js/vendor/jquery.blockUI.js"></script>
+        <script language="javascript" type="text/javascript" src="js/vendor/jquery.validate-1.11.1.min.js"></script>
+        <script src="js/main.js"></script>
+
+
+
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
 			jQuery(function($) {
+				fn_buscar_ventas_categorias();
+				fn_buscar_ventas_categorias_productos();
 				$("#ventas").addClass("active");
 				$("#ventas_view").addClass("active");
 			   $("#calendar").datepicker();
 			   $('#sidebar2').insertBefore('.page-content').ace_sidebar('collapse', false);
 			   $('#navbar').addClass('h-navbar');
 			   $('.footer').insertAfter('.page-content');
+			
+				$('[data-rel=tooltip]').tooltip(); 
+			
+				// scrollables
+				$('.scrollable').each(function () {
+					var $this = $(this);
+					$(this).ace_scroll({
+						size: $this.attr('data-size') || 100,
+						//styleClass: 'scroll-left scroll-margin scroll-thin scroll-dark scroll-light no-track scroll-visible'
+					});
+				});
 			   
 			   $('.page-content').addClass('main-content');
 			   
