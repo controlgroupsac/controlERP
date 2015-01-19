@@ -61,7 +61,7 @@
 									<div class="col-xs-8">
 										<div class="row">
 											<div class="col-xs-12">
-												<span>Cusqueña 620 ml Caja	1 * 68,44 = 68,44	</span><br>
+												<span>Cusqueña 620 ml Caja	</span><br>
 												<span>1 * 68,44 = 68,44		</span>
 											</div>
 
@@ -82,7 +82,7 @@
 									</div>
 
 									<div class="col-xs-4">
-										<div class="widget-box widget-color-blue border-none">
+										<div class="widget-box widget-color-blue">
 											<div class="widget-body">
 												<div class="widget-main scrollable" data-size="400">
 													
@@ -122,6 +122,56 @@
 												</div>
 											</div>
 										</div>
+
+										<div class="widget-box widget-color-dark">
+											<div class="widget-header">
+												<h5 class="widget-title bigger lighter">SUBTOTAL <span class="right"> 37.00</span></h5>
+											</div>
+											<div class="widget-header">
+												<h5 class="widget-title bigger lighter">IMPUESTO <span class="right"> 37.00</span></h5>
+											</div>
+											<div class="widget-header">
+												<h5 class="widget-title bigger lighter">SUBTOTAL (S/.) <span class="right"> 37.00</span></h5>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
+													<table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
+														<tbody>
+															<tr>
+																<td rowspan="4">
+																	<button class="btn btn-success btn-block">SUBTOTAL</button>
+																</td>
+															</tr>
+
+															<tr>
+																<td><button class="btn btn-inverse btn-block">1</button></td>
+																<td><button class="btn btn-inverse btn-block">2</button></td>
+																<td><button class="btn btn-inverse btn-block">3</button></td>
+															</tr>
+
+															<tr>
+																<td><button class="btn btn-inverse btn-block">4</button></td>
+																<td><button class="btn btn-inverse btn-block">5</button></td>
+																<td><button class="btn btn-inverse btn-block">6</button></td>
+															</tr>
+
+															<tr>
+																<td><button class="btn btn-inverse btn-block">7</button></td>
+																<td><button class="btn btn-inverse btn-block">8</button></td>
+																<td><button class="btn btn-inverse btn-block">9</button></td>
+															</tr>
+															<tr>
+																<td colspan="4">
+																	<button class="btn btn-inverse btn-block border">0</button>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+
 									</div>
 								</div><!-- /.row -->
 

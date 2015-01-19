@@ -7,7 +7,7 @@
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $row_table = mysql_fetch_assoc($table);
 ?>
-<ul class="nav nav-tabs padding-12 tab-color-blue background-blue right" id="myTab4">
+<ul class="nav nav-tabs padding-12 tab-color-blue background-blue" id="myTab4">
 	<?php do { ?>
 	<li class=<?php if($row_table['categoria_id'] == 5) { echo "active"; } ?>>
 		<a data-toggle="tab" href="<?php echo '#'.$row_table['categoria']; ?>"><?php echo $row_table['categoria']; ?></a>
