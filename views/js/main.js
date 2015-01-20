@@ -414,12 +414,12 @@ function fn_mostrar_frm_modificar_compra_det(compra_det_id){
 
 
 
-$("#registrar").click(function () {
 /**/
 /**/
 /**/
 /**/
 /*COMPRAS REGISTRO*/
+$("#registrar").click(function () {
   var compra_id = document.getElementById('compra_id');
   var almacen_id = document.getElementById('almacen_id');
   var proveedor_id = document.getElementById('proveedor_id');
@@ -608,6 +608,33 @@ function fn_mostrar_frm_modificar_compras_registro(compra_id){
 /**/
 /**/
 /*VENTAS*/
+$("#registrar-venta").click(function () {
+  var ventas_id = document.getElementById('ventas_id');
+  var almacen_id = document.getElementById('almacen_id');
+  var impuesto1 = document.getElementById('impuesto1');
+  var valor_neto = document.getElementById('valor_neto');
+  var total = document.getElementById('total');
+
+  var data = {
+    ventas_id: ventas_id.value,
+    almacen_id: almacen_id.value,
+    impuesto1: impuesto1.value,
+    valor_neto: valor_neto.value,
+    total: total.value
+  };
+  console.log(data);
+  var respuestaRegistrar = confirm("Realmente desea registrar esta ventas?. \nSi acepta, el documento no podrá ser modificado!");
+  if (respuestaRegistrar){
+    $.ajax({
+      url: '../models/ventas/ventas_registrar.php',
+      type: 'post',
+      data: data,
+      success: function(data){
+        location.href = "ventas_registro.php";
+      }
+    });
+  }
+});
 
 function fn_cerrar_ventas(){
   $.unblockUI({ 
@@ -637,6 +664,53 @@ function fn_buscar_ventas_categorias_productos(){
     }
   });
 }
+
+function fn_buscar_ventas_det(){
+  var ventas_id = document.getElementById('ventas_id');
+  $.ajax({
+    url: '../models/ventas/ventas_listar_ventas_det.php?ventas_id=' +ventas_id.value,
+    type: 'get',
+    success: function(data){
+      $("#div_listar_ventas_detalle").html(data);
+    }
+  });
+
+  $.ajax({
+    url: '../models/ventas/ventas_listar_ventas_det_precios.php?ventas_id=' +ventas_id.value,
+    type: 'get',
+    success: function(data){
+      $("#div_listar_ventas_detalle_precios").html(data);
+    }
+  });
+}
+
+/*Enviar producto y cantidad a detalle de ventas*/
+function fn_mostrar_frm_agregar_venta_det (producto_id, precio) {
+  var ventas_id = document.getElementById('ventas_id');
+  var cantidad = document.getElementById('cantidad');
+  var data = {
+    ventas_id: ventas_id.value,
+    cantidad: cantidad.value,
+    producto_id: producto_id,
+    precio: precio
+  };
+  $.ajax({
+    url: '../models/ventas/ventas_det_agregar.php',
+    data: data,
+    type: 'post',
+    success: function(data){
+      if(data != "")
+        alert(data);
+      fn_cerrar_ventas();
+      fn_buscar_ventas_det();
+    }
+  });
+}
+$("#tbodyBTN button").click(function(){
+  var str = "";
+  str += $(this).text();
+  $("#cantidad").attr("value", str);
+});
 
 
 /**/

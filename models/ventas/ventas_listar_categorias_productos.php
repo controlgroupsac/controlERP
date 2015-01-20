@@ -27,7 +27,7 @@
 				}else {
 					do { ?>
 					<li class="tooltip-warning" data-rel="tooltip" data-placement="bottom"  data-original-title="<?php echo $row_producto['producto']; ?>">
-						<a href="#" data-rel="colorbox">
+						<a href="javascript: fn_mostrar_frm_agregar_venta_det(<?=$row_producto['producto_id']?>, <?=$row_producto['precio']?>);" data-rel="colorbox">
 							<img width="100" height="100" alt="100x100" src="img/productos/<?php echo $row_categoria['categoria']; ?>.jpg" />
 							<div class="tags">
 								<span class="label-holder">

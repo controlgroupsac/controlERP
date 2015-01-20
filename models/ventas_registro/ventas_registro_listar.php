@@ -1,7 +1,7 @@
 <?php  
 	include "../../config/conexion.php"; 
     include("../../queries/query.php"); 
-    $query = "SELECT ventas.total, ventas.estado, almacen.almacen, ventas.ventas_id
+    $query = "SELECT ventas.total, ventas.estado, almacen.almacen, ventas.ventas_id, ventas.almacen_id
 			  FROM ventas , almacen
 			  WHERE ventas.almacen_id = almacen.almacen_id
 			  ORDER BY ventas.ventas_id DESC" ;
@@ -32,7 +32,7 @@
 				<td><?php echo $row_table["total"]; ?></td>
 				<td>
 					<div class="hidden-sm hidden-xs btn-group">
-						<a class="btn btn-xs btn-yellow tooltip-yellow" data-rel="tooltip" data-placement="left" title="VENDER!" href="ventas.php?venta_id=<?php echo $row_table['ventas_id']; ?>">
+						<a class="btn btn-xs btn-yellow tooltip-yellow" data-rel="tooltip" data-placement="left" title="VENDER!" href="ventas.php?ventas_id=<?php echo $row_table['ventas_id']; ?>&almacen_id=<?php echo $row_table['almacen_id']; ?>">
 							<span> <i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </span>
 						</a> 
 					</div>

@@ -52,18 +52,22 @@
 
 
 								<!-- Small boxes (Stat box) -->
+								<div id="practica">aaaaaaaa</div>
 								<div class="row">
 									<div class="col-xs-8">
 										<h3>
+											<input type="hidden" name="ventas_id" id="ventas_id" value="<?php echo $_GET['ventas_id']; ?>">
+											<input type="hidden" name="almacen_id" id="almacen_id" value="<?php echo $_GET['almacen_id']; ?>">
+											<input type="hidden" name="cantidad" id="cantidad" value="<?php echo @$_GET['cantidad']; ?>">
 											Ventas
 										</h3>
 									</div>
 									<div class="col-xs-8">
 										<div class="row">
-											<div class="col-xs-12">
+											<!-- <div class="col-xs-12">
 												<span>Cusqueña 620 ml Caja	</span><br>
 												<span>1 * 68,44 = 68,44		</span>
-											</div>
+											</div> -->
 
 											<div class="col-xs-12">
 												<div class="widget-box widget-color-blue">
@@ -85,63 +89,23 @@
 									<div class="col-xs-4">
 										<div class="widget-box widget-color-blue">
 											<div class="widget-body">
-												<div class="widget-main scrollable" data-size="400">
-													
-													<table id="simple-table" class="table table-striped table-bordered table-hover">
-														<thead>
-															<tr>
-																<th>Cant.</th>
-																<th>Precio</th>
-																<th>Dsct.</th>
-																<th>Subtot.</th>
-
-																<th></th>
-															</tr>
-														</thead>
-
-														<tbody>
-															<tr>
-																<td>1</td>
-																<td>S/. 6</td>
-																<td>S/. 6</td>
-																<td>6</td>
-
-																<td>
-																	<div class="hidden-sm hidden-xs btn-group">
-																		<button class="btn btn-xs btn-info">
-																			<i class="ace-icon fa fa-pencil bigger-120"></i>
-																		</button>
-
-																		<button class="btn btn-xs btn-danger">
-																			<i class="ace-icon fa fa-trash-o bigger-120"></i>
-																		</button>
-																	</div>
-																</td>
-															</tr>
-														</tbody>
-													</table>
+												<div class="widget-main scrollable" data-size="250">
+													<div id="div_listar_ventas_detalle"></div>													
 												</div>
 											</div>
 										</div>
 
 										<div class="widget-box widget-color-dark">
-											<div class="widget-header">
-												<h5 class="widget-title bigger lighter">SUBTOTAL <span class="right"> 37.00</span></h5>
-											</div>
-											<div class="widget-header">
-												<h5 class="widget-title bigger lighter">IMPUESTO <span class="right"> 37.00</span></h5>
-											</div>
-											<div class="widget-header">
-												<h5 class="widget-title bigger lighter">SUBTOTAL (S/.) <span class="right"> 37.00</span></h5>
-											</div>
+
+											<div id="div_listar_ventas_detalle_precios"></div>
 
 											<div class="widget-body">
 												<div class="widget-main">
 													<table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-														<tbody>
+														<tbody id="tbodyBTN">
 															<tr>
 																<td rowspan="4">
-																	<button class="btn btn-success btn-block">TERMINAR</button>
+																	<button class="btn btn-success btn-block" id="registrar-venta">REGISTRAR</button>
 																</td>
 															</tr>
 
@@ -229,6 +193,7 @@
 			jQuery(function($) {
 				fn_buscar_ventas_categorias();
 				fn_buscar_ventas_categorias_productos();
+				fn_buscar_ventas_det();
 				$("#ventas").addClass("active");
 				$("#ventas_view").addClass("active");
 			   $("#calendar").datepicker();
