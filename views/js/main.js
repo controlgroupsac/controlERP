@@ -608,39 +608,43 @@ function fn_mostrar_frm_modificar_compras_registro(compra_id){
 /**/
 /**/
 /*VENTAS*/
-$("#registrar-venta").click(function () {
+
+function fn_mostrar_frm_ventas_agregar(){
   var ventas_id = document.getElementById('ventas_id');
   var almacen_id = document.getElementById('almacen_id');
-  var impuesto1 = document.getElementById('impuesto1');
   var valor_neto = document.getElementById('valor_neto');
+  var descuento = document.getElementById('descuentoVenta');
+  var impuesto1 = document.getElementById('impuesto1');
   var total = document.getElementById('total');
 
   var data = {
     ventas_id: ventas_id.value,
     almacen_id: almacen_id.value,
-    impuesto1: impuesto1.value,
     valor_neto: valor_neto.value,
+    descuento: descuento.value,
+    impuesto1: impuesto1.value,
     total: total.value
   };
+
   console.log(data);
-  var respuestaRegistrar = confirm("Realmente desea registrar esta ventas?. \nSi acepta, el documento no podrá ser modificado!");
-  if (respuestaRegistrar){
-    $.ajax({
-      url: '../models/ventas/ventas_registrar.php',
-      type: 'post',
-      data: data,
-      success: function(data){
-        location.href = "ventas_registro.php";
+  $("#div_ventas_agregar").load("../models/ventas/ventas_form_agregar.php", data, function(){
+    $.blockUI({
+      message: $('#div_ventas_agregar'),
+      css:{
+        top: '5%',
+        width: '40%'
       }
-    });
-  }
-});
+    }); 
+    $('.blockOverlay').attr('Ventas','Desbloquear').click($.unblockUI); 
+  });
+};
 
 function fn_cerrar_ventas(){
   $.unblockUI({ 
     onUnblock: function(){
       $("#div_listar_ventas_registro").html("");
       fn_buscar_ventas_registro();
+      fn_buscar_ventas_det();
     }
   }); 
 };
@@ -667,30 +671,70 @@ function fn_buscar_ventas_categorias_productos(){
 
 function fn_buscar_ventas_det(){
   var ventas_id = document.getElementById('ventas_id');
+  var descuento = document.getElementById('descuentoVenta');
+
   $.ajax({
-    url: '../models/ventas/ventas_listar_ventas_det.php?ventas_id=' +ventas_id.value,
+    url: '../models/ventas/ventas_det_listar.php?ventas_id=' +ventas_id.value,
     type: 'get',
     success: function(data){
-      $("#div_listar_ventas_detalle").html(data);
+      $("#div_ventas_det_listar").html(data);
     }
   });
 
   $.ajax({
-    url: '../models/ventas/ventas_listar_ventas_det_precios.php?ventas_id=' +ventas_id.value,
+    url: '../models/ventas/ventas_det_listar_precios.php?ventas_id=' +ventas_id.value+ '&descuento=' +descuento.value,
     type: 'get',
     success: function(data){
-      $("#div_listar_ventas_detalle_precios").html(data);
+      $("#div_ventas_det_listar_precios").html(data);
     }
   });
+}
+
+$("#descuentoVenta").focus(function () {
+  fn_buscar_ventas_det();
+});
+$("#descuentoVenta").blur(function () {
+  fn_buscar_ventas_det();
+});
+
+function fn_mostrar_frm_modificar_ventas_det(ventas_det_id){
+  document.getElementById("")
+  var data = {
+    ventas_det_id: ventas_det_id
+  }
+  $("#div_ventas_det_oculto").load("../models/ventas/ventas_det_form_modificar.php", data, function(){
+    $.blockUI({
+      message: $('#div_ventas_det_oculto'),
+      css:{
+        top: '10%',
+        width: '30%'
+      }
+    }); 
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+};
+
+function fn_eliminar_ventas_det(ventas_det_id){
+  var respuesta = confirm("Desea eliminar este detalle de venta?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/ventas/ventas_det_eliminar.php',
+      data: 'ventas_det_id=' + ventas_det_id,
+      type: 'post',
+      success: function(data){
+        if(data!="")
+          alert(data);
+        fn_buscar_ventas_det();
+      }
+    });
+  }
 }
 
 /*Enviar producto y cantidad a detalle de ventas*/
 function fn_mostrar_frm_agregar_venta_det (producto_id, precio) {
   var ventas_id = document.getElementById('ventas_id');
-  var cantidad = document.getElementById('cantidad');
   var data = {
     ventas_id: ventas_id.value,
-    cantidad: cantidad.value,
     producto_id: producto_id,
     precio: precio
   };

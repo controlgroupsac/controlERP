@@ -17,6 +17,9 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
 		<link rel="stylesheet" href="css/main.css" type="text/css" />
 
+		<!-- page specific plugin styles -->
+		<link rel="stylesheet" href="css/datepicker.min.css" />
+
 		<!-- text fonts -->
 		<link rel="stylesheet" href="fonts/fonts.googleapis.com.css" />
 
@@ -52,25 +55,23 @@
 
 
 								<!-- Small boxes (Stat box) -->
-								<div id="practica">aaaaaaaa</div>
 								<div class="row">
 									<div class="col-xs-8">
-										<h3>
-											<input type="hidden" name="ventas_id" id="ventas_id" value="<?php echo $_GET['ventas_id']; ?>">
-											<input type="hidden" name="almacen_id" id="almacen_id" value="<?php echo $_GET['almacen_id']; ?>">
-											<input type="hidden" name="cantidad" id="cantidad" value="<?php echo @$_GET['cantidad']; ?>">
-											Ventas
-										</h3>
-									</div>
-									<div class="col-xs-8">
 										<div class="row">
+											<div class="col-xs-12">
+												<h3>
+													<input type="hidden" name="ventas_id" id="ventas_id" value="<?php echo $_GET['ventas_id']; ?>">
+													<input type="hidden" name="almacen_id" id="almacen_id" value="<?php echo $_GET['almacen_id']; ?>">
+													Ventas
+												</h3>
+											</div>
 											<!-- <div class="col-xs-12">
 												<span>Cusqueña 620 ml Caja	</span><br>
 												<span>1 * 68,44 = 68,44		</span>
 											</div> -->
 
 											<div class="col-xs-12">
-												<div class="widget-box widget-color-blue">
+												<div class="widget-box">
 													<div class="widget-body">
 														<div class="widget-main scrollable" data-size="400">
 															<div class="tabbable">
@@ -87,24 +88,38 @@
 									</div>
 
 									<div class="col-xs-4">
-										<div class="widget-box widget-color-blue">
+										<div class="widget-box">
 											<div class="widget-body">
 												<div class="widget-main scrollable" data-size="250">
-													<div id="div_listar_ventas_detalle"></div>													
+													<div id="div_ventas_det_listar"></div>
+													<div class="none" id="div_ventas_det_oculto"></div>													
 												</div>
 											</div>
 										</div>
 
-										<div class="widget-box widget-color-dark">
+										<div class="widget-box">
 
-											<div id="div_listar_ventas_detalle_precios"></div>
+											<div class="widget-header">
+											    <h5 class="widget-title bigger lighter">DESCUENTO <span class="right"> 
+											        <input type="text" class="form-control text-right" name="descuentoVenta" id="descuentoVenta" value="0" /> </span>
+											    </h5>
+											</div>
+
+											<div id="div_ventas_det_listar_precios"></div>
 
 											<div class="widget-body">
+												<div class="widget-main">
+													<button class="btn btn-success btn-block" onclick="javascript: fn_mostrar_frm_ventas_agregar();">REGISTRAR</button>
+												</div>
+												<div class="none" id="div_ventas_agregar"></div> <!-- POP UP, el cual agrega nuestra venta! -->
+											</div>
+
+											<!-- <div class="widget-body">
 												<div class="widget-main">
 													<table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
 														<tbody id="tbodyBTN">
 															<tr>
-																<td rowspan="4">
+																<td rowspan="5">
 																	<button class="btn btn-success btn-block" id="registrar-venta">REGISTRAR</button>
 																</td>
 															</tr>
@@ -127,14 +142,14 @@
 																<td><button class="btn btn-inverse btn-block">9</button></td>
 															</tr>
 															<tr>
-																<td colspan="4">
+																<td colspan="3">
 																	<button class="btn btn-inverse btn-block border">0</button>
 																</td>
 															</tr>
 														</tbody>
 													</table>
 												</div>
-											</div>
+											</div> -->
 										</div>
 
 									</div>
@@ -202,6 +217,17 @@
 			   $('.footer').insertAfter('.page-content');
 			
 				$('[data-rel=tooltip]').tooltip(); 
+				
+				//datepicker plugin
+				//link
+				$('.date-picker').datepicker({
+					autoclose: true,
+					todayHighlight: true
+				})
+				//show datepicker when clicking on the icon
+				.next().on(ace.click_event, function(){
+					$(this).prev().focus();
+				});
 			
 				// scrollables
 				$('.scrollable').each(function () {

@@ -23,7 +23,7 @@
                             fn_filtro($_GET['almacen_id']),
                             fn_filtro($_GET['compra_id']),
                             fn_filtro($row_table['producto_id']),
-                            fn_filtro($row_table['cantidad']),
+                            fn_filtro("+".$row_table['cantidad']),
                             fn_filtro(1)
             );
             if(!mysql_query($sql, $fastERP))

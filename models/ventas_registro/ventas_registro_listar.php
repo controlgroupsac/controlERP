@@ -29,14 +29,14 @@
 			<tr>
 				<td><?php $totalRows_table--; echo $totalRows_table; ?></td>
 				<td><?php echo $row_table["almacen"]; ?></td>
-				<td><?php echo $row_table["total"]; ?></td>
+				<td><?php echo number_format($row_table["total"], 2); ?></td>
 				<td>
 					<div class="hidden-sm hidden-xs btn-group">
 						<a class="btn btn-xs btn-yellow tooltip-yellow" data-rel="tooltip" data-placement="left" title="VENDER!" href="ventas.php?ventas_id=<?php echo $row_table['ventas_id']; ?>&almacen_id=<?php echo $row_table['almacen_id']; ?>">
 							<span> <i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </span>
 						</a> 
 					</div>
-<!-- 					<?php if($row_table['estado'] == 1){ ?> 
+ 					<?php if($row_table['estado'] == 1){ ?> 
 						<span class="label label-lg label-yellow arrowed-right" id="registrar-span">En proceso... </span>  
 					<?php } elseif($row_table['estado'] == 2) { ?>
 						<span class=" label label-lg label-pink arrowed-right" id="registrado" >Registrado</span>
@@ -44,7 +44,7 @@
 						<span class=" label label-lg label-success arrowed-right" id="recibido" >Recibido</span>
 					<?php }else { ?>
 						<span class=" label label-lg label-danger arrowed-right" id="rechazado" >Rechazado</span>
-					<?php } ?>-->
+					<?php } ?>
 				</td>
 			</tr>
 			<?php } while ( $row_table = mysql_fetch_assoc($table) ); ?>

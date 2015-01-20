@@ -24,28 +24,28 @@
 				    $row_producto = mysql_fetch_assoc($producto);
 				if($totalRows_producto <= 0){
 
-				}else {
-					do { ?>
-					<li class="tooltip-warning" data-rel="tooltip" data-placement="bottom"  data-original-title="<?php echo $row_producto['producto']; ?>">
-						<a href="javascript: fn_mostrar_frm_agregar_venta_det(<?=$row_producto['producto_id']?>, <?=$row_producto['precio']?>);" data-rel="colorbox">
-							<img width="100" height="100" alt="100x100" src="img/productos/<?php echo $row_categoria['categoria']; ?>.jpg" />
-							<div class="tags">
-								<span class="label-holder">
-									<span class="label label-info arrowed"><?php echo $row_producto['producto']; ?></span>
-								</span>
+					}else {
+						do { ?>
+						<li class="tooltip-warning" data-rel="tooltip" data-placement="bottom"  data-original-title="<?php echo $row_producto['producto']; ?>">
+							<a href="javascript: fn_mostrar_frm_agregar_venta_det(<?=$row_producto['producto_id']?>, <?=$row_producto['precio']?>);" data-rel="colorbox">
+								<img width="100" height="100" alt="100x100" src="img/productos/<?php echo $row_categoria['categoria']; ?>.jpg" />
+								<div class="tags">
+									<span class="label-holder">
+										<span class="label label-info arrowed"><?php echo $row_producto['producto']; ?></span>
+									</span>
 
-								<span class="label-holder">
-									<span class="label label-danger"><?php echo "S/. ".$row_producto['precio'].",00"; ?></span>
-								</span>
+									<span class="label-holder">
+										<span class="label label-danger"><?php echo "S/. ".$row_producto['precio'].",00"; ?></span>
+									</span>
+								</div>
+							</a>
+
+							<div class="tools tools-top in">
+								<span class="badge badge-warning"><?php query_table_campo_comparar("almacen_det", "cantidad", "producto_id", $row_producto['producto_id']); ?></span>
 							</div>
-						</a>
-
-						<div class="tools tools-top in">
-							<span class="badge badge-warning"><?php query_table_campo_comparar("almacen_det", "cantidad", "producto_id", $row_producto['producto_id']); ?></span>
-						</div>
-					</li>
-					<?php } while ($row_producto = mysql_fetch_assoc($producto)); 
-				}
+						</li>
+						<?php } while ($row_producto = mysql_fetch_assoc($producto)); 
+					}
 				?>
 			</ul>
 		</div><!-- PAGE CONTENT ENDS -->
