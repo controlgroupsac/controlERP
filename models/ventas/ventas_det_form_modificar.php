@@ -30,7 +30,7 @@
                 <label class="col-xs-4 no-padding-right" for="producto"><b>producto </b></label>
 
                 <div class="col-xs-7">
-                    <select class="form-control" id="producto_id" name="producto_id">
+                    <select class="chosen-select form-control" id="producto_id" name="producto_id">
                         <?php query_table_option_comparar("SELECT * FROM producto", "producto_id", "producto", $row_table['producto_id']); ?>
                     </select>
                 </div>
@@ -71,6 +71,8 @@
 </form>
 
 <script language="javascript" type="text/javascript">
+    $(".chosen-select").chosen({no_results_text: "Oops, no existe!"}); 
+    
 	function fn_modificar_ventas_det(){
 		var str = $("#frm_ventas_det").serialize();
 		$.ajax({

@@ -165,7 +165,6 @@
 			jQuery(function($) {
 				$("#configuration").addClass("active");
 				$("#configuration_otro").addClass("active");
-				$("#configuration_otro_administracion").addClass("active");
 
 				$('[data-rel=tooltip]').tooltip();
 				

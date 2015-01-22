@@ -1,6 +1,6 @@
 <?php 
     include "../../config/conexion.php"; 
-    include "../../queries/functions.php"; 
+    include("../../queries/query.php"); 
 ?>
 <form action="javascript: fn_agregar_compra_registro();" class="form-horizontal" method="post" id="frm_compra_registro" enctype="multipart/form-data" >
     <input type="hidden" id="compra_id" name="compra_id" value="1" />
@@ -11,7 +11,7 @@
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="proveedor_id"><b>proveedor </b></label>
+                <label class="col-sm-3 control-label" for="proveedor_id"><b>Proveedor </b></label>
 
                 <div class="col-sm-9">
                     <select class="form-control" name="proveedor_id" id="proveedor_id">
@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="almacen_id"><b>almacen </b></label>
+                <label class="col-sm-3 control-label" for="almacen_id"><b>Almacen </b></label>
 
                 <div class="col-sm-9">
                     <select class="form-control" name="almacen_id" id="almacen_id">

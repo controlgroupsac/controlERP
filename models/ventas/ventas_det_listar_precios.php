@@ -36,7 +36,7 @@
     </h5>
 </div>
 <div class="widget-header">
-	<h5 class="widget-title bigger lighter">SUBTOTAL (S/.) <span class="right"> 
+	<h5 class="widget-title bigger lighter">TOTAL (S/.) <span class="right"> 
         <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo $total; ?>" readonly /> </span>
     </h5>
 </div>

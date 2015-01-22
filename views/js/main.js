@@ -626,7 +626,6 @@ function fn_mostrar_frm_ventas_agregar(){
     total: total.value
   };
 
-  console.log(data);
   $("#div_ventas_agregar").load("../models/ventas/ventas_form_agregar.php", data, function(){
     $.blockUI({
       message: $('#div_ventas_agregar'),

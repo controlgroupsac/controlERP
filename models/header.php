@@ -23,6 +23,9 @@
 	  }
 	}
 	$usuario=$_SESSION['usuario'];
+
+	include "../queries/query.php";
+
 ?>
 <div id="navbar" class="navbar navbar-default    navbar-collapse       h-navbar">
 	<script type="text/javascript">
@@ -34,18 +37,18 @@
 			<a href="index.php" class="navbar-brand">
 				<small>
 					<i class="fa fa-leaf"></i>
-					ControlERP
+					<?php query_table_campo("SELECT * FROM empresa", "empresa") ?>
 				</small>
 			</a>
 
 			<button class="pull-right navbar-toggle navbar-toggle-img collapsed" type="button" data-toggle="collapse" data-target=".navbar-buttons,.navbar-menu">
-				<span class="sr-only">Toggle user menu</span>
+				<span class="sr-only"><?php echo $usuario; ?> menu</span>
 
 				<img src="img/avatars/user.jpg" alt="Jason's Photo" />
 			</button>
 
 			<button class="pull-right navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#sidebar">
-				<span class="sr-only">Toggle sidebar</span>
+				<span class="sr-only">Sidebar</span>
 
 				<span class="icon-bar"></span>
 
@@ -57,7 +60,7 @@
 
 				<div class="navbar-buttons navbar-header pull-right" role="navigation">
 					<ul class="nav ace-nav">
-						<li class"grey">
+						<!-- <li class"grey">
 							<a data-toggle="dropdown" class="dropdown-toggle" href="#">
 								<i class="ace-icon fa fa-bell icon-animated-vertical"></i>
 								<span class="badge badge-success">5</span>
@@ -165,7 +168,7 @@
 									</a>
 								</li>
 							</ul>
-						</li>
+						</li> -->
 
 						<li class="light-blue">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
@@ -182,14 +185,14 @@
 								<li>
 									<a href="#">
 										<i class="ace-icon fa fa-cog"></i>
-										Settings
+										Configuración
 									</a>
 								</li>
 
 								<li>
 									<a href="profile.html">
 										<i class="ace-icon fa fa-user"></i>
-										Profile
+										Perfil
 									</a>
 								</li>
 
@@ -198,7 +201,7 @@
 								<li>
 									<a href="<?php echo $logoutAction ?>">
 										<i class="ace-icon fa fa-power-off"></i>
-										Logout
+										Salir
 									</a>
 								</li>
 							</ul>

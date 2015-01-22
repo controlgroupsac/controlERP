@@ -239,34 +239,10 @@
 				</li>
 				
 				<li id="configuration_otro" class="hover">
-					<a href="#" class="dropdown-toggle">
+					<a href="administracion.php">
 						<i class="menu-icon fa fa-caret-right"></i>
-
-						Otro
-						<b class="arrow fa fa-angle-down"></b>
+						Administración
 					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li id="configuration_otro_administracion" class="open hover">
-							<a href="administracion.php">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Administración
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li class="hover">
-							<a href="#">
-								<i class="menu-icon fa fa-caret-right"></i>
-								Two Menus 1
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-					</ul>
 				</li>
 			</ul>
 		</li>

@@ -6,10 +6,14 @@
 	// if(empty($_POST['almacen_id'])) {
 	//   echo "Usted no a llenado todos los campos";
 	//   exit;
-	// } 
-	
-	$fecha = date("YY-mm-dd H:i:s");
-	$sql = sprintf("UPDATE `controlg_controlerp`.`ventas` 
+	// }
+
+
+	/**/
+	/**/
+	/**/
+	$fecha = date("Y-m-d H:i:s");
+	$query_ventas = sprintf("UPDATE `controlg_controlerp`.`ventas` 
 					SET usuario_id='%s', fecha='%s', estado='%s', almacen_id='%s', condicion_pago='%s', fechapago='%s', impuesto1='%s', valor_neto='%s', descuento='%s', total='%s'
 					WHERE ventas_id=%d;",
 					fn_filtro(1),
@@ -25,8 +29,20 @@
 					fn_filtro((int)$_POST['ventas_id'])
 	);
 
-	if(!mysql_query($sql, $fastERP))
-		echo "Error al insertar:\n$sql";
+    mysql_select_db($database_fastERP, $fastERP);
+    $ventas = mysql_query($query_ventas, $fastERP) or die(mysql_error());
+
+	$comprobante_det = sprintf("INSERT INTO `controlg_controlerp`.`comprobante_det` (`comprobante_id`, `ventas_id`, `numero`, `monto`) 
+	                VALUES ('%s', '%s', '%s', '%s');",
+	                fn_filtro($_POST['condicion_pago']),
+	                fn_filtro($_POST['ventas_id']),
+	                fn_filtro($_POST['numero']),
+	                fn_filtro($_POST['total'])
+	);
+
+	if(!mysql_query($comprobante_det, $fastERP))
+		echo "Error al insertar:\n$comprobante_det";
+
 
 
 
@@ -58,14 +74,6 @@
                 echo "Error al insertar:\n$sql";
 
     	} while ( $row_table = mysql_fetch_assoc($table) );
-
-        $sql2 = sprintf("UPDATE `controlg_controlerp`.`ventas` SET estado='%s'
-                         WHERE ventas_id=%d;",
-                         fn_filtro(3),
-                         fn_filtro((int)$_POST['ventas_id'])
-        );
-        if(!mysql_query($sql2, $fastERP))
-            echo "Error al insertar:\n$sql2";
     }
 
 ?>

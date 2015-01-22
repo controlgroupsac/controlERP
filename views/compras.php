@@ -1,6 +1,6 @@
 <?php  
 	include "../config/conexion.php"; 
-    include("../queries/query.php");
+    // include("../queries/query.php");
     $query = "SELECT * FROM `controlg_controlerp`.`compra`
 			  WHERE compra.compra_id = $_GET[compra_id]";
     mysql_select_db($database_fastERP, $fastERP);
@@ -23,6 +23,7 @@
 		<link rel="stylesheet" href="css/main.css" type="text/css" />
 
 		<!-- page specific plugin styles -->
+		<link rel="stylesheet" href="css/chosen.min.css" />
 		<link rel="stylesheet" href="css/datepicker.min.css" />
 
 		<!-- text fonts -->
@@ -256,6 +257,7 @@
 		<script src="js/vendor/bootstrap.min.js"></script>
 
 		<!-- page specific plugin scripts -->
+		<script src="js/vendor/chosen.jquery.min.js"></script>
 
 		<!-- ace scripts -->
 		<script src="js/vendor/ace-elements.min.js"></script>
@@ -295,6 +297,7 @@
 				.next().on(ace.click_event, function(){
 					$(this).prev().focus();
 				});
+
 			
 			   $('#sidebar2').insertBefore('.page-content').ace_sidebar('collapse', true);
 			   $('#navbar').addClass('h-navbar');

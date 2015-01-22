@@ -28,7 +28,7 @@
 						do { ?>
 						<li class="tooltip-warning" data-rel="tooltip" data-placement="bottom"  data-original-title="<?php echo $row_producto['producto']; ?>">
 							<a href="javascript: fn_mostrar_frm_agregar_venta_det(<?=$row_producto['producto_id']?>, <?=$row_producto['precio']?>);" data-rel="colorbox">
-								<img width="100" height="100" alt="100x100" src="img/productos/<?php echo $row_categoria['categoria']; ?>.jpg" />
+								<img width="100" class="opacity02" height="100" alt="100x100" src="img/productos/<?php echo $row_categoria['categoria']; ?>.jpg" />
 								<div class="tags">
 									<span class="label-holder">
 										<span class="label label-info arrowed"><?php echo $row_producto['producto']; ?></span>
@@ -41,7 +41,24 @@
 							</a>
 
 							<div class="tools tools-top in">
-								<span class="badge badge-warning"><?php query_table_campo_comparar("almacen_det", "cantidad", "producto_id", $row_producto['producto_id']); ?></span>
+								<span class="badge badge-warning">
+									<?php  
+										$query = "SELECT SUM(almacen_det.cantidad) AS cantidad
+												  FROM producto, almacen_det
+												  WHERE producto.producto_id = almacen_det.producto_id
+												  AND producto.producto_id = $row_producto[producto_id]" ;
+									    mysql_select_db($database_fastERP, $fastERP);
+									    $cantidad_almacen = mysql_query($query, $fastERP) or die(mysql_error());
+									    $row_cantidad_almacen = mysql_fetch_assoc($cantidad_almacen);
+
+									    if($row_cantidad_almacen['cantidad'] == " " || empty($row_cantidad_almacen['cantidad']))
+									    {
+									    	echo 0;
+									    }else {
+									    	echo $row_cantidad_almacen['cantidad'];
+									    }
+									?>
+								</span>
 							</div>
 						</li>
 						<?php } while ($row_producto = mysql_fetch_assoc($producto)); 

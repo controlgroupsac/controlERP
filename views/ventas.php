@@ -1,6 +1,10 @@
 <?php  
 	include "../config/conexion.php"; 
-	include "../config/basico.php";
+    $query = "SELECT * FROM `controlg_controlerp`.`ventas`
+			  WHERE ventas.ventas_id = $_GET[ventas_id]";
+    mysql_select_db($database_fastERP, $fastERP);
+    $table = mysql_query($query, $fastERP) or die(mysql_error());
+    $row_table = mysql_fetch_assoc($table);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -18,6 +22,7 @@
 		<link rel="stylesheet" href="css/main.css" type="text/css" />
 
 		<!-- page specific plugin styles -->
+		<link rel="stylesheet" href="css/chosen.min.css" />
 		<link rel="stylesheet" href="css/datepicker.min.css" />
 
 		<!-- text fonts -->
@@ -78,6 +83,7 @@
 																<div id="div_listar_categorias"></div>
 																<div id="div_listar_categorias_productos"></div>
 																<br>
+																<div id="practica">aaaaaaaaaaaa</div>
 															</div>
 														</div>
 													</div>
@@ -101,7 +107,7 @@
 
 											<div class="widget-header">
 											    <h5 class="widget-title bigger lighter">DESCUENTO <span class="right"> 
-											        <input type="text" class="form-control text-right" name="descuentoVenta" id="descuentoVenta" value="0" /> </span>
+											        <input type="text" class="form-control text-right" name="descuentoVenta" id="descuentoVenta" value="<?php query_table_campo_comparar("ventas", "descuento", "ventas_id", $row_table['ventas_id']) ?>" /> </span>
 											    </h5>
 											</div>
 
@@ -109,7 +115,7 @@
 
 											<div class="widget-body">
 												<div class="widget-main">
-													<button class="btn btn-success btn-block" onclick="javascript: fn_mostrar_frm_ventas_agregar();">REGISTRAR</button>
+													<button class="btn btn-success btn-block" onclick="javascript: fn_mostrar_frm_ventas_agregar();">CERRAR VENTA</button>
 												</div>
 												<div class="none" id="div_ventas_agregar"></div> <!-- POP UP, el cual agrega nuestra venta! -->
 											</div>
@@ -184,6 +190,7 @@
 		<script src="js/vendor/bootstrap.min.js"></script>
 
 		<!-- page specific plugin scripts -->
+		<script src="js/vendor/chosen.jquery.min.js"></script>
 
 		<!-- ace scripts -->
 		<script src="js/vendor/ace-elements.min.js"></script>

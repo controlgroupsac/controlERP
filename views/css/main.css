@@ -272,7 +272,9 @@ Gradient Background colors
   color: #fff;
 }
 
-
+#producto_id_chosen {
+  width: 250px !important;
+}
 #registrar-venta {
   height: 100%;
   width: 100%;
@@ -286,6 +288,9 @@ Gradient Background colors
 .cienxcien {
   height: 100%;
   width: 100%;
+}
+.opacity02 {
+  opacity: 0.2;
 }
 .right {
   float:  right;
@@ -309,3 +314,7 @@ Gradient Background colors
 .none {
   display: none;
 }
+.uppercase {
+  text-transform: uppercase;
+}
+

@@ -1,6 +1,6 @@
 <?php 
     include "../../config/conexion.php"; 
-    include "../../queries/functions.php"; 
+    include "../../queries/query.php"; 
 ?>
 <form action="javascript: fn_agregar_compra_det();" class="form-horizontal" method="post" id="frm_compra_det" enctype="multipart/form-data" >
     <input type="hidden" id="compra_id" name="compra_id" value="<?php echo $_GET['compra_id']; ?>" />
@@ -14,8 +14,8 @@
                 <label class="col-sm-3 control-label" for="producto_id"><b>producto </b></label>
 
                 <div class="col-sm-9">
-                    <span class=" input-icon">
-                        <select class="form-control" name="producto_id" id="producto_id">
+                    <span class="input-icon">
+                        <select class="chosen-select form-control" name="producto_id" id="producto_id">
                             <?php query_table_option("SELECT * FROM producto", "producto_id", "producto") ?>
                         </select>
                     </span>
@@ -23,7 +23,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="cantidad"><b>cantidad </b></label>
+                <label class="col-sm-3 control-label" for="cantidad"><b>Cantidad </b></label>
 
                 <div class="col-sm-9">
                     <span class="input-icon">
@@ -34,7 +34,7 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="monto"><b>monto </b></label>
+                <label class="col-sm-3 control-label" for="monto"><b>Monto </b></label>
 
                 <div class="col-sm-9">
                     <span class="input-icon">
@@ -60,6 +60,8 @@
     </div>
 </form>
 <script language="javascript" type="text/javascript">
+    $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"}); 
+    
     function fn_agregar_compra_det(){
         var str = $("#frm_compra_det").serialize();
         console.log(str);

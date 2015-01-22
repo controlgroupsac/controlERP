@@ -1,6 +1,6 @@
 <?php  
 	include "../config/conexion.php"; 
-    include("../queries/query.php");
+    // include("../queries/query.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">

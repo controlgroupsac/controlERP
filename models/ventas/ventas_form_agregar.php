@@ -41,38 +41,8 @@
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
 
-            <!-- <div class="form-group">
-                <label class="col-xs-4 control-label no-padding-right" for="neto"><b>neto </b></label>
-
-                <div>
-                    <span class="input-icon">
-                        <input type="text" name="neto" id="neto" placeholder="neto" value="<?php echo $valor_neto; ?>" autofocus readonly required />
-                        <i class="ace-icon fa fa-user"></i>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-xs-4 control-label no-padding-right" for="descuento"><b>descuento </b></label>
-                <div>
-                    <span class="input-icon">
-                        <input type="text" name="descuento" id="descuento" placeholder="descuento" value="0" required />
-                        <i class="ace-icon fa fa-user"></i>
-                    </span>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-xs-4 control-label no-padding-right" for="igv"><b>igv 18%</b></label>
-                <div>
-                    <span class="input-icon">
-                        <input type="text" name="igv" id="igv" placeholder="igv" value="<?php echo $impuesto; ?>" readonly required />
-                        <i class="ace-icon fa fa-user"></i>
-                    </span>
-                </div>
-            </div> -->
-
-            <div class="form-group">
-                <label class="col-xs-4 control-label no-padding-right" for="total"><b>total </b></label>
+            <div class="form-group text-left">
+                <label class="col-xs-4 control-label" for="total"><b>Total </b></label>
                 <div>
                     <span class="input-icon">
                         <input type="text" name="total" id="total" placeholder="total" value="<?php echo $total; ?>" readonly />
@@ -83,7 +53,7 @@
 
 
 
-            <div class="form-group col-xs-6">
+            <div class="form-group col-xs-6 text-right">
                 <div>
                     <label>
                         <input name="pago" id="efectivo" type="radio" class="ace" value="E" checked />
@@ -102,6 +72,8 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
             </div>
+            
+            
 
             <div class="form-group col-xs-6">
             	<div id="efectivo">
@@ -110,13 +82,13 @@
             		    <i class="ace-icon fa fa-user"></i>
             		</span>
             		<span class="input-icon">
-            		    <input type="text" name="cambio" id="cambio" placeholder="cambio"  />
+            		    <input type="text" name="cambio" id="cambio" placeholder="cambio" readonly  />
             		    <i class="ace-icon fa fa-user"></i>
             		</span>
             	</div>
             	<div id="credito">
             		<span class="input-icon">
-            		    <input type="text" class="date-picker" name="fechapago" id="fechapago" placeholder="Fecha Compromiso"  required />
+            		    <input type="text" class="date-picker" name="fechapago" id="fechapago" placeholder="Fecha Compromiso" />
             		    <i class="ace-icon fa fa-user"></i>
             		</span>
             	</div>
@@ -124,39 +96,52 @@
 
 
 
-            <div class="form-group">
-                <label class="col-xs-4 control-label no-padding-right" for="comprobante"><b>comprobante </b></label>
+            <div class="form-group text-left">
+                <label class="col-xs-4 control-label" for="comprobante"><b>Comprobante </b></label>
                 <div>
                     <span class="input-icon">
-                    	<select id="comprobante_tipo_id" name="comprobante_tipo_id">
-                    	    <?php query_table_option("SELECT * FROM comprobante_tipo", "comprobante_tipo_id", "comprobante_tipo"); ?>
+                        <select id="comprobante_tipo_id" name="comprobante_tipo_id">
+                            <option value="">Comprobante</option>
+                    	    <?php @query_table_option("SELECT * FROM comprobante_tipo", "comprobante_tipo_id", "comprobante_tipo"); ?>
                     	</select>
                     </span>
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="col-xs-4 control-label no-padding-right" for="serie"><b>serie </b></label>
+            <div class="form-group text-left">
+                <label class="col-xs-4 control-label" for="serie"><b>Serie </b></label>
                 <div>
                     <span class="input-icon">
-                    	<select id="condicion_pago" name="condicion_pago">
-                    	    <?php query_table_option("SELECT * FROM comprobante", "comprobante_id", "serie"); ?>
-                    	</select>
+                    	<span>
+                            <div id="div_listar_comprobante_tipo"> 
+                                <select name="condicion_pago" id="condicion_pago"> <!-- Al hacer click, muestra en input id="numero" el ultimo número correlativo! -->
+                                    <option value="">Serie</option>
+                                    <?php do { ?>
+                                        <option value="<?php echo @$row_table['comprobante_id']; ?>"><?php echo @$row_table['serie']; ?></option>
+                                    <?php } while ( $row_table = mysql_fetch_assoc($table) ); ?>
+                                </select>
+                            </div>
+                        </span><!-- Lista de todos los tipos de comprobantes mediante AJAX -->
                     </span>
                     <span class="input-icon">
-                        <input type="text" name="numero" id="numero" placeholder="numero"  required />
-                        <i class="ace-icon fa fa-user"></i>
+                        <span id="div_listar_comprobante_pago">
+                            <input type="text" name="numero" id="numero" placeholder="numero" value="<?php echo $row_table['serie']; ?>" readonly required />
+                        </span><!-- Número de serie del el comprobante seleccionado -->
                     </span>
                 </div>
             </div>
 
             <div class="col-xs-12">
                 <div>
-                    <a href="#" class="btn btn-small" data-dismiss="modal" onclick="fn_cerrar_ventas();">Cancelar</a>
+                    <a href="#" class="btn btn-small uppercase" data-dismiss="modal" onclick="fn_cerrar_ventas();">Cancelar</a>
 
                     <button type="submit" class="btn btn-small btn-primary">
                         <i class="fa fa-ok"></i>
-                        Guardar!
+                        IMPRIMIR!
+                    </button>
+                    <button type="submit" class="btn btn-small btn-danger uppercase">
+                        <i class="fa fa-ok"></i>
+                        CERRAR SIN imprimir!
                     </button>
                 </div>
             </div>
@@ -187,9 +172,30 @@
             success: function(data){
                 if(data != "")
                     alert(data);
-				fn_cerrar();
-                location.href = "ventas_registro.php"
+                $("#practica").html(data);
+				fn_cerrar_ventas();
+                // location.href = "ventas_registro.php"
 			}
 		});
 	};
+
+    $("#comprobante_tipo_id").change(function(){/*Funcion para listar todos los tipos de comprobantes...*/
+        var comprobante_tipo_id = document.getElementById('comprobante_tipo_id');
+        console.log(comprobante_tipo_id.value);
+        $.ajax({
+            url: '../models/ventas/ventas_listar_comprobante_tipo.php?comprobante_tipo_id=' +comprobante_tipo_id.value,
+            data: "comprobante_tipo_id=" +comprobante_tipo_id.value,
+            type: 'get',
+            success: function(data){
+              $("#div_listar_comprobante_tipo").html(data);
+            }
+        });
+    });
+
+    $("#pago-efectivo").keyup(function(){
+        var pago = $(this).val();
+        var total = document.getElementById('total').value;
+        var monto = $("#cambio").attr("value", (pago - total));
+        parseFloat(monto).toFixed(2);
+    });
 </script>
