@@ -164,7 +164,7 @@
 
 	function fn_modificar_venta(){
 		var str = $("#frm_ventas").serialize();
-		console.log(str);
+        var ventas_id = document.getElementById('ventas_id');
         $.ajax({
             url: '../models/ventas/ventas_agregar.php',
             data: str,
@@ -172,8 +172,11 @@
             success: function(data){
                 if(data != "")
                     alert(data);
-                $("#practica").html(data);
-				fn_cerrar_ventas();
+                var respuesta = confirm("Desea imprimir esta venta?");
+                if (respuesta){
+                    location.href = "../models/ventas/ventas_imprimir.php?ventas_id=" +ventas_id.value;
+                }
+                fn_cerrar_ventas();
                 // location.href = "ventas_registro.php"
 			}
 		});
@@ -181,7 +184,6 @@
 
     $("#comprobante_tipo_id").change(function(){/*Funcion para listar todos los tipos de comprobantes...*/
         var comprobante_tipo_id = document.getElementById('comprobante_tipo_id');
-        console.log(comprobante_tipo_id.value);
         $.ajax({
             url: '../models/ventas/ventas_listar_comprobante_tipo.php?comprobante_tipo_id=' +comprobante_tipo_id.value,
             data: "comprobante_tipo_id=" +comprobante_tipo_id.value,

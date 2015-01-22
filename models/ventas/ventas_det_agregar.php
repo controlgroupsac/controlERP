@@ -4,8 +4,8 @@
 
 	/*verificamos si las variables se envian*/
 	$query = "SELECT * FROM ventas_det
-              WHERE ventas_det.producto_id = $_POST[producto_id]";
-
+              WHERE ventas_det.producto_id = $_POST[producto_id]
+              AND ventas_det.ventas_id = $_POST[ventas_id]";
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);
@@ -31,7 +31,4 @@
 		if(!mysql_query($sql, $fastERP))
 			echo "Error al insertar el nuevo detalle de ventas:\n$sql";
     }
-
-
-
 ?>

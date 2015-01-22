@@ -83,7 +83,6 @@
 																<div id="div_listar_categorias"></div>
 																<div id="div_listar_categorias_productos"></div>
 																<br>
-																<div id="practica">aaaaaaaaaaaa</div>
 															</div>
 														</div>
 													</div>

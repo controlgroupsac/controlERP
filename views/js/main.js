@@ -516,7 +516,6 @@ $("#recibir").click(function () {
       success: function(data){
         alert("Registrado!");
         $("#proceso-registro").html(data);
-        console.log("OK!");
       }
     });
   }
@@ -526,7 +525,6 @@ $("#rechazar").click(function () {
   var compra_id = document.getElementById('compra_id');
   var data = { compra_id: compra_id.value };
 
-  console.log(data);
   
   var respuesta = confirm("Desea eliminar este compras_registro?");
   if (respuesta){
@@ -537,7 +535,6 @@ $("#rechazar").click(function () {
       success: function(data){
         alert("Registrado!");
         $("#proceso-registro").html(data);
-        console.log("OK!");
       }
     });
   }

@@ -47,7 +47,8 @@
                 <div class="col-sm-9">
                     <span class=" input-icon">
                         <input type="text" class="input-xlarge" name="cantidad" id="cantidad" placeholder="cantidad" value="<?php echo $row_table['cantidad'] ?>" required />
-                        <i class="ace-icon fa fa-number"></i>
+                        <i class="ace-icon fa fa-user"></i>
+                        <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
             </div>
@@ -56,10 +57,9 @@
                 <label class="col-sm-3 control-label" for="monto"><b>monto </b></label>
 
                 <div class="col-sm-9">
-                    <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="monto" id="monto" placeholder="monto" value="<?php echo $row_table['monto'] ?>" required />
-                        <i class="ace-icon fa fa-dollar"></i>
-                    </span>
+                    <div id="div_listar_producto_monto">
+                        <input type="text" class="input-xlarge" name="monto" id="monto" value="<?php echo $row_table['monto'] ?>" placeholder="monto" required />
+                    </div>
                 </div>
             </div>
 
@@ -107,6 +107,18 @@
 			}
 		});
 	};
+
+    $("#producto_id").change(function(){/*Funcion para listar todos los tipos de comprobantes...*/
+        var producto_id = document.getElementById('producto_id');
+        $.ajax({
+            url: '../models/compra/compra_det_listar_producto_monto.php?producto_id=' +producto_id.value,
+            data: "producto_id=" +producto_id.value,
+            type: 'get',
+            success: function(data){
+              $("#div_listar_producto_monto").html(data);
+            }
+        });
+    });
 
 
     $('#frm_compra_det').validate({
