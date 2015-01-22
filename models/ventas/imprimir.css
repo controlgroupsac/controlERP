@@ -1,0 +1,7 @@
+@media print  {
+	.bloque1, .bloque2 {
+		background: orange;
+		display: block;
+		/*width: 50%;*/
+	}
+}

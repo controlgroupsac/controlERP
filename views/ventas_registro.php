@@ -83,7 +83,7 @@
 												</div>
 
 												<div class="widget-body">
-													<div class="widget-main scrollable" data-size="100">
+													<div class="widget-main scrollable" data-size="150">
 														<div id="div_listar_cliente"></div>
 		            									<div id="div_oculto_cliente" class="none"></div>
 													</div>
@@ -115,7 +115,7 @@
 											</div>
 
 											<div class="widget-body">
-												<div class="widget-main scrollable" data-size="300">
+												<div class="widget-main scrollable" data-size="250">
 													<div id="div_listar_ventas_registro"></div>
 	            									<div id="div_oculto_ventas_registro" class="none"></div>
 												</div>

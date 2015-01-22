@@ -51,11 +51,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title><?php query_table_campo("SELECT * FROM empresa", "empresa"); ?></title>
-		<link rel="stylesheet" href="../../views/css/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" href="../../views/css/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" href="imprimir.css">	
 </head>
 <body>
-	<div class="col-xs-12 col-sm-3">
-		<table class='table'>
+	<div class="bloque col-xs-6 col-sm-3">
+		<table class='table table-condensed'>
 			<caption>
 				<h2><?php query_table_campo("SELECT * FROM empresa", "empresa"); ?></h2>
 				<h3><?php echo $row_almacen['almacen']; ?></h3>
@@ -103,10 +104,6 @@
 			</tbody>
 		</table>
 	</div>
-
-
-	<div class="col-lg-12"></div>
-
 
 
 
@@ -157,9 +154,10 @@
     $impuesto = $valor_neto * 0.18;
     $total = ($valor_neto - $_GET['descuento']) + $impuesto ;
 ?>
+	<div class="col-xs-12"></div>
 
-	<div class="col-xs-12 col-sm-3">
-		<table class='table'>
+	<div class="bloque col-xs-6 col-sm-3">
+		<table class='table table-condensed'>
 			<caption>
 				<h2><?php query_table_campo("SELECT * FROM empresa", "empresa"); ?></h2>
 				<h3><?php echo $row_almacen2['almacen']; ?></h3>

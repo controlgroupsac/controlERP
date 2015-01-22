@@ -192,7 +192,7 @@
 									</div><!--/span-->
 
 									<div class="col-xs-12 widget-container-col">
-										<div class="widget-box widget-color-blue">
+										<div class="widget-box widget-color-blue collapsed">
 											<div class="widget-header">
 												<i class="fa fa-table"></i>
 												<h5 class="widget-title"> Lista de Productos</h5>
@@ -212,6 +212,39 @@
 												<div class="widget-main scrollable" data-size="200">
 													<div id="div_listar_producto"></div>
 	            									<div id="div_oculto_producto" class="none"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+
+
+									<!-- Datos de los Productos -->
+								    <div class="col-lg-12">
+										<h2 class="col-sm-5" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina productos para tu empresa.">Gestión de Productos Ensamblados</h2>
+									</div><!--/span-->
+
+									<div class="col-xs-12 widget-container-col">
+										<div class="widget-box widget-color-blue">
+											<div class="widget-header">
+												<i class="fa fa-table"></i>
+												<h5 class="widget-title"> Lista de Productos Ensamblados</h5>
+
+												<div class="widget-toolbar">
+													<a href="#" data-action="collapse">
+														<i class="1 ace-icon fa fa-chevron-up"></i>
+													</a>
+												</div>
+
+												<div class="widget-toolbar no-border">
+													<button class="btn btn-sm btn-success" id="nuevoProductoEnsamblado"> Agregar Producto Ensamblados</button>
+												</div>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main scrollable" data-size="200">
+													<div id="div_listar_producto_ensamblado"></div>
+	            									<div id="div_oculto_producto_ensamblado" class="none"></div>
 												</div>
 											</div>
 										</div>
@@ -267,6 +300,7 @@
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
 			fn_buscar_producto();
+			fn_buscar_producto_ensamblado();
 			fn_buscar_unidad();
 			fn_buscar_moneda();
 			fn_buscar_categoria();

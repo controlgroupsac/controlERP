@@ -114,6 +114,13 @@
 
 											<div class="widget-body">
 												<div class="widget-main">
+													<button class="btn btn-warning btn-block" onclick="javascript: fn_mostrar_frm_ventas_envases();">ENVASES</button>
+												</div>
+												<div class="none" id="div_ventas_envases"></div> <!-- POP UP, el cual agrega nuestra venta! -->
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
 													<button class="btn btn-success btn-block" onclick="javascript: fn_mostrar_frm_ventas_agregar();">CERRAR VENTA</button>
 												</div>
 												<div class="none" id="div_ventas_agregar"></div> <!-- POP UP, el cual agrega nuestra venta! -->

@@ -102,7 +102,7 @@
                     <span class="input-icon">
                         <select id="comprobante_tipo_id" name="comprobante_tipo_id">
                             <option value="">Comprobante</option>
-                    	    <?php @query_table_option("SELECT * FROM comprobante_tipo", "comprobante_tipo_id", "comprobante_tipo"); ?>
+                    	    <?php @query_table_option_comparar("SELECT * FROM comprobante_tipo", "comprobante_tipo_id", "comprobante_tipo", 4); ?>
                     	</select>
                     </span>
                 </div>
@@ -138,10 +138,6 @@
                     <button type="submit" class="btn btn-small btn-primary">
                         <i class="fa fa-ok"></i>
                         IMPRIMIR!
-                    </button>
-                    <button type="submit" class="btn btn-small btn-danger uppercase">
-                        <i class="fa fa-ok"></i>
-                        CERRAR SIN imprimir!
                     </button>
                 </div>
             </div>

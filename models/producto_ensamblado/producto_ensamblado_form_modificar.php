@@ -1,5 +1,5 @@
 <?php
-	if(empty($_POST['producto_id'])){
+	if(empty($_POST['producto_ensamblado_id'])){
 		echo "Por favor no altere el fuente";
 		exit;
 	}
@@ -8,14 +8,14 @@
     include("../../queries/query.php"); 
 
 	$query = "SELECT unidad.unidad, moneda.moneda, 
-                     producto.producto_id, producto.producto, producto.activo, producto.precio, producto.num_serie, producto.notas, 
+                     producto_ensamblado.producto_ensamblado_id, producto_ensamblado.producto, producto_ensamblado.activo, producto_ensamblado.precio, producto_ensamblado.num_serie, producto_ensamblado.notas, 
                      categoria.categoria, imp_tipo.descripcion
-              FROM producto , unidad , moneda , categoria , imp_tipo 
-              WHERE producto.producto_id = $_POST[producto_id]
-              AND producto.unidad_id = unidad.unidad_id 
-              AND producto.moneda_id = moneda.moneda_id 
-              AND producto.categoria_id = categoria.categoria_id 
-              AND producto.imp_tipo_id = imp_tipo.imp_tipo_id";
+              FROM producto_ensamblado , unidad , moneda , categoria , imp_tipo 
+              WHERE producto_ensamblado.producto_ensamblado_id = $_POST[producto_ensamblado_id]
+              AND producto_ensamblado.unidad_id = unidad.unidad_id 
+              AND producto_ensamblado.moneda_id = moneda.moneda_id 
+              AND producto_ensamblado.categoria_id = categoria.categoria_id 
+              AND producto_ensamblado.imp_tipo_id = imp_tipo.imp_tipo_id";
 
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
@@ -26,18 +26,18 @@
 		exit;
 	}
 ?>
-<form action="javascript: fn_modificar_producto();" method="post" id="frm_producto" enctype="multipart/form-data" >
-    <input type="hidden" class="input-xlarge" name="producto_id" id="producto_id" value="<?php echo $row_table['producto_id']; ?>" />
+<form action="javascript: fn_modificar_producto_ensamblado();" method="post" id="frm_producto_ensamblado" enctype="multipart/form-data" >
+    <input type="hidden" name="producto_ensamblado_id" id="producto_ensamblado_id" value="<?php echo $row_table['producto_ensamblado_id']; ?>" />
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_producto();">&times;</button>
-        <h4 class="blue bigger">Modificar producto</h4>
+        <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_producto_ensamblado();">&times;</button>
+        <h4 class="blue bigger">Modificar Producto Ensamblado</h4>
     </div>
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
             <div class="col-xs-12">
                 <div class="col-xs-8">
                     <div class="form-group">
-                        <label class="control-label" for="producto"><b>producto </b></label>
+                        <label class="control-label" for="producto"><b>Producto Ensamblado </b></label>
 
                         <div>
                             <span class=" input-icon">
@@ -165,7 +165,7 @@
 
             <div class="col-xs-12">
                 <div>
-                    <a href="#" class="btn btn-small" data-dismiss="modal" onclick="fn_cerrar_producto();">Cancelar</a>
+                    <a href="#" class="btn btn-small" data-dismiss="modal" onclick="fn_cerrar_producto_ensamblado();">Cancelar</a>
 
                     <button type="submit" class="btn btn-small btn-primary">
                         <i class="fa fa-ok"></i>
@@ -181,26 +181,26 @@
 
 <script language="javascript" type="text/javascript">
 	$(document).ready(function(){
-		$("#frm_producto").validate({
+		$("#frm_producto_ensamblado").validate({
 			submitHandler: function(form) {
-				var respuesta = confirm('\xBFDesea realmente modificar este producto?')
+				var respuesta = confirm('\xBFDesea realmente modificar este producto_ensamblado?')
 				if (respuesta)
 					form.submit();
 			}
 		});
 	});
 	
-	function fn_modificar_producto(){
-		var str = $("#frm_producto").serialize();
+	function fn_modificar_producto_ensamblado(){
+		var str = $("#frm_producto_ensamblado").serialize();
 		$.ajax({
-			url: '../models/producto/producto_modificar.php',
+			url: '../models/producto_ensamblado/producto_ensamblado_modificar.php',
 			data: str,
 			type: 'post',
 			success: function(data){
 				if(data != "")
 					alert(data);
-				fn_cerrar();
-				fn_buscar_producto();
+				fn_cerrar_producto_ensamblado();
+				fn_buscar_producto_ensamblado();
 			}
 		});
 	};
@@ -244,12 +244,12 @@
         //{type: 'file', name: 'hello.txt'}
     //]);
 
-    $('#frm_producto').validate({
+    $('#frm_producto_ensamblado').validate({
         errorElement: 'span',
         errorClass: 'help-inline',
         focusInvalid: false,
         rules: {
-            producto: {
+            producto_ensamblado: {
                 required: true
             },
             precio: {
@@ -258,8 +258,8 @@
         },
 
         messages: {
-            producto: {
-                required: "<a data-original-title='The last tip!' title='Ingresa un producto válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
+            producto_ensamblado: {
+                required: "<a data-original-title='The last tip!' title='Ingresa un producto_ensamblado válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
             },
             precio: {
                 required: "<a data-original-title='The last tip!' title='Ingresa un precio válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"

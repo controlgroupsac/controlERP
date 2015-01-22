@@ -8,22 +8,20 @@
 	  exit;
 	}
 
-	if (isset($_POST['kit'])) { $kit = 1; }else{ $kit = 0; }
 
 	@$nombreimagen=$_FILES['imagen']['name'];
 	@$ruta=$_FILES['imagen']['tmp_name'];
 	@$imagen =  "images/productos/".$nombreimagen;
 	@copy($ruta, $imagen);
 	
-	$sql = sprintf("INSERT INTO `controlg_controlerp`.`producto` (`producto`, `unidad_id`, `moneda_id`, `categoria_id`, `imp_tipo_id`, `activo`, `kit`, `num_serie`, `precio`, `imagen`, `notas`) 
-	                VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %d, '%s', '%s', '%s', '%s');",
+	$sql = sprintf("INSERT INTO `controlg_controlerp`.`producto` (`producto`, `unidad_id`, `moneda_id`, `categoria_id`, `imp_tipo_id`, `activo`, `num_serie`, `precio`, `imagen`, `notas`) 
+	                VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %d, '%s', '%s', '%s');",
 					fn_filtro($_POST['producto']),
 					fn_filtro($_POST['unidad_id']),
 					fn_filtro($_POST['moneda_id']),
 					fn_filtro($_POST['categoria_id']),
 					fn_filtro($_POST['imp_tipo_id']),
 					fn_filtro($_POST['activo']),
-					fn_filtro($kit),
 					fn_filtro($_POST['num_serie']),
 					fn_filtro($_POST['precio']),
 					fn_filtro($imagen),

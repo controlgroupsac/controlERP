@@ -7,9 +7,9 @@
 	include "../../config/conexion.php"; 
     include("../../queries/query.php"); 
 
-	$query = "SELECT ventas_det.cantidad, ventas_det.producto_id, ventas_det.precio, ventas_det.ventas_det_id, producto.producto
-              FROM ventas_det , producto
-              WHERE ventas_det.producto_id = producto.producto_id 
+	$query = "SELECT ventas_det.cantidad, ventas_det.producto_id, ventas_det.precio, ventas_det.ventas_det_id, producto_ensamblado.producto
+              FROM ventas_det , producto_ensamblado
+              WHERE ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id 
               AND ventas_det.ventas_det_id = $_POST[ventas_det_id]";
 
     mysql_select_db($database_fastERP, $fastERP);
@@ -17,6 +17,12 @@
     $row_table = mysql_fetch_assoc($table);
     $totalRows_table = mysql_num_rows($table);
 ?>
+<style type="text/css">
+    .chosen-container, [class*=chosen-container] {
+        vertical-align: middle;
+        width: 250px !important;
+    }
+</style>
 <form action="javascript: fn_modificar_ventas_det();" class="form-horizontal" method="post" id="frm_ventas_det" enctype="multipart/form-data" >
     <input type="hidden" name="ventas_det_id" id="ventas_det_id" value="<?php echo $row_table['ventas_det_id']; ?>" />
     <div class="modal-header">
@@ -27,11 +33,11 @@
         <div class="row-fluid">
 
             <div class="form-group">
-                <label class="col-xs-4 no-padding-right" for="producto"><b>producto </b></label>
+                <label class="col-xs-4 no-padding-right" for="producto_id"><b>producto </b></label>
 
                 <div class="col-xs-7">
                     <select class="chosen-select form-control" id="producto_id" name="producto_id">
-                        <?php query_table_option_comparar("SELECT * FROM producto", "producto_id", "producto", $row_table['producto_id']); ?>
+                        <?php query_table_option_comparar("SELECT * FROM producto_ensamblado", "producto_ensamblado_id", "producto", $row_table['producto_id']); ?>
                     </select>
                 </div>
             </div> 

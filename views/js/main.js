@@ -157,6 +157,67 @@ function fn_mostrar_frm_modificar_producto(producto_id){
   });
 };
 
+/*PRODUCTO_ensamblado DETALLE*/
+function fn_cerrar_producto_ensamblado(){
+  $.unblockUI({ 
+    onUnblock: function(){
+      fn_buscar_producto_ensamblado();
+    }
+  }); 
+};
+$("#nuevoProductoEnsamblado").click(function () {
+  $("#div_oculto_producto_ensamblado").load("../models/producto_ensamblado/producto_ensamblado_form_agregar.php", function(){
+    $.blockUI({
+      message: $('#div_oculto_producto_ensamblado'),
+      css:{
+        top: '5%',
+        width: '40%',
+      }
+    });
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+});
+
+function fn_buscar_producto_ensamblado(){
+  var str = $("#frm_buscar_producto_ensamblado").serialize();
+  console.log("OK!" +str);
+  $.ajax({
+    url: '../models/producto_ensamblado/producto_ensamblado_listar.php',
+    type: 'get',
+    data: str,
+    success: function(data){
+      $("#div_listar_producto_ensamblado").html(data);
+    }
+  });
+}
+function fn_eliminar_producto_ensamblado(producto_ensamblado_id){
+  var respuesta = confirm("Desea eliminar este producto_ensamblado?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/producto_ensamblado/producto_ensamblado_eliminar.php',
+      data: 'producto_ensamblado_id=' + producto_ensamblado_id,
+      type: 'post',
+      success: function(data){
+        if(data!="")
+          alert(data);
+        fn_buscar_producto_ensamblado()
+      }
+    });
+  }
+}
+function fn_mostrar_frm_modificar_producto_ensamblado(producto_ensamblado_id){
+  $("#div_oculto_producto_ensamblado").load("../models/producto_ensamblado/producto_ensamblado_form_modificar.php", {producto_ensamblado_id: producto_ensamblado_id}, function(){
+    $.blockUI({
+      message: $('#div_oculto_producto_ensamblado'),
+      css:{
+        top: '5%',
+        width: '40%'
+      }
+    }); 
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+};
+
 /**/
 /**/
 /**/
@@ -669,6 +730,26 @@ function fn_mostrar_frm_modificar_compras_registro(compra_id){
 /**/
 /**/
 /*VENTAS*/
+
+function fn_mostrar_frm_ventas_envases(){
+  var ventas_id = document.getElementById('ventas_id');
+
+  var data = {
+    ventas_id: ventas_id.value
+  };
+
+  $("#div_ventas_envases").load("../models/ventas/ventas_form_envases.php", data, function(){
+    $.blockUI({
+      message: $('#div_ventas_envases'),
+      css:{
+        left: '20%',
+        top: '5%',
+        width: '50%'
+      }
+    }); 
+    $('.blockOverlay').attr('Ventas','Desbloquear').click($.unblockUI); 
+  });
+};
 
 function fn_mostrar_frm_ventas_agregar(){
   var ventas_id = document.getElementById('ventas_id');

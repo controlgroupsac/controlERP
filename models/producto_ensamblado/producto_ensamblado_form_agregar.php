@@ -1,47 +1,23 @@
-<?php
-	if(empty($_POST['producto_id'])){
-		echo "Por favor no altere el fuente";
-		exit;
-	}
-
-	include "../../config/conexion.php"; 
-    include("../../queries/query.php"); 
-
-	$query = "SELECT unidad.unidad, moneda.moneda, 
-                     producto.producto_id, producto.producto, producto.activo, producto.precio, producto.num_serie, producto.notas, 
-                     categoria.categoria, imp_tipo.descripcion
-              FROM producto , unidad , moneda , categoria , imp_tipo 
-              WHERE producto.producto_id = $_POST[producto_id]
-              AND producto.unidad_id = unidad.unidad_id 
-              AND producto.moneda_id = moneda.moneda_id 
-              AND producto.categoria_id = categoria.categoria_id 
-              AND producto.imp_tipo_id = imp_tipo.imp_tipo_id";
-
-    mysql_select_db($database_fastERP, $fastERP);
-    $table = mysql_query($query, $fastERP) or die(mysql_error());
-    $row_table = mysql_fetch_assoc($table);
-    $totalRows_table = mysql_num_rows($table);
-	if ($totalRows_table == 0){
-		echo "No existen detalles de compras con ese ID";
-		exit;
-	}
+<?php 
+    include "../../config/conexion.php"; 
+    include "../../queries/functions.php"; 
 ?>
-<form action="javascript: fn_modificar_producto();" method="post" id="frm_producto" enctype="multipart/form-data" >
-    <input type="hidden" class="input-xlarge" name="producto_id" id="producto_id" value="<?php echo $row_table['producto_id']; ?>" />
+<form action="javascript: fn_agregar_producto();" method="post" id="frm_producto" enctype="multipart/form-data" >
+    <input type="hidden" id="fecha_registro" name="fecha_registro" value="<?php echo date("Y/m/d H:i:s"); ?>" />
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_producto();">&times;</button>
-        <h4 class="blue bigger">Modificar producto</h4>
+        <h4 class="blue bigger">Agregar Producto Ensamblado</h4>
     </div>
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
             <div class="col-xs-12">
                 <div class="col-xs-8">
                     <div class="form-group">
-                        <label class="control-label" for="producto"><b>producto </b></label>
+                        <label class="control-label" for="producto"><b>Producto Ensamblado</b></label>
 
                         <div>
                             <span class=" input-icon">
-                                <input type="text" class="input-xlarge" name="producto" id="producto" value="<?php echo $row_table['producto']; ?>" />
+                                <input type="text" class="input-xlarge uppercase" name="producto" id="producto" placeholder="Digite su producto" autofocus />
                                 <i class="ace-icon fa fa-user"></i>
                             </span>
                         </div>
@@ -112,7 +88,7 @@
 
                     <div>
                         <span class="input-icon">
-                            <input type="text" class="input-xlarge" name="num_serie" id="num_serie" placeholder="Numero de serie" value="<?php echo $row_table['num_serie']; ?>" />
+                            <input type="text" class="input-xlarge uppercase" name="num_serie" id="num_serie" placeholder="Numero de serie" value="" />
                             <i class="ace-icon fa fa-user"></i>
                         </span>
                     </div>
@@ -121,7 +97,7 @@
                 <div class="form-group col-xs-4">
                     <div>
                         <span class="input-icon">
-                            <input type="text" class="input-small" name="precio" id="precio" placeholder="S/. 0.00" value="<?php echo $row_table['precio']; ?>" />
+                            <input type="text" class="input-small" name="precio" id="precio" placeholder="S/. 0.00" value="" />
                             <i class="ace-icon fa fa-user"></i>
                         </span>
                     </div>
@@ -130,16 +106,17 @@
     
             <div class="col-xs-12"> 
                 <div class="form-group col-xs-6">
+                    <br><br>
                     <label for="estado"><b>Estado</b></label>
 
                     <div>
                         <label>
-                            <input name="activo" type="radio" class="ace" value="1" <?php if($row_table['activo'] == 1){ echo "checked"; } ?> />
+                            <input name="activo" type="radio" class="ace" value="1" checked />
                             <span class="lbl"><strong> Activo</strong></span>
                         </label>
                         &nbsp;&nbsp; &nbsp;&nbsp;
                         <label>
-                            <input name="activo" type="radio" class="ace" value="0" <?php if($row_table['activo'] == 0){ echo "checked"; } ?> />
+                            <input name="activo" type="radio" class="ace" value="0">
                             <span class="lbl"><strong> Inactivo</strong></span>
                         </label>
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -156,9 +133,7 @@
             <div class="col-xs-12">
                 <div>
                     <span class="input-icon">
-                        <textarea name="notas" id="notas" cols="60" rows="2" placeholder="Agregue una nota aquí...">
-                            <?php echo $row_table['notas']; ?>
-                        </textarea>
+                        <textarea name="notas" id="notas" cols="60" rows="2" class="uppercase" placeholder="Agregue una nota aquí..."></textarea>
                     </span>
                 </div>
             </div>
@@ -169,42 +144,30 @@
 
                     <button type="submit" class="btn btn-small btn-primary">
                         <i class="fa fa-ok"></i>
-                        Guardar!
+                        Agregar
                     </button>
                 </div>
-                <input type="hidden" name="MM_insert" value="<?php echo $row_table['']; ?>to">
+                <input type="hidden" name="MM_insert" value="frm_producto">
 
             </div>
         </div>
     </div>
 </form>
-
-<script language="javascript" type="text/javascript">
-	$(document).ready(function(){
-		$("#frm_producto").validate({
-			submitHandler: function(form) {
-				var respuesta = confirm('\xBFDesea realmente modificar este producto?')
-				if (respuesta)
-					form.submit();
-			}
-		});
-	});
-	
-	function fn_modificar_producto(){
-		var str = $("#frm_producto").serialize();
-		$.ajax({
-			url: '../models/producto/producto_modificar.php',
-			data: str,
-			type: 'post',
-			success: function(data){
-				if(data != "")
-					alert(data);
-				fn_cerrar();
-				fn_buscar_producto();
-			}
-		});
-	};
-
+<script type="text/javascript">
+    function fn_agregar_producto(){
+        var str = $("#frm_producto").serialize();
+        $.ajax({
+            url: '../models/producto_ensamblado/producto_ensamblado_agregar.php',
+            data: str,
+            type: 'post',
+            success: function(data){
+                if(data != "")
+                    alert(data);
+                fn_cerrar_producto_ensamblado();
+                fn_buscar_producto_ensamblado();
+            }
+        });
+    };
     
     $('#imagen').ace_file_input({
         style:'well',

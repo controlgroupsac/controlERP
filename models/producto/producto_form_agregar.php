@@ -17,7 +17,7 @@
 
                         <div>
                             <span class=" input-icon">
-                                <input type="text" class="input-xlarge" name="producto" id="producto" placeholder="Digite su producto" autofocus />
+                                <input type="text" class="input-xlarge uppercase" name="producto" id="producto" placeholder="Digite su producto" autofocus />
                                 <i class="ace-icon fa fa-user"></i>
                             </span>
                         </div>
@@ -88,7 +88,7 @@
 
                     <div>
                         <span class="input-icon">
-                            <input type="text" class="input-xlarge" name="num_serie" id="num_serie" placeholder="Numero de serie" value="" />
+                            <input type="text" class="input-xlarge uppercase" name="num_serie" id="num_serie" placeholder="Numero de serie" value="" />
                             <i class="ace-icon fa fa-user"></i>
                         </span>
                     </div>
@@ -105,7 +105,8 @@
             </div>
     
             <div class="col-xs-12"> 
-                <div class="form-group col-xs-3">
+                <div class="form-group col-xs-6">
+                    <br><br>
                     <label for="estado"><b>Estado</b></label>
 
                     <div>
@@ -122,17 +123,6 @@
                     </div>
                 </div>
 
-                <div class="form-group col-xs-3">
-                    <label for="kit"><b>Kit</b></label>
-
-                    <div>
-                        <label>
-                            <input name="kit" name="kit" class="ace ace-switch ace-switch-5" type="checkbox" />
-                            <span class="lbl"></span>
-                        </label>
-                    </div>
-                </div>
-
                 <div class="form-group col-xs-6">
                     <div class="">
                         <input multiple="" type="file" name="imagen"id="imagen" />
@@ -143,7 +133,7 @@
             <div class="col-xs-12">
                 <div>
                     <span class="input-icon">
-                        <textarea name="notas" id="notas" cols="60" rows="2" placeholder="Agregue una nota aquí..."></textarea>
+                        <textarea name="notas" id="notas" cols="60" rows="2" class="uppercase" placeholder="Agregue una nota aquí..."></textarea>
                     </span>
                 </div>
             </div>
@@ -164,9 +154,6 @@
     </div>
 </form>
 <script type="text/javascript">
-    window.onload = function() {
-      var producto = document.getElementById("producto").focus();
-    }
     function fn_agregar_producto(){
         var str = $("#frm_producto").serialize();
         $.ajax({

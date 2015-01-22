@@ -10,5 +10,6 @@
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);
     $row_table = mysql_fetch_assoc($table);
+    $ultimo_numero = @$row_table['ultimo_numero'] + 1;
 ?>
-<input type="text" name="numero" id="numero" placeholder="numero" value="<?php echo @$row_table['ultimo_numero']; ?>" readonly required />
+<input type="text" name="numero" id="numero" placeholder="numero" value="<?php echo $ultimo_numero; ?>" readonly required />

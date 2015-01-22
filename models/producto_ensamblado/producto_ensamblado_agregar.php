@@ -8,13 +8,14 @@
 	  exit;
 	}
 
+
 	@$nombreimagen=$_FILES['imagen']['name'];
 	@$ruta=$_FILES['imagen']['tmp_name'];
 	@$imagen =  "images/productos/".$nombreimagen;
 	@copy($ruta, $imagen);
 	
-	$sql = sprintf("UPDATE `controlg_controlerp`.`producto` SET producto='%s', unidad_id='%s', moneda_id='%s', categoria_id='%s', imp_tipo_id='%s', activo='%s', num_serie='%s', precio='%s', imagen='%s', notas='%s'
-					WHERE producto_id=%d;",
+	$sql = sprintf("INSERT INTO `controlg_controlerp`.`producto_ensamblado` (`producto`, `unidad_id`, `moneda_id`, `categoria_id`, `imp_tipo_id`, `activo`, `num_serie`, `precio`, `imagen`, `notas`) 
+	                VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %d, '%s', '%s', '%s');",
 					fn_filtro($_POST['producto']),
 					fn_filtro($_POST['unidad_id']),
 					fn_filtro($_POST['moneda_id']),
@@ -24,12 +25,11 @@
 					fn_filtro($_POST['num_serie']),
 					fn_filtro($_POST['precio']),
 					fn_filtro($imagen),
-					fn_filtro($_POST['notas']),
-					fn_filtro((int)$_POST['producto_id'])
+					fn_filtro($_POST['notas'])
 	);
 
 	if(!mysql_query($sql, $fastERP))
-		echo "Error al modificar el detalle de compra:\n$sql";
+		echo "Error al insertar el nuevo producto:\n$sql";
 
 	exit;
 ?>

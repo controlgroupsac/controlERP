@@ -14,11 +14,10 @@
 		<div>
 			<ul class="ace-thumbnails clearfix">
 				<?php  
-					$query = "SELECT producto.producto_id, producto.producto, producto.precio
-							  FROM producto, categoria
-							  WHERE producto.categoria_id = categoria.categoria_id
-							  AND producto.categoria_id = $row_categoria[categoria_id]
-							  AND producto.kit = 1" ;
+					$query = "SELECT producto_ensamblado.producto_ensamblado_id, producto_ensamblado.producto, producto_ensamblado.precio
+							  FROM producto_ensamblado, categoria
+							  WHERE producto_ensamblado.categoria_id = categoria.categoria_id
+							  AND producto_ensamblado.categoria_id = $row_categoria[categoria_id]" ;
 				    mysql_select_db($database_fastERP, $fastERP);
 				    $producto = mysql_query($query, $fastERP) or die(mysql_error());
     				$totalRows_producto = mysql_num_rows($producto);
@@ -28,7 +27,7 @@
 					}else {
 						do { ?>
 						<li class="tooltip-warning" data-rel="tooltip" data-placement="bottom"  data-original-title="<?php echo $row_producto['producto']; ?>">
-							<a href="javascript: fn_mostrar_frm_agregar_venta_det(<?=$row_producto['producto_id']?>, <?=$row_producto['precio']?>);" data-rel="colorbox">
+							<a href="javascript: fn_mostrar_frm_agregar_venta_det(<?=$row_producto['producto_ensamblado_id']?>, <?=$row_producto['precio']?>);" data-rel="colorbox">
 								<img width="100" class="opacity02" height="100" alt="100x100" src="img/productos/<?php echo $row_categoria['categoria']; ?>.jpg" />
 								<div class="tags">
 									<span class="label-holder">
@@ -45,9 +44,9 @@
 								<span class="badge badge-warning">
 									<?php  
 										$query = "SELECT SUM(almacen_det.cantidad) AS cantidad
-												  FROM producto, almacen_det
-												  WHERE producto.producto_id = almacen_det.producto_id
-												  AND producto.producto_id = $row_producto[producto_id]" ;
+												  FROM producto_ensamblado, almacen_det
+												  WHERE producto_ensamblado.producto_ensamblado_id = almacen_det.producto_id
+												  AND producto_ensamblado.producto_ensamblado_id = $row_producto[producto_ensamblado_id]" ;
 									    mysql_select_db($database_fastERP, $fastERP);
 									    $cantidad_almacen = mysql_query($query, $fastERP) or die(mysql_error());
 									    $row_cantidad_almacen = mysql_fetch_assoc($cantidad_almacen);

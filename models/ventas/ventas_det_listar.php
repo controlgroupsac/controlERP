@@ -1,11 +1,11 @@
 <?php  
 	include "../../config/conexion.php"; 
     include("../../queries/query.php"); 
-    $query = "SELECT ventas_det.ventas_id, ventas_det.cantidad, ventas_det.precio, ventas_det.ventas_det_id, ventas.descuento, producto.producto
-			  FROM ventas_det , ventas , producto
+    $query = "SELECT ventas_det.ventas_id, ventas_det.cantidad, ventas_det.precio, ventas_det.ventas_det_id, ventas.descuento, producto_ensamblado.producto
+			  FROM ventas_det , ventas , producto_ensamblado
 			  WHERE ventas_det.ventas_id = $_GET[ventas_id]
 			  AND ventas_det.ventas_id = ventas.ventas_id 
-			  AND ventas_det.producto_id = producto.producto_id
+			  AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
 			  ORDER BY `ventas_det`.ventas_det_id DESC" ;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
