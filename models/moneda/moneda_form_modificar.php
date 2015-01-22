@@ -22,12 +22,12 @@
     <input type="hidden" class="input-xlarge" name="moneda_id" id="moneda_id" value="<?php echo $row_table['moneda_id']; ?>" />
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_producto();">&times;</button>
-        <h4 class="blue bigger">Modificar undiad</h4>
+        <h4 class="blue bigger">Modificar Moneda</h4>
     </div>
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="moneda"><b>moneda </b></label>
+                <label class="col-sm-3 control-label" for="moneda"><b>Moneda </b></label>
 
                 <div class="col-sm-9">
                     <span class=" input-icon">

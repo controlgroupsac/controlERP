@@ -11,11 +11,11 @@
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="unidad"><b>unidad </b></label>
+                <label class="col-sm-3 control-label" for="unidad"><b>Unidad </b></label>
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="unidad" id="unidad" placeholder="unidad" value="unidad" required />
+                        <input type="text" class="input-xlarge" name="unidad" id="unidad" placeholder="unidad" required />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -26,7 +26,7 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="abrev" id="abrev" placeholder="abrev" value="abrev" required />
+                        <input type="text" class="input-xlarge" name="abrev" id="abrev" placeholder="abrev. Ej. (S/. )" required />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>

@@ -10,11 +10,11 @@
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="categoria"><b>categoria </b></label>
+                <label class="col-sm-3 control-label" for="categoria"><b>Categoria </b></label>
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="categoria" id="categoria" placeholder="categoria" value="categoria" required />
+                        <input type="text" class="input-xlarge" name="categoria" id="categoria" placeholder="categoria" required />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>

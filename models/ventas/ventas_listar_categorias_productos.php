@@ -17,7 +17,8 @@
 					$query = "SELECT producto.producto_id, producto.producto, producto.precio
 							  FROM producto, categoria
 							  WHERE producto.categoria_id = categoria.categoria_id
-							  AND producto.categoria_id = $row_categoria[categoria_id]" ;
+							  AND producto.categoria_id = $row_categoria[categoria_id]
+							  AND producto.kit = 1" ;
 				    mysql_select_db($database_fastERP, $fastERP);
 				    $producto = mysql_query($query, $fastERP) or die(mysql_error());
     				$totalRows_producto = mysql_num_rows($producto);

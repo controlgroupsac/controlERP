@@ -273,6 +273,70 @@ function fn_mostrar_frm_modificar_moneda(moneda_id){
 /**/
 /**/
 /**/
+/*cliente*/
+function fn_cerrar_cliente(){
+  $.unblockUI({  
+    onUnblock: function(){
+      fn_buscar_cliente();
+    }
+  }); 
+};
+$("#nuevoCliente").click(function () {
+  $("#div_oculto_cliente").load("../models/cliente/cliente_form_agregar.php", function(){
+    $.blockUI({
+      message: $('#div_oculto_cliente'),
+      css:{
+        top: '5%',
+        width: '30%',
+      }
+    });
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+});
+
+function fn_buscar_cliente(){
+  var str = $("#frm_buscar_cliente").serialize();
+  $.ajax({
+    url: '../models/cliente/cliente_listar.php',
+    type: 'get',
+    data: str,
+    success: function(data){
+      $("#div_listar_cliente").html(data);
+    }
+  });
+}
+function fn_eliminar_cliente(cliente_id){
+  var respuesta = confirm("Desea eliminar este cliente?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/cliente/cliente_eliminar.php',
+      data: 'cliente_id=' + cliente_id,
+      type: 'post',
+      success: function(data){
+        if(data!="")
+          alert(data);
+        fn_buscar_cliente()
+      }
+    });
+  }
+}
+function fn_mostrar_frm_modificar_cliente(cliente_id){
+  $("#div_oculto_cliente").load("../models/cliente/cliente_form_modificar.php", {cliente_id: cliente_id}, function(){
+    $.blockUI({
+      message: $('#div_oculto_cliente'),
+      css:{
+        top: '5%',
+        width: '40%'
+      }
+    }); 
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+};
+
+
+/**/
+/**/
+/**/
 /*categoria*/
 $("#nuevaCategoria").click(function () {
   $("#div_oculto_categoria").load("../models/categoria/categoria_form_agregar.php", function(){

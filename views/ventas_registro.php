@@ -19,6 +19,7 @@
 		<link rel="stylesheet" href="css/main.css" type="text/css" />
 
 		<!-- page specific plugin styles -->
+		<link rel="stylesheet" href="css/chosen.min.css" />
 		<link rel="stylesheet" href="css/datepicker.min.css" />
 
 		<!-- text fonts -->
@@ -57,6 +58,40 @@
 
 								<!-- Small boxes (Stat box) -->
 								<div class="row" id="div_compra_registro">
+
+								    <div class="col-lg-12">
+									<!-- Datos de los Productos -->
+									    <div class="col-lg-12">
+											<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina Clientes.">Clientes</h2>
+										</div><!--/span-->
+
+										<div class="col-xs-12 widget-container-col">
+											<div class="widget-box widget-color-blue">
+												<div class="widget-header">
+													<i class="fa fa-table"></i>
+													<h5 class="widget-title"> Lista de clientes</h5>
+
+													<div class="widget-toolbar">
+														<a href="#" data-action="collapse">
+															<i class="1 ace-icon fa fa-chevron-up"></i>
+														</a>
+													</div>
+
+													<div class="widget-toolbar no-border">
+														<button class="btn btn-sm btn-success" id="nuevoCliente"> Agregar cliente </button>
+													</div>
+												</div>
+
+												<div class="widget-body">
+													<div class="widget-main scrollable" data-size="100">
+														<div id="div_listar_cliente"></div>
+		            									<div id="div_oculto_cliente" class="none"></div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div><!--/span-->
+
 									<!-- Datos de los Productos -->
 								    <div class="col-lg-12">
 										<h2 class="col-sm-3" data-rel="tooltip" data-placement="right" title="Crea, modifica y elimina ventas.">ventas</h2>
@@ -118,6 +153,7 @@
 		<script src="js/vendor/bootstrap.min.js"></script>
 
 		<!-- page specific plugin scripts -->
+		<script src="js/vendor/chosen.jquery.min.js"></script>
 
 		<!-- ace scripts -->
 		<script src="js/vendor/ace-elements.min.js"></script>
@@ -139,6 +175,7 @@
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
 			fn_buscar_ventas_registro();
+			fn_buscar_cliente();
 			
 			jQuery(function($) {
 				$("#ventas").addClass("active");

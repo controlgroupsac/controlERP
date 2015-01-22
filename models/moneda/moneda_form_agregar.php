@@ -6,7 +6,7 @@
     <input type="hidden" id="fecha_registro" name="fecha_registro" value="<?php echo date("Y/m/d H:i:s"); ?>" />
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_producto();">&times;</button>
-        <h4 class="blue bigger">Agregar undiad</h4>
+        <h4 class="blue bigger">Agregar Moneda</h4>
     </div>
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
@@ -15,7 +15,7 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="moneda" id="moneda" placeholder="moneda" value="moneda" required />
+                        <input type="text" class="input-xlarge" name="moneda" id="moneda" placeholder="moneda" required />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -26,7 +26,7 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="abrev" id="abrev" placeholder="abrev" value="abrev" required />
+                        <input type="text" class="input-xlarge" name="abrev" id="abrev" placeholder="abrev" required />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -37,7 +37,7 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="prefijo" id="prefijo" placeholder="prefijo" value="prefijo" required />
+                        <input type="text" class="input-xlarge" name="prefijo" id="prefijo" placeholder="prefijo" required />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>

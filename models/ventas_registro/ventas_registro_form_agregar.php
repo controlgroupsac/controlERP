@@ -2,6 +2,11 @@
     include "../../config/conexion.php"; 
     include "../../queries/functions.php"; 
 ?>
+<style type="text/css">
+    .chosen-container {
+        width: 250px !important;
+    }
+</style>
 <form action="javascript: fn_agregar_ventas_registro();" class="form-horizontal" method="post" id="frm_ventas_registro" enctype="multipart/form-data" >
     <input type="hidden" id="ventas_id" name="ventas_id" value="1" />
     <div class="modal-header">
@@ -16,6 +21,16 @@
                 <div class="col-sm-9">
                     <select class="form-control" name="almacen_id" id="almacen_id">
                         <?php query_table_option("SELECT * FROM almacen", "almacen_id", "almacen") ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" for="cliente_id"><b>cliente </b></label>
+
+                <div class="col-sm-9">
+                    <select class="chosen-select form-control" name="cliente_id" id="cliente_id">
+                        <?php query_table_option("SELECT * FROM cliente", "cliente_id", "nombres") ?>
                     </select>
                 </div>
             </div>
@@ -36,6 +51,8 @@
     </div>
 </form>
 <script language="javascript" type="text/javascript">
+    $(".chosen-select").chosen({no_results_text: "Oops, no existe!"}); 
+
     function fn_agregar_ventas_registro(){
         var str = $("#frm_ventas_registro").serialize();
         $.ajax({

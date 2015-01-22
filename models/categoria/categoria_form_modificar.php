@@ -12,6 +12,7 @@
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $row_table = mysql_fetch_assoc($table);
+    $totalRows_table = mysql_num_rows($table);
 	if ($totalRows_table == 0){
 		echo "No existen categoriaes con ese ID";
 		exit;
@@ -21,12 +22,12 @@
     <input type="hidden" class="input-xlarge" name="categoria_id" id="categoria_id" value="<?php echo $row_table['categoria_id']; ?>" />
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_producto();">&times;</button>
-        <h4 class="blue bigger">Modificar undiad</h4>
+        <h4 class="blue bigger">Modificar Categoria</h4>
     </div>
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="categoria"><b>categoria </b></label>
+                <label class="col-sm-3 control-label" for="categoria"><b>Categoria </b></label>
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
@@ -35,7 +36,7 @@
                     </span>
                 </div>
             </div>
-
+            <br><br>
             <div class="col-xs-12">
                 <div>
                     <a href="#" class="btn btn-small" data-dismiss="modal" onclick="fn_cerrar_producto();">Cancelar</a>
@@ -56,8 +57,8 @@
 	$(document).ready(function(){
 		$("#frm_categoria").validate({
 			submitHandler: function(form) {
-				var respuesta = confirm('\xBFDesea realmente modificar esta categoria?')
-				if (respuesta)
+				// var respuesta = confirm('\xBFDesea realmente modificar esta categoria?')
+				// if (respuesta)
 					form.submit();
 			}
 		});
