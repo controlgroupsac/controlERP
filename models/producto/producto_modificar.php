@@ -13,6 +13,15 @@
 	@$imagen =  "../../views/img/productos/".$nombreimagen;
 	@copy($ruta, $imagen);
 	@move_uploaded_file($ruta, $imagen);
+
+	$query = "SELECT * FROM producto WHERE producto_id = $_POST[producto_id]";
+    mysql_select_db($database_fastERP, $fastERP);
+    $table = mysql_query($query, $fastERP) or die(mysql_error());
+    $row_table = mysql_fetch_assoc($table);
+
+    if($nombreimagen == ''){
+    	$nombreimagen = $row_table['imagen'];
+    }
 	
 	$sql = sprintf("UPDATE `controlg_controlerp`.`producto` SET producto='%s', unidad_id='%s', moneda_id='%s', categoria_id='%s', imp_tipo_id='%s', activo='%s', num_serie='%s', precio='%s', imagen='%s', notas='%s'
 					WHERE producto_id=%d;",
