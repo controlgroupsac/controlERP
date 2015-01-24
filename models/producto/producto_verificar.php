@@ -1,6 +1,6 @@
 <?
 	include "../../models/conexion.php";
-	$producto = $_GET['producto'];
+	$producto = $prod['producto'];
 	$sql = "SELECT * FROM producto WHERE producto = '$producto'";
 	$per = mysql_query($sql);
 	$num_rs_per = mysql_num_rows($per);

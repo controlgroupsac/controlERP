@@ -32,7 +32,7 @@
 				<td><?php $totalRows_table--; echo $totalRows_table; ?></td>
 				<td><?php echo $row_table["almacen"]; ?></td>
 				<td><?php echo $row_table["proveedor"]; ?></td>
-				<td><?php echo $row_table["total"]; ?></td>
+				<td><?php echo number_format($row_table["total"], 2); ?></td>
 				<td>
 					<div class="hidden-sm hidden-xs btn-group">
 						<!-- <button class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_compras_registro(<?=$row_table['compra_id']?>);">
