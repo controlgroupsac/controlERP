@@ -230,11 +230,11 @@
 						Productos
 					</a>
 				</li>
-				
-				<li id="configuration_financieros" class="open hover">
-					<a href="#" class="dropdown-toggle">
-						<i class="menu-icon fa fa-dollar"></i>
-						Financieros
+
+				<li id="configuration_categorias_impuestos" class="open hover">
+					<a href="categorias_impuestos.php">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Categorias, Impuestos, Unidad y Moneda
 					</a>
 				</li>
 				

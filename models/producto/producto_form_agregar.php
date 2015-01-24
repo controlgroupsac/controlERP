@@ -111,12 +111,12 @@
 
                     <div>
                         <label>
-                            <input name="activo" type="radio" class="ace" value="1" checked />
+                            <input name="activo" id="activo1" type="radio" class="ace" value="1" checked />
                             <span class="lbl"><strong> Activo</strong></span>
                         </label>
                         &nbsp;&nbsp; &nbsp;&nbsp;
                         <label>
-                            <input name="activo" type="radio" class="ace" value="0">
+                            <input name="activo" id="activo2" type="radio" class="ace" value="0">
                             <span class="lbl"><strong> Inactivo</strong></span>
                         </label>
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -154,12 +154,48 @@
     </div>
 </form>
 <script type="text/javascript">
+    var producto = document.getElementById('producto');
+    var unidad_id = document.getElementById('unidad_id');
+    var moneda_id = document.getElementById('moneda_id');
+    var categoria_id = document.getElementById('categoria_id');
+    var imp_tipo_id = document.getElementById('imp_tipo_id');
+    var activo1 = document.getElementById('activo1');
+    var activo2 = document.getElementById('activo2');
+    var num_serie = document.getElementById('num_serie');
+    var precio = document.getElementById('precio');
+    var notas = document.getElementById('notas');
+
     function fn_agregar_producto(){
-        var str = $("#frm_producto").serialize();
+        var inputFileImage = document.getElementById("imagen");
+        var file = inputFileImage.files[0];
+        var data = new FormData();
+
+        if(activo1.checked){
+            activo = 1;
+        }
+        if(activo2.checked) {
+            activo = 0;
+        }
+
+        data.append('imagen',file);
+        data.append('producto',producto.value);
+        data.append('unidad_id',unidad_id.value);
+        data.append('moneda_id',moneda_id.value);
+        data.append('categoria_id',categoria_id.value);
+        data.append('imp_tipo_id',imp_tipo_id.value);
+        data.append('activo', activo);
+        data.append('num_serie',num_serie.value);
+        data.append('precio',precio.value);
+        data.append('notas',notas.value);
+
+        console.log(data);
         $.ajax({
             url: '../models/producto/producto_agregar.php',
-            data: str,
-            type: 'post',
+            type: 'POST',
+            contentType: false,
+            data: data,
+            processData: false,
+            cache: false,
             success: function(data){
                 if(data != "")
                     alert(data);

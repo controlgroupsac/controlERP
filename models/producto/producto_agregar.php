@@ -8,11 +8,11 @@
 	  exit;
 	}
 
-
 	@$nombreimagen=$_FILES['imagen']['name'];
 	@$ruta=$_FILES['imagen']['tmp_name'];
-	@$imagen =  "images/productos/".$nombreimagen;
+	@$imagen =  "../../views/img/productos/".$nombreimagen;
 	@copy($ruta, $imagen);
+	@move_uploaded_file($ruta, $imagen);
 	
 	$sql = sprintf("INSERT INTO `controlg_controlerp`.`producto` (`producto`, `unidad_id`, `moneda_id`, `categoria_id`, `imp_tipo_id`, `activo`, `num_serie`, `precio`, `imagen`, `notas`) 
 	                VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %d, '%s', '%s', '%s');",
@@ -24,7 +24,7 @@
 					fn_filtro($_POST['activo']),
 					fn_filtro($_POST['num_serie']),
 					fn_filtro($_POST['precio']),
-					fn_filtro($imagen),
+					fn_filtro($nombreimagen),
 					fn_filtro($_POST['notas'])
 	);
 

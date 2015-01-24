@@ -1,7 +1,7 @@
 <?php  
 	include "../../config/conexion.php"; 
     include("../../queries/query.php"); 
-    $query = "SELECT unidad.unidad, moneda.moneda, producto.producto_id, producto.producto, producto.activo, producto.num_serie, categoria.categoria, imp_tipo.descripcion
+    $query = "SELECT unidad.unidad, moneda.moneda, producto.producto_id, producto.producto, producto.activo, producto.num_serie, producto.imagen, categoria.categoria, imp_tipo.descripcion
     		  FROM producto , unidad , moneda , categoria , imp_tipo 
     		  WHERE producto.unidad_id = unidad.unidad_id 
     		  AND producto.moneda_id = moneda.moneda_id 
@@ -24,7 +24,8 @@
 				<th>categoria</th>
 				<th>imp_tipo</th>
 				<th>activo</th>
-				<th>num_serie</th>
+				<th>Nro. Serie</th>
+				<th>Img</th>
 
 				<th></th>
 			</tr>
@@ -44,6 +45,11 @@
 					<span class="label <?php echo $label; ?> arrowed-in arrowed-in-right"><?php echo $activo; ?></span>
 				</td>
 				<td><?php echo $row_table["num_serie"]; ?></td>
+				<td>
+					<a href="#" onclick="javascript: fn_mostrar_frm_modificar_producto(<?=$row_table['producto_id']?>);">
+						<img src="img/productos/<?php echo $row_table["imagen"]; ?>" title="<?php echo $row_table["producto"]; ?>" width='50' height='50'>
+					</a>
+				</td>
 				<td>
 					<div class="hidden-sm hidden-xs btn-group">
 						<button class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_producto(<?=$row_table['producto_id']?>);">

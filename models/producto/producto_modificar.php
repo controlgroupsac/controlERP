@@ -10,8 +10,9 @@
 
 	@$nombreimagen=$_FILES['imagen']['name'];
 	@$ruta=$_FILES['imagen']['tmp_name'];
-	@$imagen =  "images/productos/".$nombreimagen;
+	@$imagen =  "../../views/img/productos/".$nombreimagen;
 	@copy($ruta, $imagen);
+	@move_uploaded_file($ruta, $imagen);
 	
 	$sql = sprintf("UPDATE `controlg_controlerp`.`producto` SET producto='%s', unidad_id='%s', moneda_id='%s', categoria_id='%s', imp_tipo_id='%s', activo='%s', num_serie='%s', precio='%s', imagen='%s', notas='%s'
 					WHERE producto_id=%d;",
@@ -23,7 +24,7 @@
 					fn_filtro($_POST['activo']),
 					fn_filtro($_POST['num_serie']),
 					fn_filtro($_POST['precio']),
-					fn_filtro($imagen),
+					fn_filtro($nombreimagen),
 					fn_filtro($_POST['notas']),
 					fn_filtro((int)$_POST['producto_id'])
 	);
