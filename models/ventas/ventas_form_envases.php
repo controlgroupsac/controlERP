@@ -8,7 +8,7 @@
     include("../../queries/query.php"); 
 
     /*id del producto ensamblado(kit)*/
-    $query = "SELECT ventas.ventas_id, producto_ensamblado.producto, producto.producto, ventas_det.cantidad,
+    $query = "SELECT ventas.ventas_id, producto_ensamblado.producto, producto.producto, producto.producto_id, ventas_det.cantidad,
             SUM(IF(producto_ensamblado.categoria_id = 5 and producto.unidad_id = 1, ventas_det.cantidad * producto_ensamblado.factor, ventas_det.cantidad))AS calculo
             FROM ventas , ventas_det , producto_ensamblado , producto_ensamblado_det , producto
             WHERE
@@ -26,8 +26,9 @@
 ?>
 <!-- page specific plugin styles -->
 <link rel="stylesheet" href="css/datepicker.min.css" />
-<form action="javascript: fn_modificar_venta();" class="form-inline" method="post" id="frm_ventas">
+<form action="javascript: fn_modificar_venta();" class="form-inline" method="post" id="frm_envases">
     <input type="hidden" name="ventas_id" id="ventas_id" value="<?php echo $row_table['ventas_id']; ?>">
+    <input type="hidden" name="total_rows" id="total_rows" value="<?php echo $totalRows_table; ?>">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_ventas();">&times;</button>
         <h4 class="blue bigger">Detalle de Envases</h4>
@@ -35,20 +36,24 @@
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
             <?php 
-                $lleva = ""; 
-                $devuelve = ""; 
-                $totalX = ""; 
+                $producto = 0; 
+                $lleva = 0; 
+                $lleva_name = 0; 
+                $devuelve = 0; 
+                $devuelve_name = 0; 
+                $totalX = 0; 
             ?>
             <?php do { ?>
             <div class="form-group">
                 <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?php echo $row_table['producto']; ?></label>
+                <input type="hidden" name="producto_id<?php echo $producto++; ?>" id="producto_id" value="<?php echo $row_table['producto_id']; ?>">
 
                 <div class="col-sm-9">
                     <div class="col-xs-3">
-                        <input type="text" data-rel="tooltip"  data-original-title="Lleva" name="lleva" id="lleva<?php echo $lleva++; ?>" value="<?php echo $row_table['calculo']; ?>" readonly />
+                        <input type="text" name="lleva<?php echo $lleva_name++; ?>" id="lleva<?php echo $lleva++; ?>" data-rel="tooltip"  data-original-title="Lleva" value="<?php echo $row_table['calculo']; ?>" readonly />
                     </div>
                     <div class="col-xs-4">
-                        <input type="text" class="limpiarDevuelve" data-rel="tooltip" data-original-title="Devuelve" name="devuelve" id="devuelve<?php echo $devuelve++; ?>" value="<?php echo $row_table['calculo']; ?>" />
+                        <input type="text" name="devuelve<?php echo $devuelve_name++; ?>" id="devuelve<?php echo $devuelve++; ?>" class="limpiarDevuelve" data-rel="tooltip" data-original-title="Devuelve" value="<?php echo $row_table['calculo']; ?>" />
                         <div class="space-6"></div>
                     </div>
                     <div class="col-xs-3">
@@ -64,7 +69,7 @@
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <a href="#" class="btn btn-small uppercase" data-dismiss="modal" onclick="fn_cerrar_ventas();">Cancelar</a>
 
-                    <button type="submit" class="btn btn-small btn-primary uppercase">
+                    <button type="submit" id='terminar' class="btn btn-small btn-primary uppercase">
                         <i class="fa fa-ok"></i>
                         TERminar!
                     </button>
@@ -77,21 +82,18 @@
 <script language="javascript" type="text/javascript">
     $('[data-rel=tooltip]').tooltip();
 	function fn_modificar_venta(){
-		var str = $("#frm_ventas").serialize();
+		var str = $("#frm_envases").serialize();
+        console.log(str);
         var ventas_id = document.getElementById('ventas_id');
         $.ajax({
-            url: '../models/ventas/ventas_agregar.php',
+            url: '../models/ventas/ventas_envases.php',
             data: str,
             type: 'post',
             success: function(data){
                 if(data != "")
                     alert(data);
-                var respuesta = confirm("Desea imprimir esta venta?");
-                if (respuesta){
-                    location.href = "../models/ventas/ventas_imprimir.php?ventas_id=" +ventas_id.value;
-                }
+                $("#practica_envases").html(data);
                 fn_cerrar_ventas();
-                // location.href = "ventas_registro.php"
 			}
 		});
 	};
@@ -101,15 +103,15 @@
         $(".limpiarDevuelve").val("0");
     });
 
-    $("#devuelve").blur(function () {
-        var $lleva = $("#lleva").val();
+    $("#devuelve0").keyup(function () {
+        var $lleva = $("#lleva0").val();
         var $devuelve = $(this).val();
         $resta = $lleva - $devuelve;
 
-        $("#totalX").attr("value", ($resta * (-1)));
+        $("#totalX0").attr("value", ($resta * (-1)));
     });
 
-    $("#devuelve1").blur(function () {
+    $("#devuelve1").keyup(function () {
         var $lleva = $("#lleva1").val();
         var $devuelve = $(this).val();
         $resta = $lleva - $devuelve;
@@ -117,7 +119,7 @@
         $("#totalX1").attr("value", ($resta * (-1)));
     });
 
-    $("#devuelve2").blur(function () {
+    $("#devuelve2").keyup(function () {
         var $lleva = $("#lleva2").val();
         var $devuelve = $(this).val();
         $resta = $lleva - $devuelve;
@@ -125,7 +127,7 @@
         $("#totalX2").attr("value", ($resta * (-1)));
     });
 
-    $("#devuelve3").blur(function () {
+    $("#devuelve3").keyup(function () {
         var $lleva = $("#lleva3").val();
         var $devuelve = $(this).val();
         $resta = $lleva - $devuelve;
@@ -133,7 +135,7 @@
         $("#totalX3").attr("value", ($resta * (-1)));
     });
 
-    $("#devuelve4").blur(function () {
+    $("#devuelve4").keyup(function () {
         var $lleva = $("#lleva4").val();
         var $devuelve = $(this).val();
         $resta = $lleva - $devuelve;
@@ -141,19 +143,12 @@
         $("#totalX4").attr("value", ($resta * (-1)));
     });
 
-    $('#devuelve').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
-
-    $('#devuelve1').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
-
-    $('#devuelve2').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
-
-    $('#devuelve3').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
-
-    $('#devuelve4').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
-
-    $('#devuelve5').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
-
-    $('#devuelve6').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
-
-    $('#devuelve7').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, icon_up:'ace-icon fa fa-plus bigger-110', icon_down:'ace-icon fa fa-minus bigger-110', btn_up_class:'btn-success' , btn_down_class:'btn-danger'});
+    $('#devuelve0').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    $('#devuelve1').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    $('#devuelve2').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    $('#devuelve3').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    $('#devuelve4').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    $('#devuelve5').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    $('#devuelve6').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    $('#devuelve7').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
 </script>

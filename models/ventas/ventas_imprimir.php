@@ -19,20 +19,20 @@
     $comprobante = mysql_query($query_comprobante, $fastERP) or die(mysql_error());
     $row_comprobante = mysql_fetch_assoc($comprobante);
 
-    $query_producto = "SELECT ventas_det.cantidad, ventas_det.precio, producto.producto
-					   FROM ventas , ventas_det , producto
+    $query_producto = "SELECT ventas_det.cantidad, ventas_det.precio, producto_ensamblado.producto
+					   FROM ventas , ventas_det , producto_ensamblado
 					   WHERE ventas_det.ventas_id = ventas.ventas_id 
-					   AND ventas_det.producto_id = producto.producto_id
+					   AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
 					   AND ventas.ventas_id = $_GET[ventas_id]" ;
     mysql_select_db($database_fastERP, $fastERP);
     $producto = mysql_query($query_producto, $fastERP) or die(mysql_error());
     $row_producto = mysql_fetch_assoc($producto); 
 
-    $query_precio = "SELECT ventas_det.cantidad, ventas_det.precio, producto.producto
-					   FROM ventas , ventas_det , producto
-					   WHERE ventas_det.ventas_id = ventas.ventas_id 
-					   AND ventas_det.producto_id = producto.producto_id
-					   AND ventas.ventas_id = $_GET[ventas_id]" ;
+    $query_precio = "SELECT ventas_det.cantidad, ventas_det.precio, producto_ensamblado.producto
+				     FROM ventas , ventas_det , producto_ensamblado
+				     WHERE ventas_det.ventas_id = ventas.ventas_id 
+				     AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
+				     AND ventas.ventas_id = $_GET[ventas_id]" ;
     mysql_select_db($database_fastERP, $fastERP);
     $precio = mysql_query($query_precio, $fastERP) or die(mysql_error());
     $row_precio = mysql_fetch_assoc($precio); 
@@ -64,15 +64,15 @@
 			</caption>
 			<thead>
 				<th colspan='2'>Descripción</th>
-				<th align='center'>Precio</th>
+				<th align='center'>Precio S/.</th>
 				<th align='center'>Cantidad</th>
 			</thead>
 			<tbody>
 				<?php do { ?>
 					<tr>
 						<td colspan='2'><?php echo $row_producto['producto']; ?></td>
-						<td align='right'><?php echo number_format($row_producto['precio'], 2); ?></td>
-						<td align='right'><?php echo number_format($row_producto['cantidad'], 2); ?></td>
+						<td><?php echo number_format($row_producto['precio'], 2); ?></td>
+						<td><?php echo $row_producto['cantidad']; ?></td>
 					</tr>
 				<?php } while ($row_producto = mysql_fetch_assoc($producto)); ?>
 
@@ -84,9 +84,9 @@
 				</tr>
 				</tr>
 				<tr>
-					<th>IGV</th>
-					<td>18%</td>
-					<td>S/. <?php echo number_format($valor_neto, 2); ?></td>
+					<th>IGV (18%)</th>
+					<td></td>
+					<td></td>
 					<th>S/. <?php echo number_format($impuesto, 2); ?></th>
 				</tr>
 				<tr>
@@ -127,32 +127,39 @@
     $comprobante2 = mysql_query($query_comprobante2, $fastERP) or die(mysql_error());
     $row_comprobante2 = mysql_fetch_assoc($comprobante2);
 
-    $query_producto2 = "SELECT ventas_det.cantidad, ventas_det.precio, producto.producto
-					   FROM ventas , ventas_det , producto
-					   WHERE ventas_det.ventas_id = ventas.ventas_id 
-					   AND ventas_det.producto_id = producto.producto_id
-					   AND ventas.ventas_id = $_GET[ventas_id]" ;
+    $query_producto2 = "SELECT ventas.ventas_id, producto_ensamblado.producto, producto.producto, ventas_det.cantidad, producto.precio
+						FROM ventas , ventas_det , producto_ensamblado , producto_ensamblado_det , producto
+						WHERE ventas.ventas_id = $_GET[ventas_id]
+						AND ventas.ventas_id = ventas_det.ventas_id
+						AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
+						AND producto_ensamblado.producto_ensamblado_id = producto_ensamblado_det.producto_ensamblado_id
+						AND producto_ensamblado_det.producto_id = producto.producto_id
+						AND producto.categoria_id = 4
+						GROUP BY producto.producto_id";
     mysql_select_db($database_fastERP, $fastERP);
     $producto2 = mysql_query($query_producto2, $fastERP) or die(mysql_error());
     $row_producto2 = mysql_fetch_assoc($producto2); 
 
-    $query_precio2 = "SELECT ventas_det.cantidad, ventas_det.precio, producto.producto
-					   FROM ventas , ventas_det , producto
-					   WHERE ventas_det.ventas_id = ventas.ventas_id 
-					   AND ventas_det.producto_id = producto.producto_id
-					   AND ventas.ventas_id = $_GET[ventas_id]" ;
+    $query_precio2 = "SELECT ventas.ventas_id, producto_ensamblado.producto, producto.producto, ventas_det.cantidad, producto.precio
+					  FROM ventas , ventas_det , producto_ensamblado , producto_ensamblado_det , producto
+					  WHERE ventas.ventas_id = $_GET[ventas_id]
+					  AND ventas.ventas_id = ventas_det.ventas_id
+					  AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
+					  AND producto_ensamblado.producto_ensamblado_id = producto_ensamblado_det.producto_ensamblado_id
+					  AND producto_ensamblado_det.producto_id = producto.producto_id
+					  AND producto.categoria_id = 4
+					  GROUP BY producto.producto_id" ;
     mysql_select_db($database_fastERP, $fastERP);
     $precio2 = mysql_query($query_precio2, $fastERP) or die(mysql_error());
     $row_precio2 = mysql_fetch_assoc($precio2); 
 
-    $valor_neto = "";
+    $valor_neto2 = "";
     do {
-		$valor_neto += $row_precio["precio"] * $row_precio["cantidad"];
-    } while ($row_precio = mysql_fetch_assoc($precio));
+		$valor_neto2 += $row_precio2["precio"] * $row_precio2["cantidad"];
+    } while ($row_precio2 = mysql_fetch_assoc($precio2));
 
     if(empty($_GET['descuento'])) { $_GET['descuento'] = 0; }
-    $impuesto = $valor_neto * 0.18;
-    $total = ($valor_neto - $_GET['descuento']) + $impuesto ;
+    $total2 = ($valor_neto2 - $_GET['descuento']) ;
 ?>
 	<div class="col-xs-12"></div>
 
@@ -165,7 +172,7 @@
 			</caption>
 			<thead>
 				<th colspan='2'>Descripción</th>
-				<th align='center'>Precio</th>
+				<th align='center'>Precio S/.</th>
 				<th align='center'>Cantidad</th>
 			</thead>
 			<tbody>
@@ -173,35 +180,19 @@
 					<tr>
 						<td colspan='2'><?php echo $row_producto2['producto']; ?></td>
 						<td align='right'><?php echo number_format($row_producto2['precio'], 2); ?></td>
-						<td align='right'><?php echo number_format($row_producto2['cantidad'], 2); ?></td>
+						<td align='right'><?php echo $row_producto2['cantidad']; ?></td>
 					</tr>
-				<?php } while ($row_producto2 = mysql_fetch_assoc($producto)); ?>
+				<?php } while ($row_producto2 = mysql_fetch_assoc($producto2)); ?>
 
-				<tr>
-					<th align='left'>Subtotal</th>
-					<td></td>
-					<td></td>
-					<th align='right'>S/. <?php echo $valor_neto; ?></th>
-				</tr>
-				</tr>
-				<tr>
-					<th>IGV</th>
-					<td>18%</td>
-					<td>S/. <?php echo number_format($valor_neto, 2); ?></td>
-					<th>S/. <?php echo number_format($impuesto, 2); ?></th>
-				</tr>
 				<tr>
 					<th>TOTAL</th>
 					<td></td>
 					<td></td>
-					<th>S/. <?php echo number_format($total, 2); ?></th>
+					<th>S/. <?php echo number_format($total2, 2); ?></th>
 				</tr>
-				<!-- <tr>
-					<th>Cliente</th>
-					<td>Mirk</td>
-					<td></td>
-					<th></th>
-				</tr> -->
+				<tr>
+					<td>Recibo de botellas y CPB</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>

@@ -44,9 +44,9 @@
 								<span class="badge badge-warning">
 									<?php  
 										$query = "SELECT SUM(almacen_det.cantidad) AS cantidad
-												  FROM producto_ensamblado, almacen_det
-												  WHERE producto_ensamblado.producto_ensamblado_id = almacen_det.producto_id
-												  AND producto_ensamblado.producto_ensamblado_id = $row_producto[producto_ensamblado_id]" ;
+												  FROM producto, almacen_det
+												  WHERE producto.producto_id = almacen_det.producto_id
+												  AND producto.producto_id = $row_producto[producto_ensamblado_id]" ;
 									    mysql_select_db($database_fastERP, $fastERP);
 									    $cantidad_almacen = mysql_query($query, $fastERP) or die(mysql_error());
 									    $row_cantidad_almacen = mysql_fetch_assoc($cantidad_almacen);

@@ -30,6 +30,7 @@
 <link rel="stylesheet" href="css/datepicker.min.css" />
 <form action="javascript: fn_modificar_venta();" class="form-horizontal" method="post" id="frm_ventas" enctype="multipart/form-data" >
     <input type="hidden" name="ventas_id" id="ventas_id" value="<?php echo $_POST['ventas_id']; ?>" />
+    <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo $_POST['cliente_id']; ?>" />
     <input type="hidden" name="almacen_id" id="almacen_id" value="<?php echo $_POST['almacen_id']; ?>" />
     <input type="hidden" name="valor_neto" id="valor_neto" value="<?php echo $_POST['valor_neto']; ?>" />
     <input type="hidden" name="descuento" id="descuento" value="<?php echo $_POST['descuento']; ?>" />
@@ -125,7 +126,7 @@
                     </span>
                     <span class="input-icon">
                         <span id="div_listar_comprobante_pago">
-                            <input type="text" name="numero" id="numero" placeholder="numero" value="<?php echo $row_table['serie']; ?>" readonly required />
+                            <input type="text" name="numero" id="numero" placeholder="numero" value="<?php echo @$row_table['serie']; ?>" readonly required />
                         </span><!-- Número de serie del el comprobante seleccionado -->
                     </span>
                 </div>

@@ -753,6 +753,7 @@ function fn_mostrar_frm_ventas_envases(){
 
 function fn_mostrar_frm_ventas_agregar(){
   var ventas_id = document.getElementById('ventas_id');
+  var cliente_id = document.getElementById('cliente_id');
   var almacen_id = document.getElementById('almacen_id');
   var valor_neto = document.getElementById('valor_neto');
   var descuento = document.getElementById('descuentoVenta');

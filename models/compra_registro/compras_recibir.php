@@ -39,8 +39,6 @@
         if(!mysql_query($sql2, $fastERP))
             echo "Error al insertar:\n$sql2";
     }
-
-	
 ?>
 <span class=" label label-lg label-success arrowed-right" id="recibido" >Recibido</span> <!-- Fase 3 de la compra -->
 <a class="btn btn-xs btn-info" href="compras_registro.php">Cerrar</a>

@@ -66,6 +66,7 @@
 											<div class="col-xs-12">
 												<h3>
 													<input type="hidden" name="ventas_id" id="ventas_id" value="<?php echo $_GET['ventas_id']; ?>">
+													<input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo $_GET['cliente_id']; ?>">
 													<input type="hidden" name="almacen_id" id="almacen_id" value="<?php echo $_GET['almacen_id']; ?>">
 													Ventas
 												</h3>
