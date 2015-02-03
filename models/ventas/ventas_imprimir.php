@@ -55,12 +55,12 @@
 	<link rel="stylesheet" href="imprimir.css">	
 </head>
 <body>
-	<div class="bloque col-xs-6 col-sm-3">
+	<div class="bloque col-xs-4 col-sm-3">
 		<table class='table table-condensed'>
 			<caption>
-				<h2><?php query_table_campo("SELECT * FROM empresa", "empresa"); ?></h2>
-				<h3><?php echo $row_almacen['almacen']; ?></h3>
-				<h4>Nro de <?php echo $row_comprobante['comprobante_tipo']. ': ' .$row_comprobante['ultimo_numero']; ?></h4>
+				<h4><?php query_table_campo("SELECT * FROM empresa", "empresa"); ?></h4>
+				<h5><?php echo $row_almacen['almacen']; ?></h5>
+				<h6>Nro de <?php echo $row_comprobante['comprobante_tipo']. ': ' .$row_comprobante['ultimo_numero']; ?></h6>
 			</caption>
 			<thead>
 				<th colspan='2'>Descripción</th>
@@ -163,12 +163,12 @@
 ?>
 	<div class="col-xs-12"></div>
 
-	<div class="bloque col-xs-6 col-sm-3">
+	<div class="bloque col-xs-4 col-sm-3">
 		<table class='table table-condensed'>
 			<caption>
-				<h2><?php query_table_campo("SELECT * FROM empresa", "empresa"); ?></h2>
-				<h3><?php echo $row_almacen2['almacen']; ?></h3>
-				<h4>Nro de <?php echo $row_comprobante2['comprobante_tipo']. ': ' .$row_comprobante2['ultimo_numero']; ?></h4>
+				<h4><?php query_table_campo("SELECT * FROM empresa", "empresa"); ?></h4>
+				<h5><?php echo $row_almacen2['almacen']; ?></h5>
+				<h6>Nro de <?php echo $row_comprobante2['comprobante_tipo']. ': ' .$row_comprobante2['ultimo_numero']; ?></h6>
 			</caption>
 			<thead>
 				<th colspan='2'>Descripción</th>
