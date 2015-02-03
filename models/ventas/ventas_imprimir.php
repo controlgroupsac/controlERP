@@ -44,7 +44,8 @@
 
     if(empty($_GET['descuento'])) { $_GET['descuento'] = 0; }
     $impuesto = $valor_neto * 0.18;
-    $total = ($valor_neto - $_GET['descuento']) + $impuesto ;
+    $descuento = $valor_neto - $_GET['descuento'];
+    $total = $descuento + $impuesto ;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,13 +83,21 @@
 					<td></td>
 					<th align='right'>S/. <?php echo $valor_neto; ?></th>
 				</tr>
+
+				<tr>
+					<th align='left'>Descuento</th>
+					<td></td>
+					<td></td>
+					<th align='right'>S/. <?php echo $_GET['descuento']; ?></th>
 				</tr>
+
 				<tr>
 					<th>IGV (18%)</th>
 					<td></td>
 					<td></td>
 					<th>S/. <?php echo number_format($impuesto, 2); ?></th>
 				</tr>
+
 				<tr>
 					<th>TOTAL</th>
 					<td></td>

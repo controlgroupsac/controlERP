@@ -77,20 +77,20 @@
             
 
             <div class="form-group col-xs-6">
-            	<div id="efectivo">
-            		<span class="input-icon">
-            		    <input type="text" name="pago-efectivo" id="pago-efectivo" placeholder="pago-efectivo"  />
-            		    <i class="ace-icon fa fa-user"></i>
-            		</span>
-            		<span class="input-icon">
-            		    <input type="text" name="cambio" id="cambio" placeholder="cambio" readonly  />
-            		    <i class="ace-icon fa fa-user"></i>
-            		</span>
-            	</div>
+                <div id="efectivo">
+                    <span class="input-icon">
+                        <input type="text" name="pago-efectivo" id="pago-efectivo" placeholder="pago efectivo" requiered  />
+                    </span>
+                    <span class="input-icon">
+                        <input type="text" name="cambio" id="cambio" placeholder="cambio" readonly  />
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group col-xs-6">
             	<div id="credito">
             		<span class="input-icon">
-            		    <input type="text" class="date-picker" name="fechapago" id="fechapago" placeholder="Fecha Compromiso" />
-            		    <i class="ace-icon fa fa-user"></i>
+            		    <input type="text" class="date-picker hidden" name="fechapago" id="fechapago" placeholder="Fecha Compromiso" />
             		</span>
             	</div>
             </div>
@@ -102,8 +102,7 @@
                 <div>
                     <span class="input-icon">
                         <select id="comprobante_tipo_id" name="comprobante_tipo_id">
-                            <option value="">Comprobante</option>
-                    	    <?php @query_table_option_comparar("SELECT * FROM comprobante_tipo", "comprobante_tipo_id", "comprobante_tipo", 4); ?>
+                            <option value="">Comprobante</option><!-- La carga de estos datos es mediante ajax -->
                     	</select>
                     </span>
                 </div>
@@ -116,17 +115,14 @@
                     	<span>
                             <div id="div_listar_comprobante_tipo"> 
                                 <select name="condicion_pago" id="condicion_pago"> <!-- Al hacer click, muestra en input id="numero" el ultimo número correlativo! -->
-                                    <option value="">Serie</option>
-                                    <?php do { ?>
-                                        <option value="<?php echo @$row_table['comprobante_id']; ?>"><?php echo @$row_table['serie']; ?></option>
-                                    <?php } while ( $row_table = mysql_fetch_assoc($table) ); ?>
+                                    <option value="">Serie</option><!-- La carga de estos datos es mediante ajax -->
                                 </select>
                             </div>
                         </span><!-- Lista de todos los tipos de comprobantes mediante AJAX -->
                     </span>
                     <span class="input-icon">
                         <span id="div_listar_comprobante_pago">
-                            <input type="text" name="numero" id="numero" placeholder="numero" value="<?php echo @$row_table['serie']; ?>" readonly required />
+                            <input type="text" name="numero" id="numero" placeholder="numero" readonly required />
                         </span><!-- Número de serie del el comprobante seleccionado -->
                     </span>
                 </div>
@@ -146,22 +142,81 @@
     </div>
 </form>
 
-<script language="javascript" type="text/javascript">	
-	//datepicker plugin
-	//link
-	$('.date-picker').datepicker({ 
-		autoclose: true,
-		todayHighlight: true
-	})
-	//show datepicker when clicking on the icon
-	.next().on(ace.click_event, function(){
-		$(this).prev().focus();
-	});
+<script language="javascript" type="text/javascript">
+    /*Verificacion de el radio button, cuando es EFECTIVO o es CREDITO*/
+    $("input[type='radio']").on("click", function () {
+        var val = $(this).val();
+        if(val == "E") {
+            $("#pago-efectivo").removeClass("hidden");
+            $("#cambio").removeClass("hidden");
+            $("#fechapago").addClass("hidden");
+            $("#fechapago").removeAttr("required");
+        }
+        if(val == "C") {
+            $("#pago-efectivo").addClass("hidden");
+            $("#cambio").addClass("hidden");
+            $("#fechapago").removeClass("hidden");
+            $("#fechapago").attr("required");
+        }
+    });
 
+    /*INICIO Cambios de combobox a combobox para comprobante de pago y su número de serie*/
+    $(document).ready(function(){
+        cargar_comprobante_tipo_id();
+        $("#comprobante_tipo_id").change(function(){dependencia_condicion_pago();});
+        $("#condicion_pago").change(function(){dependencia_numero();});
+        $("#condicion_pago").attr("disabled",true);
+        $("#numero").attr("disabled",true);
+    });
+    
+    function cargar_comprobante_tipo_id(){
+        $.get("../models/ventas/ventas_listar_comprobante.php", function(resultado){
+            if(resultado == false){
+                alert("Error");
+            }
+            else
+            {
+                $('#comprobante_tipo_id').append(resultado);            
+            }
+        });
+    }
+
+    function dependencia_condicion_pago(){
+        var code = $("#comprobante_tipo_id").val();
+        $.get("../models/ventas/ventas_listar_comprobante_tipo.php?", { code: code }, function(resultado){
+            if(resultado == false)
+            {
+                alert("Error");
+            }
+            else
+            {
+                $("#condicion_pago").attr("disabled",false);
+                document.getElementById("condicion_pago").options.length=1;
+                $('#condicion_pago').append(resultado);         
+            }
+        });
+    }
+
+    function dependencia_numero(){
+        var code = $("#condicion_pago").val();
+        $.get("../models/ventas/ventas_listar_comprobante_numero.php?", { code: code }, function(resultado){
+            if(resultado == false)
+            {
+                alert("Error");
+            }
+            else
+            {
+                $("#numero").attr("disabled",false);
+                $('#numero').attr("value", resultado);         
+            }
+        });
+    }
+    /*FIN Cambios de combobox a combobox para comprobante de pago y su número de serie*/
 
 	function fn_modificar_venta(){
 		var str = $("#frm_ventas").serialize();
         var ventas_id = document.getElementById('ventas_id');
+        var descuento = document.getElementById('descuento');
         $.ajax({
             url: '../models/ventas/ventas_agregar.php',
             data: str,
@@ -171,7 +226,7 @@
                     alert(data);
                 var respuesta = confirm("Desea imprimir esta venta?");
                 if (respuesta){
-                    location.href = "../models/ventas/ventas_imprimir.php?ventas_id=" +ventas_id.value;
+                    location.href = "../models/ventas/ventas_imprimir.php?ventas_id=" +ventas_id.value+ "&descuento=" +descuento.value;
                 }
                 fn_cerrar_ventas();
                 // location.href = "ventas_registro.php"
@@ -179,22 +234,21 @@
 		});
 	};
 
-    $("#comprobante_tipo_id").change(function(){/*Funcion para listar todos los tipos de comprobantes...*/
-        var comprobante_tipo_id = document.getElementById('comprobante_tipo_id');
-        $.ajax({
-            url: '../models/ventas/ventas_listar_comprobante_tipo.php?comprobante_tipo_id=' +comprobante_tipo_id.value,
-            data: "comprobante_tipo_id=" +comprobante_tipo_id.value,
-            type: 'get',
-            success: function(data){
-              $("#div_listar_comprobante_tipo").html(data);
-            }
-        });
-    });
-
     $("#pago-efectivo").keyup(function(){
         var pago = $(this).val();
         var total = document.getElementById('total').value;
         var monto = $("#cambio").attr("value", (pago - total));
         parseFloat(monto).toFixed(2);
+    });
+
+    //datepicker plugin
+    //link
+    $('.date-picker').datepicker({ 
+        autoclose: true,
+        todayHighlight: true
+    })
+    //show datepicker when clicking on the icon
+    .next().on(ace.click_event, function(){
+        $(this).prev().focus();
     });
 </script>

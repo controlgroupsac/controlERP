@@ -1,7 +1,7 @@
 <?php  
 	include "../../config/conexion.php"; 
     include("../../queries/query.php"); 
-    $condicion_pago = @$_GET['condicion_pago'];
+    $condicion_pago = @$_GET['code'];
     $query = "SELECT comprobante.ultimo_numero
 			  FROM comprobante
 			  WHERE comprobante.comprobante_id = $condicion_pago";
@@ -11,5 +11,6 @@
     $totalRows_table = mysql_num_rows($table);
     $row_table = mysql_fetch_assoc($table);
     $ultimo_numero = @$row_table['ultimo_numero'] + 1;
+    
+    echo $ultimo_numero; 
 ?>
-<input type="text" name="numero" id="numero" placeholder="numero" value="<?php echo $ultimo_numero; ?>" readonly required />
