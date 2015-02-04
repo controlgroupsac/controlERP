@@ -62,6 +62,14 @@
 						PDV
 					</a>
 				</li>
+
+				<li id="ventas_tranfer" class="open hover">
+					<a href="transferencias.php">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Envíos y devoluciones
+					</a>
+				</li>
+				
 				<li class="open hover">
 					<a href="#">
 						<i class="menu-icon fa fa-caret-right"></i>
@@ -76,24 +84,10 @@
 					</a>
 				</li>
 				
-				<li id="ventas_tranfer" class="open hover">
-					<a href="transferencias.php">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Envíos y devoluciones
-					</a>
-				</li>
-				
 				<li class="open hover">
 					<a href="#">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Consignación al cliente
-					</a>
-				</li>
-
-				<li class="open hover">
-					<a href="#">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Informes
 					</a>
 				</li>
 
@@ -141,13 +135,6 @@
 					</a>
 				</li>
 
-				<li class="open hover">
-					<a href="#" class="dropdown-toggle">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Informes
-					</a>
-				</li>
-
 			</ul>
 		</li>
 
@@ -168,6 +155,36 @@
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Inventario físico
+					</a>
+				</li>
+
+				<li class="open hover">
+					<a href="#" class="dropdown-toggle">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Cambios en valores de inventario
+					</a>
+				</li>
+
+			</ul>
+		</li>
+
+		<li class="open hover">
+			<a href="#" class="dropdown-toggle">
+				<i class="menu-icon fa fa-book"></i>
+				<span class="menu-text">
+					Informes
+				</span>
+
+				<b class="arrow fa fa-angle-down"></b>
+			</a>
+
+			<b class="arrow"></b>
+
+			<ul class="submenu">
+				<li class="open hover">
+					<a href="../models/informes/existencias_total.php" target="_blank">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Existencias por total
 					</a>
 				</li>
 

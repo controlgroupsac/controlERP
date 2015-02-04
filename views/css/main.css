@@ -330,3 +330,17 @@ Gradient Background colors
   text-transform: uppercase;
 }
 
+@media print  {
+  .bloque1, .bloque2 {
+    background: orange;
+    display: block;
+    /*width: 50%;*/
+  }
+  .table {
+    font-size: 0.5em;
+  }
+  h4, h5, h6 {
+    margin: 2px;
+    padding: 2px;
+  }
+}
