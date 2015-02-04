@@ -8,6 +8,8 @@
 	  exit;
 	}
 
+    $fecha = date("Y/m/d H:i:s");
+
 	$sql = sprintf("UPDATE `controlg_controlerp`.`cliente` SET nombres='%s', apellidos='%s', dni='%s', empresa='%s', ruc='%s', direccion='%s', zona_id='%s', fecha_nac='%s', fecha='%s'
 					WHERE cliente_id=%d;",
 					fn_filtro($_POST['nombres']),
@@ -18,7 +20,7 @@
 					fn_filtro($_POST['direccion']),
 					fn_filtro($_POST['zona_id']),
 					fn_filtro($_POST['fecha_nac']),
-					fn_filtro($_POST['fecha']),
+					fn_filtro($fecha),
 					fn_filtro((int)$_POST['cliente_id'])
 	);
 

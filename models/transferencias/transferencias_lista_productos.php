@@ -20,7 +20,7 @@
 		<i class="fa fa-table"></i>
 		<h5 class="widget-title"> Lista de tranferencias 
 			<span class="label label-lg label-yellow circle">
-				<?php echo $id; ?>aaa
+				<?php echo $id; ?>
 			</span>
 		</h5>
 

@@ -8,9 +8,11 @@
 	}
 </style>
 <form action="javascript: fn_agregar_transferencias();" class="form-horizontal" method="post" id="frm_transferencias" enctype="multipart/form-data" >
-    <input type="hidden" id="fecha_registro" name="fecha_registro" value="<?php echo date("Y/m/d H:i:s"); ?>" />
+    <input type="hidden" id="origen" name="origen" value="<?php echo $_GET['origen']; ?>" />
+    <input type="hidden" id="destino" name="destino" value="<?php echo $_GET['destino']; ?>" />
+    <input type="hidden" id="transferencia_id" name="transferencia_id" value="<?php echo $_GET['transferencia_id']; ?>" />
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_producto();">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_transferencias();">&times;</button>
         <h4 class="blue bigger">Agregar transferencias</h4>
     </div>
     <div class="modal-body overflow-visible">
@@ -20,7 +22,8 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <select class="chosen-select col-xs-2" name="producto_id" id="producto_id">
+                        <select class="chosen-select col-xs-2" name="producto_id" id="producto_id" data-placeholder="Seleccione un producto..." required>
+                            <option value=""></option>
 							<?php query_table_option("SELECT * FROM producto_ensamblado WHERE producto_ensamblado.categoria_id = 5", "producto_ensamblado_id", "producto"); ?>
 						</select>
                     </span>
@@ -28,11 +31,11 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-3 control-label" for="disponibles"><b>disponibles </b></label>
+                <label class="col-sm-3 control-label" for="disponible"><b>Disponible </b></label>
 
                 <div class="col-sm-9">
                     <span class=" input-icon" id="div_listar_productos">
-                        <input type="text" class="input-xlarge" name="disponibles" id="disponibles" placeholder="disponibles" required />
+                        <input type="text" class="input-xlarge" name="disponible" id="disponible" placeholder="disponible" value="0" required readonly />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -51,7 +54,7 @@
 
             <div class="col-xs-12">
                 <div>
-                    <a href="#" class="btn btn-small" data-dismiss="modal" onclick="fn_cerrar_producto();">Cancelar</a>
+                    <a href="#" class="btn btn-small" data-dismiss="modal" onclick="fn_cerrar_transferencias();">Cancelar</a>
 
                     <button type="submit" class="btn btn-small btn-primary">
                         <i class="fa fa-ok"></i>
@@ -70,22 +73,21 @@
         $.ajax({
             url: '../models/transferencias/transferencias_agregar.php',
             data: str,
-            type: 'post',
+            type: 'get',
             success: function(data){
                 if(data != "")
                     alert(data);
-                fn_cerrar_producto();
-                fn_buscar_transferencias();
+                fn_cerrar_transferencias();
+                fn_buscar_transferencias_registro();
             }
         });
     };
 
-    $("#producto_id").change(function(){/*Funcion para listar todos los tipos de comprobantes...*/
-        var producto_id = document.getElementById('producto_id');
-        console.log(producto_id.value);
+    $("#producto_id").change(function(){ 
+        var data = $("#frm_transferencias").serialize();
         $.ajax({
             url: '../models/transferencias/transferencias_listar_productos.php?producto_id=' +producto_id.value,
-            data: "producto_id=" +producto_id.value,
+            data: data, 
             type: 'get',
             success: function(data){
               $("#div_listar_productos").html(data);
@@ -105,10 +107,10 @@
             transferencias: {
                 required: true
             },
-            abrev: {
+            producto_id: {
                 required: true
             },
-            prefijo: {
+            disponible: {
                 required: true
             }
         },
@@ -117,11 +119,11 @@
             transferencias: {
                 required: "<a data-original-title='The last tip!' title='Ingresa un transferencias válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
             },
-            abrev: {
-                required: "<a data-original-title='The last tip!' title='Ingresa un abrev válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
+            producto_id: {
+                required: "<a data-original-title='The last tip!' title='Ingresa un producto_id válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
             },
-            prefijo: {
-                required: "<a data-original-title='The last tip!' title='Ingresa un prefijo válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
+            disponible: {
+                required: "<a data-original-title='The last tip!' title='Ingresa un disponible válido.' data-rel='tooltip' href='#'><i class='fa fa-warning-sign'></i></a>"
             }
         }
     });
