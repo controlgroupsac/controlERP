@@ -76,8 +76,8 @@
 					</a>
 				</li>
 				
-				<li class="open hover">
-					<a href="#">
+				<li id="ventas_tranfer" class="open hover">
+					<a href="transferencias.php">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Envíos y devoluciones
 					</a>

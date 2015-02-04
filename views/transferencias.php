@@ -1,6 +1,10 @@
 <?php  
 	include "../config/conexion.php"; 
-    // include("../queries/query.php");
+    $query = "SELECT * FROM almacen_transferencia" ;
+    mysql_select_db($database_fastERP, $fastERP);
+    $table = mysql_query($query, $fastERP) or die(mysql_error());
+    $totalRows_table = mysql_num_rows($table);
+    $row_table = mysql_fetch_assoc($table);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -61,60 +65,36 @@
 								<div class="row">
 									<!-- Datos de los Clientes -->
 									<div class="col-xs-12 widget-container-col">
-										<div class="widget-box widget-color-blue">
-											<div class="widget-header">
-												<i class="fa fa-table"></i>
-												<h5 class="widget-title"> Lista de clientes</h5>
-
-												<div class="widget-toolbar">
-													<a href="#" data-action="collapse">
-														<i class="1 ace-icon fa fa-chevron-up"></i>
-													</a>
-												</div>
-
-												<div class="widget-toolbar no-border">
-													<button class="btn btn-sm btn-success" id="nuevoCliente"> Agregar cliente </button>
-												</div>
+										<form action="javascript: fn_buscar_transferencias();" class="form-inline disabled" method="post" id="frm_buscar_transferencias">
+											<div class="col-xs-3">
+												<span class="label label-lg label-pink arrowed-right">Transferencias</span>
 											</div>
+											<div class="col-xs-9 text-left">
+												<label class="control-label no-padding-right" for="origen"> Origen </label>
+												<select class="chosen-select col-xs-2" name="origen" id="origen">
+													<?php query_table_option("SELECT * FROM almacen", "almacen_id", "almacen") ?>
+												</select>
 
-											<div class="widget-body">
-												<div class="widget-main scrollable" data-size="150">
-													<div id="div_listar_cliente"></div>
-	            									<div id="div_oculto_cliente" class="none"></div>
-												</div>
+												<label class=" control-label no-padding-right" for="destino"> 
+													<span class="fa fa-long-arrow-right"></span>
+													destino 
+												</label>
+												<select class="chosen-select col-xs-2" name="destino" id="destino">
+													<?php query_table_option("SELECT * FROM almacen", "almacen_id", "almacen") ?>
+												</select>
+
+												<button type="submit" class="btn btn-info btn-sm" id="crear_transferencias">
+													<i class="ace-icon fa fa-key bigger-110"></i>Crear Transferencia
+												</button>
 											</div>
-										</div>
+										</form>
 									</div><!--/span-->
 								</div>
 								
 								<hr />
 								<div class="row">
 									<!-- Datos de los Ventas -->
-									<div class="col-xs-12 widget-container-col">
-										<div class="widget-box widget-color-blue">
-											<div class="widget-header">
-												<i class="fa fa-table"></i>
-												<h5 class="widget-title"> Lista de ventas</h5>
-
-												<div class="widget-toolbar">
-													<a href="#" data-action="collapse">
-														<i class="1 ace-icon fa fa-chevron-up"></i>
-													</a>
-												</div>
-
-												<div class="widget-toolbar no-border">
-													<button class="btn btn-sm btn-success" id="nuevaVentas_registro"> Agregar Venta </button>
-												</div>
-											</div>
-
-											<div class="widget-body">
-												<div class="widget-main scrollable" data-size="250">
-													<div id="div_listar_ventas_registro"></div>
-	            									<div id="div_oculto_ventas_registro" class="none"></div>
-												</div>
-											</div>
-										</div>
-									</div>
+									<div class="col-xs-12 widget-container-col" id="div_listar_transferencias"></div>
 								</div>
 
 								<div id="div_compra_formulario"></div>
@@ -167,22 +147,23 @@
 
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
-			fn_buscar_ventas_registro();
-			fn_buscar_cliente();
 			
 			jQuery(function($) {
 				$("#ventas").addClass("active");
-				$("#ventas_view").addClass("active");
+				$("#ventas_tranfer").addClass("active");
+
+				/*Choosen select*/
+				$('.chosen-select').chosen();
 
 				$('[data-rel=tooltip]').tooltip();
 				
-				//datepicker plugin
-				//link
+				/*datepicker plugin
+				link*/
 				$('.date-picker').datepicker({
 					autoclose: true,
 					todayHighlight: true
 				})
-				//show datepicker when clicking on the icon
+				/*show datepicker when clicking on the icon*/
 				.next().on(ace.click_event, function(){
 					$(this).prev().focus();
 				});
@@ -203,16 +184,6 @@
 						//styleClass: 'scroll-left scroll-margin scroll-thin scroll-dark scroll-light no-track scroll-visible'
 					});
 				});
-
-			   $(document).on('settings.ace.two_menu', function(e, event_name, event_val) {
-				 if(event_name == 'sidebar_fixed') {
-					 if( $('#sidebar').hasClass('sidebar-fixed') ) $('#sidebar2').addClass('sidebar-fixed')
-					 else $('#sidebar2').removeClass('sidebar-fixed')
-				 }
-			   }).triggerHandler('settings.ace.two_menu', ['sidebar_fixed' ,$('#sidebar').hasClass('sidebar-fixed')]);
-			   
-			   $('#sidebar2[data-sidebar-hover=true]').ace_sidebar_hover('reset');
-			   $('#sidebar2[data-sidebar-scroll=true]').ace_sidebar_scroll('reset', true);
 			})
 		</script>
 	</body>

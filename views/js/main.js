@@ -955,3 +955,24 @@ $("#nuevaVentas_registro").click(function () {
   });
 });
 
+
+
+/*Transferencias*/
+function fn_buscar_transferencias(){
+  var str = $("#frm_buscar_transferencias").serialize();
+  var origen = $("#origen").val();
+  var destino = $("#destino").val();
+  if (origen == destino) {
+    alert("El ORIGEN no puede ser el mismo que el DESTINO");
+  }else {
+    $.ajax({
+      url: '../models/transferencias/transferencias_listar.php',
+      type: 'get',
+      data: str,
+      success: function(data){
+        $("#div_listar_transferencias").html(data);
+      }
+    });
+    jQuery("#crear_transferencias").addClass("disabled");
+  };
+}
