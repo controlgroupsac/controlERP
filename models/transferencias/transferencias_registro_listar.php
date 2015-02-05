@@ -17,7 +17,7 @@
     $totalRows_table = mysql_num_rows($table);
     $row_table = mysql_fetch_assoc($table);
 ?>
- <div class="table-responsive">
+<div class="table-responsive">
 	<table id="simple-table" class="table table-striped table-bordered table-hover">
 		<thead>
 			<tr>

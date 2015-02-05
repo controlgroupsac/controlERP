@@ -69,6 +69,13 @@
 						Envíos y devoluciones
 					</a>
 				</li>
+
+				<li id="ventas_tranfer" class="open hover">
+					<a href="transferencias_registro.php">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Registro de Envios y Devoluciones
+					</a>
+				</li>
 				
 				<li class="open hover">
 					<a href="#">
