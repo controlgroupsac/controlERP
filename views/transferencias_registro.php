@@ -93,65 +93,23 @@ almacen_transferencia.almacen_destino_id = destino.almacen_id " ;
 										    </div>
 
 										    <div class="widget-toolbar no-border">
-										      <button class="btn btn-sm btn-success" id="nuevaTranferencia"> Agregar tranferencia </button>
+										      <button class="btn btn-sm btn-success" id="nuevaTransferencia"> Agregar tranferencia </button>
 										    </div>
 										  </div>
 
 										  <div class="widget-body">
 										    <div class="widget-main scrollable" data-size="250">
-										    	<div class="table-responsive">
-										    		<table id="simple-table" class="table table-striped table-bordered table-hover">
-										    			<thead>
-										    				<tr>
-										    					<th>Transferencia</th>
-										    					<th>Origen</th>
-										    					<th>Destino</th>
-
-										    					<th></th>
-										    				</tr>
-										    			</thead>
-
-										    			<tbody>
-										    				<?php do { ?>
-										    				<tr>
-										    					<td><?php echo $row_table["transferencia_id"]; ?></td>
-										    					<td><?php echo $row_table["origen"]; ?></td>
-										    					<td><?php echo $row_table["destino"]; ?></td>
-										    					<td>
-										    						<div class="btn-group">
-										    							<button class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_transferencias(<?=$row_table['almacendet_id']?>);">
-										    								<i class="ace-icon fa fa-pencil bigger-120"></i>
-										    							</button>
-
-										    							<button class="btn btn-xs btn-danger tooltip-info" data-rel="tooltip" data-placement="left" title="ELMINAR!" onclick="javascript: fn_eliminar_transferencias(<?=$row_table['almacendet_id']?>);">
-										    								<i class="ace-icon fa fa-trash-o bigger-120"></i>
-										    							</button>
-										    						</div>
-										    					</td>
-										    				</tr>
-										    				<?php } while ( $row_table = mysql_fetch_assoc($table) ); ?>
-										    			</tbody>
-										    		</table>
-										    	</div>
+												<div id="div_listar_transferencias"></div>
+												<div id="div_oculto_transferencias" class="none"></div>
 										    </div>
-										  </div>
-										</div>
-
-										<div class="widget-body">
-										  <div class="widget-main scrollable" data-size="250">
-										    
 										  </div>
 										</div>
 									</div><!--/span-->
 								</div>
 								
 								<hr />
-								<div class="row">
-									<!-- Datos de los Ventas -->
-									<div class="col-xs-12 widget-container-col" id="div_listar_transferencias"></div>
-								</div>
-
-								<div id="div_compra_formulario"></div>
+								
+								
 
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
@@ -201,10 +159,11 @@ almacen_transferencia.almacen_destino_id = destino.almacen_id " ;
 
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
+			fn_buscar_transferencias();
 			
 			jQuery(function($) {
-				$("#ventas").addClass("active");
-				$("#ventas_tranfer").addClass("active");
+				$("#almacen").addClass("active");
+				$("#almacen_tranfer").addClass("active");
 
 				/*Choosen select*/
 				$('.chosen-select').chosen();

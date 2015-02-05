@@ -1,6 +1,9 @@
 <?php  
 	include "../config/conexion.php"; 
-    $query = "SELECT * FROM almacen_transferencia" ;
+    $query = "SELECT origen.almacen AS origen, destino.almacen AS destino
+			  FROM almacen AS origen , almacen AS destino
+			  WHERE origen.almacen_id = $_GET[origen]  
+			  AND destino.almacen_id = $_GET[destino] " ;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);
@@ -59,46 +62,53 @@
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
 								<?php include("../models/sidebar.php"); ?>
-
-
+									
 								<!-- Small boxes (Stat box) -->
-								<div class="row">
-									<!-- Datos de los Clientes -->
-									<div class="col-xs-12 widget-container-col">
-										<form action="javascript: fn_buscar_transferencias();" class="form-inline disabled" method="post" id="frm_buscar_transferencias">
-											<div class="col-xs-3">
-												<span class="label label-lg label-pink arrowed-right">Transferencias</span>
-											</div>
-											<div class="col-xs-9 text-left">
-												<label class="control-label no-padding-right" for="origen"> Origen </label>
-												<select class="chosen-select col-xs-2" name="origen" id="origen">
-													<?php query_table_option("SELECT * FROM almacen", "almacen_id", "almacen") ?>
-												</select>
 
-												<label class=" control-label no-padding-right" for="destino"> 
-													<span class="fa fa-long-arrow-right"></span>
-													destino 
-												</label>
-												<select class="chosen-select col-xs-2" name="destino" id="destino">
-													<?php query_table_option("SELECT * FROM almacen", "almacen_id", "almacen") ?>
-												</select>
 
-												<button type="submit" class="btn btn-info btn-sm" id="crear_transferencias">
-													<i class="ace-icon fa fa-key bigger-110"></i>Crear Transferencia
-												</button>
+								<h5 class="widget-title"> 
+
+								  <span class="label label-lg arrowed-in arrowed-right"> Tranferencia </span>
+								  <span class="label label-lg label-yellow arrowed-in arrowed-right"> Origen: <?php echo $row_table['origen']; ?> </span>
+								  <span class="fa fa-long-arrow-right"></span>
+								  <span class="label label-lg label-yellow arrowed-in arrowed-right"> Destino: <?php echo $row_table['destino']; ?> </span>
+								</h5>
+
+								<form action="javascript: fn_buscar_transferencias_producto();" class="form-horizontal" method="post" id="frm_buscar_transferencias_producto">
+									<input type="hidden" name="origen" id="origen" value="<?php echo $_GET['origen']; ?>" />
+									<input type="hidden" name="destino" id="destino" value="<?php echo $_GET['destino']; ?>" />
+									<input type="hidden" name="transferencia_id" id="transferencia_id" value="<?php echo $_GET['transferencia_id']; ?>" />
+									<div class="row">
+
+										<div class="col-xs-12 widget-container-col">
+											<div class="widget-box widget-color-blue">
+												<div class="widget-header">
+													<i class="fa fa-table"></i>
+													<h5 class="widget-title"> Lista de Producto de la transferencia</h5>
+
+													<div class="widget-toolbar">
+														<a href="#" data-action="collapse">
+															<i class="1 ace-icon fa fa-chevron-up"></i>
+														</a>
+													</div>
+
+													<div class="widget-toolbar no-border">
+														<button class="btn btn-sm btn-success" id="nuevaTransferencia_producto"> Agregar Producto </button>
+													</div>
+												</div>
+
+												<div class="widget-body">
+													<div class="widget-main scrollable" data-size="400">
+														<div id="div_listar_transferencias_producto"></div>
+														<div id="div_oculto_transferencias_producto" class="none"></div>
+													</div>
+												</div>
 											</div>
-										</form>
-									</div><!--/span-->
-								</div>
+										</div>
+
+									</div>
+								</form>
 								
-								<hr />
-								<div class="row">
-									<!-- Datos de los Ventas -->
-									<div class="col-xs-12 widget-container-col" id="div_listar_transferencias"></div>
-								</div>
-
-								<div id="div_compra_formulario"></div>
-
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
@@ -147,10 +157,11 @@
 
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
+			fn_buscar_transferencias_producto();
 			
 			jQuery(function($) {
-				$("#ventas").addClass("active");
-				$("#ventas_tranfer").addClass("active");
+				$("#almacen").addClass("active");
+				$("#almacen_tranfer").addClass("active");
 
 				/*Choosen select*/
 				$('.chosen-select').chosen();

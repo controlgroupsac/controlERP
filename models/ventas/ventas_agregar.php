@@ -62,7 +62,8 @@
     $almacen = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_almacen = mysql_num_rows($almacen);
 
-	$query = "SELECT ventas.almacen_id, ventas.ventas_id, producto_ensamblado.producto_ensamblado_id, producto_ensamblado.producto, producto.producto_id, producto.producto, ventas_det.cantidad
+	$query = "SELECT ventas.almacen_id, ventas.ventas_id, producto_ensamblado.producto_ensamblado_id, 
+					 producto_ensamblado.producto, producto.producto_id, producto.producto, producto.factor, ventas_det.cantidad
 			  FROM ventas , ventas_det , producto_ensamblado , producto_ensamblado_det , producto
 			  WHERE ventas.ventas_id = $_POST[ventas_id]
 			  AND ventas.ventas_id = ventas_det.ventas_id
@@ -83,7 +84,7 @@
                             fn_filtro($row_table['ventas_id']),
                             fn_filtro($row_table['producto_id']),
                             fn_filtro($row_table['producto_ensamblado_id']),
-                            fn_filtro("-".$row_table['cantidad']),
+                            fn_filtro(-1 * ($row_table['cantidad'] * $row_table['factor'])),
                             fn_filtro(1)
             );
             if(!mysql_query($almacen_det, $fastERP))

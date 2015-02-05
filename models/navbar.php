@@ -62,20 +62,6 @@
 						PDV
 					</a>
 				</li>
-
-				<li id="ventas_tranfer" class="open hover">
-					<a href="transferencias.php">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Envíos y devoluciones
-					</a>
-				</li>
-
-				<li id="ventas_tranfer" class="open hover">
-					<a href="transferencias_registro.php">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Registro de Envios y Devoluciones
-					</a>
-				</li>
 				
 				<li class="open hover">
 					<a href="#">
@@ -145,11 +131,11 @@
 			</ul>
 		</li>
 
-		<li class="open hover">
+		<li id="almacen" class="open hover">
 			<a href="#" class="dropdown-toggle">
 				<i class="menu-icon fa fa-database"></i>
 				<span class="menu-text">
-					Inventario
+					Almacen
 				</span>
 
 				<b class="arrow fa fa-angle-down"></b>
@@ -158,12 +144,13 @@
 			<b class="arrow"></b>
 
 			<ul class="submenu">
-				<li class="open hover">
-					<a href="#" class="dropdown-toggle">
+
+				<li id="almacen_tranfer" class="open hover">
+					<a href="transferencias_registro.php">
 						<i class="menu-icon fa fa-caret-right"></i>
-						Inventario físico
+						Envíos y devoluciones
 					</a>
-				</li>
+				</li>				
 
 				<li class="open hover">
 					<a href="#" class="dropdown-toggle">

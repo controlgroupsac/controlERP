@@ -274,6 +274,8 @@ function fn_mostrar_frm_modificar_unidad(unidad_id){
   });
 };
 
+
+
 /**/
 /**/
 /**/
@@ -957,22 +959,176 @@ $("#nuevaVentas_registro").click(function () {
 
 
 
-/*Transferencias*/
-function fn_buscar_transferencias(){
-  var str = $("#frm_buscar_transferencias").serialize();
-  var origen = $("#origen").val();
-  var destino = $("#destino").val();
-  if (origen == destino) {
-    alert("El ORIGEN no puede ser el mismo que el DESTINO");
-  }else {
-    $.ajax({
-      url: '../models/transferencias/transferencias_listar.php',
-      type: 'get',
-      data: str,
-      success: function(data){
-        $("#div_listar_transferencias").html(data);
+// /*Transferencias*/
+// function fn_buscar_transferencias(){
+//   var str = $("#frm_buscar_transferencias").serialize();
+//   var origen = $("#origen").val();
+//   var destino = $("#destino").val();
+//   if (origen == destino) {
+//     alert("El ORIGEN no puede ser el mismo que el DESTINO");
+//   }else {
+//     $.ajax({
+//       url: '../models/transferencias/transferencias_listar.php',
+//       type: 'get',
+//       data: str,
+//       success: function(data){
+//         $("#div_listar_transferencias").html(data);
+//       }
+//     });
+//     jQuery("#crear_transferencias").addClass("disabled");
+//   };
+// }
+
+
+/**/
+/**/
+/**/
+/*TRANSFERENCIAS*/
+function fn_cerrar_transferencias(){
+  $.unblockUI({ 
+    onUnblock: function(){
+      $("#div_oculto_transferencias").html("");
+      fn_buscar_transferencias();
+    }
+  }); 
+};
+$("#nuevaTransferencia").click(function () {
+  $("#div_oculto_transferencias").load("../models/transferencias/transferencias_form_agregar.php", function(){
+    $.blockUI({
+      message: $('#div_oculto_transferencias'),
+      css:{
+        top: '10%',
+        width: '30%',
       }
     });
-    jQuery("#crear_transferencias").addClass("disabled");
-  };
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+});
+
+function fn_buscar_transferencias(){
+  var str = $("#frm_buscar_transferencias").serialize();
+  $.ajax({
+    url: '../models/transferencias/transferencias_listar.php',
+    type: 'get',
+    data: str,
+    success: function(data){
+      $("#div_listar_transferencias").html(data);
+    }
+  });
 }
+function fn_eliminar_transferencias(transferencia_id){
+  var respuesta = confirm("Desea eliminar este transferencias?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/transferencias/transferencias_eliminar.php',
+      data: 'transferencia_id=' + transferencia_id,
+      type: 'post',
+      success: function(data){
+        if(data!="")
+          alert(data);
+        fn_buscar_transferencias()
+      }
+    });
+  }
+}
+function fn_mostrar_frm_modificar_transferencias(transferencias_id){
+  $("#div_oculto_transferencias").load("../models/transferencias/transferencias_form_modificar.php", {transferencias_id: transferencias_id}, function(){
+    $.blockUI({
+      message: $('#div_oculto_transferencias'),
+      css:{
+        top: '5%',
+        width: '40%'
+      }
+    }); 
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+};
+
+
+/**/
+/**/
+/**/
+/*TRANSFERENCIAS_REGISTRO*/
+function fn_cerrar_transferencias_producto(){
+  $.unblockUI({ 
+    onUnblock: function(){
+      $("#div_oculto_transferencias_producto").html("");
+      fn_buscar_transferencias_producto();
+    }
+  }); 
+};
+
+$("#nuevaTransferencia_producto").click(function () {
+  var origen = document.getElementById("origen").value;
+  var destino = document.getElementById("destino").value;
+  var transferencia_id = document.getElementById("transferencia_id").value;
+  $("#div_oculto_transferencias_producto").load("../models/transferencias/transferencias_producto_form_agregar.php?origen=" +origen+ "&destino=" +destino+  "&transferencia_id=" +transferencia_id, function(){
+    $.blockUI({
+      message: $('#div_oculto_transferencias_producto'),
+      css:{
+        top: '10%',
+        width: '30%',
+      }
+    });
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+});
+
+function fn_buscar_transferencias_producto(){
+  var str = $("#frm_buscar_transferencias_producto").serialize();
+  $.ajax({
+    url: '../models/transferencias/transferencias_producto_listar.php',
+    type: 'get',
+    data: str,
+    success: function(data){
+      $("#div_listar_transferencias_producto").html(data);
+    }
+  });
+}
+
+function fn_eliminar_transferencias_producto(transferencia_id){
+  var respuesta = confirm("Desea eliminar esta transferencia?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/transferencias/transferencias_producto_eliminar.php',
+      data: 'transferencia_id=' + transferencia_id,
+      type: 'post',
+      success: function(data){
+        if(data!="")
+          alert(data);
+        fn_buscar_transferencias_producto()
+      }
+    });
+  }
+}
+function fn_mostrar_frm_modificar_transferencias_producto(producto_ensamblado_id, transferencia_id, origen, destino){
+  var data = {
+    origen: origen, 
+    destino: destino, 
+    producto_ensamblado_id: producto_ensamblado_id, 
+    transferencia_id: transferencia_id
+  }
+  $("#div_oculto_transferencias_producto").load("../models/transferencias/transferencias_producto_form_modificar.php", data, function(){
+    $.blockUI({
+      message: $('#div_oculto_transferencias_producto'),
+      css:{
+        top: '5%',
+        width: '40%'
+      }
+    }); 
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
