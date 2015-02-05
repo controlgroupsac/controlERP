@@ -189,6 +189,13 @@
 				</li>
 
 				<li class="open hover">
+					<a href="../models/informes/existencias_por_almacenes.php" target="_blank">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Existencias por almacenes
+					</a>
+				</li>
+
+				<li class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Cambios en valores de inventario

@@ -136,7 +136,7 @@
     $comprobante2 = mysql_query($query_comprobante2, $fastERP) or die(mysql_error());
     $row_comprobante2 = mysql_fetch_assoc($comprobante2);
 
-    $query_producto2 = "SELECT ventas.ventas_id, producto_ensamblado.producto, producto.producto, ventas_det.cantidad, producto.precio
+    /*$query_producto2 = "SELECT ventas.ventas_id, producto_ensamblado.producto, producto.producto, producto.factor, ventas_det.cantidad, producto.precio
 						FROM ventas , ventas_det , producto_ensamblado , producto_ensamblado_det , producto
 						WHERE ventas.ventas_id = $_GET[ventas_id]
 						AND ventas.ventas_id = ventas_det.ventas_id
@@ -144,7 +144,12 @@
 						AND producto_ensamblado.producto_ensamblado_id = producto_ensamblado_det.producto_ensamblado_id
 						AND producto_ensamblado_det.producto_id = producto.producto_id
 						AND producto.categoria_id = 4
-						GROUP BY producto.producto_id";
+						GROUP BY producto.producto_id";*/
+	$query_producto2 = "SELECT producto.producto, ventas_env.lleva, ventas_env.devuelve, ventas_env.producto_id, producto.precio
+						FROM ventas , ventas_env , producto
+						WHERE ventas.ventas_id = $_GET[ventas_id] AND
+						ventas_env.ventas_id = ventas.ventas_id AND
+						ventas_env.producto_id = producto.producto_id ";
     mysql_select_db($database_fastERP, $fastERP);
     $producto2 = mysql_query($query_producto2, $fastERP) or die(mysql_error());
     $row_producto2 = mysql_fetch_assoc($producto2); 
@@ -177,7 +182,7 @@
 			<caption>
 				<h4><?php query_table_campo("SELECT * FROM empresa", "empresa"); ?></h4>
 				<h5><?php echo $row_almacen2['almacen']; ?></h5>
-				<h6>Nro de <?php echo $row_comprobante2['comprobante_tipo']. ': ' .$row_comprobante2['ultimo_numero']; ?></h6>
+				<h6>Nro de Recibo<?php echo $row_comprobante2['ultimo_numero']; ?></h6>
 			</caption>
 			<thead>
 				<th colspan='2'>Descripción</th>
@@ -189,7 +194,7 @@
 					<tr>
 						<td colspan='2'><?php echo $row_producto2['producto']; ?></td>
 						<td align='right'><?php echo number_format($row_producto2['precio'], 2); ?></td>
-						<td align='right'><?php echo $row_producto2['cantidad']; ?></td>
+						<td align='right'><?php echo $row_producto2['devuelve'] - $row_producto2['lleva']; ?></td>
 					</tr>
 				<?php } while ($row_producto2 = mysql_fetch_assoc($producto2)); ?>
 
