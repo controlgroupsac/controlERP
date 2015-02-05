@@ -30,7 +30,7 @@
 
                 <div class="col-sm-9">
                     <select class="chosen-select form-control" name="cliente_id" id="cliente_id">
-                        <?php query_table_option("SELECT * FROM cliente", "cliente_id", "nombres") ?>
+                        <?php query_table_option("SELECT cliente_id, CONCAT(cliente.nombres, ' ' ,cliente.apellidos) AS nombre_apellidos FROM cliente", "cliente_id", "nombre_apellidos") ?>
                     </select>
                 </div>
             </div>

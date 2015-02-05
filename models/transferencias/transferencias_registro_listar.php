@@ -6,12 +6,12 @@
     if($transferencia == "" || empty($transferencia)) {
     	$transferencia = "";
     }
-    $query = "SELECT producto.producto, almacen_det.almacendet_id, almacen_det.transferencia_id, almacen_det.cantidad
-			  FROM almacen_transferencia , almacen_det , producto
-			  WHERE almacen_det.transferencia_id = almacen_transferencia.transferencia_id 
-			  AND almacen_det.transferencia_id <> 0
-			  AND almacen_det.producto_id = producto.producto_id
-			  AND almacen_det.transferencia_id = $transferencia" ;
+    $query = "SELECT producto_ensamblado.producto, 
+    				 SUM(almacen_transferencias_detalle.cantidad) AS cantidad_suma, almacen_transferencias_detalle.almacen_transferencias_id 
+    		  FROM almacen_transferencias_detalle , producto_ensamblado
+			WHERE almacen_transferencias_detalle.producto_ensamblado_id = producto_ensamblado.producto_ensamblado_id 
+			AND almacen_transferencias_detalle.almacen_transferencias_id = $transferencia
+			GROUP BY almacen_transferencias_detalle.producto_ensamblado_id" ;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);
@@ -32,9 +32,9 @@
 		<tbody>
 			<?php do { ?>
 			<tr>
-				<td><?php echo $row_table["transferencia_id"]; ?></td>
+				<td><?php echo $row_table["almacen_transferencias_id"]; ?></td>
 				<td><?php echo $row_table["producto"]; ?></td>
-				<td><?php echo $row_table["cantidad"]; ?></td>
+				<td><?php echo $row_table["cantidad_suma"]; ?></td>
 				<td>
 					<div class="btn-group">
 						<button class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_transferencias(<?=$row_table['almacendet_id']?>);">
