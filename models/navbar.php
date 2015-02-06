@@ -190,6 +190,13 @@
 				</li>
 
 				<li class="open hover">
+					<a href="../models/informes/ventas_por_cliente.php" target="_blank">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Ventas por cliente
+					</a>
+				</li>
+
+				<li class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Cambios en valores de inventario

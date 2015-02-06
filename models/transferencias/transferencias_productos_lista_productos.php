@@ -21,6 +21,6 @@
     }
 ?>
 <span class="input-icon">
-	<input type="text" class="input-xlarge" name="monto" id="monto" value="<?php echo $total; ?>" placeholder="monto" required />
+	<input type="text" class="input-xlarge" name="monto" id="monto" value="<?php echo $total; ?>" placeholder="monto" required readonly />
 	<i class="ace-icon fa fa-user"></i>
 </span>

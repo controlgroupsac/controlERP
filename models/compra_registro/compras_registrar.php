@@ -49,7 +49,7 @@
 	    $almacen = mysql_query($query, $fastERP) or die(mysql_error());
 	    $totalRows_almacen = mysql_num_rows($almacen);
 
-		$query = "SELECT compra.almacen_id, compra.compra_id, producto_ensamblado.producto_ensamblado_id, 
+		$query = "SELECT compra.almacen_id, compra.compra_id, producto_ensamblado.producto_ensamblado_id, producto_ensamblado.unidad_id, 
 						 producto_ensamblado.producto, producto.producto_id, producto.producto, producto.factor, compra_det.cantidad
 				  FROM compra , compra_det , producto_ensamblado , producto_ensamblado_det , producto
 				  WHERE compra.compra_id = $_POST[compra_id]
@@ -65,13 +65,16 @@
 	    	exit;
 	    }else {
 	    	do {
+	    		if ($row_table['unidad_id'] == 1) {
+	    			$row_table['factor'] = 1;
+	    		} 
 	            $almacen_det = sprintf("INSERT INTO `controlg_controlerp`.`almacen_det` (`almacen_id`, `compra_id`, `producto_id`, `producto_ensamblado_id`, `cantidad`, `activo`) 
 	                            VALUES ('%s', '%s', '%s', '%s', '%s', '%s');",
 	                            fn_filtro($row_table['almacen_id']),
 	                            fn_filtro($row_table['compra_id']),
 	                            fn_filtro($row_table['producto_id']),
 	                            fn_filtro($row_table['producto_ensamblado_id']),
-	                            fn_filtro(-1 * ($row_table['cantidad'] * $row_table['factor'])),
+	                            fn_filtro($row_table['cantidad'] * $row_table['factor']),
 	                            fn_filtro(1)
 	            );
 	            if(!mysql_query($almacen_det, $fastERP))
