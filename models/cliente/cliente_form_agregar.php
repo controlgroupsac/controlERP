@@ -14,7 +14,7 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="nombres" id="nombres" placeholder="nombres" value="nombres" />
+                        <input type="text" class="input-xlarge" name="nombres" id="nombres" placeholder="nombres" value="" />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -25,7 +25,7 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="apellidos" id="apellidos" placeholder="apellidos" value="apellidos" />
+                        <input type="text" class="input-xlarge" name="apellidos" id="apellidos" placeholder="apellidos" value="" />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -36,7 +36,7 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="dni" id="dni" maxlength="8" placeholder="dni" value="12345678" />
+                        <input type="text" class="input-xlarge" name="dni" id="dni" maxlength="8" placeholder="dni" value="" required />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -47,7 +47,7 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="empresa" id="empresa" placeholder="empresa" value="empresa" />
+                        <input type="text" class="input-xlarge" name="empresa" id="empresa" placeholder="empresa" value="" />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -58,7 +58,7 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="ruc" id="ruc" maxlength="11" placeholder="ruc" value="12345678912" />
+                        <input type="text" class="input-xlarge" name="ruc" id="ruc" maxlength="11" placeholder="ruc" value="" />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -69,7 +69,7 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="direccion" id="direccion" maxlength="11" placeholder="direccion" value="12345678912" />
+                        <input type="text" class="input-xlarge" name="direccion" id="direccion" maxlength="11" placeholder="direccion" value="" />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -92,7 +92,7 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <input type="text" class="input-xlarge" name="fecha_nac" id="fecha_nac" placeholder="fecha_nac" value="1990-05-05" />
+                        <input type="text" class="date-picker" name="fecha_nac" id="fecha_nac" placeholder="Fecha Nacimiento" value="1990-05-05" data-date-format="yyyy-mm-dd" />
                         <i class="ace-icon fa fa-user"></i>
                     </span>
                 </div>
@@ -128,4 +128,15 @@
             }
         });
     };
+
+    //datepicker plugin
+    //link
+    $('.date-picker').datepicker({ 
+        autoclose: true,
+        todayHighlight: true
+    })
+    //show datepicker when clicking on the icon
+    .next().on(ace.click_event, function(){
+        $(this).prev().focus();
+    });
 </script>

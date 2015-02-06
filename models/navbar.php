@@ -183,6 +183,13 @@
 				</li>
 
 				<li id="informe_tranfer" class="open hover">
+					<a href="../models/informes/truncate.php">
+						<i class="menu-icon fa fa-caret-right"></i>
+						truncate
+					</a>
+				</li>
+
+				<li id="informe_tranfer" class="open hover">
 					<a href="reporte_consolidado_por_almacen.php">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Consolidado por almacen

@@ -24,7 +24,7 @@
     <input type="hidden" name="cliente_id" id="cliente_id" value="<?php echo $_POST['cliente_id']; ?>" />
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_cliente();">&times;</button>
-        <h4 class="blue bigger">Agregar cliente</h4>
+        <h4 class="blue bigger">Modificar cliente</h4>
     </div>
     <div class="modal-body overflow-visible">
         <div class="row-fluid">
@@ -117,13 +117,15 @@
                 </div>
             </div>
 
+            <div class="col-xs-12"></div>
+            
             <div class="col-xs-12">
                 <div>
                     <a href="#" class="btn btn-small" data-dismiss="modal" onclick="fn_cerrar_cliente();">Cancelar</a>
 
                     <button type="submit" class="btn btn-small btn-primary">
                         <i class="fa fa-ok"></i>
-                        Agregar
+                        Modificar
                     </button>
                 </div>
                 <input type="hidden" name="MM_insert" value="frm_cliente">

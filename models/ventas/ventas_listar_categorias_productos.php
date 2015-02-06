@@ -2,7 +2,7 @@
 	include "../../config/conexion.php"; 
     include("../../queries/query.php"); 
 
-    $query = "SELECT * FROM categoria" ;
+    $query = "SELECT * FROM categoria ORDER BY categoria DESC" ;
     mysql_select_db($database_fastERP, $fastERP);
     $categoria = mysql_query($query, $fastERP) or die(mysql_error());
     $row_categoria = mysql_fetch_assoc($categoria);

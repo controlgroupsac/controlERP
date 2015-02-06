@@ -70,7 +70,7 @@
 									<th>Unidad</th>
 									<th>Cantidad</th>
 									<th>Precio</th>
-									<th>Sub Total</th>
+									<th nowrap>Sub Total</th>
 									<th>Cajas</th>
 									<th>Botellas</th>
 								</thead>
