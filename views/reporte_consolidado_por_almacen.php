@@ -58,7 +58,7 @@
 										Reporte
 										<small>
 											<i class="ace-icon fa fa-angle-double-right"></i>
-											Consolidad por ventas
+											Consolidad por Almacen
 										</small>
 									</h1>
 								</div><!-- /.page-header -->

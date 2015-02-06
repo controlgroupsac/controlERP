@@ -1,13 +1,32 @@
 <?php  
 	include "../../config/conexion.php"; 
-	$query = "SELECT usuario.usuario, 
-					 CONCAT(cliente.nombres, cliente.apellidos) as cliente, ventas.ventas_id, ventas_det.ventas_det_id, producto_ensamblado.producto, ventas_det.cantidad, 
-					 producto_ensamblado.precio
-			  FROM ventas , ventas_det , producto_ensamblado , cliente , usuario
-			  WHERE ventas.ventas_id = ventas_det.ventas_id
-			  AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
-			  AND ventas.cliente_id = cliente.cliente_id
-			  AND usuario.usuario_id = ventas.usuario_id" ;
+	$query = "SELECT
+almacen.almacen,
+usuario.usuario,
+ventas.fecha,
+producto_ensamblado.producto,
+Sum(ventas_det.cantidad) AS Cantidad,
+FORMAT(ventas_det.precio,2) AS precio,
+FORMAT(Sum(ventas_det.cantidad)*ventas_det.precio,2) AS SubTotal
+FROM
+ventas ,
+ventas_det ,
+producto_ensamblado ,
+almacen ,
+usuario
+WHERE
+almacen.almacen_id = ventas.almacen_id AND
+ventas.ventas_id = ventas_det.ventas_id AND
+ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id AND
+ventas.usuario_id = usuario.usuario_id AND
+ventas.usuario_id = 1 AND
+date(ventas.fecha) = date(now())
+GROUP BY
+almacen.almacen,
+usuario.usuario,
+ventas.fecha,
+ventas_det.producto_id,
+producto_ensamblado.producto" ;
 	mysql_select_db($database_fastERP, $fastERP);
 	$table = mysql_query($query, $fastERP) or die(mysql_error());
 	$totalRows_table = mysql_num_rows($table);
@@ -53,7 +72,7 @@
 								Invervalle
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
-									Reporte de ventas por cliente
+									Reporte de ventas de productos por dia
 								</small>
 							</h1>
 						</div><!-- /.page-header -->
@@ -62,19 +81,25 @@
 							<table class='table table-condensed'>
 								<thead>
 									<th></th>
+									<th>Almacen</th>
 									<th>Usuario</th>
-									<th>Cliente</th>
+									<th>fecha</th>
 									<th>Producto</th>
 									<th>Cantidad</th>
+									<th>precio</th>
+									<th>SubTotal</th>
 								</thead>
 								<tbody>
 									<?php do { ?>
 										<tr>
 											<td></td>
+											<td><?php echo $row_table['almacen']; ?></td>
 											<td><?php echo $row_table['usuario']; ?></td>
-											<td nowrap><?php echo $row_table['cliente']; ?></td>
+											<td nowrap><?php echo $row_table['fecha']; ?></td>
 											<td nowrap><?php echo $row_table['producto'] ; ?></td>
-											<td align="right"><?php echo $row_table['cantidad']; ?></td>
+											<td align="right"><?php echo $row_table['Cantidad']; ?></td>
+											<td align="right"><?php echo $row_table['precio']; ?></td>
+											<td align="right"><?php echo $row_table['SubTotal']; ?></td>
 										</tr>
 									<?php } while ($row_table = mysql_fetch_assoc($table)); ?>
 								</tbody>

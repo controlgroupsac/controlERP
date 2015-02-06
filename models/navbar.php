@@ -182,10 +182,10 @@
 					</a>
 				</li>
 
-				<li class="open hover">
-					<a href="../models/informes/existencias_por_almacenes.php" target="_blank">
+				<li id="informe_tranfer" class="open hover">
+					<a href="reporte_consolidado_por_almacen.php">
 						<i class="menu-icon fa fa-caret-right"></i>
-						Existencias por almacenes
+						Consolidado por almacen
 					</a>
 				</li>
 
@@ -196,10 +196,17 @@
 					</a>
 				</li>
 
-				<li id="informe_tranfer" class="open hover">
-					<a href="reporte_consolidado_por_almacen.php">
+				<li class="open hover">
+					<a href="../models/informes/venta_dia_producto.php" target="_blank">
 						<i class="menu-icon fa fa-caret-right"></i>
-						Consolidado por almacen
+						Ventas del dia por producto
+					</a>
+				</li>
+
+				<li class="open hover">
+					<a href="../models/informes/ventas_dia_usuario.php" target="_blank">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Ventas del dia por usuario
 					</a>
 				</li>
 

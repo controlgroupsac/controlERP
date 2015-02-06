@@ -765,6 +765,7 @@ function fn_mostrar_frm_ventas_agregar(){
 
   var data = {
     ventas_id: ventas_id.value,
+    cliente_id: cliente_id.value,
     almacen_id: almacen_id.value,
     valor_neto: valor_neto.value,
     descuento: descuento.value,

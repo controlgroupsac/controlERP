@@ -1,11 +1,11 @@
 <?php
+    include "../../config/conexion.php"; 
+    include("../../queries/query.php"); 
+
 	if(empty($_POST['ventas_id'])){
 		echo "Por favor no altere el fuente";
 		exit;
 	}
-
-	include "../../config/conexion.php"; 
-    include("../../queries/query.php"); 
 
     $query = "SELECT ventas_det.precio, ventas_det.cantidad, ventas.descuento
 			  FROM ventas_det, ventas
@@ -15,6 +15,13 @@
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);
     $row_table = mysql_fetch_assoc($table);
+
+    $query_almacen = "SELECT * FROM `controlg_controlerp`.`ventas_det`
+                      WHERE ventas_det.ventas_id = '$_POST[ventas_id]'";
+    mysql_select_db($database_fastERP, $fastERP);
+    $almacen = mysql_query($query_almacen, $fastERP) or die(mysql_error());
+    $totalRows_almacen = mysql_num_rows($almacen);
+    $row_almacen = mysql_fetch_assoc($almacen);
 
     $valor_neto = "";
     do {
@@ -35,6 +42,7 @@
     <input type="hidden" name="valor_neto" id="valor_neto" value="<?php echo $_POST['valor_neto']; ?>" />
     <input type="hidden" name="descuento" id="descuento" value="<?php echo $_POST['descuento']; ?>" />
     <input type="hidden" name="impuesto1" id="impuesto1" value="<?php echo $_POST['impuesto1']; ?>" />
+    <input type="hidden" name="totalRows_almacen" id="totalRows_almacen" value="<?php echo $totalRows_almacen; ?>">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_ventas();">&times;</button>
         <h4 class="blue bigger">Modificar Detalle Ventas</h4>
@@ -217,21 +225,28 @@
 		var str = $("#frm_ventas").serialize();
         var ventas_id = document.getElementById('ventas_id');
         var descuento = document.getElementById('descuento');
-        $.ajax({
-            url: '../models/ventas/ventas_agregar.php',
-            data: str,
-            type: 'post',
-            success: function(data){
-                if(data != "")
-                    alert(data);
-                var respuesta = confirm("Desea imprimir esta venta?");
-                if (respuesta){
-                    location.href = "../models/ventas/ventas_imprimir.php?ventas_id=" +ventas_id.value+ "&descuento=" +descuento.value;
-                }
-                fn_cerrar_ventas();
-                // location.href = "ventas_registro.php"
-			}
-		});
+        var totalRows_almacen = document.getElementById('totalRows_almacen');
+        console.log(str);
+        if (totalRows_almacen.value == 0) {
+            alert("Tienes que al menos ingresar un producto para CERRAR la VENTAS");
+            fn_cerrar_ventas();
+        } else {
+            $.ajax({
+                url: '../models/ventas/ventas_agregar.php',
+                data: str,
+                type: 'post',
+                success: function(data){
+                    if(data != "")
+                        alert(data);
+                    var respuesta = confirm("Desea imprimir esta venta?");
+                    if (respuesta){
+                        window.open("../models/ventas/ventas_imprimir.php?ventas_id=" +ventas_id.value+ "&descuento=" +descuento.value, "_blank");
+                    }
+                    fn_cerrar_ventas();
+                    location.href = "ventas_registro.php"
+    			}
+    		});
+        }
 	};
 
     $("#pago-efectivo").keyup(function(){
@@ -250,5 +265,36 @@
     //show datepicker when clicking on the icon
     .next().on(ace.click_event, function(){
         $(this).prev().focus();
+    });
+
+    
+    $('#frm_ventas').validate({
+        errorElement: 'div',
+        errorClass: 'help-block',
+        focusInvalid: false,
+        ignore: "",
+        rules: {
+            comprobante_tipo_id: {
+                required: true
+            },
+            condicion_pago: {
+                required: true
+            },
+            numero: {
+                required: true
+            }
+        },
+    
+        messages: {
+            comprobante_tipo_id: {
+                required: "Seleccione un comprobante."
+            },
+            condicion_pago: {
+                required: "Seleccione un numero de serie."
+            },
+            numero: {
+                required: "Seleccione un numero de serie."
+            }
+        }
     });
 </script>

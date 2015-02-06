@@ -35,11 +35,12 @@
 					fn_filtro($fecha),
 	                fn_filtro($_POST['cliente_id']),
 	                fn_filtro($_POST['ventas_id']),
-	                fn_filtro($_POST['total'])
+	                fn_filtro(-1 * ($_POST['total']))
 	);
     mysql_select_db($database_fastERP, $fastERP);
     $ctacorriente_cliente = mysql_query($query_ctacorriente_cliente, $fastERP) or die(mysql_error());
     $ultima_cta = mysql_insert_id();
+
 
 
 
@@ -52,6 +53,28 @@
 	);
 	if(!mysql_query($comprobante_det, $fastERP))
 		echo "Error al insertar:\n$comprobante_det";
+
+
+
+
+    $query_condicion_pago = "SELECT comprobante.ultimo_numero, comprobante.comprobante_id
+							FROM comprobante , comprobante_tipo
+							WHERE comprobante.comprobante_tipo_id = comprobante_tipo.comprobante_tipo_id 
+							AND comprobante_tipo.comprobante_tipo_id = $_POST[comprobante_tipo_id]
+							AND comprobante.comprobante_id = $_POST[condicion_pago]";
+    mysql_select_db($database_fastERP, $fastERP);
+    $condicion_pago = mysql_query($query_condicion_pago, $fastERP) or die(mysql_error());
+    $row_condicion_pago = mysql_fetch_assoc($condicion_pago);
+    $ultimo_numero = @$row_condicion_pago['ultimo_numero'] + 1;
+
+	$comprobante = sprintf("UPDATE `controlg_controlerp`.`comprobante` 
+							SET `ultimo_numero` = '%s'
+			                WHERE comprobante_id = '%s'",
+			                fn_filtro($ultimo_numero), 
+			                fn_filtro($row_condicion_pago['comprobante_id'])
+	);
+	if(!mysql_query($comprobante, $fastERP))
+		echo "Error al insertar:\n$comprobante";
 
 
 
@@ -94,7 +117,7 @@
                             VALUES ('%s', '%s', '%s');",
                             fn_filtro($ultima_cta),
                             fn_filtro($row_table['producto_id']),
-                            fn_filtro($row_table['cantidad'])
+                            fn_filtro(-1 * $row_table['cantidad'])
             );
             if(!mysql_query($ctacorriente_cliente_env, $fastERP))
                 echo "Error al insertar:\n$ctacorriente_cliente_env";

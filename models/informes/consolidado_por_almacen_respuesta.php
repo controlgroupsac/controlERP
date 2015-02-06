@@ -57,7 +57,7 @@
 								Invervalle
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
-									Existencia de productos en total
+									Reporte Consolidado Por Almacen
 								</small>
 							</h1>
 						</div><!-- /.page-header -->

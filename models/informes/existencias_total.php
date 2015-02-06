@@ -1,9 +1,15 @@
 <?php  
 	include "../../config/conexion.php"; 
-	$query = "SELECT almacen_det.almacendet_id, almacen.almacen, producto.producto, almacen_det.cantidad
-			  FROM almacen , almacen_det , producto
-			  WHERE almacen_det.almacen_id = almacen.almacen_id 
-			  AND almacen_det.producto_id = producto.producto_id " ;
+	$query = "SELECT producto.producto, unidad.unidad,
+			FORMAT(Sum(almacen_det.cantidad),0) AS cantidad,
+			FORMAT(producto.precio,2) AS precio,
+			FORMAT(Sum(almacen_det.cantidad)*producto.precio,2) AS subtotal,
+			FORMAT(Sum(almacen_det.cantidad) div producto.factor,0) AS cajas,
+			FORMAT(Sum(almacen_det.cantidad) mod producto.factor,0) AS botellas
+			FROM almacen_det , producto , unidad
+			WHERE almacen_det.producto_id = producto.producto_id 
+			AND producto.unidad_id = unidad.unidad_id
+			GROUP BY producto.producto_id" ;
 	mysql_select_db($database_fastERP, $fastERP);
 	$table = mysql_query($query, $fastERP) or die(mysql_error());
 	$totalRows_table = mysql_num_rows($table);
@@ -57,16 +63,27 @@
 						<div class="bloque col-xs-4 col-sm-3">
 							<table class='table table-condensed'>
 								<thead>
-									<th colspan='2'>Almacen</th>
-									<th align='center'>Producto</th>
-									<th align='center'>Cantidad</th>
+									<th></th>
+									<th>Producto</th>
+									<th>Unidad</th>
+									<th>Cantidad</th>
+									<th>precio</th>
+									<th>subtotal</th>
+									<th>cajas</th>
+									<th>botellas</th>
 								</thead>
 								<tbody>
+									<?php $contador = 1; ?>
 									<?php do { ?>
 										<tr>
-											<td colspan='2'><?php echo $row_table['almacen']; ?></td>
-											<td><?php echo $row_table['producto'] ; ?></td>
+											<td><?php echo $contador++; ?></td>
+											<td nowrap><?php echo $row_table['producto'] ; ?></td>
+											<td><?php echo $row_table['unidad']; ?></td>
 											<td><?php echo $row_table['cantidad']; ?></td>
+											<td><?php echo $row_table['precio']; ?></td>
+											<td><?php echo $row_table['subtotal']; ?></td>
+											<td><?php echo $row_table['cajas']; ?></td>
+											<td><?php echo $row_table['botellas']; ?></td>
 										</tr>
 									<?php } while ($row_table = mysql_fetch_assoc($table)); ?>
 								</tbody>

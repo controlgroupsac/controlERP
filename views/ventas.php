@@ -126,43 +126,7 @@
 												</div>
 												<div class="none" id="div_ventas_agregar"></div> <!-- POP UP, el cual agrega nuestra venta! -->
 											</div>
-
-											<!-- <div class="widget-body">
-												<div class="widget-main">
-													<table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-														<tbody id="tbodyBTN">
-															<tr>
-																<td rowspan="5">
-																	<button class="btn btn-success btn-block" id="registrar-venta">REGISTRAR</button>
-																</td>
-															</tr>
-
-															<tr>
-																<td><button class="btn btn-inverse btn-block">1</button></td>
-																<td><button class="btn btn-inverse btn-block">2</button></td>
-																<td><button class="btn btn-inverse btn-block">3</button></td>
-															</tr>
-
-															<tr>
-																<td><button class="btn btn-inverse btn-block">4</button></td>
-																<td><button class="btn btn-inverse btn-block">5</button></td>
-																<td><button class="btn btn-inverse btn-block">6</button></td>
-															</tr>
-
-															<tr>
-																<td><button class="btn btn-inverse btn-block">7</button></td>
-																<td><button class="btn btn-inverse btn-block">8</button></td>
-																<td><button class="btn btn-inverse btn-block">9</button></td>
-															</tr>
-															<tr>
-																<td colspan="3">
-																	<button class="btn btn-inverse btn-block border">0</button>
-																</td>
-															</tr>
-														</tbody>
-													</table>
-												</div>
-											</div> -->
+											
 										</div>
 
 									</div>

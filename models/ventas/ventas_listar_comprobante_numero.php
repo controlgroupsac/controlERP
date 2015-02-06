@@ -2,7 +2,7 @@
 	include "../../config/conexion.php"; 
     include("../../queries/query.php"); 
     $condicion_pago = @$_GET['code'];
-    $query = "SELECT comprobante.ultimo_numero
+    $query = "SELECT comprobante.ultimo_numero, comprobante.comprobante_id
 			  FROM comprobante
 			  WHERE comprobante.comprobante_id = $condicion_pago";
 
