@@ -187,7 +187,7 @@ if (isset($_GET['usuario'])) {
 								            </a>
 								        </div>
 								    </div><!-- ./col -->
-								</div><!-- /.row -->>
+								</div><!-- /.row -->
 
 
 								<!-- Small boxes (Stat box) -->

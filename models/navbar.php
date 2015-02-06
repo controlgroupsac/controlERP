@@ -162,7 +162,7 @@
 			</ul>
 		</li>
 
-		<li class="open hover">
+		<li id="informe" class="open hover">
 			<a href="#" class="dropdown-toggle">
 				<i class="menu-icon fa fa-book"></i>
 				<span class="menu-text">
@@ -193,6 +193,13 @@
 					<a href="../models/informes/ventas_por_cliente.php" target="_blank">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Ventas por cliente
+					</a>
+				</li>
+
+				<li id="informe_tranfer" class="open hover">
+					<a href="reporte_consolidado_por_almacen.php">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Consolidado por almacen
 					</a>
 				</li>
 
