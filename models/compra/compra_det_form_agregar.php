@@ -2,6 +2,11 @@
     include "../../config/conexion.php"; 
     include "../../queries/query.php"; 
 ?>
+<style type="text/css">
+    .chosen-container {
+        width: 250px;
+    }
+</style>
 <form action="javascript: fn_agregar_compra_det();" class="form-horizontal" method="post" id="frm_compra_det" enctype="multipart/form-data" >
     <input type="hidden" id="compra_id" name="compra_id" value="<?php echo $_GET['compra_id']; ?>" />
     <div class="modal-header">
@@ -15,8 +20,9 @@
 
                 <div class="col-sm-9">
                     <span class="input-icon">
-                        <select class="chosen-select form-control" name="producto_id" id="producto_id">
-                            <?php query_table_option("SELECT * FROM producto", "producto_id", "producto") ?>
+                        <select class="chosen-select form-conol" name="producto_id" id="producto_id" data-placeholder="Seleccione el producto...">
+                            <option value="0">Seleccione el producto...</option>
+                            <?php query_table_option("SELECT * FROM producto_ensamblado ORDER BY producto_ensamblado.unidad_id DESC", "producto_ensamblado_id", "producto") ?>
                         </select>
                     </span>
                 </div>
@@ -59,7 +65,7 @@
     </div>
 </form>
 <script language="javascript" type="text/javascript">
-    $(".chosen-select").chosen({no_results_text: "Oops, nothing found!"}); 
+    $(".chosen-select").chosen(); 
     
     function fn_agregar_compra_det(){
         var str = $("#frm_compra_det").serialize();

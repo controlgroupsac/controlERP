@@ -573,6 +573,7 @@ $("#registrar").click(function () {
     descuento: descuento.value,
     total: total.value
   };
+  console.log(data);
   var respuestaRegistrar = confirm("Realmente desea registrar esta COMPRA?. \nSi acepta, el documento no podrá ser modificado!");
   if (respuestaRegistrar){
     $.ajax({

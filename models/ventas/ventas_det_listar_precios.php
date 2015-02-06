@@ -21,22 +21,26 @@
 ?>
 
 <div class="widget-header">
-	<h5 class="widget-title bigger lighter">NETO <span class="right"> 
-        <input type="text" class="form-control text-right" name="valor_neto" id="valor_neto" value="<?php echo number_format($valor_neto, 2); ?>" readonly /> </span>
+    <h5 class="widget-title bigger lighter">NETO <span class="right"> 
+        <input type="hidden" name="valor_neto" id="valor_neto" value="<?php echo $valor_neto; ?>" />
+        <input type="text" class="form-control text-right" value="<?php echo number_format($valor_neto, 2); ?>" readonly /> </span>
     </h5>
 </div>
 <div class="widget-header">
     <h5 class="widget-title bigger lighter">SUBTOTAL <span class="right"> 
-        <input type="text" class="form-control text-right" name="subtotal" id="subtotal" value="<?php echo number_format($valor_neto - $_GET['descuento'], 2); ?>" readonly /> </span>
+        <input type="hidden" name="subtotal" id="subtotal" value="<?php echo $valor_neto - $_GET['descuento']; ?>" />
+        <input type="text" class="form-control text-right" value="<?php echo number_format($valor_neto - $_GET['descuento'], 2); ?>" readonly /> </span>
     </h5>
 </div>
 <div class="widget-header">
-	<h5 class="widget-title bigger lighter">IMPUESTO <span class="right"> 
-        <input type="text" class="form-control text-right" name="impuesto1" id="impuesto1" value="<?php echo number_format($impuesto, 2); ?>" readonly /> </span>
+    <h5 class="widget-title bigger lighter">IMPUESTO <span class="right"> 
+        <input type="hidden" name="impuesto1" id="impuesto1" value="<?php echo $impuesto; ?>" />
+        <input type="text" class="form-control text-right" value="<?php echo number_format($impuesto, 2); ?>" readonly /> </span>
     </h5>
 </div>
 <div class="widget-header">
-	<h5 class="widget-title bigger lighter">TOTAL (S/.) <span class="right"> 
-        <input type="text" class="form-control text-right" name="total" id="total" value="<?php echo number_format($total, 2); ?>" readonly /> </span>
+    <h5 class="widget-title bigger lighter">TOTAL (S/.) <span class="right"> 
+        <input type="hidden" name="total" id="total" value="<?php echo $total; ?>" />
+        <input type="text" class="form-control text-right" value="<?php echo number_format($total, 2); ?>" readonly /> </span>
     </h5>
 </div>

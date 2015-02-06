@@ -2,7 +2,7 @@
     include "../../config/conexion.php"; 
     include "../../queries/query.php"; 
 
-    $query = "SELECT SUM(almacen_det.cantidad) AS total, almacen_det.cantidad, almacen_det.producto_id, almacen_det.almacendet_id
+    $query = "SELECT SUM(almacen_det.cantidad) AS total, almacen_det.cantidad, almacen_det.producto_id, almacen_det.almacendet_id, producto.factor
               FROM almacen_det , producto
               WHERE almacen_det.producto_ensamblado_id = $_GET[producto_id]
               AND almacen_det.almacen_id = $_GET[origen]
@@ -15,7 +15,7 @@
     $row_table = mysql_fetch_assoc($table);
 
     if ($totalRows_table > 0) {
-        $total = $row_table['total'];
+        $total = $row_table['total'] / $row_table['factor'];
     } else {
         $total = 0;
     }

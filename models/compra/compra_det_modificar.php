@@ -7,7 +7,7 @@
 	  echo "Usted no a llenado todos los campos";
 	  exit;
 	}
-	
+
 	$sql = sprintf("UPDATE `controlg_controlerp`.`compra_det` SET producto_id='%s', cantidad='%s', monto='%s'
 					WHERE compra_det_id=%d;",
 					fn_filtro($_POST['producto_id']),

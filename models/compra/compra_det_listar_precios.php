@@ -23,21 +23,24 @@
 		<label class="col-sm-3 control-label" for="valor_neto"> <strong>Valor Neto</strong> </label>
 
 		<div class="col-sm-9">
-			<input class="form-control col-xs-10 col-sm-5 input-xlarge text-right" name="valor_neto" id="valor_neto" type="text" value="<?php echo number_format($valor_neto, 2); ?>" readonly />
+			<input type="hidden" name="valor_neto" id="valor_neto" value="<?php echo $valor_neto; ?>" />
+			<input class="form-control col-xs-10 col-sm-5 input-xlarge text-right" type="text" value="<?php echo number_format($valor_neto, 2); ?>" readonly />
 		</div>
 	</div>								    		
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="impuesto1"> <strong>Impuesto (18%)</strong> </label>
 
 		<div class="col-sm-9">
-			<input class="form-control col-xs-10 col-sm-5 input-xlarge text-right" name="impuesto1" id="impuesto1" type="text" value="<?php echo number_format($impuesto, 2); ?>" readonly />
+			<input type="hidden" name="impuesto1" id="impuesto1" value="<?php echo $impuesto; ?>" />
+			<input class="form-control col-xs-10 col-sm-5 input-xlarge text-right" type="text" value="<?php echo number_format($impuesto, 2); ?>" readonly />
 		</div>
 	</div>								    		
 	<div class="form-group">
 		<label class="col-sm-3 control-label" for="total"> <strong>Total</strong> </label>
 
 		<div class="col-sm-9">
-			<input class="form-control col-xs-10 col-sm-5 input-xlarge text-right" name="total" id="total" type="text" value="<?php echo number_format($total, 2); ?>" readonly />
+			<input type="hidden" name="total" id="total" value="<?php echo $total; ?>" />
+			<input class="form-control col-xs-10 col-sm-5 input-xlarge text-right" type="text" value="<?php echo number_format($total, 2); ?>" readonly />
 		</div>
 	</div>
 </div>

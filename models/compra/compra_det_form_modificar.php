@@ -7,11 +7,11 @@
 	include "../../config/conexion.php"; 
     include("../../queries/query.php"); 
 
-	$query = "SELECT compra_det.compra_det_id, compra_det.producto_id, compra_det.cantidad, compra_det.monto, compra_det.compra_det_id, producto.producto
-              FROM compra_det , compra , producto
+	$query = "SELECT compra_det.compra_det_id, compra_det.producto_id, compra_det.cantidad, compra_det.monto, compra_det.compra_det_id, producto_ensamblado.producto
+              FROM compra_det , compra , producto_ensamblado
               WHERE compra_det.compra_det_id = $_POST[compra_det_id]
               AND compra_det.compra_id = compra.compra_id 
-              AND compra_det.producto_id = producto.producto_id
+              AND compra_det.producto_id = producto_ensamblado.producto_ensamblado_id
               ORDER BY `compra_det`.compra_det_id DESC";
 
     mysql_select_db($database_fastERP, $fastERP);
@@ -36,7 +36,7 @@
 
                 <div class="col-sm-9">
                     <select class="chosen-select form-control" name="producto_id" id="producto_id">
-                        <?php query_table_option_comparar("SELECT * FROM producto", "producto_id", "producto", $row_table['producto_id']) ?>
+                        <?php query_table_option_comparar("SELECT * FROM producto_ensamblado", "producto_ensamblado_id", "producto", $row_table['producto_id']) ?>
                     </select>
                 </div>
             </div>

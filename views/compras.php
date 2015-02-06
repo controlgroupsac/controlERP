@@ -66,26 +66,26 @@
 									<input type="hidden" name="compra_id" id="compra_id" value="<?php echo $_GET['compra_id']; ?>" />
 									<form action="#">
 										<div id="block1">
-								    	<div class="col-lg-4">								    		
-								    		<div class="form-group">
-								    			<label class="col-sm-3 control-label text-right" for="fecha"> <strong>fecha</strong> </label>
+									    	<div class="col-lg-4">								    		
+									    		<div class="form-group">
+									    			<label class="col-sm-3 control-label text-right" for="fecha"> <strong>fecha</strong> </label>
 
-								    			<div class="col-sm-9">
-								    				<input class="form-control col-xs-10 col-sm-5 input-xlarge date-picker" id="fecha" type="text" value="<?php echo date("Y/m/d"); ?>" data-date-format="yyyy-mm-dd" />
-								    			</div>
-								    		</div>										
-										</div>
-								    	<div class="col-lg-4">								    		
-								    		<div class="form-group">
-								    			<label class="col-sm-3 control-label text-right" for="almacen_id"> <strong>almacen</strong> </label>
+									    			<div class="col-sm-9">
+									    				<input class="form-control col-xs-10 col-sm-5 input-xlarge date-picker" id="fecha" type="text" value="<?php echo date("Y/m/d"); ?>" data-date-format="yyyy-mm-dd" />
+									    			</div>
+									    		</div>										
+											</div>
+									    	<div class="col-lg-4">								    		
+									    		<div class="form-group">
+									    			<label class="col-sm-3 control-label text-right" for="almacen_id"> <strong>almacen</strong> </label>
 
-								    			<div class="col-sm-9">
-								    				<select class="form-control" name="almacen_id" id="almacen_id">
-								    					<?php query_table_option_comparar("SELECT * FROM almacen", "almacen_id", "almacen", $row_table['almacen_id']) ?>
-								    				</select>
-								    			</div>
-								    		</div>										
-										</div>
+									    			<div class="col-sm-9">
+									    				<select class="form-control" name="almacen_id" id="almacen_id">
+									    					<?php query_table_option_comparar("SELECT * FROM almacen", "almacen_id", "almacen", $row_table['almacen_id']) ?>
+									    				</select>
+									    			</div>
+									    		</div>										
+											</div>
 										</div>
 								    	<div class="col-lg-4">	
 							    			<label class="col-sm-3 control-label text-right" for="estado"> <strong>estado</strong> </label>
@@ -206,7 +206,7 @@
 
 								    			<div class="col-sm-9">
 								    				<input class="form-control col-xs-10 col-sm-5 input-xlarge" name="descuento" id="descuento" type="text" value="0" />
-								    			</div>							    		
+								    			</div>
 							    			</div>							    		
 								    		<div class="form-group col-lg-4">
 								    			<label class="col-sm-3 control-label right" for="igv"> <strong>IGV</strong> </label>

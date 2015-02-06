@@ -90,7 +90,7 @@
             <div class="form-group col-xs-6">
             	<div id="credito">
             		<span class="input-icon">
-            		    <input type="text" class="date-picker hidden" name="fechapago" id="fechapago" placeholder="Fecha Compromiso" />
+            		    <input type="text" class="date-picker hidden" name="fechapago" id="fechapago" placeholder="Fecha Compromiso" data-date-format="yyyy-mm-dd" />
             		</span>
             	</div>
             </div>

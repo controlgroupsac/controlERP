@@ -2,8 +2,8 @@
     include "../../config/conexion.php"; 
     include "../../queries/query.php"; 
 
-    $query = "SELECT * FROM producto
-			  WHERE producto.producto_id = $_GET[producto_id]" ;
+    $query = "SELECT * FROM producto_ensamblado
+			  WHERE producto_ensamblado.producto_ensamblado_id = $_GET[producto_id]" ;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_table = mysql_num_rows($table);
