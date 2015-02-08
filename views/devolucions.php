@@ -137,6 +137,7 @@
 
 		<!-- page specific plugin scripts -->
 		<script src="js/vendor/chosen.jquery.min.js"></script>
+		<script src="js/vendor/fuelux.spinner.min.js"></script>
 
 		<!-- ace scripts -->
 		<script src="js/vendor/ace-elements.min.js"></script>

@@ -71,6 +71,8 @@
 
 
 
+
+
     /*Comprobante*/
 	$comprobante_det = sprintf("INSERT INTO `controlg_controlerp`.`comprobante_det` (`comprobante_id`, `ventas_id`, `numero`, `monto`) 
 	                VALUES ('%s', '%s', '%s', '%s');",

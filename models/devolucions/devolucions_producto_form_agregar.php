@@ -26,6 +26,7 @@
     $totalRows_table_almacen = mysql_num_rows($table_almacen);
     $row_table_almacen = mysql_fetch_assoc($table_almacen);
 ?>
+
 <style type="text/css">
     .chosen-container {
       width: 250px !important;
@@ -63,6 +64,7 @@
                                 $totalX_name = 0; 
                             ?>
 
+                            <input type="hidden" id="totalRows_table" name="totalRows_table" value="<?php echo $totalRows_table; ?>" />
                             <input type="hidden" id="totalRows_table" name="totalRows_table" value="<?php echo $totalRows_table; ?>" />
                             <?php do { ?>
                                 <input type="hidden" id="origen" name="origen" value="<?php echo $_GET['origen']; ?>" />
@@ -126,20 +128,72 @@
         });
     };
 
-    $("#producto_id").change(function(){ 
-        var data = $("#frm_devolucions").serialize();
-        $.ajax({
-            url: '../models/devolucions/devolucions_productos_lista_productos.php?producto_id=' +producto_id.value,
-            data: data, 
-            type: 'get',
-            success: function(data){
-              $("#div_listar_productos").html(data);
-            }
-        });
+    $("#devuelve0").keyup(function () {
+        var $lleva = $("#lleva0").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#total0").attr("value", ($resta * (-1)));
     });
 
-    /*Choosen select*/
-    $('.chosen-select').chosen();
+    $("#devuelve1").keyup(function () {
+        var $lleva = $("#lleva1").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#total1").attr("value", ($resta * (-1)));
+    });
+
+    $("#devuelve2").keyup(function () {
+        var $lleva = $("#lleva2").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#total2").attr("value", ($resta * (-1)));
+    });
+
+    $("#devuelve3").keyup(function () {
+        var $lleva = $("#lleva3").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#total3").attr("value", ($resta * (-1)));
+    });
+
+    $("#devuelve4").keyup(function () {
+        var $lleva = $("#lleva4").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#total4").attr("value", ($resta * (-1)));
+    });
+
+    $("#devuelve5").keyup(function () {
+        var $lleva = $("#lleva5").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#total5").attr("value", ($resta * (-1)));
+    });
+
+    $("#devuelve6").keyup(function () {
+        var $lleva = $("#lleva6").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#total6").attr("value", ($resta * (-1)));
+    });
+
+    // $('#devuelve0').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    // $('#devuelve1').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    // $('#devuelve2').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    // $('#devuelve3').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    // $('#devuelve4').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    // $('#devuelve5').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    // $('#devuelve6').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+    // $('#devuelve7').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+
+
     /*Tootip text*/
     $('[data-rel=tooltip]').tooltip();
 
