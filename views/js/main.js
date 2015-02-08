@@ -1124,6 +1124,148 @@ function fn_mostrar_frm_modificar_transferencias_producto(producto_ensamblado_id
 
 
 
+/**/
+/**/
+/**/
+/*DEVOLUCIONS*/
+function fn_cerrar_devolucions(){
+  $.unblockUI({ 
+    onUnblock: function(){
+      $("#div_oculto_devolucions").html("");
+      fn_buscar_devolucions();
+    }
+  }); 
+};
+$("#nuevaDevolucion").click(function () {
+  $("#div_oculto_devolucions").load("../models/devolucions/devolucions_form_agregar.php", function(){
+    $.blockUI({
+      message: $('#div_oculto_devolucions'),
+      css:{
+        top: '10%',
+        width: '40%',
+      }
+    });
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+});
+
+function fn_buscar_devolucions(){
+  var str = $("#frm_buscar_devolucions").serialize();
+  $.ajax({
+    url: '../models/devolucions/devolucions_listar.php',
+    type: 'get',
+    data: str,
+    success: function(data){
+      $("#div_listar_devolucions").html(data);
+    }
+  });
+}
+function fn_eliminar_devolucions(transferencia_id){
+  var respuesta = confirm("Desea eliminar este devolucions?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/devolucions/devolucions_eliminar.php',
+      data: 'transferencia_id=' + transferencia_id,
+      type: 'post',
+      success: function(data){
+        if(data!="")
+          alert(data);
+        fn_buscar_devolucions()
+      }
+    });
+  }
+}
+function fn_mostrar_frm_modificar_devolucions(devolucions_id){
+  $("#div_oculto_devolucions").load("../models/devolucions/devolucions_form_modificar.php", {devolucions_id: devolucions_id}, function(){
+    $.blockUI({
+      message: $('#div_oculto_devolucions'),
+      css:{
+        top: '5%',
+        width: '40%'
+      }
+    }); 
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+};
+
+
+/**/
+/**/
+/**/
+/*devolucionS_REGISTRO*/
+function fn_cerrar_devolucions_producto(){
+  $.unblockUI({ 
+    onUnblock: function(){
+      $("#div_oculto_devolucions_producto").html("");
+      fn_buscar_devolucions_producto();
+    }
+  }); 
+};
+
+$("#nuevaDevolucion_producto").click(function () {
+  var origen = document.getElementById("origen").value;
+  var destino = document.getElementById("destino").value;
+  var transferencia_id = document.getElementById("transferencia_id").value;
+  $("#div_oculto_devolucions_producto").load("../models/devolucions/devolucions_producto_form_agregar.php?origen=" +origen+ "&destino=" +destino+  "&transferencia_id=" +transferencia_id, function(){
+    $.blockUI({
+      message: $('#div_oculto_devolucions_producto'),
+      css:{
+        top: '10%',
+        width: '40%',
+      }
+    });
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+});
+
+function fn_buscar_devolucions_producto(){
+  var str = $("#frm_buscar_devolucions_producto").serialize();
+  $.ajax({
+    url: '../models/devolucions/devolucions_producto_listar.php',
+    type: 'get',
+    data: str,
+    success: function(data){
+      $("#div_listar_devolucions_producto").html(data);
+    }
+  });
+}
+
+function fn_eliminar_devolucions_producto(transferencia_id){
+  var respuesta = confirm("Desea eliminar esta devolucion?");
+  if (respuesta){
+    $.ajax({
+      url: '../models/devolucions/devolucions_producto_eliminar.php',
+      data: 'transferencia_id=' + transferencia_id,
+      type: 'post',
+      success: function(data){
+        if(data!="")
+          alert(data);
+        fn_buscar_devolucions_producto()
+      }
+    });
+  }
+}
+function fn_mostrar_frm_modificar_devolucions_producto(almacen_transferencias_detalle_id, transferencia_id, origen, destino){
+  var data = {
+    origen: origen, 
+    destino: destino, 
+    almacen_transferencias_detalle_id: almacen_transferencias_detalle_id, 
+    transferencia_id: transferencia_id
+  }
+  $("#div_oculto_devolucions_producto").load("../models/devolucions/devolucions_producto_form_modificar.php", data, function(){
+    $.blockUI({
+      message: $('#div_oculto_devolucions_producto'),
+      css:{
+        top: '5%',
+        width: '40%'
+      }
+    }); 
+    $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 
+  });
+};
+
+
+
 
 
 

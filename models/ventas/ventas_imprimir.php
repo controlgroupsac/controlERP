@@ -150,15 +150,11 @@
     $producto2 = mysql_query($query_producto2, $fastERP) or die(mysql_error());
     $row_producto2 = mysql_fetch_assoc($producto2); 
 
-    $query_precio2 = "SELECT ventas.ventas_id, producto_ensamblado.producto, producto.producto, ventas_det.cantidad, producto.precio
-					  FROM ventas , ventas_det , producto_ensamblado , producto_ensamblado_det , producto
-					  WHERE ventas.ventas_id = $_GET[ventas_id]
-					  AND ventas.ventas_id = ventas_det.ventas_id
-					  AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
-					  AND producto_ensamblado.producto_ensamblado_id = producto_ensamblado_det.producto_ensamblado_id
-					  AND producto_ensamblado_det.producto_id = producto.producto_id
-					  AND producto.categoria_id = 4
-					  GROUP BY producto.producto_id" ;
+    $query_precio2 = "SELECT ventas_det.cantidad, ventas_det.precio, producto_ensamblado.producto
+				     FROM ventas , ventas_det , producto_ensamblado
+				     WHERE ventas_det.ventas_id = ventas.ventas_id 
+				     AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
+				     AND ventas.ventas_id = $_GET[ventas_id]" ;
     mysql_select_db($database_fastERP, $fastERP);
     $precio2 = mysql_query($query_precio2, $fastERP) or die(mysql_error());
     $row_precio2 = mysql_fetch_assoc($precio2); 

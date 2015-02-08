@@ -32,6 +32,14 @@
 	$ctacorriente_cliente_env = "TRUNCATE TABLE `ctacorriente_cliente_env`";
     $ventas = mysql_query($ctacorriente_cliente_env, $fastERP) or die(mysql_error());
 
+	
+
+	$ctacorriente_vendedor = "TRUNCATE TABLE `ctacorriente_vendedor`";
+    $ventas = mysql_query($ctacorriente_vendedor, $fastERP) or die(mysql_error());
+
+	$ctacorriente_vendedor_env = "TRUNCATE TABLE `ctacorriente_vendedor_env`";
+    $ventas = mysql_query($ctacorriente_vendedor_env, $fastERP) or die(mysql_error());
+
 
 
 	$ventas = "TRUNCATE TABLE `ventas`";

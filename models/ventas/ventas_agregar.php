@@ -131,8 +131,7 @@
     	exit;
     }else {
     	do {
-		    $envase_lleva_devuelve = "SELECT ventas_env.producto_id, ventas_env.lleva, ventas_env.devuelve, 
-		    								 (ventas_env.devuelve - ventas_env.lleva) AS devuelve_lleva, 
+		    $envase_lleva_devuelve = "SELECT ventas_env.producto_id, ventas_env.lleva, ventas_env.devuelve,
 		    								  producto.categoria_id, producto.unidad_id
 									  FROM ventas_env , ventas , producto
 									  WHERE ventas_env.ventas_id = $_POST[ventas_id] 
@@ -147,13 +146,9 @@
 		    if($totalRows_lleva_devuelve = 0) {
 		    	$lleva_devuelveX = 0;
 		    } else {
-		    	$lleva_devuelveX = $row_envase_lleva_devuelve['devuelve_lleva'];
+		    	$lleva_devuelveX = $row_envase_lleva_devuelve['devuelve'];
 		    }
 
-
-		    echo "cantidad: ".$row_table['cantidad']." * ";
-		    echo "factor: ".$row_table['factor']." = ";
-			echo "lleva_devuelveX: ".$lleva_devuelveX."\n";
 
             $almacen_det = sprintf("INSERT INTO `controlg_controlerp`.`almacen_det` (`almacen_id`, `ventas_id`, `producto_id`, `producto_ensamblado_id`, `cantidad`, `activo`) 
                             VALUES ('%s', '%s', '%s', '%s', '%s', '%s');",
@@ -161,7 +156,7 @@
                             fn_filtro($row_table['ventas_id']),
                             fn_filtro($row_table['producto_id']),
                             fn_filtro($row_table['producto_ensamblado_id']),
-                            fn_filtro((-1 * ($row_table['cantidad'] * $row_table['factor']) - $lleva_devuelveX)),
+                            fn_filtro((-1 * ($row_table['cantidad'] * $row_table['factor']) + $lleva_devuelveX)),
                             fn_filtro(1)
             );
 
