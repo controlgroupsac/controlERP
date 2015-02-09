@@ -2,7 +2,7 @@
 	include "../../config/conexion.php"; 
     include("../../queries/query.php"); 
 
-    $query_almacen = "SELECT almacen.almacen, ventas.almacen_id,
+    $query_almacen = "SELECT almacen.almacen, ventas.almacen_id, ventas.pago, 
 					  CONCAT(cliente.nombres, ' ',cliente.apellidos) AS cliente, cliente.dni
 					  FROM almacen , ventas, cliente
 					  WHERE almacen.almacen_id = ventas.almacen_id 
@@ -55,15 +55,34 @@
 	<meta charset="UTF-8">
 	<title><?php query_table_campo("SELECT * FROM empresa", "empresa"); ?></title>
 	<link rel="stylesheet" href="../../views/css/bootstrap.min.css" type="text/css" />
+	<link rel="stylesheet" href="../../views/css/main.css" type="text/css" />
 	<link rel="stylesheet" href="imprimir.css">	
 </head>
 <body>
 	<div class="bloque col-xs-4 col-sm-3">
 		<table class='table table-condensed'>
 			<caption>
-				<h4><?php query_table_campo("SELECT * FROM empresa", "empresa"); ?></h4>
-				<h5><?php echo $row_almacen['almacen']; ?></h5>
-				<h6>Nro de <?php echo $row_comprobante['comprobante_tipo']. ': ' .$row_comprobante['ultimo_numero']; ?></h6>
+				<h4>
+					<?php query_table_campo("SELECT * FROM empresa", "empresa"); ?><br>
+					<span class="text-xsm"><strong>RUC: </strong><?php query_table_campo("SELECT * FROM empresa", "ruc"); ?></span class="text-sm">
+				</h4>
+				<h5>
+					<?php echo $row_almacen['almacen']; ?> 
+					<span class="text-xsm right">
+						<strong>
+						<?php 
+							if ($row_almacen['pago'] == "E") {
+								echo "Efectivo";
+							} elseif ($row_almacen['pago'] == "C") {
+								echo "Credito";
+							} elseif ($row_almacen['pago'] == "T") {
+								echo "Tarjeto";
+							} 
+						?>
+						</strong>
+					</span>
+				</h5>
+				<h6><?php echo $row_comprobante['comprobante_tipo']. ' Nro: ' .$row_comprobante['ultimo_numero']; ?></h6>
 				<h6><?php echo $row_almacen['cliente']."  - <strong>DNI</strong>: ".$row_almacen['dni']; ?></h6>
 			</caption>
 			<thead>
@@ -122,7 +141,7 @@
 
 
 <?php  
-    $query_almacen2 = "SELECT almacen.almacen, ventas.almacen_id,
+    $query_almacen2 = "SELECT almacen.almacen, ventas.almacen_id, ventas.pago, 
 					  CONCAT(cliente.nombres, ' ',cliente.apellidos) AS cliente, cliente.dni
 					  FROM almacen , ventas, cliente
 					  WHERE almacen.almacen_id = ventas.almacen_id 
@@ -159,9 +178,9 @@
     $precio2 = mysql_query($query_precio2, $fastERP) or die(mysql_error());
     $row_precio2 = mysql_fetch_assoc($precio2); 
 
-    $valor_neto2 = "";
+    $valor_neto2 = 0;
     do {
-		$valor_neto2 += $row_precio2["precio"] * $row_precio2["cantidad"];
+		$valor_neto2 += $row_producto2["precio"] * ($row_producto2['devuelve'] - $row_producto2['lleva']);
     } while ($row_precio2 = mysql_fetch_assoc($precio2));
 
     if(empty($_GET['descuento'])) { $_GET['descuento'] = 0; }
@@ -172,9 +191,27 @@
 	<div class="bloque col-xs-4 col-sm-3">
 		<table class='table table-condensed'>
 			<caption>
-				<h4><?php query_table_campo("SELECT * FROM empresa", "empresa"); ?></h4>
-				<h5><?php echo $row_almacen2['almacen']; ?></h5>
-				<h6>Nro de Recibo: <?php echo $row_comprobante2['ultimo_numero']; ?></h6>
+				<h4>
+					<?php query_table_campo("SELECT * FROM empresa", "empresa"); ?><br>
+					<span class="text-xsm"><strong>RUC: </strong><?php query_table_campo("SELECT * FROM empresa", "ruc"); ?></span class="text-sm">
+				</h4>
+				<h5>
+					<?php echo $row_almacen2['almacen']; ?> 
+					<span class="text-xsm right">
+						<strong>
+						<?php 
+							if ($row_almacen['pago'] == "E") {
+								echo "Efectivo";
+							} elseif ($row_almacen['pago'] == "C") {
+								echo "Credito";
+							} elseif ($row_almacen['pago'] == "T") {
+								echo "Tarjeto";
+							} 
+						?>
+						</strong>
+					</span>
+				</h5>
+				<h6>Ticket de pago: <?php echo $row_comprobante2['ultimo_numero']; ?></h6>
 				<h6><?php echo $row_almacen['cliente']."  - <strong>DNI</strong>: ".$row_almacen['dni']; ?></h6>
 			</caption>
 			<thead>
@@ -194,7 +231,7 @@
 				<tr>
 					<th>TOTAL</th>
 					<td></td>
-					<th nowrap>S/. <?php echo number_format($total2, 2); ?></th>
+					<th nowrap >S/. <?php echo number_format($total2, 2); ?></th>
 				</tr>
 				<tr>
 					<td>Recibo de botellas y CPB</td>

@@ -20,7 +20,7 @@
 
                 <div class="col-sm-9">
                     <select class="chosen-select form-control" name="almacen_id" id="almacen_id">
-                        <?php query_table_option("SELECT * FROM almacen", "almacen_id", "almacen") ?>
+                        <?php query_table_option("SELECT * FROM almacen WHERE almacen_id <> 1", "almacen_id", "almacen") ?>
                     </select>
                 </div>
             </div>

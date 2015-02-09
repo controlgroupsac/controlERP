@@ -11,13 +11,14 @@
 	
 	$fecha = date("Y-m-d H:i:s");
 	$query_ventas = sprintf("UPDATE `controlg_controlerp`.`ventas` 
-					SET usuario_id='%s', fecha='%s', estado='%s', almacen_id='%s', condicion_pago='%s', fechapago='%s', impuesto1='%s', valor_neto='%s', descuento='%s', total='%s'
+					SET usuario_id='%s', fecha='%s', estado='%s', almacen_id='%s', condicion_pago='%s', pago='%s', fechapago='%s', impuesto1='%s', valor_neto='%s', descuento='%s', total='%s'
 					WHERE ventas_id=%d;",
 					fn_filtro(1),
 					fn_filtro($fecha),
 					fn_filtro(2),
 					fn_filtro($_POST['almacen_id']),
 					fn_filtro($_POST['condicion_pago']),
+					fn_filtro($_POST['pago']),
 					fn_filtro($_POST['fechapago']),
 					fn_filtro($_POST['impuesto1']),
 					fn_filtro($_POST['valor_neto']),

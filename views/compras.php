@@ -112,9 +112,9 @@
 							    			</div>										
 										</div>
 									    <div class="col-lg-12">
-											<h2 class="col-lg-2" data-rel="tooltip" data-placement="right" title="Datos de proveedor">Proveedor</h2>
+											<h2 class="col-lg-6" data-rel="tooltip" data-placement="right" title="Datos de proveedor">Datos de la compra</h2>
 										</div><!--/span-->
-								    	<div class="col-lg-3">								    		
+								    	<div class="col-lg-2">								    		
 								    		<div class="form-group">
 								    			<label class="control-label no-padding-right" for="proveedor_id"> <strong>proveedor</strong> </label>
 
@@ -125,7 +125,16 @@
 								    			</div>
 								    		</div>										
 										</div>
-								    	<div class="col-lg-5">								    		
+										<div class="col-xs-1">	
+								    		<div class="form-group">
+								    			<label class="control-label no-padding-right" for="guiaremision"> <strong>Guia</strong> </label>
+
+								    			<div>
+								    				<input class="form-control col-xs-6" name="guiaremision" id="guiaremision" type="text" size="10" value="" required />
+								    			</div>
+								    		</div>				
+										</div>
+								    	<div class="col-lg-4">								    		
 								    		<div class="form-group">
 								    			<label class="control-label col-lg-12 no-padding-right" for="documento"> <strong>documento</strong> </label>
 
