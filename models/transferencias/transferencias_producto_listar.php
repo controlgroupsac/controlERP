@@ -38,13 +38,13 @@
         <td><?php echo $row_table["cantidad_suma"]; ?></td>
         <td>
           <div class="btn-group">
-            <button class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_transferencias_producto(<?=$row_table['producto_ensamblado_id']?>, <?=$_GET['transferencia_id']?>, <?=$_GET['origen']?>, <?=$_GET['destino']?>);">
+            <button id="transferencia_listar_editar" class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_transferencias_producto(<?=$row_table['producto_ensamblado_id']?>, <?=$_GET['transferencia_id']?>, <?=$_GET['origen']?>, <?=$_GET['destino']?>);">
               <i class="ace-icon fa fa-pencil bigger-120"></i>
             </button>
 
-            <button class="btn btn-xs btn-danger tooltip-info" data-rel="tooltip" data-placement="left" title="ELMINAR!" onclick="javascript: fn_eliminar_transferencias_producto(<?=$row_table['producto_ensamblado_id']?>, <?=$_GET['transferencia_id']?>, <?=$_GET['origen']?>, <?=$_GET['destino']?>);">
+            <!-- <button id="transferencia_listar_eliminar" class="btn btn-xs btn-danger tooltip-info" data-rel="tooltip" data-placement="left" title="ELMINAR!" onclick="javascript: fn_eliminar_transferencias_producto(<?=$row_table['producto_ensamblado_id']?>, <?=$_GET['transferencia_id']?>, <?=$_GET['origen']?>, <?=$_GET['destino']?>);">
               <i class="ace-icon fa fa-trash-o bigger-120"></i>
-            </button>
+            </button> -->
           </div>
         </td>
       </tr>
@@ -57,3 +57,8 @@
     $('[data-rel=tooltip]').tooltip();
   });
 </script>
+<?php  
+  if($totalRows_table == 0) { 
+    echo '<script type="text/javascript"> $("#transferencia_listar_editar, #transferencia_listar_eliminar").addClass("hidden"); </script>';
+  }
+?>

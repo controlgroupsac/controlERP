@@ -19,6 +19,7 @@
 		<link rel="stylesheet" href="css/main.css" type="text/css" />
 
 		<!-- page specific plugin styles -->
+		<link rel="stylesheet" href="css/chosen.min.css" />
 		<link rel="stylesheet" href="css/datepicker.min.css" />
 
 		<!-- text fonts -->
@@ -118,6 +119,7 @@
 		<script src="js/vendor/bootstrap.min.js"></script>
 
 		<!-- page specific plugin scripts -->
+		<script src="js/vendor/chosen.jquery.min.js"></script>
 
 		<!-- ace scripts -->
 		<script src="js/vendor/ace-elements.min.js"></script>
@@ -145,6 +147,9 @@
 				$("#compras_view").addClass("active");
 
 				$('[data-rel=tooltip]').tooltip();
+				
+				/*Choosen select*/
+				$('.chosen-select').chosen();
 				
 				//datepicker plugin
 				//link

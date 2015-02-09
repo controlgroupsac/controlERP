@@ -65,8 +65,8 @@
 
             <div class="col-xs-12">
                 <div>
-                    <a href="#" class="btn btn-small btn-warning uppercase" id="limpiarDevuelve" >Limpiar</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <!-- <a href="#" class="btn btn-small btn-warning uppercase" id="limpiarDevuelve" >Limpiar</a> -->
+                    <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
                     <a href="#" class="btn btn-small uppercase" data-dismiss="modal" onclick="fn_cerrar_ventas();">Cancelar</a>
 
                     <button type="submit" id='terminar' class="btn btn-small btn-primary uppercase">

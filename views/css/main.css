@@ -272,6 +272,9 @@ Gradient Background colors
   color: #fff;
 }
 
+.chosen-container {
+  width: 250px !important;
+}
 #producto_id_chosen {
   width: 250px !important;
 }

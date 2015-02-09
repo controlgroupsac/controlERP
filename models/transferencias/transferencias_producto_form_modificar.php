@@ -19,20 +19,21 @@
     $totalRows_table = mysql_num_rows($table);
     $row_table = mysql_fetch_assoc($table);
 
-    $query_disponible = "SELECT SUM(almacen_det.cantidad) AS total, almacen_det.cantidad, almacen_det.producto_id, almacen_det.almacendet_id
-              FROM almacen_det , producto
-              WHERE almacen_det.producto_ensamblado_id = $_POST[producto_ensamblado_id]
-              AND almacen_det.almacen_id = $_POST[origen]
-              AND almacen_det.producto_id = producto.producto_id
-              AND producto.categoria_id <> 4
-              GROUP BY almacen_det.producto_id" ;
+
+    $query_disponible = "SELECT SUM(almacen_det.cantidad) AS total, almacen_det.cantidad, almacen_det.producto_id, almacen_det.almacendet_id, producto.factor
+                      FROM almacen_det , producto
+                      WHERE almacen_det.producto_ensamblado_id = $_POST[producto_ensamblado_id]
+                      AND almacen_det.almacen_id = $_POST[origen]
+                      AND almacen_det.producto_id = producto.producto_id
+                      AND producto.categoria_id <> 4
+                      GROUP BY almacen_det.producto_id" ;
     mysql_select_db($database_fastERP, $fastERP);
     $disponible = mysql_query($query_disponible, $fastERP) or die(mysql_error());
     $totalRows_disponible = mysql_num_rows($disponible);
     $row_disponible = mysql_fetch_assoc($disponible);
 
     if ($totalRows_disponible > 0) {
-        $total = $row_disponible['total'];
+        $total = $row_disponible['total'] / $row_disponible['factor'];
     } else {
         $total = 0;
     }

@@ -148,11 +148,11 @@
 				<li id="almacen_tranfer" class="open hover">
 					<a href="transferencias_registro.php">
 						<i class="menu-icon fa fa-caret-right"></i>
-						Envíos
+						Transferencias
 					</a>
 				</li>				
 
-				<li id="almacen_tranfer" class="open hover">
+				<li id="almacen_devoluc" class="open hover">
 					<a href="devolucions_registro.php">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Devoluciones

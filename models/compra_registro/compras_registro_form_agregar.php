@@ -14,7 +14,7 @@
                 <label class="col-sm-3 control-label" for="proveedor_id"><b>Proveedor </b></label>
 
                 <div class="col-sm-9">
-                    <select class="form-control" name="proveedor_id" id="proveedor_id">
+                    <select class="chosen-select form-control" name="proveedor_id" id="proveedor_id">
                         <?php query_table_option("SELECT * FROM proveedor", "proveedor_id", "proveedor") ?>
                     </select>
                 </div>
@@ -59,4 +59,9 @@
             }
         });
     };
+
+    $(function(){
+        /*Choosen select*/
+        $('.chosen-select').chosen();
+    });
 </script>

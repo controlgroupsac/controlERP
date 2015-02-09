@@ -152,9 +152,9 @@
 		    }
 
 		    	if ($row_table['unidad_id']==2)
-		    		 $elvis_cantidad=$row_table['cantidad'] * $row_table['factor'];
+		    		 $elvis_cantidad = $row_table['cantidad'] * $row_table['factor'];
 		    	else
-		    		 $elvis_cantidad=$row_table['cantidad'] * 1;
+		    		 $elvis_cantidad = $row_table['cantidad'] * 1;
 		    		
             $almacen_det = sprintf("INSERT INTO `controlg_controlerp`.`almacen_det` (`almacen_id`, `ventas_id`, `producto_id`, `producto_ensamblado_id`, `cantidad`, `activo`) 
                             VALUES ('%s', '%s', '%s', '%s', '%s', '%s');",

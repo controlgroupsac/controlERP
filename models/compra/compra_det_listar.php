@@ -64,9 +64,12 @@
     $table = mysql_query($query, $fastERP) or die(mysql_error());
     $row_table = mysql_fetch_assoc($table);
 
-	if($row_table['estado'] == 2 ||$row_table['estado'] == 3 ||$row_table['estado'] == 4) { 
+	if($row_table['estado'] == 2 || $row_table['estado'] == 3 ||$row_table['estado'] == 4) { 
 		echo "<script>jQuery('input, select, button').attr('disabled', 'true');</script>"; 
 		echo "<script>jQuery('#recibir, #rechazar').removeAttr('disabled');</script>"; 
+		echo '<script type="text/javascript"> $("#compra_add_det, #compra_add_det2").addClass("hidden"); </script>';
+	}
+	if($totalRows_table == 0) { 
 		echo '<script type="text/javascript"> $("#compra_add_det, #compra_add_det2").addClass("hidden"); </script>';
 	}
 ?>

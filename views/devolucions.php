@@ -162,7 +162,7 @@
 			
 			jQuery(function($) {
 				$("#almacen").addClass("active");
-				$("#almacen_tranfer").addClass("active");
+				$("#almacen_devoluc").addClass("active");
 
 				/*Choosen select*/
 				$('.chosen-select').chosen();
