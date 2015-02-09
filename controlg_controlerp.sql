@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-02-2015 a las 19:04:20
+-- Tiempo de generación: 08-02-2015 a las 00:06:47
 -- Versión del servidor: 5.6.16
 -- Versión de PHP: 5.5.11
 
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `almacen` (
 --
 
 INSERT INTO `almacen` (`almacen_id`, `usuario_id`, `almacen`, `subalmacen`, `dependencia`) VALUES
-(1, 1, 'Central', 0, 0),
+(1, 1, 'Almacen Central', 0, 0),
 (2, 1, 'Ventas1', 1, 1),
 (3, 1, 'Ventas2', 1, 1),
 (4, 1, 'Ventas3', 1, 1),
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `almacen_det` (
   `cantidad` int(11) NOT NULL COMMENT 'Registra Positivo si es Ingreso o Compra y Negativo si es venta',
   `activo` tinyint(1) NOT NULL,
   PRIMARY KEY (`almacendet_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=13 ;
 
 --
 -- Volcado de datos para la tabla `almacen_det`
@@ -81,20 +81,8 @@ INSERT INTO `almacen_det` (`almacendet_id`, `almacen_id`, `transferencia_id`, `c
 (8, 2, 1, 0, 0, 40, 85, 120, 1),
 (9, 2, 1, 0, 0, 43, 85, 10, 1),
 (10, 2, 0, 0, 1, 1, 85, -24, 1),
-(11, 2, 0, 0, 1, 40, 85, -12, 1),
-(12, 2, 0, 0, 1, 43, 85, -1, 1),
-(13, 2, 0, 0, 2, 1, 85, -60, 1),
-(14, 2, 0, 0, 2, 40, 85, 0, 1),
-(15, 2, 0, 0, 2, 43, 85, 0, 1),
-(16, 1, 0, 0, 3, 1, 85, -60, 1),
-(17, 1, 0, 0, 3, 40, 85, -60, 1),
-(18, 1, 0, 0, 3, 43, 85, -5, 1),
-(19, 1, 0, 0, 3, 2, 86, -60, 1),
-(20, 1, 0, 0, 3, 41, 86, -60, 1),
-(21, 1, 0, 0, 3, 44, 86, -5, 1),
-(22, 1, 0, 0, 3, 3, 87, -120, 1),
-(23, 1, 0, 0, 3, 42, 87, -120, 1),
-(24, 1, 0, 0, 3, 45, 87, -5, 1);
+(11, 2, 0, 0, 1, 40, 85, 0, 1),
+(12, 2, 0, 0, 1, 43, 85, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -115,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `almacen_transferencia` (
 --
 
 INSERT INTO `almacen_transferencia` (`transferencia_id`, `almacen_origen_id`, `almacen_destino_id`, `fecha`) VALUES
-(1, 1, 2, '2015-02-06 15:19:25');
+(1, 1, 2, '2015-02-07 23:38:40');
 
 -- --------------------------------------------------------
 
@@ -127,7 +115,9 @@ CREATE TABLE IF NOT EXISTS `almacen_transferencias_detalle` (
   `almacen_transferencias_detalle_id` int(11) NOT NULL AUTO_INCREMENT,
   `almacen_transferencias_id` int(11) DEFAULT NULL,
   `producto_ensamblado_id` int(11) DEFAULT NULL,
-  `cantidad` int(11) DEFAULT NULL,
+  `producto_id` int(11) DEFAULT '0',
+  `cantidad` int(11) DEFAULT '0',
+  `faltante` int(11) DEFAULT '0',
   PRIMARY KEY (`almacen_transferencias_detalle_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=2 ;
 
@@ -135,8 +125,8 @@ CREATE TABLE IF NOT EXISTS `almacen_transferencias_detalle` (
 -- Volcado de datos para la tabla `almacen_transferencias_detalle`
 --
 
-INSERT INTO `almacen_transferencias_detalle` (`almacen_transferencias_detalle_id`, `almacen_transferencias_id`, `producto_ensamblado_id`, `cantidad`) VALUES
-(1, 1, 85, 10);
+INSERT INTO `almacen_transferencias_detalle` (`almacen_transferencias_detalle_id`, `almacen_transferencias_id`, `producto_ensamblado_id`, `producto_id`, `cantidad`, `faltante`) VALUES
+(1, 1, 85, 0, 10, 0);
 
 -- --------------------------------------------------------
 
@@ -253,7 +243,7 @@ CREATE TABLE IF NOT EXISTS `compra` (
 --
 
 INSERT INTO `compra` (`compra_id`, `usuario_id`, `almacen_id`, `estado`, `proveedor_id`, `comprobtipo_id`, `serie`, `numero`, `fecha`, `fecha_doc`, `condic_pago`, `impuesto1`, `impuesto2`, `impuesto3`, `impuesto4`, `valor_neto`, `descuento`, `total`) VALUES
-(1, NULL, 1, '2', 1, 0, '', '', '0000-00-00 00:00:00', '2015-02-06', '1', 1080, 0, 0, 0, 6000, 0, 7080);
+(1, NULL, 1, '2', 1, 0, '', '', '0000-00-00 00:00:00', '2015-02-07', '1', 1080, 0, 0, 0, 6000, 0, 7080);
 
 -- --------------------------------------------------------
 
@@ -297,7 +287,7 @@ CREATE TABLE IF NOT EXISTS `comprobante` (
 --
 
 INSERT INTO `comprobante` (`comprobante_id`, `comprobante_tipo_id`, `serie`, `ultimo_numero`, `activo`) VALUES
-(1, 1, '0001', 8, 1),
+(1, 1, '0001', 9, 1),
 (2, 1, '0002', 3, 1),
 (3, 1, '0003', 2, 1),
 (4, 1, '0004', 2, 1),
@@ -305,7 +295,7 @@ INSERT INTO `comprobante` (`comprobante_id`, `comprobante_tipo_id`, `serie`, `ul
 (6, 2, '0002', 64351, 1),
 (7, 2, '0003', 44651, 1),
 (8, 2, '0004', 45501, 1),
-(9, 4, '0001', 53, 1);
+(9, 4, '0001', 73, 1);
 
 -- --------------------------------------------------------
 
@@ -321,16 +311,14 @@ CREATE TABLE IF NOT EXISTS `comprobante_det` (
   `monto` float NOT NULL,
   `anulado` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`comprobante_det_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `comprobante_det`
 --
 
 INSERT INTO `comprobante_det` (`comprobante_det_id`, `comprobante_id`, `ventas_id`, `numero`, `monto`, `anulado`) VALUES
-(1, 9, 1, 52, 141.6, 0),
-(2, 1, 2, 8, 354, 0),
-(3, 9, 3, 53, 401.2, 0);
+(1, 9, 1, 73, 141.6, 0);
 
 -- --------------------------------------------------------
 
@@ -370,16 +358,14 @@ CREATE TABLE IF NOT EXISTS `ctacorriente_cliente` (
   `monto` float DEFAULT NULL,
   `anulado` bit(1) DEFAULT b'0',
   PRIMARY KEY (`ctacorriente_cliente_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `ctacorriente_cliente`
 --
 
 INSERT INTO `ctacorriente_cliente` (`ctacorriente_cliente_id`, `fecha`, `cliente_id`, `ventas_id`, `pago_id`, `monto`, `anulado`) VALUES
-(1, '2015-02-06 15:20:37', 1, 1, 0, -141.6, b'0'),
-(2, '2015-02-06 15:34:04', 1, 2, 0, -354, b'0'),
-(3, '2015-02-06 15:49:39', 1, 3, 0, -401.2, b'0');
+(1, '2015-02-07 23:40:47', 1, 1, 0, -141.6, b'0');
 
 -- --------------------------------------------------------
 
@@ -393,23 +379,46 @@ CREATE TABLE IF NOT EXISTS `ctacorriente_cliente_env` (
   `producto_id` int(11) DEFAULT NULL,
   `cantidad` int(11) DEFAULT NULL,
   PRIMARY KEY (`ctacorriente_cliente_env_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `ctacorriente_cliente_env`
 --
 
 INSERT INTO `ctacorriente_cliente_env` (`ctacorriente_cliente_env_id`, `ctacorriente_cliente_id`, `producto_id`, `cantidad`) VALUES
-(1, 1, 40, -12),
-(2, 1, 43, -1),
-(3, 2, 40, -60),
-(4, 2, 43, -5),
-(5, 3, 40, 0),
-(6, 3, 41, 0),
-(7, 3, 42, 0),
-(8, 3, 43, 0),
-(9, 3, 44, 0),
-(10, 3, 45, 0);
+(1, 1, 40, 0),
+(2, 1, 43, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ctacorriente_vendedor`
+--
+
+CREATE TABLE IF NOT EXISTS `ctacorriente_vendedor` (
+  `ctacorriente_vendedor_id` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` datetime DEFAULT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `transferencia_id` int(11) NOT NULL,
+  `pago_id` int(11) DEFAULT '0',
+  `monto` float DEFAULT NULL,
+  `anulado` bit(1) DEFAULT b'0',
+  PRIMARY KEY (`ctacorriente_vendedor_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ctacorriente_vendedor_env`
+--
+
+CREATE TABLE IF NOT EXISTS `ctacorriente_vendedor_env` (
+  `ctacorriente_vendedor_env_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ctacorriente_vendedor_id` int(11) DEFAULT NULL,
+  `producto_id` int(11) DEFAULT NULL,
+  `cantidad` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ctacorriente_vendedor_env_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -966,7 +975,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 --
 
 INSERT INTO `usuario` (`usuario_id`, `usuario`, `activo`, `clave`, `nombres`, `apellidos`, `nivel`, `direccion`, `telefono1`, `telefono2`, `email`, `fecha_nac`, `sexo`, `foto`, `fecha_registro`, `ultimo_acceso`) VALUES
-(1, 'admin', b'1', 'admin', 'Elvis', 'Rodriguez', '1', 'Cusco', '984 123456', '984 123456', 'admin@admin.com', '1990-05-15', 'M', '', '0000-00-00 00:00:00', '2015-02-06 13:02:56'),
+(1, 'admin', b'1', 'admin', 'Elvis', 'Rodriguez', '1', 'Cusco', '984 123456', '984 123456', 'admin@admin.com', '1990-05-15', 'M', '', '0000-00-00 00:00:00', '2015-02-07 09:02:53'),
 (2, 'napoleon', b'1', '0000', 'Napoleon ', 'apellidos', '1', '', '', '', 'user@user.com', '1990-01-12', 'M', NULL, '2014-11-29 00:00:00', '2015-11-30 00:00:00'),
 (8, 'paul', b'1', '0000', 'Paul', 'apellidos', '1', '', 'telefono1', 'telefono2', 'usuario@gmail.com', '2015-01-13', 'M', NULL, '2015-01-13 03:31:12', '0000-00-00 00:00:00'),
 (11, 'victor', b'1', '4018', 'Victor Manuel', 'Taco Choque', '2', 'Urubamba', 'telefono1', 'telefono2', 'admin@gmail.com', '2015-01-15', 'M', NULL, '2015-01-15 01:29:19', '0000-00-00 00:00:00'),
@@ -1000,17 +1009,14 @@ CREATE TABLE IF NOT EXISTS `ventas` (
   `nota` text COLLATE utf8mb4_spanish_ci NOT NULL,
   `envases` bit(1) NOT NULL COMMENT 'Pregunta si lleva o no envases (botella, etc)',
   PRIMARY KEY (`ventas_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `ventas`
 --
 
 INSERT INTO `ventas` (`ventas_id`, `usuario_id`, `cliente_id`, `fecha`, `moneda_id`, `almacen_id`, `estado`, `condicion_pago`, `descuento`, `impuesto1`, `impuesto2`, `fechapago`, `impuesto3`, `impuesto4`, `valor_neto`, `total`, `nota`, `envases`) VALUES
-(1, 1, 1, '2015-02-06 15:20:37', 1, 2, '2', '9', 0, 22, 0, '0000-00-00', 0, 0, 120, 142, '', b'0'),
-(2, 1, 1, '2015-02-06 15:34:04', 1, 2, '2', '1', 0, 54, 0, '0000-00-00', 0, 0, 300, 354, '', b'0'),
-(3, 1, 1, '2015-02-06 15:49:39', 1, 1, '2', '9', 0, 61, 0, '0000-00-00', 0, 0, 340, 401, '', b'0'),
-(4, 0, 1, '0000-00-00 00:00:00', 1, 1, '1', '', 0, 0, 0, '0000-00-00', 0, 0, 0, 0, '', b'0');
+(1, 1, 1, '2015-02-07 23:40:47', 1, 2, '2', '9', 0, 22, 0, '0000-00-00', 0, 0, 120, 142, '', b'0');
 
 -- --------------------------------------------------------
 
@@ -1025,19 +1031,14 @@ CREATE TABLE IF NOT EXISTS `ventas_det` (
   `cantidad` float NOT NULL,
   `precio` float NOT NULL,
   PRIMARY KEY (`ventas_det_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=2 ;
 
 --
 -- Volcado de datos para la tabla `ventas_det`
 --
 
 INSERT INTO `ventas_det` (`ventas_det_id`, `ventas_id`, `producto_id`, `cantidad`, `precio`) VALUES
-(1, 1, 85, 2, 60),
-(2, 2, 85, 5, 60),
-(3, 3, 85, 5, 60),
-(4, 3, 86, 5, 4.5),
-(5, 3, 87, 5, 3.5),
-(6, 4, 85, 1, 60);
+(1, 1, 85, 2, 60);
 
 -- --------------------------------------------------------
 
@@ -1052,23 +1053,15 @@ CREATE TABLE IF NOT EXISTS `ventas_env` (
   `lleva` int(11) DEFAULT NULL,
   `devuelve` int(11) DEFAULT NULL,
   PRIMARY KEY (`ventas_env_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci AUTO_INCREMENT=3 ;
 
 --
 -- Volcado de datos para la tabla `ventas_env`
 --
 
 INSERT INTO `ventas_env` (`ventas_env_id`, `ventas_id`, `producto_id`, `lleva`, `devuelve`) VALUES
-(1, 1, 40, 24, 12),
-(2, 1, 43, 2, 1),
-(5, 2, 40, 60, 0),
-(6, 2, 43, 5, 0),
-(7, 3, 40, 60, 60),
-(8, 3, 41, 60, 60),
-(9, 3, 42, 120, 120),
-(10, 3, 43, 5, 5),
-(11, 3, 44, 5, 5),
-(12, 3, 45, 5, 5);
+(1, 1, 40, 24, 24),
+(2, 1, 43, 2, 2);
 
 -- --------------------------------------------------------
 

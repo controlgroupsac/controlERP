@@ -115,7 +115,7 @@
     $almacen = mysql_query($query, $fastERP) or die(mysql_error());
     $totalRows_almacen = mysql_num_rows($almacen);
 
-	$query = "SELECT ventas.almacen_id, ventas.ventas_id, producto_ensamblado.producto_ensamblado_id, 
+	$query = "SELECT ventas.almacen_id, ventas.ventas_id, producto_ensamblado.producto_ensamblado_id,producto_ensamblado.unidad_id,
 					 producto_ensamblado.producto, producto.producto_id, producto.producto, producto.factor, ventas_det.cantidad
 			  FROM ventas , ventas_det , producto_ensamblado , producto_ensamblado_det , producto
 			  WHERE ventas.ventas_id = $_POST[ventas_id]
@@ -151,14 +151,18 @@
 		    	$lleva_devuelveX = $row_envase_lleva_devuelve['devuelve'];
 		    }
 
-
+		    	if ($row_table['unidad_id']==2)
+		    		 $elvis_cantidad=$row_table['cantidad'] * $row_table['factor'];
+		    	else
+		    		 $elvis_cantidad=$row_table['cantidad'] * 1;
+		    		
             $almacen_det = sprintf("INSERT INTO `controlg_controlerp`.`almacen_det` (`almacen_id`, `ventas_id`, `producto_id`, `producto_ensamblado_id`, `cantidad`, `activo`) 
                             VALUES ('%s', '%s', '%s', '%s', '%s', '%s');",
                             fn_filtro($row_table['almacen_id']),
                             fn_filtro($row_table['ventas_id']),
                             fn_filtro($row_table['producto_id']),
                             fn_filtro($row_table['producto_ensamblado_id']),
-                            fn_filtro((-1 * ($row_table['cantidad'] * $row_table['factor']) + $lleva_devuelveX)),
+                            fn_filtro((-1 * ($elvis_cantidad) + $lleva_devuelveX)),
                             fn_filtro(1)
             );
 
