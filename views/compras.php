@@ -1,6 +1,6 @@
 <?php  
 	include "../config/conexion.php"; 
-    // include("../queries/query.php");
+
     $query = "SELECT * FROM `controlg_controlerp`.`compra`
 			  WHERE compra.compra_id = $_GET[compra_id]";
     mysql_select_db($database_fastERP, $fastERP);
@@ -190,8 +190,8 @@
 
 											<div class="widget-body">
 												<div class="widget-main scrollable" data-size="150">
-													<div id="div_listar_compra_det"></div>
-	            									<div id="div_oculto_compra_det" class="none"></div>
+													<div id="div_listar_compra_det"></div><!-- Lista detallada de todos los productos de la compra -->
+	            									<div id="div_oculto_compra_det" class="none"></div><!-- Lista detallada de todos los productos de la compra -->
 												</div>
 											</div>
 										</div>
@@ -327,12 +327,6 @@
 			   $('#sidebar2[data-sidebar-scroll=true]').ace_sidebar_scroll('reset', true);
 			})
 		</script>
-		<?php  
-    		if($row_table['estado'] == 2 ||$row_table['estado'] == 3 ||$row_table['estado'] == 4) { 
-    			echo "<script>jQuery('input, select, button').attr('disabled', 'true');</script>"; 
-    			echo "<script>jQuery('#recibir, #rechazar').removeAttr('disabled');</script>"; 
-    		}
-		?>
 	</body>
 </html>
 
