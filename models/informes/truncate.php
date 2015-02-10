@@ -51,6 +51,6 @@
 	$ventas_env = "TRUNCATE TABLE `ventas_env`";
     $ventas = mysql_query($ventas_env, $fastERP) or die(mysql_error());
 
-    header("Location: ../../views/compras.php");
+    header("Location: ../../views/index.php");
 
 ?>

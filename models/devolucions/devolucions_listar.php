@@ -34,7 +34,7 @@
         <td><?php echo $row_table["destino"]; ?></td>
         <td>
           <div class="btn-group">
-            <a href="devolucions.php?transferencia_id=<?=$row_table['transferencia_id']?>&origen=<?=$row_table['almacen_origen_id']?>&destino=<?=$row_table['almacen_destino_id']?>" class="btn btn-xs btn-yellow tooltip-info" data-rel="tooltip" data-placement="left" title="TRANSFERIR....!">
+            <a id="btn_devolucion_registro" href="devolucions.php?transferencia_id=<?=$row_table['transferencia_id']?>&origen=<?=$row_table['almacen_origen_id']?>&destino=<?=$row_table['almacen_destino_id']?>" class="btn btn-xs btn-yellow tooltip-info" data-rel="tooltip" data-placement="left" title="DEVOLVER....!">
               <i class="ace-icon fa fa-pencil bigger-120"></i>
             .......
             </a>
@@ -57,3 +57,9 @@
     $('[data-rel=tooltip]').tooltip();
   });
 </script>
+
+<?php  
+  if ($totalRows_table == 0) {
+    echo '<script type="text/javascript"> $("#btn_devolucion_registro").addClass("hidden"); </script>';
+  }
+?>

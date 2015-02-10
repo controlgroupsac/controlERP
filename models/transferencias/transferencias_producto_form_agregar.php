@@ -24,7 +24,7 @@
                     <span class=" input-icon">
                         <select class="chosen-select col-xs-2" name="producto_id" id="producto_id" data-placeholder="Seleccione un producto..." required>
                             <option value=""></option>
-							<?php query_table_option("SELECT * FROM producto_ensamblado WHERE producto_ensamblado.categoria_id = 5", "producto_ensamblado_id", "producto"); ?>
+							<?php query_table_option("SELECT producto_ensamblado.producto, almacen_det.producto_ensamblado_id FROM almacen_det , producto_ensamblado WHERE almacen_det.producto_ensamblado_id = producto_ensamblado.producto_ensamblado_id AND producto_ensamblado.categoria_id = 5 GROUP BY producto_ensamblado.producto_ensamblado_id", "producto_ensamblado_id", "producto"); ?>
 						</select>
                     </span>
                 </div>

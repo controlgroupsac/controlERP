@@ -285,9 +285,18 @@ Gradient Background colors
 .border-none {
   border: none;
 }
+.capitalize {
+  text-transform: capitalize;
+}
 .cienxcien {
   height: 100%;
   width: 100%;
+}
+.chosen-container {
+  width: 250px !important;
+}
+.none {
+  display: none;
 }
 .opacity02 {
   opacity: 0.2;
@@ -314,17 +323,17 @@ Gradient Background colors
 .text-left {
   text-align: left;
 }
-.text-sm{
+.text-xsm{
   font-size: 10px !important;
 }
+.text-sm{
+  font-size: 14px !important;
+}
 .text-xsm{
-  font-size: 8px !important;
+  font-size: 10px !important;
 }
 .text-light-gray {
   color: rgba(14, 14, 15, 0.19);
-}
-.none {
-  display: none;
 }
 .uppercase {
   text-transform: uppercase;

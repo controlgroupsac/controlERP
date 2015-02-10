@@ -11,13 +11,14 @@
 	
 	$fecha = date("Y-m-d H:i:s");
 	$query_ventas = sprintf("UPDATE `controlg_controlerp`.`ventas` 
-					SET usuario_id='%s', fecha='%s', estado='%s', almacen_id='%s', condicion_pago='%s', fechapago='%s', impuesto1='%s', valor_neto='%s', descuento='%s', total='%s'
+					SET usuario_id='%s', fecha='%s', estado='%s', almacen_id='%s', condicion_pago='%s', pago='%s', fechapago='%s', impuesto1='%s', valor_neto='%s', descuento='%s', total='%s'
 					WHERE ventas_id=%d;",
 					fn_filtro(1),
 					fn_filtro($fecha),
 					fn_filtro(2),
 					fn_filtro($_POST['almacen_id']),
 					fn_filtro($_POST['condicion_pago']),
+					fn_filtro($_POST['pago']),
 					fn_filtro($_POST['fechapago']),
 					fn_filtro($_POST['impuesto1']),
 					fn_filtro($_POST['valor_neto']),
@@ -30,10 +31,11 @@
 
 
     /*CTA Corriente*/
-	$query_ctacorriente_cliente = sprintf("INSERT INTO `controlg_controlerp`.`ctacorriente_cliente` (`fecha`, `cliente_id`, `ventas_id`, `monto`) 
-	                VALUES ('%s', '%s', '%s', '%s');",
+	$query_ctacorriente_cliente = sprintf("INSERT INTO `controlg_controlerp`.`ctacorriente_cliente` (`fecha`, `cliente_id`, `almacen_id`, `ventas_id`, `monto`) 
+	                VALUES ('%s', '%s', '%s', '%s', '%s');",
 					fn_filtro($fecha),
 	                fn_filtro($_POST['cliente_id']),
+	                fn_filtro($_POST['almacen_id']),
 	                fn_filtro($_POST['ventas_id']),
 	                fn_filtro(-1 * ($_POST['total']))
 	);
@@ -152,9 +154,9 @@
 		    }
 
 		    	if ($row_table['unidad_id']==2)
-		    		 $elvis_cantidad=$row_table['cantidad'] * $row_table['factor'];
+		    		 $elvis_cantidad = $row_table['cantidad'] * $row_table['factor'];
 		    	else
-		    		 $elvis_cantidad=$row_table['cantidad'] * 1;
+		    		 $elvis_cantidad = $row_table['cantidad'] * 1;
 		    		
             $almacen_det = sprintf("INSERT INTO `controlg_controlerp`.`almacen_det` (`almacen_id`, `ventas_id`, `producto_id`, `producto_ensamblado_id`, `cantidad`, `activo`) 
                             VALUES ('%s', '%s', '%s', '%s', '%s', '%s');",

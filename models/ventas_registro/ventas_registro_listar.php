@@ -36,19 +36,22 @@
 				<td><?php echo number_format($row_table["total"], 2); ?></td>
 				<td>
 					<div class="hidden-sm hidden-xs btn-group">
-						<a class="btn btn-xs btn-yellow tooltip-yellow" data-rel="tooltip" data-placement="left" title="VENDER!" href="ventas.php?ventas_id=<?php echo $row_table['ventas_id']; ?>&almacen_id=<?php echo $row_table['almacen_id']; ?>&cliente_id=<?php echo $row_table['cliente_id']; ?>">
-							<span> <i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </span>
-						</a> 
+	 					<?php if($row_table['estado'] == 1){ ?> 
+							<a class="btn btn-xs btn-yellow tooltip-yellow" data-rel="tooltip" data-placement="left" title="VENDER!" href="ventas.php?ventas_id=<?php echo $row_table['ventas_id']; ?>&almacen_id=<?php echo $row_table['almacen_id']; ?>&cliente_id=<?php echo $row_table['cliente_id']; ?>">
+								<span> <i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </span>
+							</a> 
+							<span class="label label-lg label-yellow arrowed-right" id="registrar-span">En proceso... </span>  
+						<?php } elseif($row_table['estado'] == 2) { ?>
+							<a class="btn btn-xs btn-yellow tooltip-yellow" data-rel="tooltip" data-placement="left" title="VENDER!" href="ventas.php?ventas_id=<?php echo $row_table['ventas_id']; ?>&almacen_id=<?php echo $row_table['almacen_id']; ?>&cliente_id=<?php echo $row_table['cliente_id']; ?>">
+								<span> <i class="ace-icon fa fa-pencil-square-o bigger-120"></i> </span>
+							</a> 
+							<span class=" label label-lg label-pink arrowed-right" id="registrado" >Registrado</span>
+						<?php } elseif($row_table['estado'] == 3) { ?>
+							<span class=" label label-lg label-success arrowed-right" id="recibido" >Recibido</span>
+						<?php }elseif($row_table['estado'] == 4) { ?>
+							<span class=" label label-lg label-danger arrowed-right" id="rechazado" >Rechazado</span>
+						<?php } ?>
 					</div>
- 					<?php if($row_table['estado'] == 1){ ?> 
-						<span class="label label-lg label-yellow arrowed-right" id="registrar-span">En proceso... </span>  
-					<?php } elseif($row_table['estado'] == 2) { ?>
-						<span class=" label label-lg label-pink arrowed-right" id="registrado" >Registrado</span>
-					<?php } elseif($row_table['estado'] == 3) { ?>
-						<span class=" label label-lg label-success arrowed-right" id="recibido" >Recibido</span>
-					<?php }else { ?>
-						<span class=" label label-lg label-danger arrowed-right" id="rechazado" >Rechazado</span>
-					<?php } ?>
 				</td>
 			</tr>
 			<?php } while ( $row_table = mysql_fetch_assoc($table) ); ?>

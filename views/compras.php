@@ -1,6 +1,6 @@
 <?php  
 	include "../config/conexion.php"; 
-    // include("../queries/query.php");
+
     $query = "SELECT * FROM `controlg_controlerp`.`compra`
 			  WHERE compra.compra_id = $_GET[compra_id]";
     mysql_select_db($database_fastERP, $fastERP);
@@ -112,9 +112,9 @@
 							    			</div>										
 										</div>
 									    <div class="col-lg-12">
-											<h2 class="col-lg-2" data-rel="tooltip" data-placement="right" title="Datos de proveedor">Proveedor</h2>
+											<h2 class="col-lg-6" data-rel="tooltip" data-placement="right" title="Datos de proveedor">Datos de la compra</h2>
 										</div><!--/span-->
-								    	<div class="col-lg-3">								    		
+								    	<div class="col-lg-2">								    		
 								    		<div class="form-group">
 								    			<label class="control-label no-padding-right" for="proveedor_id"> <strong>proveedor</strong> </label>
 
@@ -125,7 +125,16 @@
 								    			</div>
 								    		</div>										
 										</div>
-								    	<div class="col-lg-5">								    		
+										<div class="col-xs-1">	
+								    		<div class="form-group">
+								    			<label class="control-label no-padding-right" for="guiaremision"> <strong>Guia</strong> </label>
+
+								    			<div>
+								    				<input class="form-control col-xs-6" name="guiaremision" id="guiaremision" type="text" size="10" value="<?php query_table_campo_comparar("compra", "guiaremision", "compra_id", $_GET["compra_id"]) ?>" placeholder="Guia de remision" required />/
+								    			</div>
+								    		</div>				
+										</div>
+								    	<div class="col-lg-4">								    		
 								    		<div class="form-group">
 								    			<label class="control-label col-lg-12 no-padding-right" for="documento"> <strong>documento</strong> </label>
 
@@ -190,8 +199,8 @@
 
 											<div class="widget-body">
 												<div class="widget-main scrollable" data-size="150">
-													<div id="div_listar_compra_det"></div>
-	            									<div id="div_oculto_compra_det" class="none"></div>
+													<div id="div_listar_compra_det"></div><!-- Lista detallada de todos los productos de la compra -->
+	            									<div id="div_oculto_compra_det" class="none"></div><!-- Lista detallada de todos los productos de la compra -->
 												</div>
 											</div>
 										</div>
@@ -327,12 +336,6 @@
 			   $('#sidebar2[data-sidebar-scroll=true]').ace_sidebar_scroll('reset', true);
 			})
 		</script>
-		<?php  
-    		if($row_table['estado'] == 2 ||$row_table['estado'] == 3 ||$row_table['estado'] == 4) { 
-    			echo "<script>jQuery('input, select, button').attr('disabled', 'true');</script>"; 
-    			echo "<script>jQuery('#recibir, #rechazar').removeAttr('disabled');</script>"; 
-    		}
-		?>
 	</body>
 </html>
 
