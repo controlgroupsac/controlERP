@@ -189,15 +189,16 @@
 						<li id="informe_credito_cliente_vendedor">
 							<a href="reporte_credito_cliente_por_vendedor.php">
 								<i class="menu-icon fa fa-leaf green"></i>
-								Credito Cliente Por Vendedor
+								Cliente Por Vendedor
 							</a>
 
 							<b class="arrow"></b>
 						</li>
-						<li id="informe_credito_efectivo_vendedor">
-							<a href="reporte_credito_efectivo_por_vendedor.php">
+
+						<li>
+							<a href="../models/informes/credito_efectivo_por_vendedor.php" target="_blank">
 								<i class="menu-icon fa fa-leaf green"></i>
-								Credito Efectivo Por Vendedor
+								Reporte Credito Efectivo Por Vendedor Detallado
 							</a>
 
 							<b class="arrow"></b>
@@ -213,35 +214,7 @@
 						</li>
 					</ul>
 				</li>
-				
-				<li id="informe_contado" class="open hover">
-					<a href="#" class="dropdown-toggle">
-						<i class="menu-icon fa fa-caret-right"></i>
 
-						Contado
-						<b class="arrow fa fa-angle-down"></b>
-					</a>
-
-					<b class="arrow"></b>
-
-					<ul class="submenu">
-						<li id="informe_contado_ventas">
-							<a href="reporte_ventas_diaria_contado.php">
-								<i class="menu-icon fa fa-leaf green"></i>
-								Venta Diarias al Contado
-							</a>
-						</li>
-
-						<li id="informe_contado_ventas_detalle">
-							<a href="reporte_ventas_diaria_contado_detalle.php">
-								<i class="menu-icon fa fa-leaf green"></i>
-								Ventas Diarias al Contado Detallado
-							</a>
-							<b class="arrow"></b>
-						</li>
-					</ul>
-				</li>
-				
 				<li class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
@@ -263,17 +236,9 @@
 						</li>
 
 						<li>
-							<a href="../models/informes/venta_dia_producto.php" target="_blank">
+							<a href="reporte_ventas_diaria.php" target="_blank">
 								<i class="menu-icon fa fa-leaf green"></i>
-								Ventas del dia por producto
-							</a>
-							<b class="arrow"></b>
-						</li>
-
-						<li>
-							<a href="../models/informes/ventas_dia_usuario.php" target="_blank">
-								<i class="menu-icon fa fa-leaf green"></i>
-								Ventas del dia por usuario
+								Ventas diaria
 							</a>
 							<b class="arrow"></b>
 						</li>

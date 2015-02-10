@@ -109,11 +109,13 @@
 														<a class="btn btn-xs btn-info" href="compras_registro.php">Cerrar</a>
 		    										<?php } ?>
 							    				</div>
-							    			</div>										
+							    			</div> 
 										</div>
+
 									    <div class="col-lg-12">
 											<h2 class="col-lg-6" data-rel="tooltip" data-placement="right" title="Datos de proveedor">Datos de la compra</h2>
 										</div><!--/span-->
+
 								    	<div class="col-lg-2">								    		
 								    		<div class="form-group">
 								    			<label class="control-label no-padding-right" for="proveedor_id"> <strong>proveedor</strong> </label>
@@ -130,7 +132,7 @@
 								    			<label class="control-label no-padding-right" for="guiaremision"> <strong>Guia</strong> </label>
 
 								    			<div>
-								    				<input class="form-control col-xs-6" name="guiaremision" id="guiaremision" type="text" size="10" value="<?php query_table_campo_comparar("compra", "guiaremision", "compra_id", $_GET["compra_id"]) ?>" placeholder="Guia de remision" required />/
+								    				<input class="form-control col-xs-6" name="guiaremision" id="guiaremision" type="text" size="10" value="<?php query_table_campo_comparar("compra", "guiaremision", "compra_id", $_GET["compra_id"]) ?>" placeholder="Guia de remision" required /> 
 								    			</div>
 								    		</div>				
 										</div>

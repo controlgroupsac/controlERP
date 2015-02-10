@@ -42,9 +42,9 @@
               <i class="ace-icon fa fa-pencil bigger-120"></i>
             </button>
 
-            <!-- <button id="transferencia_listar_eliminar" class="btn btn-xs btn-danger tooltip-info" data-rel="tooltip" data-placement="left" title="ELMINAR!" onclick="javascript: fn_eliminar_transferencias_producto(<?=$row_table['producto_ensamblado_id']?>, <?=$_GET['transferencia_id']?>, <?=$_GET['origen']?>, <?=$_GET['destino']?>);">
+            <button id="transferencia_listar_eliminar" class="btn btn-xs btn-danger tooltip-info" data-rel="tooltip" data-placement="left" title="ELMINAR!" onclick="javascript: fn_eliminar_transferencias_producto(<?=$_GET['transferencia_id']?>);">
               <i class="ace-icon fa fa-trash-o bigger-120"></i>
-            </button> -->
+            </button>
           </div>
         </td>
       </tr>

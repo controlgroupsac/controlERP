@@ -61,17 +61,17 @@
 								<caption><span class="label label-lg arrowed-right" id="registrar-span"><?php echo $row_table['almacen']; ?> </span></caption>
 								<thead>
 									<th></th>
-									<th>nombre_cliente</th>
-									<th>fecha</th>
-									<th>cta</th>
+									<th>Fecha</th>
+									<th>Nombre Cliente</th>
+									<th>CTA</th>
 								</thead>
 								<tbody>
 									<?php do { ?>
 										<tr>
 											<td></td>
-											<td><?php echo $row_table['nombre_cliente']; ?></td>
 											<td nowrap><?php echo $row_table['fecha']; ?></td>
-											<td nowrap><?php echo $row_table['cta'] ; ?></td>
+											<td><?php echo $row_table['nombre_cliente']; ?></td>
+											<td nowrap><?php echo $row_table['cta']; ?></td>
 										</tr>
 									<?php } while ($row_table = mysql_fetch_assoc($table)); ?>
 								</tbody>

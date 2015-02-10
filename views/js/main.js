@@ -1077,14 +1077,16 @@ function fn_buscar_transferencias_producto(){
 
 function fn_eliminar_transferencias_producto(transferencia_id){
   var respuesta = confirm("Desea eliminar esta transferencia?");
+  console.log(transferencia_id)
   if (respuesta){
     $.ajax({
       url: '../models/transferencias/transferencias_producto_eliminar.php',
       data: 'transferencia_id=' + transferencia_id,
-      type: 'post',
+      type: 'GET',
       success: function(data){
         if(data!="")
           alert(data);
+         $("#div_listar_transferencias_producto").append(data);
         fn_buscar_transferencias_producto()
       }
     });

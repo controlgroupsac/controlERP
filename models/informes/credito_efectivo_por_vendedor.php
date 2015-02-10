@@ -1,25 +1,17 @@
 <?php  
 	include "../../config/conexion.php"; 
-	$query = "SELECT almacen.almacen, usuario.usuario,
-			CONCAT(comprobante_tipo.comprobante_tipo_abrev,'-000',comprobante_det.numero) AS comprobante,
-			UPPER(CONCAT(cliente.nombres, ' ', cliente.apellidos)) AS NombreCliente,
-			ventas.fecha,
-			producto_ensamblado.producto,
-			ventas_det.cantidad,
-			FORMAT(ventas_det.precio,2) AS precio,
-			FORMAT(ventas_det.precio*ventas_det.cantidad,2) AS SubTotal
-			FROM ventas , ventas_det , producto_ensamblado , almacen , cliente , comprobante_det , comprobante , comprobante_tipo ,
-			usuario
-			WHERE almacen.almacen_id = ventas.almacen_id 
-			AND ventas.ventas_id = ventas_det.ventas_id
-			AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
-			AND cliente.cliente_id = ventas.cliente_id
-			AND ventas.ventas_id = comprobante_det.ventas_id
-			AND comprobante_det.comprobante_id = comprobante.comprobante_id
-			AND comprobante_tipo.comprobante_tipo_id = comprobante.comprobante_tipo_id
-			AND ventas.usuario_id = usuario.usuario_id
-			AND ventas.usuario_id = 1
-			AND date(ventas.fecha) = date(now())" ;
+	$query = "SELECT ventas.ventas_id, almacen.almacen, 
+			  CONCAT(cliente.nombres, ' ',cliente.apellidos) AS cliente,
+			  FORMAT(ventas.valor_neto,2) AS valorneto,
+			  FORMAT(ventas.descuento,2) AS descuento,
+			  FORMAT(ventas.impuesto1,2) AS IGV,
+			  FORMAT(ventas.impuesto2,2) AS ISC,
+			  FORMAT(ventas.total,2) AS total, NOW() as fecha
+			  FROM ventas , almacen , cliente
+			  WHERE almacen.almacen_id = ventas.almacen_id 
+			  AND date(ventas.fecha) = date(now())
+			  AND ventas.cliente_id = cliente.cliente_id
+			  AND ventas.almacen_id = 2" ;
 	mysql_select_db($database_fastERP, $fastERP);
 	$table = mysql_query($query, $fastERP) or die(mysql_error());
 	$totalRows_table = mysql_num_rows($table);
@@ -65,42 +57,30 @@
 								Invervalle
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
-									Reporte de ventas diario por usuario
+									Credito de clientes por vendedor
 								</small>
 							</h1>
 						</div><!-- /.page-header -->
 
 						<div class="bloque col-xs-4 col-sm-3">
-							<table class='table table-striped'>
+							<table class='table table-condensed'>
+								<caption><span class="label label-lg arrowed-right" id="registrar-span"><?php echo $row_table['almacen']; ?> </span></caption>
 								<thead>
 									<th></th>
-									<th>Almacen</th>
-									<th>Usuario</th>
-									<th>comprobante</th>
+									<th>Fecha</th>
 									<th>Nombre Cliente</th>
-									<th>fecha</th>
-									<th>producto</th>
-									<th>cantidad</th>
-									<th>precio</th>
-									<th>SubTotal</th>
+									<th>CTA</th>
 								</thead>
 								<tbody>
-									<?php 
-										$var_almacen = $row_table['almacen'];
-										$var_usuario = $row_table['usuario'];
-									 ?>
+									<tr>
+										<td rowspan="3">aaaaaaa</td>
+									</tr>
 									<?php do { ?>
 										<tr>
 											<td></td>
-											<td nowrap><?php echo $row_table['almacen']; ?></td>
-											<td><?php echo $row_table['usuario']; ?></td>
-											<td nowrap><?php echo $row_table['comprobante'] ; ?></td>
-											<td nowrap><?php echo $row_table['NombreCliente']; ?></td>
 											<td nowrap><?php echo $row_table['fecha']; ?></td>
-											<td nowrap><?php echo $row_table['producto']; ?></td>
-											<td nowrap><?php echo $row_table['cantidad']; ?></td>
-											<td nowrap><?php echo $row_table['precio']; ?></td>
-											<td nowrap><?php echo $row_table['SubTotal']; ?></td>
+											<td><?php echo $row_table['nombre_cliente']; ?></td>
+											<td nowrap><?php echo $row_table['cta']; ?></td>
 										</tr>
 									<?php } while ($row_table = mysql_fetch_assoc($table)); ?>
 								</tbody>

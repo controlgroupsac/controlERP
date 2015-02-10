@@ -29,35 +29,37 @@
     mysql_select_db($database_fastERP, $fastERP);
     $ventas = mysql_query($query_ventas, $fastERP) or die(mysql_error());
 
+    if($_POST['pago'] == "C") {
+	    /*CTA Corriente*/
+		$query_ctacorriente_cliente = sprintf("INSERT INTO `controlg_controlerp`.`ctacorriente_cliente` (`fecha`, `cliente_id`, `almacen_id`, `ventas_id`, `monto`) 
+		                VALUES ('%s', '%s', '%s', '%s', '%s');",
+						fn_filtro($fecha),
+		                fn_filtro($_POST['cliente_id']),
+		                fn_filtro($_POST['almacen_id']),
+		                fn_filtro($_POST['ventas_id']),
+		                fn_filtro(-1 * ($_POST['total']))
+		);
+	    mysql_select_db($database_fastERP, $fastERP);
+	    $ctacorriente_cliente = mysql_query($query_ctacorriente_cliente, $fastERP) or die(mysql_error());
+	    $ultima_cta = mysql_insert_id();
 
-    /*CTA Corriente*/
-	$query_ctacorriente_cliente = sprintf("INSERT INTO `controlg_controlerp`.`ctacorriente_cliente` (`fecha`, `cliente_id`, `almacen_id`, `ventas_id`, `monto`) 
-	                VALUES ('%s', '%s', '%s', '%s', '%s');",
-					fn_filtro($fecha),
-	                fn_filtro($_POST['cliente_id']),
-	                fn_filtro($_POST['almacen_id']),
-	                fn_filtro($_POST['ventas_id']),
-	                fn_filtro(-1 * ($_POST['total']))
-	);
-    mysql_select_db($database_fastERP, $fastERP);
-    $ctacorriente_cliente = mysql_query($query_ctacorriente_cliente, $fastERP) or die(mysql_error());
-    $ultima_cta = mysql_insert_id();
 
+	    /*CTA corriente detalle*/
+		$ultimacta = "SELECT * FROM `ctacorriente_cliente` ORDER BY `ctacorriente_cliente_id` DESC LIMIT 1";
+	    mysql_select_db($database_fastERP, $fastERP);
+	    $ultimacta = mysql_query($ultimacta, $fastERP) or die(mysql_error());
+	    $row_ultimacta = mysql_fetch_assoc($ultimacta);
 
-    /*CTA corriente detalle*/
-	$ultimacta = "SELECT * FROM `ctacorriente_cliente` ORDER BY `ctacorriente_cliente_id` DESC LIMIT 1";
-    mysql_select_db($database_fastERP, $fastERP);
-    $ultimacta = mysql_query($ultimacta, $fastERP) or die(mysql_error());
-    $row_ultimacta = mysql_fetch_assoc($ultimacta);
-
-	$productocta = "SELECT ventas_env.producto_id, ventas_env.lleva, ventas_env.devuelve
-					FROM ventas_env , ventas , producto
-					WHERE ventas_env.ventas_id = $_POST[ventas_id] 
-					AND ventas_env.ventas_id = ventas.ventas_id
-					AND ventas_env.producto_id = producto.producto_id ";
-    mysql_select_db($database_fastERP, $fastERP);
-    $productocta = mysql_query($productocta, $fastERP) or die(mysql_error());
-    $row_productocta = mysql_fetch_assoc($productocta);
+		$productocta = "SELECT ventas_env.producto_id, ventas_env.lleva, ventas_env.devuelve
+						FROM ventas_env , ventas , producto
+						WHERE ventas_env.ventas_id = $_POST[ventas_id] 
+						AND ventas_env.ventas_id = ventas.ventas_id
+						AND ventas_env.producto_id = producto.producto_id ";
+	    mysql_select_db($database_fastERP, $fastERP);
+	    $productocta = mysql_query($productocta, $fastERP) or die(mysql_error());
+	    $row_productocta = mysql_fetch_assoc($productocta);
+    }
+    	
 
     do {
     	$ctacorriente_cliente_env = sprintf("INSERT INTO `controlg_controlerp`.`ctacorriente_cliente_env` (`ctacorriente_cliente_id`, `producto_id`, `cantidad`) 

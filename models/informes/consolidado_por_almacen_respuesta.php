@@ -69,11 +69,12 @@
 									<th></th>
 									<th>Producto</th>
 									<th>Unidad</th>
-									<th>Cantidad</th>
+									<th nowrap>Cantidad por Botella</th>
 									<th>Precio</th>
 									<th nowrap>Sub Total</th>
-									<th>Cajas</th>
+									<th nowrap>Cantidad por Cajas</th>
 									<th>Botellas</th>
+									<th>Creditos</th>
 								</thead>
 								<tbody>
 									<?php do { ?>
@@ -85,6 +86,7 @@
 											<td><?php echo $row_table['precio']; ?></td>
 											<td><?php echo $row_table['SubTotal']; ?></td>
 											<td><?php echo $row_table['Cajas']; ?></td>
+											<td><?php echo $row_table['Botellas']; ?></td>
 											<td><?php echo $row_table['Botellas']; ?></td>
 										</tr>
 									<?php } while ($row_table = mysql_fetch_assoc($table)); ?>

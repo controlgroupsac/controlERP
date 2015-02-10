@@ -124,7 +124,7 @@
 				if(id == 0) {
 					alert("Seleccione un almacen");
 				} else {
-					window.open("../models/informes/ventas_diaria_contado_respuesta.php?almacen_id=" +id, "_blank");
+					window.open("../models/informes/ventas_diaria_respuesta.php?almacen_id=" +id, "_blank");
 				}
 			});
 
