@@ -59,10 +59,9 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <select class="chosen-select col-xs-2" name="producto_id" id="producto_id" data-placeholder="Seleccione un producto..." required>
-                            <option value=""></option>
-                            <?php query_table_option_comparar("SELECT * FROM producto_ensamblado", "producto_ensamblado_id", "producto", $_POST['producto_ensamblado_id']); ?>
-                        </select>
+                        <?php $query = "SELECT producto_ensamblado.producto, producto_ensamblado.producto_ensamblado_id FROM almacen_det , producto_ensamblado WHERE almacen_det.producto_ensamblado_id = producto_ensamblado.producto_ensamblado_id AND producto_ensamblado.categoria_id = 5 AND producto_ensamblado.producto_ensamblado_id = $_POST[producto_ensamblado_id] GROUP BY producto_ensamblado.producto_ensamblado_id";  ?>
+                        <input type="text" class="input-xlarge" value="<?php query_table_campo($query, 'producto') ?>" readonly />
+                        <input type="hidden" class="input-xlarge" name="producto_id" id="producto_id" value="<?php query_table_campo($query, 'producto_ensamblado_id') ?>" readonly />
                     </span>
                 </div>
             </div>

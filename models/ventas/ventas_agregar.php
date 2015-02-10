@@ -31,10 +31,11 @@
 
 
     /*CTA Corriente*/
-	$query_ctacorriente_cliente = sprintf("INSERT INTO `controlg_controlerp`.`ctacorriente_cliente` (`fecha`, `cliente_id`, `ventas_id`, `monto`) 
-	                VALUES ('%s', '%s', '%s', '%s');",
+	$query_ctacorriente_cliente = sprintf("INSERT INTO `controlg_controlerp`.`ctacorriente_cliente` (`fecha`, `cliente_id`, `almacen_id`, `ventas_id`, `monto`) 
+	                VALUES ('%s', '%s', '%s', '%s', '%s');",
 					fn_filtro($fecha),
 	                fn_filtro($_POST['cliente_id']),
+	                fn_filtro($_POST['almacen_id']),
 	                fn_filtro($_POST['ventas_id']),
 	                fn_filtro(-1 * ($_POST['total']))
 	);

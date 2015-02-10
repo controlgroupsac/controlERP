@@ -117,13 +117,6 @@
 				<li class="open hover">
 					<a href="#" class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
-						Notas de recibos
-					</a>
-				</li>
-				
-				<li class="open hover">
-					<a href="#" class="dropdown-toggle">
-						<i class="menu-icon fa fa-caret-right"></i>
 						Consignación del proveedor
 					</a>
 				</li>
@@ -193,6 +186,20 @@
 					<a href="../models/informes/truncate.php">
 						<i class="menu-icon fa fa-caret-right"></i>
 						truncate
+					</a>
+				</li>
+
+				<li id="informe_credito_cliente" class="open hover">
+					<a href="reporte_credito_cliente_por_vendedor.php">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Credito Cliente Por Vendedor
+					</a>
+				</li>
+
+				<li class="open hover">
+					<a href="../models/informes/credito_por_cliente.php" target="_blank">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Credito por cliente
 					</a>
 				</li>
 

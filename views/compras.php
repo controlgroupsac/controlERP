@@ -130,7 +130,7 @@
 								    			<label class="control-label no-padding-right" for="guiaremision"> <strong>Guia</strong> </label>
 
 								    			<div>
-								    				<input class="form-control col-xs-6" name="guiaremision" id="guiaremision" type="text" size="10" value="" required />
+								    				<input class="form-control col-xs-6" name="guiaremision" id="guiaremision" type="text" size="10" value="<?php query_table_campo_comparar("compra", "guiaremision", "compra_id", $_GET["compra_id"]) ?>" placeholder="Guia de remision" required />/
 								    			</div>
 								    		</div>				
 										</div>

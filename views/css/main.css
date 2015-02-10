@@ -272,9 +272,6 @@ Gradient Background colors
   color: #fff;
 }
 
-.chosen-container {
-  width: 250px !important;
-}
 #producto_id_chosen {
   width: 250px !important;
 }
@@ -288,9 +285,18 @@ Gradient Background colors
 .border-none {
   border: none;
 }
+.capitalize {
+  text-transform: capitalize;
+}
 .cienxcien {
   height: 100%;
   width: 100%;
+}
+.chosen-container {
+  width: 250px !important;
+}
+.none {
+  display: none;
 }
 .opacity02 {
   opacity: 0.2;
@@ -328,9 +334,6 @@ Gradient Background colors
 }
 .text-light-gray {
   color: rgba(14, 14, 15, 0.19);
-}
-.none {
-  display: none;
 }
 .uppercase {
   text-transform: uppercase;

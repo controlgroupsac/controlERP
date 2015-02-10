@@ -126,12 +126,6 @@
 					<td></td>
 					<th>S/. <?php echo number_format($total, 2); ?></th>
 				</tr>
-				<!-- <tr>
-					<th>Cliente</th>
-					<td>Mirk</td>
-					<td></td>
-					<th></th>
-				</tr> -->
 			</tbody>
 		</table>
 	</div>
@@ -167,6 +161,7 @@
 						ventas_env.producto_id = producto.producto_id ";
     mysql_select_db($database_fastERP, $fastERP);
     $producto2 = mysql_query($query_producto2, $fastERP) or die(mysql_error());
+    $totalnum_producto2 = mysql_num_rows($producto2); 
     $row_producto2 = mysql_fetch_assoc($producto2); 
 
     $query_precio2 = "SELECT ventas_det.cantidad, ventas_det.precio, producto_ensamblado.producto
@@ -177,14 +172,6 @@
     mysql_select_db($database_fastERP, $fastERP);
     $precio2 = mysql_query($query_precio2, $fastERP) or die(mysql_error());
     $row_precio2 = mysql_fetch_assoc($precio2); 
-
-    $valor_neto2 = 0;
-    do {
-		$valor_neto2 += $row_producto2["precio"] * ($row_producto2['devuelve'] - $row_producto2['lleva']);
-    } while ($row_precio2 = mysql_fetch_assoc($precio2));
-
-    if(empty($_GET['descuento'])) { $_GET['descuento'] = 0; }
-    $total2 = ($valor_neto2 - $_GET['descuento']) ;
 ?>
 	<div class="col-xs-12"></div>
 
@@ -200,12 +187,8 @@
 					<span class="text-xsm right">
 						<strong>
 						<?php 
-							if ($row_almacen['pago'] == "E") {
-								echo "Efectivo";
-							} elseif ($row_almacen['pago'] == "C") {
+							if ($totalnum_producto2 != 0) {
 								echo "Credito";
-							} elseif ($row_almacen['pago'] == "T") {
-								echo "Tarjeto";
 							} 
 						?>
 						</strong>
@@ -220,18 +203,25 @@
 				<th>Cantidad</th>
 			</thead>
 			<tbody>
+				<?php $valor_neto2 = 0; ?>
 				<?php do { ?>
 					<tr>
 						<td><?php echo $row_producto2['producto']; ?></td>
 						<td><?php echo number_format($row_producto2['precio'], 2); ?></td>
-						<td><?php echo $row_producto2['devuelve'] - $row_producto2['lleva']; ?></td>
+						<td>
+							<?php echo $row_producto2['devuelve'] - $row_producto2['lleva'];  /*Cantidad de productos*/
+							    $valor_neto2 += $row_producto2["precio"] * ($row_producto2['devuelve'] - $row_producto2['lleva']); /*Acumulador de montos de deudas*/
+							    if(empty($_GET['descuento'])) { $_GET['descuento'] = 0; }
+							    $total2 = -1 * ($valor_neto2 - $_GET['descuento']); /*Total del monto de deudas, respecto a las botellas */
+							?>
+						</td>
 					</tr>
 				<?php } while ($row_producto2 = mysql_fetch_assoc($producto2)); ?>
 
 				<tr>
-					<th>TOTAL</th>
+					<th>TOTAL (S/.)</th>
 					<td></td>
-					<th nowrap >S/. <?php echo number_format($total2, 2); ?></th>
+					<th nowrap ><?php echo number_format($total2, 2); ?></th>
 				</tr>
 				<tr>
 					<td>Recibo de botellas y CPB</td>
