@@ -175,6 +175,118 @@
 			<b class="arrow"></b>
 
 			<ul class="submenu">
+				<li id="informe_credito" class="open hover">
+					<a href="#" class="dropdown-toggle">
+						<i class="menu-icon fa fa-caret-right"></i>
+
+						Creditos
+						<b class="arrow fa fa-angle-down"></b>
+					</a>
+
+					<b class="arrow"></b>
+
+					<ul class="submenu">
+						<li id="informe_credito_cliente_vendedor">
+							<a href="reporte_credito_cliente_por_vendedor.php">
+								<i class="menu-icon fa fa-leaf green"></i>
+								Credito Cliente Por Vendedor
+							</a>
+
+							<b class="arrow"></b>
+						</li>
+						<li id="informe_credito_efectivo_vendedor">
+							<a href="reporte_credito_efectivo_por_vendedor.php">
+								<i class="menu-icon fa fa-leaf green"></i>
+								Credito Efectivo Por Vendedor
+							</a>
+
+							<b class="arrow"></b>
+						</li>
+
+						<li>
+							<a href="../models/informes/credito_por_cliente.php" target="_blank">
+								<i class="menu-icon fa fa-leaf green"></i>
+								Credito por cliente
+							</a>
+
+							<b class="arrow"></b>
+						</li>
+					</ul>
+				</li>
+				
+				<li id="informe_contado" class="open hover">
+					<a href="#" class="dropdown-toggle">
+						<i class="menu-icon fa fa-caret-right"></i>
+
+						Contado
+						<b class="arrow fa fa-angle-down"></b>
+					</a>
+
+					<b class="arrow"></b>
+
+					<ul class="submenu">
+						<li id="informe_contado_ventas">
+							<a href="reporte_ventas_diaria_contado.php">
+								<i class="menu-icon fa fa-leaf green"></i>
+								Venta Diarias al Contado
+							</a>
+						</li>
+
+						<li id="informe_contado_ventas_detalle">
+							<a href="reporte_ventas_diaria_contado_detalle.php">
+								<i class="menu-icon fa fa-leaf green"></i>
+								Ventas Diarias al Contado Detallado
+							</a>
+							<b class="arrow"></b>
+						</li>
+					</ul>
+				</li>
+				
+				<li class="open hover">
+					<a href="#" class="dropdown-toggle">
+						<i class="menu-icon fa fa-caret-right"></i>
+
+						Ventas
+						<b class="arrow fa fa-angle-down"></b>
+					</a>
+
+					<b class="arrow"></b>
+
+					<ul class="submenu">
+
+						<li>
+							<a href="../models/informes/ventas_por_cliente.php" target="_blank">
+								<i class="menu-icon fa fa-leaf green"></i>
+								Ventas por cliente
+							</a>
+							<b class="arrow"></b>
+						</li>
+
+						<li>
+							<a href="../models/informes/venta_dia_producto.php" target="_blank">
+								<i class="menu-icon fa fa-leaf green"></i>
+								Ventas del dia por producto
+							</a>
+							<b class="arrow"></b>
+						</li>
+
+						<li>
+							<a href="../models/informes/ventas_dia_usuario.php" target="_blank">
+								<i class="menu-icon fa fa-leaf green"></i>
+								Ventas del dia por usuario
+							</a>
+							<b class="arrow"></b>
+						</li>
+					</ul>
+				</li>
+
+				<li id="informe_tranfer" class="open hover">
+					<a href="reporte_consolidado_por_almacen.php">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Consolidado por almacen
+					</a>
+				</li>
+				
 				<li class="open hover">
 					<a href="../models/informes/existencias_total.php" target="_blank">
 						<i class="menu-icon fa fa-caret-right"></i>
@@ -188,77 +300,6 @@
 						truncate
 					</a>
 				</li>
-
-				<li id="informe_credito_cliente" class="open hover">
-					<a href="reporte_credito_cliente_por_vendedor.php">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Credito Cliente Por Vendedor
-					</a>
-				</li>
-
-				<li class="open hover">
-					<a href="../models/informes/credito_por_cliente.php" target="_blank">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Credito por cliente
-					</a>
-				</li>
-
-				<li id="informe_tranfer" class="open hover">
-					<a href="reporte_consolidado_por_almacen.php">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Consolidado por almacen
-					</a>
-				</li>
-
-				<li class="open hover">
-					<a href="../models/informes/ventas_por_cliente.php" target="_blank">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Ventas por cliente
-					</a>
-				</li>
-
-				<li id="informe_ventas_contado" class="open hover">
-					<a href="reporte_ventas_diaria_contado.php">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Venta Diarias al Contado
-					</a>
-				</li>
-
-				<li id="informe_ventas_contado_detalle" class="open hover">
-					<a href="reporte_ventas_diaria_contado_detalle.php">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Ventas Diarias al Contado Detallado
-					</a>
-				</li>
-
-				<li class="open hover">
-					<a href="../models/informes/venta_dia_producto.php" target="_blank">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Ventas del dia por producto
-					</a>
-				</li>
-
-				<li class="open hover">
-					<a href="../models/informes/ventas_dia_usuario.php" target="_blank">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Ventas del dia por usuario
-					</a>
-				</li>
-
-				<li class="open hover">
-					<a href="#" class="dropdown-toggle">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Cambios en valores de inventario
-					</a>
-				</li>
-
-				<li class="open hover">
-					<a href="#" class="dropdown-toggle">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Informes
-					</a>
-				</li>
-
 			</ul>
 		</li>
 

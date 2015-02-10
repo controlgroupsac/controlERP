@@ -130,7 +130,8 @@
 
 			jQuery(function($) {
 				$("#informe").addClass("active");
-				$("#informe_credito_cliente").addClass("active");
+				$("#informe_credito").addClass("active");
+				$("#informe_credito_cliente_vendedor").addClass("active");
 
 				$(".chosen-select").chosen();
 				$('[data-rel=tooltip]').tooltip();

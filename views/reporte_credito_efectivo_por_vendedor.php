@@ -56,9 +56,9 @@
 								<div class="page-header">
 									<h1>
 										Reporte
-										<small>
+										<small class="text-capitalize">
 											<i class="ace-icon fa fa-angle-double-right"></i>
-											Ventas Diarias al contado
+											Credito Efectivo por vendedor
 										</small>
 									</h1>
 								</div><!-- /.page-header -->
@@ -124,14 +124,14 @@
 				if(id == 0) {
 					alert("Seleccione un almacen");
 				} else {
-					window.open("../models/informes/ventas_diaria_contado_respuesta.php?almacen_id=" +id, "_blank");
+					window.open("../models/informes/credito_efectivo_por_vendedor_respuesta.php?almacen_id=" +id, "_blank");
 				}
 			});
 
 			jQuery(function($) {
 				$("#informe").addClass("active");
-				$("#informe_contado").addClass("active");
-				$("#informe_contado_ventas").addClass("active");
+				$("#informe_credito").addClass("active");
+				$("#informe_credito_efectivo_vendedor").addClass("active");
 
 				$(".chosen-select").chosen();
 				$('[data-rel=tooltip]').tooltip();
