@@ -558,6 +558,7 @@ $("#registrar").click(function () {
   var valor_neto = document.getElementById('valor_neto');
   var descuento = document.getElementById('descuento');
   var total = document.getElementById('total');
+  var guiaremision = document.getElementById('guiaremision');
 
   var data = {
     compra_id: compra_id.value,
@@ -571,20 +572,27 @@ $("#registrar").click(function () {
     impuesto1: impuesto1.value,
     valor_neto: valor_neto.value,
     descuento: descuento.value,
-    total: total.value
+    total: total.value,
+    guiaremision: guiaremision.value
   };
   console.log(data);
-  var respuestaRegistrar = confirm("Realmente desea registrar esta COMPRA?. \nSi acepta, el documento no podrá ser modificado!");
-  if (respuestaRegistrar){
-    $.ajax({
-      url: '../models/compra_registro/compras_registrar.php',
-      type: 'post',
-      data: data,
-      success: function(data){
-        $("#proceso-registro").html(data);
-      }
-    });
-  }
+
+  if ((guiaremision.value == "") || (serie.value == "") || (numero.value == "") || (fecha_doc.value == "")) {
+    alert("Los campos Guia, serie, numero y fecha  NO PUEDEN ESTAR VACIOS!!!");
+    return false;
+  }else {
+    var respuestaRegistrar = confirm("Realmente desea registrar esta COMPRA?. \nSi acepta, el documento no podrá ser modificado!");
+    if (respuestaRegistrar){
+      $.ajax({
+        url: '../models/compra_registro/compras_registrar.php',
+        type: 'post',
+        data: data,
+        success: function(data){
+          $("#proceso-registro").html(data);
+        }
+      });
+    }
+  };
 });
 $("#salir").click(function () {
   var compra_id = document.getElementById('compra_id');
@@ -642,7 +650,7 @@ $("#recibir").click(function () {
       type: 'get',
       data: data,
       success: function(data){
-        alert("Registrado!");
+        alert("Recibido!");
         $("#proceso-registro").html(data);
       }
     });
@@ -661,7 +669,7 @@ $("#rechazar").click(function () {
       type: 'get',
       data: data,
       success: function(data){
-        alert("Registrado!");
+        alert("Rechazado!");
         $("#proceso-registro").html(data);
       }
     });
@@ -959,27 +967,6 @@ $("#nuevaVentas_registro").click(function () {
   });
 });
 
-
-
-// /*Transferencias*/
-// function fn_buscar_transferencias(){
-//   var str = $("#frm_buscar_transferencias").serialize();
-//   var origen = $("#origen").val();
-//   var destino = $("#destino").val();
-//   if (origen == destino) {
-//     alert("El ORIGEN no puede ser el mismo que el DESTINO");
-//   }else {
-//     $.ajax({
-//       url: '../models/transferencias/transferencias_listar.php',
-//       type: 'get',
-//       data: str,
-//       success: function(data){
-//         $("#div_listar_transferencias").html(data);
-//       }
-//     });
-//     jQuery("#crear_transferencias").addClass("disabled");
-//   };
-// }
 
 
 /**/

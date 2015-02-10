@@ -24,7 +24,7 @@
 <?php  
     } else { 
     	$sql = sprintf("UPDATE `controlg_controlerp`.`compra` 
-						SET almacen_id='%s', proveedor_id='%s', estado='%s', condic_pago='%s', serie='%s', numero='%s', fecha_doc='%s', impuesto1='%s', valor_neto='%s', descuento='%s', total='%s'
+						SET almacen_id='%s', proveedor_id='%s', estado='%s', condic_pago='%s', serie='%s', numero='%s', fecha_doc='%s', impuesto1='%s', valor_neto='%s', descuento='%s', total='%s', guiaremision='%s'
 						WHERE compra_id=%d;", 
 						fn_filtro($_POST['almacen_id']),
 						fn_filtro($_POST['proveedor_id']),
@@ -37,6 +37,7 @@
 						fn_filtro($_POST['valor_neto']),
 						fn_filtro($_POST['descuento']),
 						fn_filtro($_POST['total']),
+						fn_filtro($_POST['guiaremision']),
 						fn_filtro((int)$_POST['compra_id'])
 		);
 

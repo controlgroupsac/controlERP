@@ -19,20 +19,21 @@
     $totalRows_table = mysql_num_rows($table);
     $row_table = mysql_fetch_assoc($table);
 
-    $query_disponible = "SELECT SUM(almacen_det.cantidad) AS total, almacen_det.cantidad, almacen_det.producto_id, almacen_det.almacendet_id
-              FROM almacen_det , producto
-              WHERE almacen_det.producto_ensamblado_id = $_POST[producto_ensamblado_id]
-              AND almacen_det.almacen_id = $_POST[origen]
-              AND almacen_det.producto_id = producto.producto_id
-              AND producto.categoria_id <> 4
-              GROUP BY almacen_det.producto_id" ;
+
+    $query_disponible = "SELECT SUM(almacen_det.cantidad) AS total, almacen_det.cantidad, almacen_det.producto_id, almacen_det.almacendet_id, producto.factor
+                      FROM almacen_det , producto
+                      WHERE almacen_det.producto_ensamblado_id = $_POST[producto_ensamblado_id]
+                      AND almacen_det.almacen_id = $_POST[origen]
+                      AND almacen_det.producto_id = producto.producto_id
+                      AND producto.categoria_id <> 4
+                      GROUP BY almacen_det.producto_id" ;
     mysql_select_db($database_fastERP, $fastERP);
     $disponible = mysql_query($query_disponible, $fastERP) or die(mysql_error());
     $totalRows_disponible = mysql_num_rows($disponible);
     $row_disponible = mysql_fetch_assoc($disponible);
 
     if ($totalRows_disponible > 0) {
-        $total = $row_disponible['total'];
+        $total = $row_disponible['total'] / $row_disponible['factor'];
     } else {
         $total = 0;
     }
@@ -58,10 +59,9 @@
 
                 <div class="col-sm-9">
                     <span class=" input-icon">
-                        <select class="chosen-select col-xs-2" name="producto_id" id="producto_id" data-placeholder="Seleccione un producto..." required>
-                            <option value=""></option>
-                            <?php query_table_option_comparar("SELECT * FROM producto_ensamblado", "producto_ensamblado_id", "producto", $_POST['producto_ensamblado_id']); ?>
-                        </select>
+                        <?php $query = "SELECT producto_ensamblado.producto, producto_ensamblado.producto_ensamblado_id FROM almacen_det , producto_ensamblado WHERE almacen_det.producto_ensamblado_id = producto_ensamblado.producto_ensamblado_id AND producto_ensamblado.categoria_id = 5 AND producto_ensamblado.producto_ensamblado_id = $_POST[producto_ensamblado_id] GROUP BY producto_ensamblado.producto_ensamblado_id";  ?>
+                        <input type="text" class="input-xlarge" value="<?php query_table_campo($query, 'producto') ?>" readonly />
+                        <input type="hidden" class="input-xlarge" name="producto_id" id="producto_id" value="<?php query_table_campo($query, 'producto_ensamblado_id') ?>" readonly />
                     </span>
                 </div>
             </div>

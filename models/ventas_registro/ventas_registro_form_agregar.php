@@ -19,8 +19,8 @@
                 <label class="col-sm-3 control-label" for="almacen_id"><b>almacen </b></label>
 
                 <div class="col-sm-9">
-                    <select class="form-control" name="almacen_id" id="almacen_id">
-                        <?php query_table_option("SELECT * FROM almacen", "almacen_id", "almacen") ?>
+                    <select class="chosen-select form-control" name="almacen_id" id="almacen_id">
+                        <?php query_table_option("SELECT * FROM almacen WHERE almacen_id <> 1", "almacen_id", "almacen") ?>
                     </select>
                 </div>
             </div>

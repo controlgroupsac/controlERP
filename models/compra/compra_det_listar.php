@@ -37,40 +37,14 @@
 				<td><?php echo $row_table["monto"]; ?></td>
 				<td><?php echo $row_table["monto"] * $row_table["cantidad"]; ?></td>
 				<td>
-					<div class="hidden-sm hidden-xs btn-group">
-						<button class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_compra_det(<?=$row_table['compra_det_id']?>);">
+					<div class="btn-group">
+						<button class="btn btn-xs btn-info tooltip-info" id="compra_add_det" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_compra_det(<?=$row_table['compra_det_id']?>);">
 							<i class="ace-icon fa fa-pencil bigger-120"></i>
 						</button>
 
-						<button class="btn btn-xs btn-danger tooltip-error" data-rel="tooltip" data-placement="left" title="ELMINAR!" onclick="javascript: fn_eliminar_compra_det(<?=$row_table['compra_det_id']?>);">
+						<button class="btn btn-xs btn-danger tooltip-error" id="compra_add_det2" data-rel="tooltip" data-placement="left" title="ELMINAR!" onclick="javascript: fn_eliminar_compra_det(<?=$row_table['compra_det_id']?>);">
 							<i class="ace-icon fa fa-trash-o bigger-120"></i>
 						</button>
-					</div>
-
-					<div class="hidden-md hidden-lg">
-						<div class="inline pos-rel">
-							<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
-								<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
-							</button>
-
-							<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-								<li>
-									<a href="javascript: fn_mostrar_frm_modificar_compra_det(<?=$row_table['compra_det_id']?>);" class="tooltip-success" data-rel="tooltip" title="Edit">
-										<span class="green">
-											<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-										</span>
-									</a>
-								</li>
-
-								<li>
-									<a href="javascript: fn_eliminar_compra_det(<?=$row_table['compra_det_id']?>);" class="tooltip-error" data-rel="tooltip" title="Delete">
-										<span class="red">
-											<i class="ace-icon fa fa-trash-o bigger-120"></i>
-										</span>
-									</a>
-								</li>
-							</ul>
-						</div>
 					</div>
 				</td>
 			</tr>
@@ -83,3 +57,19 @@
 		$('[data-rel=tooltip]').tooltip();
 	});
 </script>
+<?php  
+    $query = "SELECT * FROM `controlg_controlerp`.`compra`
+			  WHERE compra.compra_id = $_GET[compra_id]";
+    mysql_select_db($database_fastERP, $fastERP);
+    $table = mysql_query($query, $fastERP) or die(mysql_error());
+    $row_table = mysql_fetch_assoc($table);
+
+	if($row_table['estado'] == 2 || $row_table['estado'] == 3 ||$row_table['estado'] == 4) { 
+		echo "<script>jQuery('input, select, button').attr('disabled', 'true');</script>"; 
+		echo "<script>jQuery('#recibir, #rechazar').removeAttr('disabled');</script>"; 
+		echo '<script type="text/javascript"> $("#compra_add_det, #compra_add_det2").addClass("hidden"); </script>';
+	}
+	if($totalRows_table == 0) { 
+		echo '<script type="text/javascript"> $("#compra_add_det, #compra_add_det2").addClass("hidden"); </script>';
+	}
+?>

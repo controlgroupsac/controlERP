@@ -33,17 +33,17 @@
         <td><?php echo $row_table["destino"]; ?></td>
         <td>
           <div class="btn-group">
-            <a href="transferencias.php?transferencia_id=<?=$row_table['transferencia_id']?>&origen=<?=$row_table['almacen_origen_id']?>&destino=<?=$row_table['almacen_destino_id']?>" class="btn btn-xs btn-yellow tooltip-info" data-rel="tooltip" data-placement="left" title="TRANSFERIR....!">
+            <a id="transferencia_transferir" href="transferencias.php?transferencia_id=<?=$row_table['transferencia_id']?>&origen=<?=$row_table['almacen_origen_id']?>&destino=<?=$row_table['almacen_destino_id']?>" class="btn btn-xs btn-yellow tooltip-info" data-rel="tooltip" data-placement="left" title="TRANSFERIR....!">
               <i class="ace-icon fa fa-pencil bigger-120"></i>
             .......
             </a>
-            <button class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_transferencias(<?=$row_table['transferencia_id']?>);">
+            <button id="transferencia_editar" class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_transferencias(<?=$row_table['transferencia_id']?>);">
               <i class="ace-icon fa fa-pencil bigger-120"></i>
             </button>
 
-            <button class="btn btn-xs btn-danger tooltip-info" data-rel="tooltip" data-placement="left" title="ELMINAR!" onclick="javascript: fn_eliminar_transferencias(<?=$row_table['transferencia_id']?>);">
+            <!-- <button id="transferencia_eliminar" class="btn btn-xs btn-danger tooltip-info" data-rel="tooltip" data-placement="left" title="ELMINAR!" onclick="javascript: fn_eliminar_transferencias(<?=$row_table['transferencia_id']?>);">
               <i class="ace-icon fa fa-trash-o bigger-120"></i>
-            </button>
+            </button> -->
           </div>
         </td>
       </tr>
@@ -56,3 +56,8 @@
     $('[data-rel=tooltip]').tooltip();
   });
 </script>
+<?php  
+  if($totalRows_table == 0) { 
+    echo '<script type="text/javascript"> $("#transferencia_transferir, #transferencia_editar, #transferencia_eliminar").addClass("hidden"); </script>';
+  }
+?>

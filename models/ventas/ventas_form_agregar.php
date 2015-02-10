@@ -226,7 +226,7 @@
         var ventas_id = document.getElementById('ventas_id');
         var descuento = document.getElementById('descuento');
         var totalRows_almacen = document.getElementById('totalRows_almacen');
-        console.log(str);
+        
         if (totalRows_almacen.value == 0) {
             alert("Tienes que al menos ingresar un producto para CERRAR la VENTAS");
             fn_cerrar_ventas();
@@ -236,14 +236,13 @@
                 data: str,
                 type: 'post',
                 success: function(data){
-                    if(data != "")
-                        alert(data);
+                    // if(data != "")
+                    //     alert(data);
                     var respuesta = confirm("Desea imprimir esta venta?");
                     if (respuesta){
                         window.open("../models/ventas/ventas_imprimir.php?ventas_id=" +ventas_id.value+ "&descuento=" +descuento.value, "_blank");
-                    }
-                    fn_cerrar_ventas();
-                    location.href = "ventas_registro.php"
+                    } 
+                    location.href = "ventas_registro.php";
     			}
     		});
         }
