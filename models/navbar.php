@@ -218,9 +218,16 @@
 				</li>
 
 				<li id="informe_ventas_contado" class="open hover">
-					<a href="reporte_ventas_diaria_contado.php" target="_blank">
+					<a href="reporte_ventas_diaria_contado.php">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Venta Diarias al Contado
+					</a>
+				</li>
+
+				<li id="informe_ventas_contado_detalle" class="open hover">
+					<a href="reporte_ventas_diaria_contado_detalle.php">
+						<i class="menu-icon fa fa-caret-right"></i>
+						Ventas Diarias al Contado Detallado
 					</a>
 				</li>
 

@@ -1,17 +1,20 @@
 <?php  
 	include "../../config/conexion.php"; 
 	$query = "SELECT ventas.ventas_id, almacen.almacen, 
-			  CONCAT(cliente.nombres, ' ',cliente.apellidos) AS cliente,
-			  FORMAT(ventas.valor_neto,2) AS valorneto,
-			  FORMAT(ventas.descuento,2) AS descuento,
-			  FORMAT(ventas.impuesto1,2) AS IGV,
-			  FORMAT(ventas.impuesto2,2) AS ISC,
-			  FORMAT(ventas.total,2) AS total, NOW() as fecha
-			  FROM ventas , almacen , cliente
+				  CONCAT(cliente.nombres, ' ',cliente.apellidos) AS cliente,
+				  producto_ensamblado.producto, unidad.abrev, ventas_det.cantidad,
+				  FORMAT(ventas_det.precio/1.18,2) AS valorneto,
+				  FORMAT((ventas_det.precio/1.18)*0.18,2) AS IGV,
+				  FORMAT(ventas_det.precio/1.18,2) AS ISC,
+				  FORMAT(ventas_det.precio,2) AS total
+			  FROM ventas , almacen , cliente , ventas_det , producto_ensamblado , unidad
 			  WHERE almacen.almacen_id = ventas.almacen_id 
 			  AND date(ventas.fecha) = date(now())
 			  AND ventas.cliente_id = cliente.cliente_id
-			  AND ventas.almacen_id = $_GET[almacen_id] " ;
+			  AND ventas.ventas_id = ventas_det.ventas_id
+			  AND almacen.almacen_id = $_GET[almacen_id]
+			  AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
+			  AND producto_ensamblado.unidad_id = unidad.unidad_id " ;
 	mysql_select_db($database_fastERP, $fastERP);
 	$table = mysql_query($query, $fastERP) or die(mysql_error());
 	$totalRows_table = mysql_num_rows($table);
@@ -68,24 +71,26 @@
 								<thead>
 									<th></th>
 									<th>Cliente</th>
-									<th nowrap>Valor Neto</th>
-									<th>descuento</th>
+									<th nowrap>Producto</th>
+									<th>abrev</th>
+									<th>Cantidad</th>
+									<th>Valor Neto</th>
 									<th>IGV</th>
 									<th>ISC</th>
 									<th>total</th>
-									<th>fecha</th>
 								</thead>
 								<tbody>
 									<?php do { ?>
 										<tr>
 											<td></td>
 											<td nowrap><?php echo $row_table['cliente']; ?></td>
-											<td><?php echo $row_table['valorneto']; ?></td>
-											<td nowrap><?php echo $row_table['descuento'] ; ?></td>
+											<td nowrap><?php echo $row_table['producto']; ?></td>
+											<td><?php echo $row_table['abrev'] ; ?></td>
+											<td align="right"><?php echo $row_table['cantidad']; ?></td>
+											<td align="right"><?php echo $row_table['valorneto']; ?></td>
 											<td align="right"><?php echo $row_table['IGV']; ?></td>
 											<td align="right"><?php echo $row_table['ISC']; ?></td>
-											<td align="right"><?php echo $row_table['total']; ?></td>
-											<td nowrap><?php echo $row_table['fecha']; ?></td>
+											<td nowrap><?php echo $row_table['total']; ?></td>
 										</tr>
 									<?php } while ($row_table = mysql_fetch_assoc($table)); ?>
 								</tbody>

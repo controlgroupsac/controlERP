@@ -58,7 +58,7 @@
 										Reporte
 										<small>
 											<i class="ace-icon fa fa-angle-double-right"></i>
-											Ventas Diarias al contado
+											Ventas Diarias al contado Detallado
 										</small>
 									</h1>
 								</div><!-- /.page-header -->
@@ -124,13 +124,13 @@
 				if(id == 0) {
 					alert("Seleccione un almacen");
 				} else {
-					window.open("../models/informes/ventas_diaria_contado_respuesta.php?almacen_id=" +id, "_blank");
+					window.open("../models/informes/ventas_diaria_contado_detalle_respuesta.php?almacen_id=" +id, "_blank");
 				}
 			});
 
 			jQuery(function($) {
 				$("#informe").addClass("active");
-				$("#informe_ventas_contado").addClass("active");
+				$("#informe_ventas_contado_detalle").addClass("active");
 
 				$(".chosen-select").chosen();
 				$('[data-rel=tooltip]').tooltip();
