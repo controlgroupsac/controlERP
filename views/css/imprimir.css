@@ -1,3 +1,12 @@
+td{
+	padding: 0 5px !important;
+}
+td:nth-child(odd) {
+	background: #F7F7F7;
+}
+td:nth-child(even) {
+	background: #F0F0F0;
+}
 @media print  {
 	.bloque1, .bloque2 {
 		background: orange;

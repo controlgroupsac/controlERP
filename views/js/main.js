@@ -1157,8 +1157,8 @@ function fn_eliminar_devolucions(transferencia_id){
       data: 'transferencia_id=' + transferencia_id,
       type: 'post',
       success: function(data){
-        if(data!="")
-          alert(data);
+        // if(data!="")
+        //   alert(data);
         fn_buscar_devolucions()
       }
     });
@@ -1227,8 +1227,8 @@ function fn_eliminar_devolucions_producto(transferencia_id){
       data: 'transferencia_id=' + transferencia_id,
       type: 'post',
       success: function(data){
-        if(data!="")
-          alert(data);
+        // if(data!="")
+        //   alert(data);
         fn_buscar_devolucions_producto()
       }
     });

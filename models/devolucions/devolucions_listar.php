@@ -18,9 +18,9 @@
   <table id="simple-table" class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th>Transferencia</th>
+        <th>Id</th>
         <th>Producto</th>
-        <th>Transferencia</th>
+        <th>Devuelve</th>
 
         <th></th>
       </tr>
@@ -32,7 +32,7 @@
         <td><?php echo $row_table["transferencia_id"]; ?></td>
         <td><?php echo $row_table["origen"]; ?></td>
         <td><?php echo $row_table["destino"]; ?></td>
-        <td>
+        <td align="left">
           <div class="btn-group">
             <a id="btn_devolucion_registro" href="devolucions.php?transferencia_id=<?=$row_table['transferencia_id']?>&origen=<?=$row_table['almacen_origen_id']?>&destino=<?=$row_table['almacen_destino_id']?>" class="btn btn-xs btn-yellow tooltip-info" data-rel="tooltip" data-placement="left" title="DEVOLVER....!">
               <i class="ace-icon fa fa-pencil bigger-120"></i>

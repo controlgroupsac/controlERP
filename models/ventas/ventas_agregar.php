@@ -30,6 +30,10 @@
     $ventas = mysql_query($query_ventas, $fastERP) or die(mysql_error());
 
     if($_POST['pago'] == "C") {
+    	$pago = -1 * ($_POST['total']);
+    } else {
+    	$pago = 0;
+    }
 	    /*CTA Corriente*/
 		$query_ctacorriente_cliente = sprintf("INSERT INTO `controlg_controlerp`.`ctacorriente_cliente` (`fecha`, `cliente_id`, `almacen_id`, `ventas_id`, `monto`) 
 		                VALUES ('%s', '%s', '%s', '%s', '%s');",
@@ -37,7 +41,7 @@
 		                fn_filtro($_POST['cliente_id']),
 		                fn_filtro($_POST['almacen_id']),
 		                fn_filtro($_POST['ventas_id']),
-		                fn_filtro(-1 * ($_POST['total']))
+		                fn_filtro($pago)
 		);
 	    mysql_select_db($database_fastERP, $fastERP);
 	    $ctacorriente_cliente = mysql_query($query_ctacorriente_cliente, $fastERP) or die(mysql_error());
@@ -58,20 +62,18 @@
 	    mysql_select_db($database_fastERP, $fastERP);
 	    $productocta = mysql_query($productocta, $fastERP) or die(mysql_error());
 	    $row_productocta = mysql_fetch_assoc($productocta);
-    }
     	
 
-    do {
-    	$ctacorriente_cliente_env = sprintf("INSERT INTO `controlg_controlerp`.`ctacorriente_cliente_env` (`ctacorriente_cliente_id`, `producto_id`, `cantidad`) 
-		    	                            VALUES ('%s', '%s', '%s');",
-		    	                            fn_filtro($row_ultimacta['ctacorriente_cliente_id']),
-		    	                            fn_filtro($row_productocta['producto_id']),
-		    	                            fn_filtro(($row_productocta['devuelve'] - $row_productocta['lleva']))
-        );
-        if(!mysql_query($ctacorriente_cliente_env, $fastERP))
-            echo "Error al insertar:\n";
-    } while ( $row_productocta = mysql_fetch_assoc($productocta) );
-
+	    do {
+	    	$ctacorriente_cliente_env = sprintf("INSERT INTO `controlg_controlerp`.`ctacorriente_cliente_env` (`ctacorriente_cliente_id`, `producto_id`, `cantidad`) 
+			    	                            VALUES ('%s', '%s', '%s');",
+			    	                            fn_filtro($row_ultimacta['ctacorriente_cliente_id']),
+			    	                            fn_filtro($row_productocta['producto_id']),
+			    	                            fn_filtro(($row_productocta['devuelve'] - $row_productocta['lleva']))
+	        );
+	        if(!mysql_query($ctacorriente_cliente_env, $fastERP))
+	            echo "Error al insertar:\n";
+	    } while ( $row_productocta = mysql_fetch_assoc($productocta) );
 
 
 

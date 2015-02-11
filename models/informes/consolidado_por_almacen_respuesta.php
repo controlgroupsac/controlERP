@@ -16,6 +16,21 @@
 	$table = mysql_query($query, $fastERP) or die(mysql_error());
 	$totalRows_table = mysql_num_rows($table);
 	$row_table = mysql_fetch_assoc($table);
+
+	$envases = "SELECT
+producto.producto,
+SUM(ctacorriente_cliente_env.cantidad)
+FROM
+ctacorriente_cliente_env ,
+producto
+WHERE
+ctacorriente_cliente_env.producto_id = producto.producto_id
+GROUP BY
+ctacorriente_cliente_env.producto_id" ;
+	mysql_select_db($database_fastERP, $fastERP);
+	$envases = mysql_query($envases, $fastERP) or die(mysql_error());
+	$totalRows_envases = mysql_num_rows($envases);
+	$row_envases = mysql_fetch_assoc($envases);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -32,6 +47,7 @@
 		<link rel="stylesheet" href="../../views/fonts/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="../../views/css/bootstrap.min.css" type="text/css" />
 		<link rel="stylesheet" href="../../views/css/main.css" type="text/css" />
+		<link rel="stylesheet" href="../ventas/imprimir.css" type="text/css" />
 
 		<!-- text fonts -->
 		<link rel="stylesheet" href="../../views/fonts/fonts.googleapis.com.css" />

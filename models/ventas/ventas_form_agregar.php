@@ -169,7 +169,7 @@
     });
 
     /*INICIO Cambios de combobox a combobox para comprobante de pago y su número de serie*/
-    $(document).ready(function(){
+    $(function(){
         cargar_comprobante_tipo_id();
         $("#comprobante_tipo_id").change(function(){dependencia_condicion_pago();});
         $("#condicion_pago").change(function(){dependencia_numero();});
