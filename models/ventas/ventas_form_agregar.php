@@ -240,8 +240,7 @@
                     //     alert(data);
                     var respuesta = confirm("Desea imprimir esta venta?");
                     if (respuesta){
-                        window.open("../models/ventas/ventas_imprimir.php?ventas_id=" +ventas_id.value+ "&descuento=" +descuento.value, "_blank");
-                        // location.href = "../models/ventas/ventas_imprimir.php?ventas_id=" +ventas_id.value+ "&descuento=" +descuento.value;
+                        window.open("../models/ventas/ventas_imprimir.php?ventas_id=" +ventas_id.value+ "&descuento=" +descuento.value,'','width=600,height=auto,left=50,top=50,toolbar=yes');
                     } 
                     location.href = "ventas_registro.php";
     			}
