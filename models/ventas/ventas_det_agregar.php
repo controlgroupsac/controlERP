@@ -11,7 +11,15 @@
     $totalRows_table = mysql_num_rows($table);
     $row_table = mysql_fetch_assoc($table);
 
-    if ($totalRows_table > 0) {
+    /*Borrando los envases registrados previamente,  y asi evitar doble registro*/
+    $query_delete = sprintf("DELETE FROM `controlg_controlerp`.`ventas_env`
+    				   WHERE ventas_env.ventas_id=%d;",
+    				   fn_filtro((int)$_POST['ventas_id'])
+    );
+    $delete = mysql_query($query_delete, $fastERP) or die(mysql_error());
+
+
+    if ($totalRows_table > 0) { /*verificamos si ya existe el producto y si es asi, agregamos uno a la cantidad*/
     	$cantidad = $row_table['cantidad'] + 1;
     	$sql2 = sprintf("UPDATE `controlg_controlerp`.`ventas_det` SET cantidad='%s'
     	                 WHERE ventas_det_id=%d;",
@@ -20,7 +28,7 @@
     	);
 		if(!mysql_query($sql2, $fastERP))
 			echo "Error al insertar el nuevo detalle de ventas:\n$sql2";
-    }else {
+    }else {/*Si no hay un  producto se agrega uno al detalle de las ventas*/
 		$sql = sprintf("INSERT INTO `controlg_controlerp`.`ventas_det` (`ventas_id`, `producto_id`, `cantidad`, `precio`) 
 		                VALUES ('%s', '%s', '%s', '%s');",
 						fn_filtro($_POST['ventas_id']),

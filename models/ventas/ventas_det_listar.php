@@ -1,7 +1,8 @@
 <?php  
 	include "../../config/conexion.php"; 
     include("../../queries/query.php"); 
-    $query = "SELECT ventas_det.ventas_id, ventas_det.cantidad, ventas_det.precio, ventas_det.ventas_det_id, ventas.descuento, producto_ensamblado.producto
+    $query = "SELECT ventas_det.ventas_id, ventas_det.cantidad, ventas_det.precio, ventas_det.ventas_det_id, ventas.descuento, 
+    				 producto_ensamblado.producto_ensamblado_id, producto_ensamblado.producto
 			  FROM ventas_det , ventas , producto_ensamblado
 			  WHERE ventas_det.ventas_id = $_GET[ventas_id]
 			  AND ventas_det.ventas_id = ventas.ventas_id 
@@ -38,7 +39,7 @@
 								<i class="ace-icon fa fa-pencil bigger-120"></i>
 							</button>
 
-							<button id="btn_ventas_det_listar_eliminar" class="btn btn-xs btn-danger tooltip-error" data-rel="tooltip" data-placement="left" title="ELMINAR!" onclick="javascript: fn_eliminar_ventas_det(<?=$row_table['ventas_det_id']?>);">
+							<button id="btn_ventas_det_listar_eliminar" class="btn btn-xs btn-danger tooltip-error" data-rel="tooltip" data-placement="left" title="ELMINAR!" onclick="javascript: fn_eliminar_ventas_det(<?=$row_table['ventas_id']?>, <?=$row_table['ventas_det_id']?>, <?=$row_table['producto_ensamblado_id']?>);">
 								<i class="ace-icon fa fa-trash-o bigger-120"></i>
 							</button>
 						</div>

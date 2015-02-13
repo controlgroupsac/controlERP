@@ -111,6 +111,7 @@
                     <span class="input-icon">
                         <select id="comprobante_tipo_id" name="comprobante_tipo_id">
                             <option value="">Comprobante</option><!-- La carga de estos datos es mediante ajax -->
+                            <?php query_table_option("SELECT * FROM comprobante_tipo", "comprobante_tipo_id", "comprobante_tipo") ?>
                     	</select>
                     </span>
                 </div>
@@ -153,24 +154,28 @@
 <script language="javascript" type="text/javascript">
     /*Verificacion de el radio button, cuando es EFECTIVO o es CREDITO*/
     $("input[type='radio']").on("click", function () {
-        var val = $(this).val();
-        if(val == "E") {
-            $("#pago-efectivo").removeClass("hidden");
-            $("#cambio").removeClass("hidden");
-            $("#fechapago").addClass("hidden");
-            $("#fechapago").removeAttr("required");
+        var valor = $(this).val();
+        $fechapago = $("#fechapago");
+        $cambio = $("#cambio");
+        $pago_efectivo = $("#pago-efectivo");
+        if(valor == "E") {
+            $pago_efectivo.removeClass("hidden");
+            $cambio.removeClass("hidden");
+            $fechapago.addClass("hidden");
+            $fechapago.removeAttr("required");
+            $fechapago.val(" ");
         }
-        if(val == "C") {
-            $("#pago-efectivo").addClass("hidden");
-            $("#cambio").addClass("hidden");
-            $("#fechapago").removeClass("hidden");
-            $("#fechapago").attr("required");
+        if(valor == "C") {
+            $pago_efectivo.addClass("hidden");
+            $cambio.addClass("hidden");
+            $fechapago.removeClass("hidden");
+            $fechapago.attr("required");
         }
     });
 
     /*INICIO Cambios de combobox a combobox para comprobante de pago y su número de serie*/
     $(function(){
-        cargar_comprobante_tipo_id();
+        // cargar_comprobante_tipo_id();
         $("#comprobante_tipo_id").change(function(){dependencia_condicion_pago();});
         $("#condicion_pago").change(function(){dependencia_numero();});
         $("#condicion_pago").attr("disabled",true);
@@ -235,12 +240,12 @@
                 url: '../models/ventas/ventas_agregar.php',
                 data: str,
                 type: 'post',
-                success: function(data){
+                success: function(data) {
                     // if(data != "")
                     //     alert(data);
                     var respuesta = confirm("Desea imprimir esta venta?");
-                    if (respuesta){
-                        window.open("../models/ventas/ventas_imprimir.php?ventas_id=" +ventas_id.value+ "&descuento=" +descuento.value,'','width=600,height=auto,left=50,top=50,toolbar=yes');
+                    if (respuesta) {
+                        window.open("../models/ventas/ventas_imprimir.php?ventas_id=" +ventas_id.value+ "&descuento=" +descuento.value, 'Impresion de Ventas', 'dependent=yes, width=600, height=auto, left=50, top=50, toolbar=no');
                     } 
                     location.href = "ventas_registro.php";
     			}
