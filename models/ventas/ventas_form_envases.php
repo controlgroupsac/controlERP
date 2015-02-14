@@ -44,7 +44,6 @@
         $totalRows_table = mysql_num_rows($table);
         $row_table = mysql_fetch_assoc($table); 
     }
-
 ?>
 <!-- page specific plugin styles -->
 <link rel="stylesheet" href="css/datepicker.min.css" />

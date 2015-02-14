@@ -87,8 +87,8 @@
 			</caption>
 			<thead>
 				<th nowrap colspan='2'>Descripción</th>
-				<th nowrap align='center'>Precio S/.</th>
-				<th nowrap align='center'>Cantidad</th>
+				<th nowrap align='center'>Precio</th>
+				<th nowrap align='center'>Cant.</th>
 				<th nowrap align='center'>Sub Total</th>
 			</thead>
 			<tbody>
@@ -205,8 +205,8 @@
 			</caption>
 			<thead>
 				<th>Descripción</th>
-				<th nowrap>Precio S/.</th>
-				<th>Cantidad</th>
+				<th nowrap>Precio</th>
+				<th>Cant.</th>
 				<th nowrap>Sub Total</th>
 			</thead>
 			<tbody>
@@ -227,7 +227,7 @@
 				<?php } while ($row_producto2 = mysql_fetch_assoc($producto2)); ?>
 
 				<tr>
-					<th>TOTAL (S/.)</th>
+					<th>TOTAL(S/.)</th>
 					<th></th>
 					<th></th>
 					<th nowrap class="text-right"><?php echo number_format($total2, 2); ?></th>

@@ -8,6 +8,7 @@
               WHERE origen.almacen_id = almacen_transferencia.almacen_origen_id
               AND destino.almacen_id = almacen_transferencia.almacen_destino_id 
               AND almacen_transferencia.transferencia_id <> 1
+              AND origen.almacen_id <> 1
               ORDER BY almacen_transferencia.transferencia_id DESC" ;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
@@ -19,8 +20,8 @@
     <thead>
       <tr>
         <th>Id</th>
-        <th>Producto</th>
-        <th>Devuelve</th>
+        <th>Origen</th>
+        <th>Destino</th>
 
         <th></th>
       </tr>

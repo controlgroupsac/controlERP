@@ -10,6 +10,7 @@
 					  FROM ventas , almacen , cliente
 					  WHERE almacen.almacen_id = ventas.almacen_id 
 					  AND date(ventas.fecha) = date(now())
+					  AND ventas.total > 0
 					  AND ventas.cliente_id = cliente.cliente_id
 					  AND ventas.almacen_id = $_GET[almacen_id] " ;
 	mysql_select_db($database_fastERP, $fastERP);
@@ -28,6 +29,7 @@
 							FROM ventas , almacen , cliente , ventas_det , producto_ensamblado , unidad
 							WHERE almacen.almacen_id = ventas.almacen_id 
 							AND date(ventas.fecha) = date(now())
+					  		AND ventas.total > 0
 							AND ventas.cliente_id = cliente.cliente_id
 							AND ventas.ventas_id = ventas_det.ventas_id
 							AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
@@ -42,7 +44,7 @@
 	$query_credito = "SELECT ctacorriente_cliente.fecha,
 							CONCAT(cliente.nombres, ' ', cliente.apellidos) AS cliente,
 							CONCAT(comprobante_tipo.comprobante_tipo_abrev, '-', comprobante.serie, '-', comprobante_det.numero) AS comprobante,
-							ctacorriente_cliente.monto
+							ctacorriente_cliente.monto, ventas.fechapago
 					FROM ventas , ctacorriente_cliente , cliente , almacen , ctacorriente_cliente_env , comprobante_det , comprobante , comprobante_tipo
 					WHERE DATE(ventas.fecha) = CURDATE() 
 					AND ventas.ventas_id = ctacorriente_cliente.ventas_id
@@ -63,7 +65,8 @@
 	$query_credito_detalle = "SELECT concat(cliente.nombres, ' ' ,cliente.apellidos) AS cliente,
 									producto.producto, ctacorriente_cliente_env.cantidad, date(ctacorriente_cliente.fecha) AS fecha,
 									concat(comprobante_tipo.comprobante_tipo_abrev, ' ',comprobante.serie, '-',comprobante_det.numero) AS documento,
-									almacen.almacen
+									producto.precio, 
+									(ctacorriente_cliente_env.cantidad * producto.precio) AS precio_envases
 							FROM ctacorriente_cliente , ctacorriente_cliente_env , cliente , producto , ventas , comprobante_det , comprobante , comprobante_tipo , almacen
 							WHERE ctacorriente_cliente.ctacorriente_cliente_id = ctacorriente_cliente_env.ctacorriente_cliente_id 
 							AND cliente.cliente_id = ctacorriente_cliente.cliente_id
@@ -197,7 +200,7 @@
 								<thead>
 									<th></th>
 									<th>Comprobante</th>
-									<th>Fecha y Hora</th>
+									<th>Fecha Pago</th>
 									<th>Cliente</th>
 									<th nowrap>Monto (S/.)</th>
 								</thead>
@@ -206,7 +209,7 @@
 										<tr>
 											<td></td>
 											<td nowrap><?php echo $row_credito['comprobante']; ?></td>
-											<td nowrap><?php echo $row_credito['fecha']; ?></td>
+											<td nowrap><?php echo $row_credito['fechapago']; ?></td>
 											<td nowrap><?php echo $row_credito['cliente']; ?></td>
 											<td nowrap class="text-center"><?php echo $row_credito['monto']; ?></td>
 										</tr>
@@ -226,6 +229,8 @@
 									<th>Cliente</th>
 									<th>producto</th>
 									<th>cantidad</th>
+									<th>precio(Und.)</th>
+									<th>Total</th>
 								</thead>
 								<tbody>
 									<?php do { ?>
@@ -235,6 +240,8 @@
 											<td nowrap><?php echo $row_credito_detalle['cliente']; ?></td>
 											<td nowrap><?php echo $row_credito_detalle['producto'] ; ?></td>
 											<td nowrap class="text-center"><?php echo $row_credito_detalle['cantidad'] ; ?></td>
+											<td nowrap class="text-center"><?php echo $row_credito_detalle['precio'] ; ?></td>
+											<td nowrap class="text-center"><?php echo $row_credito_detalle['precio_envases'] ; ?></td>
 										</tr>
 									<?php } while ($row_credito_detalle = mysql_fetch_assoc($credito_detalle)); ?>
 								</tbody>

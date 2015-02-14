@@ -7,6 +7,7 @@
               FROM almacen_transferencia , almacen AS origen , almacen AS destino
               WHERE origen.almacen_id = almacen_transferencia.almacen_origen_id
               AND destino.almacen_id = almacen_transferencia.almacen_destino_id
+              AND origen.almacen_id = 1
               ORDER BY almacen_transferencia.transferencia_id DESC" ;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
@@ -18,8 +19,8 @@
     <thead>
       <tr>
         <th>Transferencia</th>
-        <th>Producto</th>
-        <th>Transferencia</th>
+        <th>Origen</th>
+        <th>Destino</th>
 
         <th></th>
       </tr>

@@ -9,6 +9,13 @@
 	}
 
 	
+    if($_POST['pago'] == "C") {
+    	$pago = -1 * ($_POST['total']);
+    	$total = -1 * ($_POST['total']);
+    } else {
+    	$pago = 0;
+    	$total = $_POST['total'];
+    }
 	$fecha = date("Y-m-d H:i:s");
 	$query_ventas = sprintf("UPDATE `controlg_controlerp`.`ventas` 
 					SET usuario_id='%s', fecha='%s', estado='%s', almacen_id='%s', condicion_pago='%s', pago='%s', fechapago='%s', impuesto1='%s', valor_neto='%s', descuento='%s', total='%s'
@@ -23,17 +30,12 @@
 					fn_filtro($_POST['impuesto1']),
 					fn_filtro($_POST['valor_neto']),
 					fn_filtro($_POST['descuento']),
-					fn_filtro($_POST['total']),
+					fn_filtro($total),
 					fn_filtro((int)$_POST['ventas_id'])
 	);
     mysql_select_db($database_fastERP, $fastERP);
     $ventas = mysql_query($query_ventas, $fastERP) or die(mysql_error());
 
-    if($_POST['pago'] == "C") {
-    	$pago = -1 * ($_POST['total']);
-    } else {
-    	$pago = 0;
-    }
     
 	    /*CTA Corriente*/
 		$query_ctacorriente_cliente = sprintf("INSERT INTO `controlg_controlerp`.`ctacorriente_cliente` (`fecha`, `cliente_id`, `almacen_id`, `ventas_id`, `monto`) 

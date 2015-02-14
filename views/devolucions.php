@@ -72,6 +72,7 @@
 								  <span class="label label-lg label-yellow arrowed-in arrowed-right"> Origen: <?php echo $row_table['origen']; ?> </span>
 								  <span class="fa fa-long-arrow-right"></span>
 								  <span class="label label-lg label-yellow arrowed-in arrowed-right"> Destino: <?php echo $row_table['destino']; ?> </span>
+							      <a href="devolucions_registro.php" class="btn btn-sm btn-primary"> Volver </a>
 								</h5>
 
 								<form action="javascript: fn_buscar_devolucions_producto();" class="form-horizontal" method="post" id="frm_buscar_devolucions_producto">

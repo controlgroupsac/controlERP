@@ -120,8 +120,8 @@
             data: data,
             type: 'get',
             success: function(data){
-                if(data != "")
-                    alert(data);
+                // if(data != "")
+                //     alert(data);
                 fn_cerrar_devolucions_producto();
                 fn_buscar_devolucions_producto();
             }
