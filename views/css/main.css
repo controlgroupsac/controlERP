@@ -302,6 +302,18 @@ Gradient Background colors
 .opacity02 {
   opacity: 0.2;
 }
+.padding-sm {
+   padding: 0 10px !important;
+}
+.padding-md {
+   padding: 0 10px !important;
+}
+.padding-lg {
+   padding: 0 10px !important;
+}
+.padding-xlg {
+   padding: 0 10px !important;
+}
 .right {
   float:  right;
   padding-right: 1em;

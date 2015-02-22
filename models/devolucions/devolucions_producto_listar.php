@@ -39,7 +39,7 @@
         <td><?php echo $row_table["faltante"]; ?></td>
         <td>
           <div class="btn-group">
-            <button class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_devolucions_producto(<?=$row_table['almacen_transferencias_detalle_id']?>, <?=$_GET['transferencia_id']?>, <?=$_GET['origen']?>, <?=$_GET['destino']?>);">
+            <button class="btn btn-xs btn-info tooltip-info" data-rel="tooltip" data-placement="left" title="EDITAR!" onclick="javascript: fn_mostrar_frm_modificar_devolucions_producto(<?=$row_table['almacen_transferencias_detalle_id']?>, <?=$transferencia?>, <?=$_GET['origen']?>, <?=$_GET['destino']?>);">
               <i class="ace-icon fa fa-pencil bigger-120"></i>
             </button>
 
