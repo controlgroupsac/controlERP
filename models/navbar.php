@@ -87,8 +87,8 @@
 			</ul>
 		</li>
 
-		<li id="compras" class="open hover">
-			<a href="#" class="dropdown-toggle">
+		<li id="compras">
+			<a href="compras_registro.php">
 				<i class="menu-icon fa fa-building"></i>
 				<span class="menu-text">
 					Compras
@@ -97,11 +97,11 @@
 				<b class="arrow fa fa-angle-down"></b>
 			</a>
 
-			<b class="arrow"></b>
+			<!-- <b class="arrow"></b>
 
 			<ul class="submenu">
 				<li id="compras_view" class="open hover">
-					<a href="compras_registro.php">
+					<a href="">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Compras
 					</a>
@@ -121,7 +121,7 @@
 					</a>
 				</li>
 
-			</ul>
+			</ul> -->
 		</li>
 
 		<li id="almacen" class="open hover">
@@ -151,14 +151,6 @@
 						Devoluciones
 					</a>
 				</li>				
-
-				<li class="open hover">
-					<a href="#" class="dropdown-toggle">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Cambios en valores de inventario
-					</a>
-				</li>
-
 			</ul>
 		</li>
 
@@ -190,15 +182,6 @@
 							<a href="reporte_credito_cliente_por_vendedor.php">
 								<i class="menu-icon fa fa-leaf green"></i>
 								Cliente Por Vendedor
-							</a>
-
-							<b class="arrow"></b>
-						</li>
-
-						<li>
-							<a href="../models/informes/credito_efectivo_por_vendedor.php" target="_blank">
-								<i class="menu-icon fa fa-leaf green"></i>
-								Reporte Credito Efectivo Por Vendedor Detallado
 							</a>
 
 							<b class="arrow"></b>
@@ -268,14 +251,14 @@
 			</ul>
 		</li>
 
-		<li class="hover">
+		<!-- <li class="hover">
 			<a href="widgets.php">
 				<i class="menu-icon fa fa-list-alt"></i>
 				<span class="menu-text"> Contabilidad </span>
 			</a>
 
 			<b class="arrow"></b>
-		</li>
+		</li> -->
 
 		<li id="configuration" class="hover">
 			<a href="#" class="dropdown-toggle">
@@ -291,14 +274,14 @@
 
 			<ul class="submenu">
 				<li id="configuration_socios" class="open hover">
-					<a href="#" class="dropdown-toggle">
+					<a href="ventas_registro.php">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Clientes
 					</a>
 				</li>
 
 				<li id="configuration_proveedores" class="open hover">
-					<a href="#" class="dropdown-toggle">
+					<a href="#">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Proveedores
 					</a>

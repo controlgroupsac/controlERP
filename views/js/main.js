@@ -180,7 +180,6 @@ $("#nuevoProductoEnsamblado").click(function () {
 
 function fn_buscar_producto_ensamblado(){
   var str = $("#frm_buscar_producto_ensamblado").serialize();
-  console.log("OK!" +str);
   $.ajax({
     url: '../models/producto_ensamblado/producto_ensamblado_listar.php',
     type: 'get',
@@ -575,7 +574,6 @@ $("#registrar").click(function () {
     total: total.value,
     guiaremision: guiaremision.value
   };
-  console.log(data);
 
   if ((guiaremision.value == "") || (serie.value == "") || (numero.value == "") || (fecha_doc.value == "")) {
     alert("Los campos Guia, serie, numero y fecha  NO PUEDEN ESTAR VACIOS!!!");
@@ -868,15 +866,15 @@ function fn_mostrar_frm_modificar_ventas_det(ventas_det_id){
   });
 };
 
-function fn_eliminar_ventas_det(ventas_det_id){
-  var respuesta = confirm("Desea eliminar este detalle de venta?");
+function fn_eliminar_ventas_det(ventas_id, ventas_det_id, producto_ensamblado_id){
+  var respuesta = confirm("Desea eliminar este producto?");
   if (respuesta){
     $.ajax({
       url: '../models/ventas/ventas_det_eliminar.php',
-      data: 'ventas_det_id=' + ventas_det_id,
+      data: 'ventas_det_id=' +ventas_det_id+ '&ventas_id=' +ventas_id+ '&producto_ensamblado_id=' +producto_ensamblado_id,
       type: 'post',
       success: function(data){
-        if(data!="")
+        if(data != "")
           alert(data);
         fn_buscar_ventas_det();
       }
@@ -1077,7 +1075,6 @@ function fn_buscar_transferencias_producto(){
 
 function fn_eliminar_transferencias_producto(transferencia_id){
   var respuesta = confirm("Desea eliminar esta transferencia?");
-  console.log(transferencia_id)
   if (respuesta){
     $.ajax({
       url: '../models/transferencias/transferencias_producto_eliminar.php',
@@ -1157,8 +1154,8 @@ function fn_eliminar_devolucions(transferencia_id){
       data: 'transferencia_id=' + transferencia_id,
       type: 'post',
       success: function(data){
-        if(data!="")
-          alert(data);
+        // if(data!="")
+        //   alert(data);
         fn_buscar_devolucions()
       }
     });
@@ -1227,8 +1224,8 @@ function fn_eliminar_devolucions_producto(transferencia_id){
       data: 'transferencia_id=' + transferencia_id,
       type: 'post',
       success: function(data){
-        if(data!="")
-          alert(data);
+        // if(data!="")
+        //   alert(data);
         fn_buscar_devolucions_producto()
       }
     });

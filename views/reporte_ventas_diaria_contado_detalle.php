@@ -1,13 +1,5 @@
 <?php  
 	include "../config/conexion.php"; 
-    $query = "SELECT origen.almacen AS origen, destino.almacen AS destino
-			  FROM almacen AS origen , almacen AS destino
-			  WHERE origen.almacen_id = $_GET[origen]  
-			  AND destino.almacen_id = $_GET[destino] " ;
-    mysql_select_db($database_fastERP, $fastERP);
-    $table = mysql_query($query, $fastERP) or die(mysql_error());
-    $totalRows_table = mysql_num_rows($table);
-    $row_table = mysql_fetch_assoc($table);
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -16,7 +8,7 @@
 		<meta charset="utf-8" />
 		<title>ControlERP</title>
 
-		<meta name="description" content="ventas" />
+		<meta name="description" content="User login page" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 		<!-- bootstrap & fontawesome -->
@@ -27,7 +19,6 @@
 
 		<!-- page specific plugin styles -->
 		<link rel="stylesheet" href="css/chosen.min.css" />
-		<link rel="stylesheet" href="css/datepicker.min.css" />
 
 		<!-- text fonts -->
 		<link rel="stylesheet" href="fonts/fonts.googleapis.com.css" />
@@ -58,59 +49,28 @@
 
 
 						<div class="row">
-							<!-- <div class="col-xs-12" id="div_compra_registro"> -->
 							<div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
 								<?php include("../models/sidebar.php"); ?>
-									
-								<!-- Small boxes (Stat box) -->
 
+								<div class="page-header">
+									<h1>
+										Reporte
+										<small>
+											<i class="ace-icon fa fa-angle-double-right"></i>
+											Ventas Diarias al contado Detallado
+										</small>
+									</h1>
+								</div><!-- /.page-header -->
 
-								<h5 class="widget-title"> 
-
-								  <span class="label label-lg arrowed-in arrowed-right"> Tranferencia </span>
-								  <span class="label label-lg label-yellow arrowed-in arrowed-right"> Origen: <?php echo $row_table['origen']; ?> </span>
-								  <span class="fa fa-long-arrow-right"></span>
-								  <span class="label label-lg label-yellow arrowed-in arrowed-right"> Destino: <?php echo $row_table['destino']; ?> </span>
-							      <a href="devolucions_registro.php" class="btn btn-sm btn-primary"> Volver </a>
-								</h5>
-
-								<form action="javascript: fn_buscar_devolucions_producto();" class="form-horizontal" method="post" id="frm_buscar_devolucions_producto">
-									<input type="hidden" name="origen" id="origen" value="<?php echo $_GET['origen']; ?>" />
-									<input type="hidden" name="destino" id="destino" value="<?php echo $_GET['destino']; ?>" />
-									<input type="hidden" name="transferencia_id" id="transferencia_id" value="<?php echo $_GET['transferencia_id']; ?>" />
-									<div class="row">
-
-										<div class="col-xs-12 widget-container-col">
-											<div class="widget-box widget-color-blue">
-												<div class="widget-header">
-													<i class="fa fa-table"></i>
-													<h5 class="widget-title"> Lista de Producto de la devolucion</h5>
-
-													<div class="widget-toolbar">
-														<a href="#" data-action="collapse">
-															<i class="1 ace-icon fa fa-chevron-up"></i>
-														</a>
-													</div>
-
-													<div class="widget-toolbar no-border">
-														<button class="btn btn-sm btn-success" id="nuevaDevolucion_producto"> Agregar Producto </button>
-													</div>
-												</div>
-
-												<div class="widget-body">
-													<div class="widget-main scrollable" data-size="400">
-														<div id="div_listar_devolucions_producto"></div>
-														<div id="div_oculto_devolucions_producto" class="none"></div>
-													</div>
-												</div>
-											</div>
-										</div>
-
+								<div class="row">
+									<div class="col-xs-3">
+										<select class="chosen-select form-control" name="almacen_id" id="almacen_id" data-placeholder="Seleccione un almacen...">
+											<option value="0">Seleccione un almacen...</option>
+											<?php query_table_option("SELECT almacen_det.almacen_id, almacen.almacen FROM almacen_det , almacen WHERE almacen_det.almacen_id <> 1 AND almacen_det.almacen_id = almacen.almacen_id GROUP BY almacen_det.almacen_id ", "almacen_id", "almacen") ?>
+										</select>
 									</div>
-								</form>
-								
-								<!-- PAGE CONTENT ENDS -->
+								</div>
 							</div><!-- /.col -->
 						</div><!-- /.row -->
 					</div><!-- /.page-content -->
@@ -138,7 +98,6 @@
 
 		<!-- page specific plugin scripts -->
 		<script src="js/vendor/chosen.jquery.min.js"></script>
-		<script src="js/vendor/fuelux.spinner.min.js"></script>
 
 		<!-- ace scripts -->
 		<script src="js/vendor/ace-elements.min.js"></script>
@@ -159,28 +118,24 @@
 
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
-			fn_buscar_devolucions_producto();
 			
+			$("#almacen_id").on("change",function(){
+				var id = $(this).val();
+				if(id == 0) {
+					alert("Seleccione un almacen");
+				} else {
+					window.open("../models/informes/ventas_diaria_contado_detalle_respuesta.php?almacen_id=" +id, "_blank");
+				}
+			});
+
 			jQuery(function($) {
-				$("#almacen").addClass("active");
-				$("#almacen_devoluc").addClass("active");
+				$("#informe").addClass("active");
+				$("#informe_contado").addClass("active");
+				$("#informe_contado_ventas_detalle").addClass("active");
 
-				/*Choosen select*/
-				$('.chosen-select').chosen();
-
+				$(".chosen-select").chosen();
 				$('[data-rel=tooltip]').tooltip();
 				
-				/*datepicker plugin
-				link*/
-				$('.date-picker').datepicker({
-					autoclose: true,
-					todayHighlight: true
-				})
-				/*show datepicker when clicking on the icon*/
-				.next().on(ace.click_event, function(){
-					$(this).prev().focus();
-				});
-			
 			   $('#sidebar2').insertBefore('.page-content').ace_sidebar('collapse', true);
 			   $('#navbar').addClass('h-navbar');
 			   $('.footer').insertAfter('.page-content');
@@ -197,7 +152,7 @@
 						//styleClass: 'scroll-left scroll-margin scroll-thin scroll-dark scroll-light no-track scroll-visible'
 					});
 				});
-			})
+			});
 		</script>
 	</body>
 </html>

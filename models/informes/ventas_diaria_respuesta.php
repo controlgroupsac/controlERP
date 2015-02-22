@@ -1,17 +1,18 @@
 <?php  
 	include "../../config/conexion.php"; 
 	$query_contado = "SELECT ventas.ventas_id, almacen.almacen, 
-			CONCAT(cliente.nombres, ' ',cliente.apellidos) AS cliente,
-			FORMAT(ventas.valor_neto,2) AS valorneto,
-			FORMAT(ventas.descuento,2) AS descuento,
-			FORMAT(ventas.impuesto1,2) AS IGV,
-			FORMAT(ventas.impuesto2,2) AS ISC,
-			FORMAT(ventas.total,2) AS total, NOW() AS fecha
-			FROM ventas , almacen , cliente
-			WHERE almacen.almacen_id = ventas.almacen_id 
-			AND date(ventas.fecha) = date(now())
-			AND ventas.cliente_id = cliente.cliente_id
-			AND ventas.almacen_id = $_GET[almacen_id] " ;
+							CONCAT(cliente.nombres, ' ',cliente.apellidos) AS cliente,
+							FORMAT(ventas.valor_neto,2) AS valorneto,
+							FORMAT(ventas.descuento,2) AS descuento,
+							FORMAT(ventas.impuesto1,2) AS IGV,
+							FORMAT(ventas.impuesto2,2) AS ISC,
+							FORMAT(ventas.total,2) AS total, NOW() AS fecha
+					  FROM ventas , almacen , cliente
+					  WHERE almacen.almacen_id = ventas.almacen_id 
+					  AND date(ventas.fecha) = date(now())
+					  AND ventas.total > 0
+					  AND ventas.cliente_id = cliente.cliente_id
+					  AND ventas.almacen_id = $_GET[almacen_id] " ;
 	mysql_select_db($database_fastERP, $fastERP);
 	$contado = mysql_query($query_contado, $fastERP) or die(mysql_error());
 	$totalRows_contado = mysql_num_rows($contado);
@@ -19,57 +20,65 @@
 
 
 	$query_contado_detalle = "SELECT ventas.ventas_id,
-							CONCAT(cliente.nombres, ' ',cliente.apellidos) AS cliente,
-							producto_ensamblado.producto, unidad.abrev, ventas_det.cantidad,
-							FORMAT(ventas_det.precio/1.18,2) AS valorneto,
-							FORMAT((ventas_det.precio/1.18)*0.18,2) AS IGV,
-							FORMAT(ventas_det.precio/1.18,2) AS ISC,
-							FORMAT(ventas_det.precio,2) AS total
+									CONCAT(cliente.nombres, ' ',cliente.apellidos) AS cliente,
+									producto_ensamblado.producto, unidad.abrev, ventas_det.cantidad,
+									FORMAT(ventas_det.precio/1.18,2) AS valorneto,
+									FORMAT((ventas_det.precio/1.18)*0.18,2) AS IGV,
+									FORMAT(ventas_det.precio/1.18,2) AS ISC,
+									FORMAT(ventas_det.precio,2) AS total
 							FROM ventas , almacen , cliente , ventas_det , producto_ensamblado , unidad
 							WHERE almacen.almacen_id = ventas.almacen_id 
 							AND date(ventas.fecha) = date(now())
+					  		AND ventas.total > 0
 							AND ventas.cliente_id = cliente.cliente_id
 							AND ventas.ventas_id = ventas_det.ventas_id
-							AND almacen.almacen_id = $_GET[almacen_id]
 							AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
-							AND producto_ensamblado.unidad_id = unidad.unidad_id " ;
+							AND producto_ensamblado.unidad_id = unidad.unidad_id
+							AND almacen.almacen_id = $_GET[almacen_id] " ;
 	mysql_select_db($database_fastERP, $fastERP);
 	$contado_detalle = mysql_query($query_contado_detalle, $fastERP) or die(mysql_error());
 	$totalRows_contado_detalle = mysql_num_rows($contado_detalle);
 	$row_contado_detalle = mysql_fetch_assoc($contado_detalle);
 
 
-	$query_credito = "SELECT ventas.ventas_id, almacen.almacen, 
-					  CONCAT(cliente.nombres, ' ',cliente.apellidos) AS cliente,
-					  FORMAT(ventas.valor_neto,2) AS valorneto,
-					  FORMAT(ventas.descuento,2) AS descuento,
-					  FORMAT(ventas.impuesto1,2) AS IGV,
-					  FORMAT(ventas.impuesto2,2) AS ISC,
-					  FORMAT(ventas.total,2) AS total, NOW() as fecha
-					  FROM ventas , almacen , cliente
-					  WHERE almacen.almacen_id = ventas.almacen_id 
-					  AND date(ventas.fecha) = date(now())
-					  AND ventas.cliente_id = cliente.cliente_id
-					  AND ventas.almacen_id = $_GET[almacen_id]" ;
+	$query_credito = "SELECT ctacorriente_cliente.fecha,
+							CONCAT(cliente.nombres, ' ', cliente.apellidos) AS cliente,
+							CONCAT(comprobante_tipo.comprobante_tipo_abrev, '-', comprobante.serie, '-', comprobante_det.numero) AS comprobante,
+							ctacorriente_cliente.monto, ventas.fechapago
+					FROM ventas , ctacorriente_cliente , cliente , almacen , ctacorriente_cliente_env , comprobante_det , comprobante , comprobante_tipo
+					WHERE DATE(ventas.fecha) = CURDATE() 
+					AND ventas.ventas_id = ctacorriente_cliente.ventas_id
+					AND ctacorriente_cliente.cliente_id = cliente.cliente_id
+					AND ctacorriente_cliente.almacen_id = almacen.almacen_id
+					AND ctacorriente_cliente.ctacorriente_cliente_id = ctacorriente_cliente_env.ctacorriente_cliente_env_id
+					AND ctacorriente_cliente.monto <> 0
+					AND ctacorriente_cliente.almacen_id = $_GET[almacen_id]
+					AND comprobante_det.ventas_id = ventas.ventas_id
+					AND comprobante_det.comprobante_id = comprobante.comprobante_id
+					AND comprobante_tipo.comprobante_tipo_id = comprobante.comprobante_tipo_id " ;
 	mysql_select_db($database_fastERP, $fastERP);
 	$credito = mysql_query($query_credito, $fastERP) or die(mysql_error());
 	$totalRows_credito = mysql_num_rows($credito);
 	$row_credito = mysql_fetch_assoc($credito);
 
 
-	$query_credito_detalle = "SELECT almacen.almacen,
-							CONCAT(cliente.nombres, ' ',cliente.apellidos) AS cliente,
-							CONCAT(comprobante_tipo.comprobante_tipo_abrev, ' ',comprobante.serie, '-',comprobante_det.ventas_id) AS comprobante,
-							FORMAT(ctacorriente_cliente.monto,2) AS monto
-							FROM ctacorriente_cliente , ventas , cliente , comprobante_det , comprobante , comprobante_tipo , almacen
-							WHERE ctacorriente_cliente.ventas_id = ventas.ventas_id 
-							AND cliente.cliente_id = ventas.cliente_id
-							AND ventas.ventas_id = comprobante_det.ventas_id
+	$query_credito_detalle = "SELECT concat(cliente.nombres, ' ' ,cliente.apellidos) AS cliente,
+									producto.producto, ctacorriente_cliente_env.cantidad, date(ctacorriente_cliente.fecha) AS fecha,
+									concat(comprobante_tipo.comprobante_tipo_abrev, ' ',comprobante.serie, '-',comprobante_det.numero) AS documento,
+									producto.precio, 
+									(ctacorriente_cliente_env.cantidad * producto.precio) AS precio_envases
+							FROM ctacorriente_cliente , ctacorriente_cliente_env , cliente , producto , ventas , comprobante_det , comprobante , comprobante_tipo , almacen
+							WHERE ctacorriente_cliente.ctacorriente_cliente_id = ctacorriente_cliente_env.ctacorriente_cliente_id 
+							AND cliente.cliente_id = ctacorriente_cliente.cliente_id
+							AND ctacorriente_cliente_env.producto_id = producto.producto_id
+							AND ventas.ventas_id = ctacorriente_cliente.ventas_id
+							AND comprobante_det.ventas_id = ventas.ventas_id
 							AND comprobante.comprobante_id = comprobante_det.comprobante_id
-							AND comprobante.comprobante_tipo_id = comprobante_tipo.comprobante_tipo_id
-							AND DATE(ctacorriente_cliente.fecha) = DATE(now())
+							AND comprobante_tipo.comprobante_tipo_id = comprobante.comprobante_tipo_id
 							AND ctacorriente_cliente.almacen_id = almacen.almacen_id
-							AND ctacorriente_cliente.almacen_id = $_GET[almacen_id]" ;
+							AND ctacorriente_cliente_env.cantidad <> 0
+							AND ctacorriente_cliente.almacen_id = $_GET[almacen_id]
+							AND date(ctacorriente_cliente.fecha) = date(now()-1) " ;
 	mysql_select_db($database_fastERP, $fastERP);
 	$credito_detalle = mysql_query($query_credito_detalle, $fastERP) or die(mysql_error());
 	$totalRows_credito_detalle = mysql_num_rows($credito_detalle);
@@ -90,6 +99,7 @@
 		<link rel="stylesheet" href="../../views/fonts/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="../../views/css/bootstrap.min.css" type="text/css" />
 		<link rel="stylesheet" href="../../views/css/main.css" type="text/css" />
+		<link rel="stylesheet" href="../ventas/imprimir.css" type="text/css" />
 
 		<!-- text fonts -->
 		<link rel="stylesheet" href="../../views/fonts/fonts.googleapis.com.css" />
@@ -97,9 +107,6 @@
 		<!-- ace styles -->
 		<link rel="stylesheet" href="../../views/css/ace.min.css" />
 		<link rel="stylesheet" href="../../views/css/ace-rtl.min.css" />
-		
-		<!-- ace settings handler -->
-		<script src="js/vendor/ace-extra.min.js"></script>
 	</head>
 
 <body class="no-skin">
@@ -139,11 +146,11 @@
 										<tr>
 											<td></td>
 											<td nowrap><?php echo $row_contado['cliente']; ?></td>
-											<td><?php echo $row_contado['valorneto']; ?></td>
-											<td nowrap><?php echo $row_contado['descuento'] ; ?></td>
-											<td align="right"><?php echo $row_contado['IGV']; ?></td>
-											<td align="right"><?php echo $row_contado['ISC']; ?></td>
-											<td align="right"><?php echo $row_contado['total']; ?></td>
+											<td class="text-center"><?php echo $row_contado['valorneto']; ?></td>
+											<td nowrap class="text-center"><?php echo $row_contado['descuento'] ; ?></td>
+											<td><?php echo $row_contado['IGV']; ?></td>
+											<td><?php echo $row_contado['ISC']; ?></td>
+											<td class="text-center"><?php echo $row_contado['total']; ?></td>
 											<td nowrap><?php echo $row_contado['fecha']; ?></td>
 										</tr>
 									<?php } while ($row_contado = mysql_fetch_assoc($contado)); ?>
@@ -175,10 +182,10 @@
 											<td nowrap><?php echo $row_contado_detalle['producto'] ; ?></td>
 											<td nowrap><?php echo $row_contado_detalle['abrev'] ; ?></td>
 											<td nowrap><?php echo $row_contado_detalle['cantidad'] ; ?></td>
-											<td nowrap><?php echo $row_contado_detalle['valorneto'] ; ?></td>
-											<td align="right"><?php echo $row_contado_detalle['IGV']; ?></td>
-											<td align="right"><?php echo $row_contado_detalle['ISC']; ?></td>
-											<td align="right"><?php echo $row_contado_detalle['total']; ?></td>
+											<td nowrap class="text-center"><?php echo $row_contado_detalle['valorneto'] ; ?></td>
+											<td><?php echo $row_contado_detalle['IGV']; ?></td>
+											<td><?php echo $row_contado_detalle['ISC']; ?></td>
+											<td class="text-center"><?php echo $row_contado_detalle['total']; ?></td>
 										</tr>
 									<?php } while ($row_contado_detalle = mysql_fetch_assoc($contado_detalle)); ?>
 								</tbody>
@@ -192,25 +199,19 @@
 								<caption><strong>Ventas al credito</strong></caption>
 								<thead>
 									<th></th>
+									<th>Comprobante</th>
+									<th>Fecha Pago</th>
 									<th>Cliente</th>
-									<th>valorneto</th>
-									<th>descuento</th>
-									<th>IGV</th>
-									<th>ISC</th>
-									<th>total</th>
-									<th>fecha</th>
+									<th nowrap>Monto (S/.)</th>
 								</thead>
 								<tbody>
 									<?php do { ?>
 										<tr>
 											<td></td>
+											<td nowrap><?php echo $row_credito['comprobante']; ?></td>
+											<td nowrap><?php echo $row_credito['fechapago']; ?></td>
 											<td nowrap><?php echo $row_credito['cliente']; ?></td>
-											<td nowrap><?php echo $row_credito['valorneto'] ; ?></td>
-											<td nowrap><?php echo $row_credito['descuento'] ; ?></td>
-											<td nowrap><?php echo $row_credito['IGV']; ?></td>
-											<td nowrap><?php echo $row_credito['ISC']; ?></td>
-											<td nowrap><?php echo $row_credito['total']; ?></td>
-											<td nowrap><?php echo $row_credito['fecha']; ?></td>
+											<td nowrap class="text-center"><?php echo $row_credito['monto']; ?></td>
 										</tr>
 									<?php } while ($row_credito = mysql_fetch_assoc($credito)); ?>
 								</tbody>
@@ -221,20 +222,26 @@
 
 						<div class="bloque col-xs-4 col-sm-3">
 							<table class='table table-condensed'>
-								<caption><strong>Detalle de Ventas al credito</strong></caption>
+								<caption class="capitalize"><strong>detalle de Ventas al credito</strong></caption>
 								<thead>
 									<th></th>
+									<th>documento</th>
 									<th>Cliente</th>
-									<th>comprobante</th>
-									<th>monto</th>
+									<th>producto</th>
+									<th>cantidad</th>
+									<th>precio(Und.)</th>
+									<th>Total</th>
 								</thead>
 								<tbody>
 									<?php do { ?>
 										<tr>
 											<td></td>
+											<td nowrap><?php echo $row_credito_detalle['documento'] ; ?></td>
 											<td nowrap><?php echo $row_credito_detalle['cliente']; ?></td>
-											<td nowrap><?php echo $row_credito_detalle['comprobante'] ; ?></td>
-											<td nowrap><?php echo $row_credito_detalle['monto'] ; ?></td>
+											<td nowrap><?php echo $row_credito_detalle['producto'] ; ?></td>
+											<td nowrap class="text-center"><?php echo $row_credito_detalle['cantidad'] ; ?></td>
+											<td nowrap class="text-center"><?php echo $row_credito_detalle['precio'] ; ?></td>
+											<td nowrap class="text-center"><?php echo $row_credito_detalle['precio_envases'] ; ?></td>
 										</tr>
 									<?php } while ($row_credito_detalle = mysql_fetch_assoc($credito_detalle)); ?>
 								</tbody>

@@ -8,7 +8,7 @@
               FROM almacen_det , almacen , producto
               WHERE almacen.almacen_id = almacen_det.almacen_id 
               AND almacen_det.producto_id = producto.producto_id
-              AND almacen.almacen_id = $_GET[origen]
+              AND almacen.almacen_id = $_POST[origen]
               GROUP BY producto.producto_id, almacen.almacen, producto.producto" ;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
@@ -19,8 +19,8 @@
     /*NOMBRE del de los almacenes*/
     $query_almacen = "SELECT origen.almacen AS origen, destino.almacen AS destino
               FROM almacen AS origen , almacen AS destino
-              WHERE origen.almacen_id = $_GET[origen]  
-              AND destino.almacen_id = $_GET[destino] " ;
+              WHERE origen.almacen_id = $_POST[origen]  
+              AND destino.almacen_id = $_POST[destino] " ;
     mysql_select_db($database_fastERP, $fastERP);
     $table_almacen = mysql_query($query_almacen, $fastERP) or die(mysql_error());
     $totalRows_table_almacen = mysql_num_rows($table_almacen);
@@ -65,9 +65,9 @@
 
                             <input type="hidden" id="totalRows_table" name="totalRows_table" value="<?php echo $totalRows_table; ?>" />
                             <?php do { ?>
-                                <input type="hidden" id="origen" name="origen" value="<?php echo $_GET['origen']; ?>" />
-                                <input type="hidden" id="destino" name="destino" value="<?php echo $_GET['destino']; ?>" />
-                                <input type="hidden" id="transferencia_id" name="transferencia_id" value="<?php echo $_GET['transferencia_id']; ?>" />
+                                <input type="hidden" id="origen" name="origen" value="<?php echo $_POST['origen']; ?>" />
+                                <input type="hidden" id="destino" name="destino" value="<?php echo $_POST['destino']; ?>" />
+                                <input type="hidden" id="transferencia_id" name="transferencia_id" value="<?php echo $_POST['transferencia_id']; ?>" />
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?php echo $row_table['producto']; ?></label>
                                     <input type="hidden" name="producto_id<?php echo $producto_name++; ?>" id="producto_id<?php echo $producto++; ?>" value="<?php echo $row_table['producto_id']; ?>">

@@ -8,6 +8,7 @@
               WHERE origen.almacen_id = almacen_transferencia.almacen_origen_id
               AND destino.almacen_id = almacen_transferencia.almacen_destino_id 
               AND almacen_transferencia.transferencia_id <> 1
+              AND origen.almacen_id <> 1
               ORDER BY almacen_transferencia.transferencia_id DESC" ;
     mysql_select_db($database_fastERP, $fastERP);
     $table = mysql_query($query, $fastERP) or die(mysql_error());
@@ -18,9 +19,9 @@
   <table id="simple-table" class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th>Transferencia</th>
-        <th>Producto</th>
-        <th>Transferencia</th>
+        <th>Id</th>
+        <th>Origen</th>
+        <th>Destino</th>
 
         <th></th>
       </tr>
@@ -32,7 +33,7 @@
         <td><?php echo $row_table["transferencia_id"]; ?></td>
         <td><?php echo $row_table["origen"]; ?></td>
         <td><?php echo $row_table["destino"]; ?></td>
-        <td>
+        <td align="left">
           <div class="btn-group">
             <a id="btn_devolucion_registro" href="devolucions.php?transferencia_id=<?=$row_table['transferencia_id']?>&origen=<?=$row_table['almacen_origen_id']?>&destino=<?=$row_table['almacen_destino_id']?>" class="btn btn-xs btn-yellow tooltip-info" data-rel="tooltip" data-placement="left" title="DEVOLVER....!">
               <i class="ace-icon fa fa-pencil bigger-120"></i>

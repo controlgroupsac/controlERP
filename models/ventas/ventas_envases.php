@@ -26,11 +26,11 @@
 
 	for ($i=0; $i < $_POST['total_rows']; $i++) { 
 		$query_envases = sprintf("INSERT INTO `controlg_controlerp`.`ventas_env` (`ventas_id`, `producto_id`, `lleva`, `devuelve`) 
-		                VALUES ('%s', '%s', '%s', '%s');",
-		                fn_filtro($_POST['ventas_id']),
-		                fn_filtro($_POST['producto_id'.$i]),
-		                fn_filtro($_POST['lleva'.$i]),
-		                fn_filtro($_POST['devuelve'.$i])
+				                  VALUES ('%s', '%s', '%s', '%s');",
+				                  fn_filtro($_POST['ventas_id']),
+				                  fn_filtro($_POST['producto_id'.$i]),
+				                  fn_filtro($_POST['lleva'.$i]),
+				                  fn_filtro($_POST['devuelve'.$i])
 		);
 
 	    mysql_select_db($database_fastERP, $fastERP);

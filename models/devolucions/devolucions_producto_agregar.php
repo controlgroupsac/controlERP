@@ -3,7 +3,6 @@
 	include "../../config/basico.php";
 
 	/*ctacorriente_vendedor*/
-	$fecha = date("Y-m-d H:i:s");
 	$sql_ctacte = sprintf("INSERT INTO `controlg_controlerp`.`ctacorriente_vendedor` (`fecha`, `usuario_id`, `transferencia_id`, `anulado`) 
 		                   VALUES (now(), %s, %s, %s);",
 						   fn_filtro(1),

@@ -40,7 +40,7 @@
                 <div class="widget-main scrollable" data-size="400">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_devolucions();">&times;</button>
-                        <h4 class="blue bigger">Agregar devolucions</h4>
+                        <h4 class="blue bigger">Agregar devoluciones</h4>
                     </div>
                     <div class="modal-body overflow-visible">
                         <div class="row-fluid">
@@ -120,8 +120,8 @@
             data: data,
             type: 'get',
             success: function(data){
-                if(data != "")
-                    alert(data);
+                // if(data != "")
+                //     alert(data);
                 fn_cerrar_devolucions_producto();
                 fn_buscar_devolucions_producto();
             }

@@ -56,7 +56,7 @@
 	<title><?php query_table_campo("SELECT * FROM empresa", "empresa"); ?></title>
 	<link rel="stylesheet" href="../../views/css/bootstrap.min.css" type="text/css" />
 	<link rel="stylesheet" href="../../views/css/main.css" type="text/css" />
-	<link rel="stylesheet" href="imprimir.css">	
+	<style type="text/css"> td {background: #fff !important; } </style>
 </head>
 <body>
 	<div class="bloque col-xs-4 col-sm-3">
@@ -86,45 +86,51 @@
 				<h6><?php echo $row_almacen['cliente']."  - <strong>DNI</strong>: ".$row_almacen['dni']; ?></h6>
 			</caption>
 			<thead>
-				<th colspan='2'>Descripción</th>
-				<th align='center'>Precio S/.</th>
-				<th align='center'>Cantidad</th>
+				<th nowrap colspan='2'>Descripción</th>
+				<th nowrap align='center'>Precio</th>
+				<th nowrap align='center'>Cant.</th>
+				<th nowrap align='center'>Sub Total</th>
 			</thead>
 			<tbody>
 				<?php do { ?>
 					<tr>
-						<td colspan='2'><?php echo $row_producto['producto']; ?></td>
-						<td><?php echo number_format($row_producto['precio'], 2); ?></td>
-						<td><?php echo $row_producto['cantidad']; ?></td>
+						<td nowrap colspan='2'><?php echo $row_producto['producto']; ?></td>
+						<td nowrap><?php echo number_format($row_producto['precio'], 2); ?></td>
+						<td nowrap class="text-center"><?php echo $row_producto['cantidad']; ?></td>
+						<td nowrap class="text-right"><?php echo $row_producto['cantidad'] * $row_producto['precio']; ?></td>
 					</tr>
 				<?php } while ($row_producto = mysql_fetch_assoc($producto)); ?>
 
 				<tr>
-					<th align='left'>Subtotal</th>
-					<td></td>
-					<td></td>
-					<th align='right'>S/. <?php echo $valor_neto; ?></th>
+					<th align='left'>Subtotal S/.</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th  class="text-right"> <?php echo $valor_neto; ?></th>
 				</tr>
 
 				<tr>
-					<th align='left'>Descuento</th>
-					<td></td>
-					<td></td>
-					<th align='right'>S/. <?php echo $_GET['descuento']; ?></th>
+					<th align='left'>Descuento S/.</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th  class="text-right"><?php echo number_format($_GET['descuento'], 2); ?></th>
 				</tr>
 
 				<tr>
-					<th>IGV (18%)</th>
-					<td></td>
-					<td></td>
-					<th>S/. <?php echo number_format($impuesto, 2); ?></th>
+					<th>IGV S/. (18%)</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th class="text-right"><?php echo number_format($impuesto, 2); ?></th>
 				</tr>
 
 				<tr>
-					<th>TOTAL</th>
-					<td></td>
-					<td></td>
-					<th>S/. <?php echo number_format($total, 2); ?></th>
+					<th>TOTAL S/.</th>
+					<th></th>
+					<th></th>
+					<th></th>
+					<th class="text-right"><?php echo number_format($total, 2); ?></th>
 				</tr>
 			</tbody>
 		</table>
@@ -175,7 +181,7 @@
 ?>
 	<div class="col-xs-12"></div>
 
-	<div class="bloque col-xs-4 col-sm-3">
+	<div class="bloque col-xs-4 col-sm-3" id="envases_credito">
 		<table class='table table-condensed'>
 			<caption>
 				<h4>
@@ -199,35 +205,54 @@
 			</caption>
 			<thead>
 				<th>Descripción</th>
-				<th nowrap>Precio S/.</th>
-				<th>Cantidad</th>
+				<th nowrap>Precio</th>
+				<th>Cant.</th>
+				<th nowrap>Sub Total</th>
 			</thead>
 			<tbody>
 				<?php $valor_neto2 = 0; ?>
 				<?php do { ?>
 					<tr>
-						<td><?php echo $row_producto2['producto']; ?></td>
+						<td nowrap><?php echo $row_producto2['producto']; ?></td>
 						<td><?php echo number_format($row_producto2['precio'], 2); ?></td>
-						<td>
+						<td class="text-center">
 							<?php echo $row_producto2['devuelve'] - $row_producto2['lleva'];  /*Cantidad de productos*/
 							    $valor_neto2 += $row_producto2["precio"] * ($row_producto2['devuelve'] - $row_producto2['lleva']); /*Acumulador de montos de deudas*/
 							    if(empty($_GET['descuento'])) { $_GET['descuento'] = 0; }
 							    $total2 = -1 * ($valor_neto2 - $_GET['descuento']); /*Total del monto de deudas, respecto a las botellas */
 							?>
 						</td>
+						<td class="text-right"><?php echo number_format(($row_producto2['devuelve'] - $row_producto2['lleva']) * $row_producto2['precio'], 2); ?></td>
 					</tr>
 				<?php } while ($row_producto2 = mysql_fetch_assoc($producto2)); ?>
 
 				<tr>
-					<th>TOTAL (S/.)</th>
-					<td></td>
-					<th nowrap ><?php echo number_format($total2, 2); ?></th>
+					<th>TOTAL(S/.)</th>
+					<th></th>
+					<th></th>
+					<th nowrap class="text-right"><?php echo number_format($total2, 2); ?></th>
+					<input type="hidden" id="total2" value="<?php echo $total2; ?>">
 				</tr>
 				<tr>
-					<td>Recibo de botellas y CPB</td>
+					<td colspan="4" class="text-xsm">Ticket de pago de botellas y Cajas</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
+
+
+	<!-- basic scripts -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!--[if !IE]> -->
+	<script type="text/javascript">
+		window.jQuery || document.write("<script src='../../views/js/vendor/jquery.min.js'>"+"<"+"/script>");
+	</script>
+
+	<script type="text/javascript">
+		var total2 = document.getElementById('total2').value;
+		if(total2 == 0){
+			$("#envases_credito").addClass('none');
+		}
+	</script>
 </body>
 </html>
