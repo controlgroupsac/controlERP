@@ -118,7 +118,7 @@ ctacorriente_cliente_env.producto_id" ;
 							</h1>
 						</div><!-- /.page-header -->
 
-						<div class="bloque col-xs-4 col-sm-3">
+						<div class="bloque col-xs-6 col-sm-6">
 							<table class='table table-condensed'>
 								<caption>
 									<span class="label label-lg arrowed-right" id="registrar-span"><?php echo $row_table['almacen']; ?> </span>
@@ -140,12 +140,11 @@ ctacorriente_cliente_env.producto_id" ;
 											<td></td>
 											<td nowrap><?php echo $row_table['producto'] ; ?></td>
 											<td><?php echo $row_table['unidad']; ?></td>
-											<td><?php echo $row_table['cantidad']; ?></td>
-											<td><?php echo $row_table['precio']; ?></td>
-											<td><?php echo $row_table['SubTotal']; ?></td>
-											<td><?php echo $row_table['Cajas']; ?></td>
-											<td><?php echo $row_table['Botellas']; ?></td>
-											
+											<td class="text-right"><?php echo $row_table['cantidad']; ?></td>
+											<td class="text-right"><?php echo $row_table['precio']; ?></td>
+											<td class="text-right"><?php echo $row_table['SubTotal']; ?></td>
+											<td class="text-right"><?php echo $row_table['Cajas']; ?></td>
+											<td class="text-right"><?php echo $row_table['Botellas']; ?></td>
 										</tr>
 									<?php } while ($row_table = mysql_fetch_assoc($table)); ?>
 								</tbody>

@@ -146,6 +146,7 @@
         $(".limpiarDevuelve").val("0");
     });
 
+    /*BEGIN KEYUP diferencia de envases*/
     $("#devuelve0").keyup(function () {
         var $lleva = $("#lleva0").val();
         var $devuelve = $(this).val();
@@ -185,6 +186,56 @@
 
         $("#totalX4").attr("value", ($resta * (-1)));
     });
+
+    $("#devuelve5").keyup(function () {
+        var $lleva = $("#lleva5").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#totalX5").attr("value", ($resta * (-1)));
+    });
+
+    $("#devuelve6").keyup(function () {
+        var $lleva = $("#lleva6").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#totalX6").attr("value", ($resta * (-1)));
+    });
+
+    $("#devuelve7").keyup(function () {
+        var $lleva = $("#lleva7").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#totalX7").attr("value", ($resta * (-1)));
+    });
+
+    $("#devuelve8").keyup(function () {
+        var $lleva = $("#lleva8").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#totalX8").attr("value", ($resta * (-1)));
+    });
+
+    $("#devuelve9").keyup(function () {
+        var $lleva = $("#lleva9").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#totalX9").attr("value", ($resta * (-1)));
+    });
+
+    $("#devuelve10").keyup(function () {
+        var $lleva = $("#lleva10").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#totalX10").attr("value", ($resta * (-1)));
+    });
+    /*END KEYUP diferencia de envases*/
+
 
     $('#devuelve0').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
     $('#devuelve1').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});

@@ -3,7 +3,8 @@
     include("../../queries/query.php");
 
     $query = "SELECT origen.almacen AS origen, destino.almacen AS destino, 
-                     almacen_transferencia.transferencia_id, almacen_transferencia.almacen_origen_id, almacen_transferencia.almacen_destino_id
+                     almacen_transferencia.transferencia_id, almacen_transferencia.almacen_origen_id, almacen_transferencia.almacen_destino_id, 
+                     almacen_transferencia.fecha
               FROM almacen_transferencia , almacen AS origen , almacen AS destino
               WHERE origen.almacen_id = almacen_transferencia.almacen_origen_id
               AND destino.almacen_id = almacen_transferencia.almacen_destino_id 
@@ -20,6 +21,7 @@
     <thead>
       <tr>
         <th>Id</th>
+        <th>Fecha</th>
         <th>Origen</th>
         <th>Destino</th>
 
@@ -31,6 +33,7 @@
       <?php do { ?>
       <tr>
         <td><?php echo $row_table["transferencia_id"]; ?></td>
+        <td><span class="label label-lg label-info arrowed-in arrowed-in-right"><?php echo $row_table["fecha"]; ?></span></td>
         <td><?php echo $row_table["origen"]; ?></td>
         <td><?php echo $row_table["destino"]; ?></td>
         <td align="left">

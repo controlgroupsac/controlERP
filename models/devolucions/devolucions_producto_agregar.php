@@ -24,14 +24,41 @@
 
 	$total = $_GET['totalRows_table'];
 	for ($i=0; $i < $total; $i++) { 
+
+		$factor = $_GET['factor'.$i];
+		$devuelve = $_GET['devuelve'.$i];
+		$diferencia = $_GET['total'.$i];
+		
+		// echo "devuelve: ".$devuelve. "\n";
+		// echo "total: ".$diferencia. "\n";
+
+
+
+
+		if($factor > 1) {
+			$posicion = strrpos($devuelve, "/");
+
+			$cajas = substr($devuelve, 0, $posicion) * $factor;
+			$botellas = substr($devuelve, $posicion + 1);
+
+			$devuelve = $cajas + $botellas;
+
+			// echo "cajas: ".$cajas. "\n";
+			// echo "botellas: ".$botellas. "\n";
+			// echo "posicion: ".$posicion. "\n";
+			// echo "FACTOR: ".$factor. "\n";
+			// echo "devuelveIF: ".$devuelve. "\n";
+			// echo "------------------: \n";
+		} 
+
 		/*Almacen Detalle de transferencia */
 		$query_transferencia_detalle = sprintf("INSERT INTO `controlg_controlerp`.`almacen_transferencias_detalle` (`almacen_transferencias_id`, `producto_ensamblado_id`, `producto_id`, `cantidad`, `faltante`) 
 								                VALUES (%s, %s, %s, %s, %s);",
 												fn_filtro($_GET['transferencia_id']),
 												fn_filtro($_GET['producto_ensamblado_id'.$i]),
 												fn_filtro($_GET['producto_id'.$i]),
-												fn_filtro($_GET['devuelve'.$i]),
-												fn_filtro($_GET['total'.$i])
+												fn_filtro($devuelve),
+												fn_filtro($diferencia)
 		);
 
 		/*DESTINO*/
@@ -44,7 +71,7 @@
 						fn_filtro($_GET['transferencia_id']),
 						fn_filtro($_GET['producto_id'.$i]),
 						fn_filtro($_GET['producto_ensamblado_id'.$i]),
-						fn_filtro($_GET['devuelve'.$i]),  
+						fn_filtro($devuelve),  
 						fn_filtro(1)
 		);	
 		mysql_select_db($database_fastERP, $fastERP);
@@ -57,7 +84,7 @@
 						fn_filtro($_GET['transferencia_id']),
 						fn_filtro($_GET['producto_id'.$i]),
 						fn_filtro($_GET['producto_ensamblado_id'.$i]),
-						fn_filtro(-1 * $_GET['devuelve'.$i]),  
+						fn_filtro(-1 * $devuelve),  
 						fn_filtro(1)
 		);	
 		mysql_select_db($database_fastERP, $fastERP);
@@ -68,7 +95,7 @@
 		                VALUES (%s, %s, %s);",
 						fn_filtro($id),
 						fn_filtro($_GET['producto_id'.$i]),
-						fn_filtro($_GET['total'.$i])
+						fn_filtro($diferencia)
 		);	
 		mysql_select_db($database_fastERP, $fastERP);
 		$table = mysql_query($sql, $fastERP) or die(mysql_error());

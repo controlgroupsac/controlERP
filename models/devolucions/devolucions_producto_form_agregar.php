@@ -3,8 +3,14 @@
     include "../../queries/functions.php"; 
 
     /*id del producto ensamblado(kit)*/
-    $query = "SELECT almacen.almacen, producto.producto, producto.producto_id, Sum(almacen_det.cantidad) AS suma_cantidad,
-                     almacen_det.producto_ensamblado_id
+    $query = "SELECT almacen.almacen, 
+                producto.producto, 
+                producto.producto_id, 
+                Sum(almacen_det.cantidad) AS suma_cantidad,
+                Sum(almacen_det.cantidad) div producto.factor AS cajas,
+                Sum(almacen_det.cantidad) mod producto.factor AS botellas,
+                almacen_det.producto_ensamblado_id,
+                producto.factor
               FROM almacen_det , almacen , producto
               WHERE almacen.almacen_id = almacen_det.almacen_id 
               AND almacen_det.producto_id = producto.producto_id
@@ -18,9 +24,9 @@
 
     /*NOMBRE del de los almacenes*/
     $query_almacen = "SELECT origen.almacen AS origen, destino.almacen AS destino
-              FROM almacen AS origen , almacen AS destino
-              WHERE origen.almacen_id = $_GET[origen]  
-              AND destino.almacen_id = $_GET[destino] " ;
+                      FROM almacen AS origen , almacen AS destino
+                      WHERE origen.almacen_id = $_GET[origen]  
+                      AND destino.almacen_id = $_GET[destino] " ;
     mysql_select_db($database_fastERP, $fastERP);
     $table_almacen = mysql_query($query_almacen, $fastERP) or die(mysql_error());
     $totalRows_table_almacen = mysql_num_rows($table_almacen);
@@ -55,18 +61,28 @@
                                 $producto = 0; 
                                 $producto_name = 0; 
                                 $producto_ensamblado = 0; 
-                                $producto_ensamblado_name = 0; 
+                                $producto_ensamblado_name = 0;
+                                $factor = 0; 
+                                $factor_name = 0; 
                                 $lleva = 0; 
                                 $lleva_name = 0; 
                                 $devuelve = 0; 
                                 $devuelve_name = 0; 
                                 $totalX = 0; 
                                 $totalX_name = 0; 
+
+                                $lleva_caja = 0;
+                                $devuelve_caja = 0;
+                                $total_caja = 0;
+
+                                $row_add = 0;
                             ?>
 
-                            <input type="hidden" id="totalRows_table" name="totalRows_table" value="<?php echo $totalRows_table; ?>" />
-                            <input type="hidden" id="totalRows_table" name="totalRows_table" value="<?php echo $totalRows_table; ?>" />
-                            <?php do { ?>
+
+                            <?php do { 
+                                if ($row_table['suma_cantidad'] <> 0){ $row_add++; ?>
+                                <input type="hidden" id="totalRows_table" name="totalRows_table" value="<?php echo $row_add; ?>" />
+                                
                                 <input type="hidden" id="origen" name="origen" value="<?php echo $_GET['origen']; ?>" />
                                 <input type="hidden" id="destino" name="destino" value="<?php echo $_GET['destino']; ?>" />
                                 <input type="hidden" id="transferencia_id" name="transferencia_id" value="<?php echo $_GET['transferencia_id']; ?>" />
@@ -74,20 +90,24 @@
                                     <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?php echo $row_table['producto']; ?></label>
                                     <input type="hidden" name="producto_id<?php echo $producto_name++; ?>" id="producto_id<?php echo $producto++; ?>" value="<?php echo $row_table['producto_id']; ?>">
                                     <input type="hidden" name="producto_ensamblado_id<?php echo $producto_ensamblado_name++; ?>" id="producto_ensamblado_id<?php echo $producto_ensamblado++; ?>" value="<?php echo $row_table['producto_ensamblado_id']; ?>">
+                                    <input type="hidden" name="factor<?php echo $factor_name++; ?>" id="factor<?php echo $factor++; ?>" value="<?php echo $row_table['factor']; ?>">
 
                                     <div class="col-sm-9">
                                         <div class="col-xs-3">
-                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="lleva<?php echo $lleva_name++; ?>" id="lleva<?php echo $lleva++; ?>" data-original-title="Tiene" value="<?php echo $row_table['suma_cantidad']; ?>" readonly />
+                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="lleva<?php echo $lleva_name++; ?>" id="lleva<?php if ($row_table['factor']==1) { echo "0".$lleva_caja++; } else {echo $lleva++;} ?>" data-original-title="Tiene <?php echo $row_table['cajas']; ?>CAJAS / <?php echo $row_table['botellas']; ?>BOTELLAS" value="<?php if ($row_table['factor']==1) echo $row_table['cajas']; else echo $row_table['cajas']."/".$row_table['botellas']; ?>" readonly />
                                         </div>
                                         <div class="col-xs-3">
-                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="devuelve<?php echo $devuelve_name++; ?>" id="devuelve<?php echo $devuelve++; ?>" data-original-title="Devuelve" value="<?php echo $row_table['suma_cantidad']; ?>" />
+                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="devuelve<?php echo $devuelve_name++; ?>" id="devuelve<?php if ($row_table['factor']==1) { echo "0".$devuelve_caja++; } else { echo $devuelve++; }  ?>" data-original-title="Devuelve <?php echo $row_table['cajas']; ?>CAJAS / <?php echo $row_table['botellas']; ?>BOTELLAS" value="<?php if ($row_table['factor']==1) echo $row_table['cajas']; else echo $row_table['cajas']."/".$row_table['botellas']; ?>" />
                                         </div>
                                         <div class="col-xs-3">
-                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="total<?php echo $totalX_name++; ?>" id="total<?php echo $totalX++; ?>" data-original-title="Diferencia entre lleva y devuelve" value="0" readonly />
+                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="total<?php echo $totalX_name++; ?>" id="total<?php if ($row_table['factor']==1){ echo "0".$total_caja++; } else {  echo $totalX++; } {
+                                                # code...
+                                            } ?>" data-original-title="Diferencia entre tiene y devuelve" value="0" readonly />
                                         </div>  
                                     </div>
                                 </div>
-                            <?php } while ($row_table = mysql_fetch_assoc($table)); ?>
+                            <?php }
+                                } while ($row_table = mysql_fetch_assoc($table)); ?>
 
                             <div class="col-xs-12">
                                 <div>
@@ -114,7 +134,6 @@
 <script language="javascript" type="text/javascript">
     function fn_agregar_devolucions(){
         var data = $("#frm_devolucions").serialize();
-        console.log(data);
         $.ajax({
             url: '../models/devolucions/devolucions_producto_agregar.php',
             data: data,
@@ -129,69 +148,437 @@
     };
 
     $("#devuelve0").keyup(function () {
+        var $factor = $("#factor0").val();
         var $lleva = $("#lleva0").val();
         var $devuelve = $(this).val();
-        $resta = $lleva - $devuelve;
+        var posicion_lleva = $lleva.indexOf('/');
+        var posicion_devuelve = $devuelve.indexOf('/');
+        var lleva_caja = $lleva.substring(0,posicion_lleva);
+        var lleva_botella = $lleva.substring(posicion_lleva+1);
+        
+        if (posicion_devuelve==-1)
+        {    
+            var devuelve_botella = 0;
+            var devuelve_caja = $devuelve.substring(0);
+        }
+        else
+        {
+            devuelve_caja = $devuelve.substring(0,posicion_devuelve);
+            devuelve_botella = $devuelve.substring(posicion_devuelve+1);
+        }
+        var resta_caja = 0;
+        var resta_botella=0;
+        resta_caja = devuelve_caja - lleva_caja;
+        resta_botella = devuelve_botella - lleva_botella;
 
-        $("#total0").attr("value", ($resta * (-1)));
+        if (resta_caja==0) 
+            resta_botella = devuelve_botella - lleva_botella;
+        else
+            if (resta_caja<0 && resta_botella>0)
+            {
+                resta_botella = (devuelve_botella) - ($factor);
+                resta_caja++;
+            }
+        var $resta = (resta_caja)+"/"+(resta_botella);
+
+        $("#total0").attr("value", ($resta));
     });
 
     $("#devuelve1").keyup(function () {
+        var $factor = $("#factor1").val();
         var $lleva = $("#lleva1").val();
         var $devuelve = $(this).val();
-        $resta = $lleva - $devuelve;
+        var posicion_lleva = $lleva.indexOf('/');
+        var posicion_devuelve = $devuelve.indexOf('/');
+        var lleva_caja = $lleva.substring(0,posicion_lleva);
+        var lleva_botella = $lleva.substring(posicion_lleva+1);
+        
+        if (posicion_devuelve==-1)
+        {    
+            var devuelve_botella = 0;
+            var devuelve_caja = $devuelve.substring(0);
+        }
+        else
+        {
+            devuelve_caja = $devuelve.substring(0,posicion_devuelve);
+            devuelve_botella = $devuelve.substring(posicion_devuelve+1);
+        }
+        var resta_caja = 0;
+        var resta_botella=0;
+        resta_caja = devuelve_caja - lleva_caja;
+        resta_botella = devuelve_botella - lleva_botella;
 
-        $("#total1").attr("value", ($resta * (-1)));
+        if (resta_caja==0) 
+            resta_botella = devuelve_botella - lleva_botella;
+        else
+            if (resta_caja<0 && resta_botella>0)
+            {
+                resta_botella = (devuelve_botella) - ($factor);
+                resta_caja++;
+            }
+        var $resta = (resta_caja)+"/"+(resta_botella);
+
+        $("#total1").attr("value", ($resta));
     });
 
     $("#devuelve2").keyup(function () {
+        var $factor = $("#factor2").val();
         var $lleva = $("#lleva2").val();
         var $devuelve = $(this).val();
-        $resta = $lleva - $devuelve;
+        var posicion_lleva = $lleva.indexOf('/');
+        var posicion_devuelve = $devuelve.indexOf('/');
+        var lleva_caja = $lleva.substring(0,posicion_lleva);
+        var lleva_botella = $lleva.substring(posicion_lleva+1);
+        
+        if (posicion_devuelve==-1)
+        {    
+            var devuelve_botella = 0;
+            var devuelve_caja = $devuelve.substring(0);
+        }
+        else
+        {
+            devuelve_caja = $devuelve.substring(0,posicion_devuelve);
+            devuelve_botella = $devuelve.substring(posicion_devuelve+1);
+        }
+        var resta_caja = 0;
+        var resta_botella=0;
+        resta_caja = devuelve_caja - lleva_caja;
+        resta_botella = devuelve_botella - lleva_botella;
 
-        $("#total2").attr("value", ($resta * (-1)));
+        if (resta_caja==0) 
+            resta_botella = devuelve_botella - lleva_botella;
+        else
+            if (resta_caja<0 && resta_botella>0)
+            {
+                resta_botella = (devuelve_botella) - ($factor);
+                resta_caja++;
+            }
+        var $resta = (resta_caja)+"/"+(resta_botella);
+
+        $("#total2").attr("value", ($resta));
     });
 
     $("#devuelve3").keyup(function () {
+        var $factor = $("#factor3").val();
         var $lleva = $("#lleva3").val();
         var $devuelve = $(this).val();
-        $resta = $lleva - $devuelve;
+        var posicion_lleva = $lleva.indexOf('/');
+        var posicion_devuelve = $devuelve.indexOf('/');
+        var lleva_caja = $lleva.substring(0,posicion_lleva);
+        var lleva_botella = $lleva.substring(posicion_lleva+1);
+        
+        if (posicion_devuelve==-1)
+        {    
+            var devuelve_botella = 0;
+            var devuelve_caja = $devuelve.substring(0);
+        }
+        else
+        {
+            devuelve_caja = $devuelve.substring(0,posicion_devuelve);
+            devuelve_botella = $devuelve.substring(posicion_devuelve+1);
+        }
+        var resta_caja = 0;
+        var resta_botella=0;
+        resta_caja = devuelve_caja - lleva_caja;
+        resta_botella = devuelve_botella - lleva_botella;
 
-        $("#total3").attr("value", ($resta * (-1)));
+        if (resta_caja==0) 
+            resta_botella = devuelve_botella - lleva_botella;
+        else
+            if (resta_caja<0 && resta_botella>0)
+            {
+                resta_botella = (devuelve_botella) - ($factor);
+                resta_caja++;
+            }
+        var $resta = (resta_caja)+"/"+(resta_botella);
+
+        $("#total3").attr("value", ($resta));
     });
 
     $("#devuelve4").keyup(function () {
+        var $factor = $("#factor4").val();
         var $lleva = $("#lleva4").val();
         var $devuelve = $(this).val();
-        $resta = $lleva - $devuelve;
+        var posicion_lleva = $lleva.indexOf('/');
+        var posicion_devuelve = $devuelve.indexOf('/');
+        var lleva_caja = $lleva.substring(0,posicion_lleva);
+        var lleva_botella = $lleva.substring(posicion_lleva+1);
+        
+        if (posicion_devuelve==-1)
+        {    
+            var devuelve_botella = 0;
+            var devuelve_caja = $devuelve.substring(0);
+        }
+        else
+        {
+            devuelve_caja = $devuelve.substring(0,posicion_devuelve);
+            devuelve_botella = $devuelve.substring(posicion_devuelve+1);
+        }
+        var resta_caja = 0;
+        var resta_botella=0;
+        resta_caja = devuelve_caja - lleva_caja;
+        resta_botella = devuelve_botella - lleva_botella;
 
-        $("#total4").attr("value", ($resta * (-1)));
+        if (resta_caja==0) 
+            resta_botella = devuelve_botella - lleva_botella;
+        else
+            if (resta_caja<0 && resta_botella>0)
+            {
+                resta_botella = (devuelve_botella) - ($factor);
+                resta_caja++;
+            }
+        var $resta = (resta_caja)+"/"+(resta_botella);
+
+        $("#total4").attr("value", ($resta));
     });
 
     $("#devuelve5").keyup(function () {
+        var $factor = $("#factor5").val();
         var $lleva = $("#lleva5").val();
         var $devuelve = $(this).val();
-        $resta = $lleva - $devuelve;
+        var posicion_lleva = $lleva.indexOf('/');
+        var posicion_devuelve = $devuelve.indexOf('/');
+        var lleva_caja = $lleva.substring(0,posicion_lleva);
+        var lleva_botella = $lleva.substring(posicion_lleva+1);
+        
+        if (posicion_devuelve==-1)
+        {    
+            var devuelve_botella = 0;
+            var devuelve_caja = $devuelve.substring(0);
+        }
+        else
+        {
+            devuelve_caja = $devuelve.substring(0,posicion_devuelve);
+            devuelve_botella = $devuelve.substring(posicion_devuelve+1);
+        }
+        var resta_caja = 0;
+        var resta_botella=0;
+        resta_caja = devuelve_caja - lleva_caja;
+        resta_botella = devuelve_botella - lleva_botella;
 
-        $("#total5").attr("value", ($resta * (-1)));
+        if (resta_caja==0) 
+            resta_botella = devuelve_botella - lleva_botella;
+        else
+            if (resta_caja<0 && resta_botella>0)
+            {
+                resta_botella = (devuelve_botella) - ($factor);
+                resta_caja++;
+            }
+        var $resta = (resta_caja)+"/"+(resta_botella);
+
+        $("#total5").attr("value", ($resta));
     });
 
     $("#devuelve6").keyup(function () {
+        var $factor = $("#factor6").val();
         var $lleva = $("#lleva6").val();
+        var $devuelve = $(this).val();
+        var posicion_lleva = $lleva.indexOf('/');
+        var posicion_devuelve = $devuelve.indexOf('/');
+        var lleva_caja = $lleva.substring(0,posicion_lleva);
+        var lleva_botella = $lleva.substring(posicion_lleva+1);
+        
+        if (posicion_devuelve==-1)
+        {    
+            var devuelve_botella = 0;
+            var devuelve_caja = $devuelve.substring(0);
+        }
+        else
+        {
+            devuelve_caja = $devuelve.substring(0,posicion_devuelve);
+            devuelve_botella = $devuelve.substring(posicion_devuelve+1);
+        }
+        var resta_caja = 0;
+        var resta_botella=0;
+        resta_caja = devuelve_caja - lleva_caja;
+        resta_botella = devuelve_botella - lleva_botella;
+
+        if (resta_caja==0) 
+            resta_botella = devuelve_botella - lleva_botella;
+        else
+            if (resta_caja<0 && resta_botella>0)
+            {
+                resta_botella = (devuelve_botella) - ($factor);
+                resta_caja++;
+            }
+        var $resta = (resta_caja)+"/"+(resta_botella);
+
+        $("#total6").attr("value", ($resta));
+    });
+
+    $("#devuelve7").keyup(function () {
+        var $factor = $("#factor7").val();
+        var $lleva = $("#lleva7").val();
+        var $devuelve = $(this).val();
+        var posicion_lleva = $lleva.indexOf('/');
+        var posicion_devuelve = $devuelve.indexOf('/');
+        var lleva_caja = $lleva.substring(0,posicion_lleva);
+        var lleva_botella = $lleva.substring(posicion_lleva+1);
+        
+        if (posicion_devuelve==-1)
+        {    
+            var devuelve_botella = 0;
+            var devuelve_caja = $devuelve.substring(0);
+        }
+        else
+        {
+            devuelve_caja = $devuelve.substring(0,posicion_devuelve);
+            devuelve_botella = $devuelve.substring(posicion_devuelve+1);
+        }
+        var resta_caja = 0;
+        var resta_botella=0;
+        resta_caja = devuelve_caja - lleva_caja;
+        resta_botella = devuelve_botella - lleva_botella;
+
+        if (resta_caja==0) 
+            resta_botella = devuelve_botella - lleva_botella;
+        else
+            if (resta_caja<0 && resta_botella>0)
+            {
+                resta_botella = (devuelve_botella) - ($factor);
+                resta_caja++;
+            }
+        var $resta = (resta_caja)+"/"+(resta_botella);
+
+        $("#total7").attr("value", ($resta));
+    });
+
+    $("#devuelve8").keyup(function () {
+        var $factor = $("#factor8").val();
+        var $lleva = $("#lleva8").val();
+        var $devuelve = $(this).val();
+        var posicion_lleva = $lleva.indexOf('/');
+        var posicion_devuelve = $devuelve.indexOf('/');
+        var lleva_caja = $lleva.substring(0,posicion_lleva);
+        var lleva_botella = $lleva.substring(posicion_lleva+1);
+        
+        if (posicion_devuelve==-1)
+        {    
+            var devuelve_botella = 0;
+            var devuelve_caja = $devuelve.substring(0);
+        }
+        else
+        {
+            devuelve_caja = $devuelve.substring(0,posicion_devuelve);
+            devuelve_botella = $devuelve.substring(posicion_devuelve+1);
+        }
+        var resta_caja = 0;
+        var resta_botella=0;
+        resta_caja = devuelve_caja - lleva_caja;
+        resta_botella = devuelve_botella - lleva_botella;
+
+        if (resta_caja==0) 
+            resta_botella = devuelve_botella - lleva_botella;
+        else
+            if (resta_caja<0 && resta_botella>0)
+            {
+                resta_botella = (devuelve_botella) - ($factor);
+                resta_caja++;
+            }
+        var $resta = (resta_caja)+"/"+(resta_botella);
+
+        $("#total8").attr("value", ($resta));
+    });
+
+    $("#devuelve9").keyup(function () {
+        var $factor = $("#factor9").val();
+        var $lleva = $("#lleva9").val();
+        var $devuelve = $(this).val();
+        var posicion_lleva = $lleva.indexOf('/');
+        var posicion_devuelve = $devuelve.indexOf('/');
+        var lleva_caja = $lleva.substring(0,posicion_lleva);
+        var lleva_botella = $lleva.substring(posicion_lleva+1);
+        
+        if (posicion_devuelve==-1)
+        {    
+            var devuelve_botella = 0;
+            var devuelve_caja = $devuelve.substring(0);
+        }
+        else
+        {
+            devuelve_caja = $devuelve.substring(0,posicion_devuelve);
+            devuelve_botella = $devuelve.substring(posicion_devuelve+1);
+        }
+        var resta_caja = 0;
+        var resta_botella=0;
+        resta_caja = devuelve_caja - lleva_caja;
+        resta_botella = devuelve_botella - lleva_botella;
+
+        if (resta_caja==0) 
+            resta_botella = devuelve_botella - lleva_botella;
+        else
+            if (resta_caja<0 && resta_botella>0)
+            {
+                resta_botella = (devuelve_botella) - ($factor);
+                resta_caja++;
+            }
+        var $resta = (resta_caja)+"/"+(resta_botella);
+
+        $("#total9").attr("value", ($resta));
+    });
+
+    $("#devuelve10").keyup(function () {
+        var $factor = $("#factor10").val();
+        var $lleva = $("#lleva10").val();
+        var $devuelve = $(this).val();
+        var posicion_lleva = $lleva.indexOf('/');
+        var posicion_devuelve = $devuelve.indexOf('/');
+        var lleva_caja = $lleva.substring(0,posicion_lleva);
+        var lleva_botella = $lleva.substring(posicion_lleva+1);
+        
+        if (posicion_devuelve==-1)
+        {    
+            var devuelve_botella = 0;
+            var devuelve_caja = $devuelve.substring(0);
+        }
+        else
+        {
+            devuelve_caja = $devuelve.substring(0,posicion_devuelve);
+            devuelve_botella = $devuelve.substring(posicion_devuelve+1);
+        }
+        var resta_caja = 0;
+        var resta_botella=0;
+        resta_caja = devuelve_caja - lleva_caja;
+        resta_botella = devuelve_botella - lleva_botella;
+
+        if (resta_caja==0) 
+            resta_botella = devuelve_botella - lleva_botella;
+        else
+            if (resta_caja<0 && resta_botella>0)
+            {
+                resta_botella = (devuelve_botella) - ($factor);
+                resta_caja++;
+            }
+        var $resta = (resta_caja)+"/"+(resta_botella);
+
+        $("#total10").attr("value", ($resta));
+    });
+
+
+
+    $("#devuelve00").keyup(function () {
+        var $lleva = $("#lleva00").val();
         var $devuelve = $(this).val();
         $resta = $lleva - $devuelve;
 
-        $("#total6").attr("value", ($resta * (-1)));
+        $("#total00").attr("value", ($resta * (-1)));
+    });
+    $("#devuelve01").keyup(function () {
+        var $lleva = $("#lleva01").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#total01").attr("value", ($resta * (-1)));
+    });
+    $("#devuelve02").keyup(function () {
+        var $lleva = $("#lleva02").val();
+        var $devuelve = $(this).val();
+        $resta = $lleva - $devuelve;
+
+        $("#total02").attr("value", ($resta * (-1)));
     });
 
-    // $('#devuelve0').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
-    // $('#devuelve1').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
-    // $('#devuelve2').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
-    // $('#devuelve3').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
-    // $('#devuelve4').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
-    // $('#devuelve5').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
-    // $('#devuelve6').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
-    // $('#devuelve7').ace_spinner({value:0,min:0,max:1000,step:1, on_sides: true, btn_up_class:'hidden' , btn_down_class:'hidden'});
+
 
 
     /*Tootip text*/
