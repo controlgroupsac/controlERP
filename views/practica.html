@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var persona = {nombre: "Heiner", edad: 100};
+		localStorage.autor = persona;
+
+		localStorage.autor = JSON.stringify(persona);
+
+		var autor = JSON.parse(localStorage.autor);
+
+		alert(typeof autor);
+	</script>
+</body>
+</html>

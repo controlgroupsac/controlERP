@@ -1,0 +1,9 @@
+[10-Feb-2015 09:09:17 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/controlgroupsac/public_html/erp/models/ventas/ventas_listar_comprobante_tipo.php on line 8
+[10-Feb-2015 09:09:17 America/Chicago] PHP Warning:  Invalid argument supplied for foreach() in /home/controlgroupsac/public_html/erp/models/ventas/ventas_listar_comprobante_tipo.php on line 8
+[10-Feb-2015 17:08:08 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/controlgroupsac/public_html/erp/models/ventas/ventas_agregar.php on line 73
+[10-Feb-2015 17:12:29 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/controlgroupsac/public_html/erp/models/ventas/ventas_agregar.php on line 73
+[10-Feb-2015 17:44:06 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/controlgroupsac/public_html/erp/models/ventas/ventas_agregar.php on line 73
+[10-Feb-2015 17:47:54 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/controlgroupsac/public_html/erp/models/ventas/ventas_agregar.php on line 73
+[10-Feb-2015 17:50:00 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/controlgroupsac/public_html/erp/models/ventas/ventas_agregar.php on line 73
+[12-Feb-2015 21:04:10 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/controlgroupsac/public_html/erp/models/ventas/ventas_agregar.php on line 73
+[13-Feb-2015 19:38:10 America/Chicago] PHP Warning:  mysql_fetch_assoc() expects parameter 1 to be resource, null given in /home/controlgroupsac/public_html/erp/models/ventas/ventas_agregar.php on line 73
