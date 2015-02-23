@@ -71,7 +71,7 @@
 									    			<label class="col-sm-3 control-label text-right" for="fecha"> <strong>fecha</strong> </label>
 
 									    			<div class="col-sm-9">
-									    				<input class="form-control col-xs-10 col-sm-5 input-xlarge date-picker" id="fecha" type="text" value="<?php echo date("Y/m/d"); ?>" data-date-format="yyyy-mm-dd" />
+									    				<input class="form-control col-xs-10 col-sm-5 input-xlarge date-picker" id="fecha" type="text" value="<?php echo date("Y/m/d"); ?>" data-date-format="yyyy-mm-dd" readonly />
 									    			</div>
 									    		</div>										
 											</div>

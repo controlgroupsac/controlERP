@@ -8,8 +8,8 @@
 	  exit;
 	}
 	
-	$sql = sprintf("INSERT INTO `controlg_controlerp`.`compra` (`proveedor_id`, `almacen_id`, `estado`) 
-	                VALUES (%s, %s, %s);",
+	$sql = sprintf("INSERT INTO `controlg_controlerp`.`compra` (`proveedor_id`, `almacen_id`, `estado`, `fecha`) 
+	                VALUES (%s, %s, %s, now());",
 					fn_filtro($_POST['proveedor_id']),
 					fn_filtro($_POST['almacen_id']),
 					fn_filtro(1)

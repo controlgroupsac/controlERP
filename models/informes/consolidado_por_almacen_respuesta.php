@@ -140,20 +140,11 @@ ctacorriente_cliente_env.producto_id" ;
 											<td></td>
 											<td nowrap><?php echo $row_table['producto'] ; ?></td>
 											<td><?php echo $row_table['unidad']; ?></td>
-<<<<<<< HEAD
-											<td><?php echo $row_table['cantidad']; ?></td>
-											<td><?php echo $row_table['precio']; ?></td>
-											<td><?php echo $row_table['SubTotal']; ?></td>
-											<td><?php echo $row_table['Cajas']; ?></td>
-											<td><?php echo $row_table['Botellas']; ?></td>
-=======
 											<td class="text-right"><?php echo $row_table['cantidad']; ?></td>
 											<td class="text-right"><?php echo $row_table['precio']; ?></td>
 											<td class="text-right"><?php echo $row_table['SubTotal']; ?></td>
 											<td class="text-right"><?php echo $row_table['Cajas']; ?></td>
 											<td class="text-right"><?php echo $row_table['Botellas']; ?></td>
->>>>>>> f1f94e583a0e6fa332fc1573f8e78945db8ad483
-											
 										</tr>
 									<?php } while ($row_table = mysql_fetch_assoc($table)); ?>
 								</tbody>

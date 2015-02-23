@@ -1,7 +1,7 @@
 <?php  
 	include "../../config/conexion.php"; 
     include("../../queries/query.php"); 
-    $query = "SELECT compra.total, compra.estado, almacen.almacen, proveedor.proveedor, compra.compra_id
+    $query = "SELECT compra.total, compra.estado, almacen.almacen, proveedor.proveedor, compra.compra_id, compra.fecha
 			  FROM compra , almacen , proveedor
 			  WHERE compra.almacen_id = almacen.almacen_id
 			  AND compra.proveedor_id = proveedor.proveedor_id
@@ -22,6 +22,7 @@
 		<thead>
 			<tr>
 				<th>&nbsp;</th>
+				<th>Fecha</th>
 				<th>Almacen</th>
 				<th>Proveedor</th>
 				<th>total</th>
@@ -34,6 +35,11 @@
 			<?php do { ?>
 			<tr>
 				<td><?php $totalRows_table--; echo $totalRows_table; ?></td>
+				<td>
+					<span class="label label-lg label-purple arrowed-in arrowed-in-right">
+						<?php echo $row_table["fecha"]; ?>
+					</span>
+				</td>
 				<td><?php echo $row_table["almacen"]; ?></td>
 				<td><?php echo $row_table["proveedor"]; ?></td>
 				<td><?php echo number_format($row_table["total"], 2); ?></td>

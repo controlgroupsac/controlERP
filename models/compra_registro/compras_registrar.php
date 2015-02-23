@@ -23,6 +23,9 @@
 		</script>
 <?php  
     } else { 
+    	if($_POST['fecha'] == "" || empty($_POST['fecha'])) {
+    		$_POST['fecha'] = "now()";
+    	}
     	$sql = sprintf("UPDATE `controlg_controlerp`.`compra` 
 						SET almacen_id='%s', proveedor_id='%s', estado='%s', condic_pago='%s', serie='%s', numero='%s', fecha_doc='%s', impuesto1='%s', valor_neto='%s', descuento='%s', total='%s', guiaremision='%s'
 						WHERE compra_id=%d;", 
