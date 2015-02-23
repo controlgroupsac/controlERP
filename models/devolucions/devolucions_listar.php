@@ -30,12 +30,13 @@
     </thead>
 
     <tbody>
+      <?php $contador = $totalRows_table + 1; ?>
       <?php do { ?>
       <tr>
-        <td><?php echo $row_table["transferencia_id"]; ?></td>
-        <td><span class="label label-lg label-info arrowed-in arrowed-in-right"><?php echo $row_table["fecha"]; ?></span></td>
-        <td><?php echo $row_table["origen"]; ?></td>
-        <td><?php echo $row_table["destino"]; ?></td>
+        <td class="text-center"><?php $contador--; echo $contador; ?></td>
+        <td class="text-center"><span class="label label-lg label-purple arrowed-in arrowed-in-right"><?php echo $row_table["fecha"]; ?></span></td>
+        <td class="text-center"><?php echo $row_table["origen"]; ?></td>
+        <td class="text-center"><?php echo $row_table["destino"]; ?></td>
         <td align="left">
           <div class="btn-group">
             <a id="btn_devolucion_registro" href="devolucions.php?transferencia_id=<?=$row_table['transferencia_id']?>&origen=<?=$row_table['almacen_origen_id']?>&destino=<?=$row_table['almacen_destino_id']?>" class="btn btn-xs btn-yellow tooltip-info" data-rel="tooltip" data-placement="left" title="DEVOLVER....!">

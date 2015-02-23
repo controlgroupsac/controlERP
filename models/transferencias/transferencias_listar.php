@@ -3,7 +3,8 @@
     include("../../queries/query.php");
 
     $query = "SELECT origen.almacen AS origen, destino.almacen AS destino, 
-                     almacen_transferencia.transferencia_id, almacen_transferencia.almacen_origen_id, almacen_transferencia.almacen_destino_id
+                     almacen_transferencia.transferencia_id, almacen_transferencia.almacen_origen_id, almacen_transferencia.almacen_destino_id, 
+                     almacen_transferencia.fecha
               FROM almacen_transferencia , almacen AS origen , almacen AS destino
               WHERE origen.almacen_id = almacen_transferencia.almacen_origen_id
               AND destino.almacen_id = almacen_transferencia.almacen_destino_id
@@ -18,7 +19,8 @@
   <table id="simple-table" class="table table-striped table-bordered table-hover">
     <thead>
       <tr>
-        <th>Transferencia</th>
+        <th>Id</th>
+        <th>Fecha</th>
         <th>Origen</th>
         <th>Destino</th>
 
@@ -27,11 +29,13 @@
     </thead>
 
     <tbody>
+      <?php $contador = $totalRows_table + 1; ?>
       <?php do { ?>
       <tr>
-        <td><?php echo $row_table["transferencia_id"]; ?></td>
-        <td><?php echo $row_table["origen"]; ?></td>
-        <td><?php echo $row_table["destino"]; ?></td>
+        <td class="text-center"><?php $contador--; echo $contador; ?></td>
+        <td class="text-center"><span class="label label-lg label-purple arrowed-in arrowed-in-right"><?php echo $row_table["fecha"]; ?></span></td>
+        <td class="text-center"><?php echo $row_table["origen"]; ?></td>
+        <td class="text-center"><?php echo $row_table["destino"]; ?></td>
         <td>
           <div class="btn-group">
             <a id="transferencia_transferir" href="transferencias.php?transferencia_id=<?=$row_table['transferencia_id']?>&origen=<?=$row_table['almacen_origen_id']?>&destino=<?=$row_table['almacen_destino_id']?>" class="btn btn-xs btn-yellow tooltip-info" data-rel="tooltip" data-placement="left" title="TRANSFERIR....!">
