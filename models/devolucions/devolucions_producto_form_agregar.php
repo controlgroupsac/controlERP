@@ -7,8 +7,8 @@
                     producto.producto, 
                     producto.producto_id, 
                     Sum(almacen_det.cantidad) AS suma_cantidad,
-                    Sum(almacen_det.cantidad) div producto.factor AS cajas,
-                    Sum(almacen_det.cantidad) mod producto.factor AS botellas,
+                    Sum(almacen_det.cantidad) DIV producto.factor AS cajas,
+                    Sum(almacen_det.cantidad) MOD producto.factor AS botellas,
                     almacen_det.producto_ensamblado_id,
                     producto.factor
               FROM almacen_det , almacen , producto
@@ -108,7 +108,7 @@
                                                 /*Variables para el name, id, title y value del input devuelve*/
                                                 $name1 = "devuelve".$devuelve_name++; /*Variable para el NAME*/
                                                 if ($row_table['factor']==1) { $id1 = "devuelve0".$devuelve_caja++; } else { $id1 = "devuelve".$devuelve++; } /*Variable para el ID*/
-                                                $title1 = "Devuelve $row_table[cajas]CAJAS / $row_table[botellas]BOTELLAS"; /*Variable para el TITLE*/
+                                                $title1 = "Devuelves $row_table[cajas]CAJAS / $row_table[botellas]BOTELLAS"; /*Variable para el TITLE*/
                                                 if ($row_table['factor']==1) $value1 = $row_table['cajas']; else $value1 = $row_table['cajas']."/".$row_table['botellas']; /*Variable para el VALUE*/
                                             ?>
                                             <input type="text" class="col-xs-12" data-rel="tooltip" name="<?=$name1; ?>" id="<?=$id1; ?>" data-original-title="<?=$title1; ?>" value="<?=$value1; ?>" />
@@ -119,7 +119,7 @@
                                                 $name2 = "total".$totalX_name++; /*Variable para el NAME*/
                                                 if ($row_table['factor']==1) { $id2 = "total0".$total_caja++; } else { $id2 = "total".$totalX++; } /*Variable para el ID*/
                                             ?>
-                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="<?=$name2; ?>" id="<?=$id2; ?>" data-original-title="Diferencia entre tiene y devuelve" value="0" readonly />
+                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="<?=$name2; ?>" id="<?=$id2; ?>" data-original-title="Aún te falta por devolver!!!" value="0" readonly />
                                         </div>  
                                     </div>
                                 </div>
@@ -156,8 +156,7 @@
             data: data,
             type: 'get',
             success: function(data){
-                // if(data != "")
-                //     alert(data);
+                // alert(data);
                 fn_cerrar_devolucions_producto();
                 fn_buscar_devolucions_producto();
             }

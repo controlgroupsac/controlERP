@@ -165,7 +165,10 @@ ctacorriente_cliente_env.producto_id" ;
 									
 								</thead>
 								<tbody>
-									<?php do {
+									<?php
+
+									if ($row_table1 = mysql_fetch_assoc($table1))	
+									 do {
 
 									$query2 = "SELECT
 												(Sum(almacen_det.cantidad)-".$row_table1['cantidad'].") AS cantidad,

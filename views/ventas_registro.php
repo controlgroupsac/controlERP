@@ -45,10 +45,7 @@
 				<div class="main-content-inner">
 					<div class="page-content">
 
-
 						<!-- /.ace-settings-container -->
-
-
 
 						<div class="row">
 							<!-- <div class="col-xs-12" id="div_compra_registro"> -->
@@ -57,39 +54,10 @@
 								<?php include("../models/sidebar.php"); ?>
 
 
-								<!-- Small boxes (Stat box) -->
-								<div class="row">
-									<!-- Datos de los Clientes -->
-									<div class="col-xs-12 widget-container-col">
-										<div class="widget-box widget-color-blue">
-											<div class="widget-header">
-												<i class="fa fa-table"></i>
-												<h5 class="widget-title"> Lista de clientes</h5>
-
-												<div class="widget-toolbar">
-													<a href="#" data-action="collapse">
-														<i class="1 ace-icon fa fa-chevron-up"></i>
-													</a>
-												</div>
-
-												<div class="widget-toolbar no-border">
-													<button class="btn btn-sm btn-success" id="nuevoCliente"> Agregar cliente </button>
-												</div>
-											</div>
-
-											<div class="widget-body">
-												<div class="widget-main scrollable" data-size="150">
-													<div id="div_listar_cliente"></div>
-	            									<div id="div_oculto_cliente" class="none"></div>
-												</div>
-											</div>
-										</div>
-									</div><!--/span-->
-								</div>
 								
 								<hr />
 								<div class="row">
-									<!-- Datos de los Ventas -->
+									<!-- Datos de Ventas -->
 									<div class="col-xs-12 widget-container-col">
 										<div class="widget-box widget-color-blue">
 											<div class="widget-header">
@@ -119,6 +87,35 @@
 
 								<div id="div_compra_formulario"></div>
 
+								<!-- Small boxes (Stat box) -->
+								<div class="row">
+									<!-- Datos de los Clientes -->
+									<div class="col-xs-12 widget-container-col">
+										<div class="widget-box widget-color-blue collapsed">
+											<div class="widget-header">
+												<i class="fa fa-table"></i>
+												<h5 class="widget-title"> Lista de clientes</h5>
+
+												<div class="widget-toolbar">
+													<a href="#" data-action="collapse">
+														<i class="1 ace-icon fa fa-chevron-up"></i>
+													</a>
+												</div>
+
+												<div class="widget-toolbar no-border">
+													<button class="btn btn-sm btn-success" id="nuevoCliente"> Agregar cliente </button>
+												</div>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main scrollable" data-size="150">
+													<div id="div_listar_cliente"></div>
+	            									<div id="div_oculto_cliente" class="none"></div>
+												</div>
+											</div>
+										</div>
+									</div><!--/span-->
+								</div>
 								<!-- PAGE CONTENT ENDS -->
 							</div><!-- /.col -->
 						</div><!-- /.row -->
