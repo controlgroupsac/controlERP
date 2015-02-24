@@ -17,22 +17,21 @@
     $row_envases = mysql_fetch_assoc($envases); 
     if($totalRows_envases == 0) {
         /*id del producto ensamblado(kit)*/
-        $query = "SELECT 
-                ventas.ventas_id, 
-                producto_ensamblado.producto, 
-                producto.producto, producto.factor,
-                producto.producto_id, 
-                ventas_det.cantidad,
-                producto.unidad_id,
-                SUM(IF(producto_ensamblado.categoria_id = 5 and producto.unidad_id = 1, ventas_det.cantidad * producto_ensamblado.factor, ventas_det.cantidad)) div producto.factor AS calculoc,
-                SUM(IF(producto_ensamblado.categoria_id = 5 and producto.unidad_id = 1, ventas_det.cantidad * producto_ensamblado.factor, ventas_det.cantidad)) mod producto.factor AS calculob
+        $query = "SELECT ventas.ventas_id,
+                        producto_ensamblado.producto, 
+                        producto.producto, producto.factor,
+                        producto.producto_id, 
+                        ventas_det.cantidad,
+                        producto.unidad_id,
+                        SUM(IF(producto_ensamblado.categoria_id = 5 and producto.unidad_id = 1, ventas_det.cantidad * producto_ensamblado.factor, ventas_det.cantidad)) div producto.factor AS calculoc,
+                        SUM(IF(producto_ensamblado.categoria_id = 5 and producto.unidad_id = 1, ventas_det.cantidad * producto_ensamblado.factor, ventas_det.cantidad)) mod producto.factor AS calculob
                 FROM ventas , ventas_det , producto_ensamblado , producto_ensamblado_det , producto
-                WHERE ventas.ventas_id = $_POST[ventas_id] AND
-                ventas.ventas_id = ventas_det.ventas_id AND
-                ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id AND
-                producto_ensamblado.producto_ensamblado_id = producto_ensamblado_det.producto_ensamblado_id AND
-                producto_ensamblado_det.producto_id = producto.producto_id AND
-                producto.categoria_id = 4
+                WHERE ventas.ventas_id = $_POST[ventas_id] 
+                AND ventas.ventas_id = ventas_det.ventas_id
+                AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
+                AND producto_ensamblado.producto_ensamblado_id = producto_ensamblado_det.producto_ensamblado_id
+                AND producto_ensamblado_det.producto_id = producto.producto_id
+                AND producto.categoria_id = 4
                 GROUP BY producto.producto_id" ;
         mysql_select_db($database_fastERP, $fastERP);
         $table = mysql_query($query, $fastERP) or die(mysql_error());
@@ -40,16 +39,15 @@
         $row_table = mysql_fetch_assoc($table); 
     } else {
         /*id del producto ensamblado(kit)*/
-        $query = "SELECT
-                   ventas_env.ventas_id,
-                    if (producto.unidad_id = 2,ventas_env.lleva,CONCAT((ventas_env.lleva*producto.factor div producto.factor),'/',(ventas_env.lleva*producto.factor mod producto.factor))) AS lleva,
-                    if (producto.unidad_id = 2,ventas_env.devuelve,CONCAT((ventas_env.devuelve*producto.factor div producto.factor),'/',(ventas_env.devuelve*producto.factor mod producto.factor))) AS devuelve,
-                    producto.producto_id,
-                    producto.producto,
-                    (ventas_env.devuelve - ventas_env.lleva) AS debe,
-                    producto.factor,
-                    producto.categoria_id,
-                    producto.unidad_id
+        $query = "SELECT ventas_env.ventas_id,
+                        producto.factor,
+                        producto.categoria_id,
+                        producto.unidad_id,
+                        producto.producto_id,
+                        producto.producto,
+                        if (producto.unidad_id = 2, ventas_env.lleva, CONCAT((ventas_env.lleva DIV producto.factor),'/',(ventas_env.lleva*producto.factor MOD producto.factor))) AS lleva,
+                        if (producto.unidad_id = 2, ventas_env.devuelve, CONCAT((ventas_env.devuelve DIV producto.factor),'/',(ventas_env.devuelve*producto.factor MOD producto.factor))) AS devuelve,
+                        if (producto.unidad_id = 2, (ventas_env.devuelve - ventas_env.lleva), CONCAT(((ventas_env.devuelve - ventas_env.lleva) DIV producto.factor),'/',((ventas_env.devuelve - ventas_env.lleva) MOD producto.factor))) AS debe
                   FROM ventas_env , producto
                   WHERE ventas_env.producto_id = producto.producto_id 
                   AND ventas_env.ventas_id = $_POST[ventas_id]" ;
@@ -95,14 +93,30 @@
 
                     <div class="col-sm-9">
                         <div class="col-xs-3">
-                            <input type="text" name="lleva<?=$lleva_name++; ?>" id="lleva<?php if ($row_table['factor']==1) { echo "0".$lleva_caja++; } else {echo $lleva++;} ?>" data-rel="tooltip"  data-original-title="Lleva" value="<?php if ($row_table['unidad_id'] == 1){ echo ($row_table['calculoc']."/". $row_table['calculob']); } else { echo $row_table['calculoc']; } ?>" readonly />
+                            <?php  
+                                /*Variables para el name, id, title y value del input LLEVA*/
+                                $name = "lleva".$lleva_name++; /*Variable para el NAME*/
+                                if ($row_table['factor']==1) { $id = "lleva0".$lleva_caja++; } else { $id = "lleva".$lleva++; } /*Variable para el ID*/
+                                if ($row_table['unidad_id'] == 1){ $value = ($row_table['calculoc']."/". $row_table['calculob']); } else { $value =  $row_table['calculoc']; } /*Variable para el VALUE*/
+                            ?>
+                            <input type="text" name="<?=$name?>" id="<?=$id?>" data-rel="tooltip"  data-original-title="Lleva" value="<?=$value?>" readonly />
                         </div>
                         <div class="col-xs-4">
-                            <input type="text" name="devuelve<?=$devuelve_name++; ?>" id="devuelve<?php if ($row_table['factor']==1) { echo "0".$devuelve_caja++; } else { echo $devuelve++; } ?>" data-rel="tooltip" data-original-title="Devuelve" value="<?php if ($row_table['unidad_id'] == 1){ echo ($row_table['calculoc']."/". $row_table['calculob']); } else { echo $row_table['calculoc']; } ?>" />
+                            <?php  
+                                /*Variables para el name, id, title y value del input DEVUELVE*/
+                                $name1 = "devuelve".$devuelve_name++; /*Variable para el NAME*/
+                                if ($row_table['factor']==1) { $id1 = "devuelve0".$devuelve_caja++; } else { $id1 = "devuelve".$devuelve++; } /*Variable para el ID*/
+                                if ($row_table['unidad_id'] == 1){ $value1 = ($row_table['calculoc']."/". $row_table['calculob']); } else { $value1 = $row_table['calculoc']; } /*Variable para el VALUE*/
+                            ?>
+                            <input type="text" name="<?=$name1?>" id="<?=$id1?>" data-rel="tooltip" data-original-title="Devuelve" value="<?=$value1?>" />
                             <div class="space-6"></div>
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" data-rel="tooltip" name="totalX" id="total<?php if ($row_table['factor']==1){ echo "0".$total_caja++; } else {  echo $totalX++; } ?>" data-original-title="Diferencia entre lleva y devuelve" value="0" readonly />
+                            <?php  
+                                /*Variables para el id del input TOTAL*/
+                                if ($row_table['factor']==1) { $id2 = "total0".$total_caja++; } else { $id2 = "total".$totalX++; } /*Variable para el ID*/
+                            ?>
+                            <input type="text" data-rel="tooltip" name="totalX" id="<?=$id2?>" data-original-title="Diferencia entre lleva y devuelve" value="0" readonly />
                         </div>
                     </div>
                 </div>
@@ -116,19 +130,35 @@
 
                     <div class="col-sm-9">
                         <div class="col-xs-3">
-                            <input type="text" name="lleva<?=$lleva_name++; ?>" id="lleva<?php if ($row_table['factor']==1) { echo "0".$lleva_caja++; } else {echo $lleva++;} ?>" data-rel="tooltip"  data-original-title="Lleva" value="<?php if ($row_table['unidad_id'] == 1){ echo ($row_table['calculoc']."/". $row_table['calculob']); } else { echo $row_table['calculoc']; } ?>" readonly />
+                            <?php  
+                                /*Variables para el name, id, title y value del input LLEVA*/
+                                $name1 = "lleva".$lleva_name++; /*Variable para el NAME*/
+                                if ($row_table['factor']==1) { $id = "lleva0".$lleva_caja++; } else { $id = "lleva".$lleva++; } /*Variable para el ID*/
+                            ?>
+                            <input type="text" name="<?=$name?>" id="<?=$id;?>" data-rel="tooltip"  data-original-title="Lleva" value="<?=$row_table['lleva']; ?>" readonly />
                         </div>
                         <div class="col-xs-4">
-                            <input type="text" name="devuelve<?=$devuelve_name++; ?>" id="devuelve<?php if ($row_table['factor']==1) { echo "0".$devuelve_caja++; } else { echo $devuelve++; } ?>" data-rel="tooltip" data-original-title="Devuelve" value="<?php if ($row_table['unidad_id'] == 1){ echo ($row_table['calculoc']."/". $row_table['calculob']); } else { echo $row_table['calculoc']; } ?>" />
+                            <?php  
+                                /*Variables para el name, id, title y value del input DEVUELVE*/
+                                $name1 = "devuelve".$devuelve_name++; /*Variable para el NAME*/
+                                if ($row_table['factor']==1) { $id1 = "devuelve0".$devuelve_caja++; } else { $id1 = "devuelve".$devuelve++; } /*Variable para el ID*/
+                            ?>
+                            <input type="text" name="<?=$name1?>" id="<?=$id1;?>" class="limpiarDevuelve" data-rel="tooltip" data-original-title="Devuelve" value="<?=$row_table['devuelve']; ?>" />
                             <div class="space-6"></div>
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" data-rel="tooltip" name="totalX" id="total<?php if ($row_table['factor']==1){ echo "0".$total_caja++; } else {  echo $totalX++; } ?>" data-original-title="Diferencia entre lleva y devuelve" value="0" readonly />
-                        </div>
+                            <?php  
+                                /*Variables para el id del input TOTAL*/
+                                if ($row_table['factor']==1) { $id2 = "total0".$total_caja++; } else { $id2 = "total".$totalX++; } /*Variable para el ID*/
+                            ?>
+                            <input type="text" data-rel="tooltip" data-original-title="Diferencia entre lleva y devuelve" name="totalX" id="<?=$id2?>" value="<?=$row_table['debe'] ?>" readonly />
+                        </div>                    
                     </div>
                 </div>
                 <?php } while ($row_table = mysql_fetch_assoc($table)); ?>
             <?php } ?>
+                    <input type="hidden" name="devuelve" value="<?=$devuelve?>" />
+                    <input type="hidden" name="devuelve_caja" value="<?=$devuelve_caja?>" />
 
             <div class="col-xs-12">
                 <div>
@@ -155,8 +185,7 @@
             data: str,
             type: 'post',
             success: function(data){
-                if(data != "")
-                    alert(data);
+                alert(data);
                 $("#practica_envases").html(data);
                 fn_cerrar_ventas();
 			}
@@ -173,7 +202,7 @@
         var posicion_devuelve = $devuelve.indexOf('/');
         var lleva_caja = $lleva.substring(0,posicion_lleva);
         var lleva_botella = $lleva.substring(posicion_lleva+1);
-        console.log('factor '+$factor)
+        
         if (posicion_devuelve==-1)
         {    
             var devuelve_botella = 0;
@@ -199,7 +228,7 @@
             }
         var $resta = (resta_caja)+"/"+(resta_botella);
 
-        $("#totalX0").attr("value", ($resta));
+        $("#total0").attr("value", ($resta));
     });
 
     $("#devuelve1").keyup(function () {
