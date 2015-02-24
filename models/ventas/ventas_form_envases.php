@@ -15,11 +15,17 @@
     $envases = mysql_query($envases, $fastERP) or die(mysql_error());
     $totalRows_envases = mysql_num_rows($envases);
     $row_envases = mysql_fetch_assoc($envases); 
-
     if($totalRows_envases == 0) {
         /*id del producto ensamblado(kit)*/
-        $query = "SELECT ventas.ventas_id, producto_ensamblado.producto, producto.producto, producto.producto_id, ventas_det.cantidad,
-                SUM(IF(producto_ensamblado.categoria_id = 5 and producto.unidad_id = 1, ventas_det.cantidad * producto_ensamblado.factor, ventas_det.cantidad))AS calculo
+        $query = "SELECT 
+                ventas.ventas_id, 
+                producto_ensamblado.producto, 
+                producto.producto, 
+                producto.producto_id, 
+                ventas_det.cantidad,
+                producto.unidad_id,
+                SUM(IF(producto_ensamblado.categoria_id = 5 and producto.unidad_id = 1, ventas_det.cantidad * producto_ensamblado.factor, ventas_det.cantidad)) div producto.factor AS calculoc,
+                SUM(IF(producto_ensamblado.categoria_id = 5 and producto.unidad_id = 1, ventas_det.cantidad * producto_ensamblado.factor, ventas_det.cantidad)) mod producto.factor AS calculob
                 FROM ventas , ventas_det , producto_ensamblado , producto_ensamblado_det , producto
                 WHERE ventas.ventas_id = $_POST[ventas_id] AND
                 ventas.ventas_id = ventas_det.ventas_id AND
@@ -34,8 +40,16 @@
         $row_table = mysql_fetch_assoc($table); 
     } else {
         /*id del producto ensamblado(kit)*/
-        $query = "SELECT ventas_env.ventas_id, ventas_env.lleva, ventas_env.devuelve, producto.producto_id, producto.producto, 
-                         (ventas_env.devuelve - ventas_env.lleva) AS debe
+        $query = "SELECT
+                   ventas_env.ventas_id,
+                    if (producto.unidad_id = 2,ventas_env.lleva,CONCAT((ventas_env.lleva*producto.factor div producto.factor),'/',(ventas_env.lleva*producto.factor mod producto.factor))) AS lleva,
+                    if (producto.unidad_id = 2,ventas_env.devuelve,CONCAT((ventas_env.devuelve*producto.factor div producto.factor),'/',(ventas_env.devuelve*producto.factor mod producto.factor))) AS devuelve,
+                    producto.producto_id,
+                    producto.producto,
+                    (ventas_env.devuelve - ventas_env.lleva) AS debe,
+                    producto.factor,
+                    producto.categoria_id,
+                    producto.unidad_id
                   FROM ventas_env , producto
                   WHERE ventas_env.producto_id = producto.producto_id 
                   AND ventas_env.ventas_id = $_POST[ventas_id]" ;
@@ -63,19 +77,22 @@
                 $devuelve = 0; 
                 $devuelve_name = 0; 
                 $totalX = 0; 
+                $factor = 0; 
+                $factor_name = 0; 
             ?>
             <?php if($totalRows_envases == 0) { ?>
                 <?php do { ?>
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?php echo $row_table['producto']; ?></label>
                     <input type="hidden" name="producto_id<?php echo $producto++; ?>" id="producto_id" value="<?php echo $row_table['producto_id']; ?>">
+                    <input type="hidden" name="factor<?php echo $factor_name++; ?>" id="factor<?php echo $factor++; ?>" value="<?php echo $row_table['factor']; ?>">
 
                     <div class="col-sm-9">
                         <div class="col-xs-3">
-                            <input type="text" name="lleva<?php echo $lleva_name++; ?>" id="lleva<?php echo $lleva++; ?>" data-rel="tooltip"  data-original-title="Lleva" value="<?php echo $row_table['calculo']; ?>" readonly />
+                            <input type="text" name="lleva<?php echo $lleva_name++; ?>" id="lleva<?php echo $lleva++; ?>" data-rel="tooltip"  data-original-title="Lleva" value="<?php if ($row_table['unidad_id'] == 1){ echo ($row_table['calculoc']."/". $row_table['calculob']); } else { echo $row_table['calculoc']; } ?>" readonly />
                         </div>
                         <div class="col-xs-4">
-                            <input type="text" name="devuelve<?php echo $devuelve_name++; ?>" id="devuelve<?php echo $devuelve++; ?>" class="limpiarDevuelve" data-rel="tooltip" data-original-title="Devuelve" value="<?php echo $row_table['calculo']; ?>" />
+                            <input type="text" name="devuelve<?php echo $devuelve_name++; ?>" id="devuelve<?php echo $devuelve++; ?>" class="limpiarDevuelve" data-rel="tooltip" data-original-title="Devuelve" value="<?php if ($row_table['unidad_id'] == 1){ echo ($row_table['calculoc']."/". $row_table['calculob']); } else { echo $row_table['calculoc']; } ?>" />
                             <div class="space-6"></div>
                         </div>
                         <div class="col-xs-3">
@@ -89,6 +106,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?php echo $row_table['producto']; ?></label>
                     <input type="hidden" name="producto_id<?php echo $producto++; ?>" id="producto_id" value="<?php echo $row_table['producto_id']; ?>">
+                    <input type="hidden" name="factor<?php echo $factor_name++; ?>" id="factor<?php echo $factor++; ?>" value="<?php echo $row_table['factor']; ?>">
 
                     <div class="col-sm-9">
                         <div class="col-xs-3">
@@ -147,12 +165,42 @@
     });
 
     /*BEGIN KEYUP diferencia de envases*/
+
     $("#devuelve0").keyup(function () {
+        var $factor = $("#factor0").val();
         var $lleva = $("#lleva0").val();
         var $devuelve = $(this).val();
-        $resta = $lleva - $devuelve;
+        var posicion_lleva = $lleva.indexOf('/');
+        var posicion_devuelve = $devuelve.indexOf('/');
+        var lleva_caja = $lleva.substring(0,posicion_lleva);
+        var lleva_botella = $lleva.substring(posicion_lleva+1);
+        console.log('factor '+$factor)
+        if (posicion_devuelve==-1)
+        {    
+            var devuelve_botella = 0;
+            var devuelve_caja = $devuelve.substring(0);
+        }
+        else
+        {
+            devuelve_caja = $devuelve.substring(0,posicion_devuelve);
+            devuelve_botella = $devuelve.substring(posicion_devuelve+1);
+        }
+        var resta_caja = 0;
+        var resta_botella=0;
+        resta_caja = devuelve_caja - lleva_caja;
+        resta_botella = devuelve_botella - lleva_botella;
 
-        $("#totalX0").attr("value", ($resta * (-1)));
+        if (resta_caja==0) 
+            resta_botella = devuelve_botella - lleva_botella;
+        else
+            if (resta_caja<0 && resta_botella>0)
+            {
+                resta_botella = (devuelve_botella) - ($factor);
+                resta_caja++;
+            }
+        var $resta = (resta_caja)+"/"+(resta_botella);
+
+        $("#totalX0").attr("value", ($resta));
     });
 
     $("#devuelve1").keyup(function () {
