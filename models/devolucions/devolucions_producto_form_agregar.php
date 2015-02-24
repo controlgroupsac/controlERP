@@ -4,13 +4,13 @@
 
     /*id del producto ensamblado(kit)*/
     $query = "SELECT almacen.almacen, 
-                producto.producto, 
-                producto.producto_id, 
-                Sum(almacen_det.cantidad) AS suma_cantidad,
-                Sum(almacen_det.cantidad) div producto.factor AS cajas,
-                Sum(almacen_det.cantidad) mod producto.factor AS botellas,
-                almacen_det.producto_ensamblado_id,
-                producto.factor
+                    producto.producto, 
+                    producto.producto_id, 
+                    Sum(almacen_det.cantidad) AS suma_cantidad,
+                    Sum(almacen_det.cantidad) div producto.factor AS cajas,
+                    Sum(almacen_det.cantidad) mod producto.factor AS botellas,
+                    almacen_det.producto_ensamblado_id,
+                    producto.factor
               FROM almacen_det , almacen , producto
               WHERE almacen.almacen_id = almacen_det.almacen_id 
               AND almacen_det.producto_id = producto.producto_id
@@ -52,9 +52,9 @@
                         <div class="row-fluid">
                             <div class="form-group">
                                 <span class="label label-lg arrowed-in arrowed-right"> Devolucion </span>
-                                <span class="label label-lg label-yellow arrowed-in arrowed-right"> Origen: <?php echo $row_table_almacen['origen']; ?> </span>
+                                <span class="label label-lg label-yellow arrowed-in arrowed-right"> Origen: <?=$row_table_almacen['origen']; ?> </span>
                                 <span class="fa fa-long-arrow-right"></span>
-                                <span class="label label-lg label-yellow arrowed-in arrowed-right"> Destino: <?php echo $row_table_almacen['destino']; ?> </span>
+                                <span class="label label-lg label-yellow arrowed-in arrowed-right"> Destino: <?=$row_table_almacen['destino']; ?> </span>
                             </div>
 
                             <?php 
@@ -81,28 +81,45 @@
 
                             <?php do { 
                                 if ($row_table['suma_cantidad'] <> 0){ $row_add++; ?>
-                                <input type="hidden" id="totalRows_table" name="totalRows_table" value="<?php echo $row_add; ?>" />
+                                <input type="hidden" id="totalRows_table" name="totalRows_table" value="<?=$row_add; ?>" />
                                 
-                                <input type="hidden" id="origen" name="origen" value="<?php echo $_GET['origen']; ?>" />
-                                <input type="hidden" id="destino" name="destino" value="<?php echo $_GET['destino']; ?>" />
-                                <input type="hidden" id="transferencia_id" name="transferencia_id" value="<?php echo $_GET['transferencia_id']; ?>" />
+                                <input type="hidden" id="origen" name="origen" value="<?=$_GET['origen']; ?>" />
+                                <input type="hidden" id="destino" name="destino" value="<?=$_GET['destino']; ?>" />
+                                <input type="hidden" id="transferencia_id" name="transferencia_id" value="<?=$_GET['transferencia_id']; ?>" />
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?php echo $row_table['producto']; ?></label>
-                                    <input type="hidden" name="producto_id<?php echo $producto_name++; ?>" id="producto_id<?php echo $producto++; ?>" value="<?php echo $row_table['producto_id']; ?>">
-                                    <input type="hidden" name="producto_ensamblado_id<?php echo $producto_ensamblado_name++; ?>" id="producto_ensamblado_id<?php echo $producto_ensamblado++; ?>" value="<?php echo $row_table['producto_ensamblado_id']; ?>">
-                                    <input type="hidden" name="factor<?php echo $factor_name++; ?>" id="factor<?php echo $factor++; ?>" value="<?php echo $row_table['factor']; ?>">
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?=$row_table['producto']; ?></label>
+                                    <input type="hidden" name="producto_id<?=$producto_name++; ?>" id="producto_id<?=$producto++; ?>" value="<?=$row_table['producto_id']; ?>">
+                                    <input type="hidden" name="producto_ensamblado_id<?=$producto_ensamblado_name++; ?>" id="producto_ensamblado_id<?=$producto_ensamblado++; ?>" value="<?=$row_table['producto_ensamblado_id']; ?>">
+                                    <input type="hidden" name="factor<?=$factor_name++; ?>" id="factor<?=$factor++; ?>" value="<?=$row_table['factor']; ?>">
 
                                     <div class="col-sm-9">
                                         <div class="col-xs-3">
-                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="lleva<?php echo $lleva_name++; ?>" id="lleva<?php if ($row_table['factor']==1) { echo "0".$lleva_caja++; } else {echo $lleva++;} ?>" data-original-title="Tiene <?php echo $row_table['cajas']; ?>CAJAS / <?php echo $row_table['botellas']; ?>BOTELLAS" value="<?php if ($row_table['factor']==1) echo $row_table['cajas']; else echo $row_table['cajas']."/".$row_table['botellas']; ?>" readonly />
+                                            <?php  
+                                                /*Variables para el name, id, title y value del input lleva*/
+                                                $name = "lleva".$lleva_name++; /*Variable para el NAME*/
+                                                if ($row_table['factor']==1) { $id = "lleva0".$lleva_caja++; } else { $id = "lleva".$lleva++; } /*Variable para el ID*/
+                                                $title = "Tiene $row_table[cajas]CAJAS / $row_table[botellas]BOTELLAS"; /*Variable para el TITLE*/
+                                                if ($row_table['factor']==1) $value = $row_table['cajas']; else $value = $row_table['cajas']."/".$row_table['botellas']; /*Variable para el VALUE*/
+                                            ?>
+                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="<?=$name; ?>" id="<?=$id; ?>" data-original-title="<?=$title; ?>" value="<?=$value; ?>" readonly />
                                         </div>
                                         <div class="col-xs-3">
-                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="devuelve<?php echo $devuelve_name++; ?>" id="devuelve<?php if ($row_table['factor']==1) { echo "0".$devuelve_caja++; } else { echo $devuelve++; }  ?>" data-original-title="Devuelve <?php echo $row_table['cajas']; ?>CAJAS / <?php echo $row_table['botellas']; ?>BOTELLAS" value="<?php if ($row_table['factor']==1) echo $row_table['cajas']; else echo $row_table['cajas']."/".$row_table['botellas']; ?>" />
+                                            <?php  
+                                                /*Variables para el name, id, title y value del input devuelve*/
+                                                $name1 = "devuelve".$devuelve_name++; /*Variable para el NAME*/
+                                                if ($row_table['factor']==1) { $id1 = "devuelve0".$devuelve_caja++; } else { $id1 = "devuelve".$devuelve++; } /*Variable para el ID*/
+                                                $title1 = "Devuelve $row_table[cajas]CAJAS / $row_table[botellas]BOTELLAS"; /*Variable para el TITLE*/
+                                                if ($row_table['factor']==1) $value1 = $row_table['cajas']; else $value1 = $row_table['cajas']."/".$row_table['botellas']; /*Variable para el VALUE*/
+                                            ?>
+                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="<?=$name1; ?>" id="<?=$id1; ?>" data-original-title="<?=$title1; ?>" value="<?=$value1; ?>" />
                                         </div>
                                         <div class="col-xs-3">
-                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="total<?php echo $totalX_name++; ?>" id="total<?php if ($row_table['factor']==1){ echo "0".$total_caja++; } else {  echo $totalX++; } {
-                                                # code...
-                                            } ?>" data-original-title="Diferencia entre tiene y devuelve" value="0" readonly />
+                                            <?php  
+                                                /*Variables para el name | id del input total*/
+                                                $name2 = "total".$totalX_name++; /*Variable para el NAME*/
+                                                if ($row_table['factor']==1) { $id2 = "total0".$total_caja++; } else { $id2 = "total".$totalX++; } /*Variable para el ID*/
+                                            ?>
+                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="<?=$name2; ?>" id="<?=$id2; ?>" data-original-title="Diferencia entre tiene y devuelve" value="0" readonly />
                                         </div>  
                                     </div>
                                 </div>
@@ -111,9 +128,9 @@
 
                             <div class="col-xs-12">
                                 <div>
-                                    <a href="#" class="btn btn-small" data-dismiss="modal" onclick="fn_cerrar_devolucions();">Cancelar</a>
+                                    <a href="#" class="btn btn-small boton" data-dismiss="modal" onclick="fn_cerrar_devolucions();">Cancelar</a>
 
-                                    <button type="submit" class="btn btn-small btn-primary">
+                                    <button type="submit" class="btn btn-small btn-primary boton">
                                         <i class="fa fa-ok"></i>
                                         Devolver
                                     </button>
@@ -147,6 +164,14 @@
         });
     };
 
+    /*Mostrar u ocultar los botones de formulario*/
+    /*Se muestra cuando hay datos y se oculta cuando lo hay*/
+    $totalRows_table = $("#totalRows_table").val();
+    if ($totalRows_table == 0 || $totalRows_table == undefined) {
+        $(".boton").addClass("hidden");
+    };
+
+    /*BEGIN KEYUP de los input devuelve*/
     $("#devuelve0").keyup(function () {
         var $factor = $("#factor0").val();
         var $lleva = $("#lleva0").val();
@@ -156,6 +181,9 @@
         var lleva_caja = $lleva.substring(0,posicion_lleva);
         var lleva_botella = $lleva.substring(posicion_lleva+1);
         
+        console.log("factor: " +$factor);
+        console.log("lleva: " +$lleva);
+        console.log("devuelve: " +$devuelve);
         if (posicion_devuelve==-1)
         {    
             var devuelve_botella = 0;
@@ -577,6 +605,7 @@
 
         $("#total02").attr("value", ($resta * (-1)));
     });
+    /*END KEYUP de los input devuelve*/
 
 
 

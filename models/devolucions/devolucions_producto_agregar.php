@@ -20,20 +20,12 @@
     $row_table_cta = mysql_fetch_assoc($table_cta); 
 
 
-
-
 	$total = $_GET['totalRows_table'];
 	for ($i=0; $i < $total; $i++) { 
 
 		$factor = $_GET['factor'.$i];
 		$devuelve = $_GET['devuelve'.$i];
 		$diferencia = $_GET['total'.$i];
-		
-		// echo "devuelve: ".$devuelve. "\n";
-		// echo "total: ".$diferencia. "\n";
-
-
-
 
 		if($factor > 1) {
 			$posicion = strrpos($devuelve, "/");
@@ -42,13 +34,6 @@
 			$botellas = substr($devuelve, $posicion + 1);
 
 			$devuelve = $cajas + $botellas;
-
-			// echo "cajas: ".$cajas. "\n";
-			// echo "botellas: ".$botellas. "\n";
-			// echo "posicion: ".$posicion. "\n";
-			// echo "FACTOR: ".$factor. "\n";
-			// echo "devuelveIF: ".$devuelve. "\n";
-			// echo "------------------: \n";
 		} 
 
 		/*Almacen Detalle de transferencia */

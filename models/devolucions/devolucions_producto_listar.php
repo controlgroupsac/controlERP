@@ -7,8 +7,8 @@
       $transferencia = "";
     }
     
-    $query = "SELECT almacen_transferencias_detalle.almacen_transferencias_detalle_id, almacen_transferencias_detalle.almacen_transferencias_id, producto.producto, 
-                     almacen_transferencias_detalle.cantidad, almacen_transferencias_detalle.faltante
+    $query = "SELECT almacen_transferencias_detalle.almacen_transferencias_detalle_id, almacen_transferencias_detalle.almacen_transferencias_id, 
+                     almacen_transferencias_detalle.cantidad, almacen_transferencias_detalle.faltante, producto.producto
               FROM almacen_transferencias_detalle , producto 
               WHERE almacen_transferencias_detalle.almacen_transferencias_id = $transferencia 
               AND almacen_transferencias_detalle.producto_id = producto.producto_id";

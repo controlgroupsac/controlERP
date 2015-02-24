@@ -7,7 +7,7 @@
 	include "../../config/conexion.php"; 
     include("../../queries/query.php"); 
 
-    /*id del producto ensamblado(kit)*/
+    /*Cantidad de envases*/
     $envases = "SELECT * FROM ventas_env , producto
                 WHERE ventas_env.producto_id = producto.producto_id 
                 AND ventas_env.ventas_id = $_POST[ventas_id]" ;
@@ -19,14 +19,14 @@
     if($totalRows_envases == 0) {
         /*id del producto ensamblado(kit)*/
         $query = "SELECT ventas.ventas_id, producto_ensamblado.producto, producto.producto, producto.producto_id, ventas_det.cantidad,
-                SUM(IF(producto_ensamblado.categoria_id = 5 and producto.unidad_id = 1, ventas_det.cantidad * producto_ensamblado.factor, ventas_det.cantidad))AS calculo
+                         SUM(IF(producto_ensamblado.categoria_id = 5 and producto.unidad_id = 1, ventas_det.cantidad * producto_ensamblado.factor, ventas_det.cantidad))AS calculo
                 FROM ventas , ventas_det , producto_ensamblado , producto_ensamblado_det , producto
-                WHERE ventas.ventas_id = $_POST[ventas_id] AND
-                ventas.ventas_id = ventas_det.ventas_id AND
-                ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id AND
-                producto_ensamblado.producto_ensamblado_id = producto_ensamblado_det.producto_ensamblado_id AND
-                producto_ensamblado_det.producto_id = producto.producto_id AND
-                producto.categoria_id = 4
+                WHERE ventas.ventas_id = $_POST[ventas_id] 
+                AND ventas.ventas_id = ventas_det.ventas_id
+                AND ventas_det.producto_id = producto_ensamblado.producto_ensamblado_id
+                AND producto_ensamblado.producto_ensamblado_id = producto_ensamblado_det.producto_ensamblado_id
+                AND producto_ensamblado_det.producto_id = producto.producto_id
+                AND producto.categoria_id = 4
                 GROUP BY producto.producto_id" ;
         mysql_select_db($database_fastERP, $fastERP);
         $table = mysql_query($query, $fastERP) or die(mysql_error());
@@ -48,8 +48,8 @@
 <!-- page specific plugin styles -->
 <link rel="stylesheet" href="css/datepicker.min.css" />
 <form action="javascript: fn_modificar_venta();" class="form-inline" method="post" id="frm_envases">
-    <input type="hidden" name="ventas_id" id="ventas_id" value="<?php echo $row_table['ventas_id']; ?>">
-    <input type="hidden" name="total_rows" id="total_rows" value="<?php echo $totalRows_table; ?>">
+    <input type="hidden" name="ventas_id" id="ventas_id" value="<?=$row_table['ventas_id']; ?>">
+    <input type="hidden" name="total_rows" id="total_rows" value="<?=$totalRows_table; ?>">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" onclick="fn_cerrar_ventas();">&times;</button>
         <h4 class="blue bigger">Detalle de Envases</h4>
@@ -67,19 +67,33 @@
             <?php if($totalRows_envases == 0) { ?>
                 <?php do { ?>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?php echo $row_table['producto']; ?></label>
-                    <input type="hidden" name="producto_id<?php echo $producto++; ?>" id="producto_id" value="<?php echo $row_table['producto_id']; ?>">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?=$row_table['producto']; ?></label>
+                    <input type="hidden" name="producto_id<?=$producto++; ?>" id="producto_id" value="<?=$row_table['producto_id']; ?>">
 
                     <div class="col-sm-9">
                         <div class="col-xs-3">
-                            <input type="text" name="lleva<?php echo $lleva_name++; ?>" id="lleva<?php echo $lleva++; ?>" data-rel="tooltip"  data-original-title="Lleva" value="<?php echo $row_table['calculo']; ?>" readonly />
+                            <?php  
+                                /*Variables para el name, id, title y value del input lleva*/
+                                $name = "lleva".$lleva_name++; /*Variable para el NAME*/
+                                // if ($row_table['factor']==1) { $id = "lleva0".$lleva_caja++; } else { $id = "lleva".$lleva++; } /*Variable para el ID*/
+                                // $title = "Tiene $row_table[cajas]CAJAS / $row_table[botellas]BOTELLAS"; /*Variable para el TITLE*/
+                                // if ($row_table['factor']==1) $value = $row_table['cajas']; else $value = $row_table['cajas']."/".$row_table['botellas']; /*Variable para el VALUE*/
+                            ?>
+                            <input type="text" name="<?=$name?>" id="lleva<?=$lleva++?>" data-rel="tooltip" data-original-title="Lleva" value="<?=$row_table['calculo']?>" readonly />
                         </div>
                         <div class="col-xs-4">
-                            <input type="text" name="devuelve<?php echo $devuelve_name++; ?>" id="devuelve<?php echo $devuelve++; ?>" class="limpiarDevuelve" data-rel="tooltip" data-original-title="Devuelve" value="<?php echo $row_table['calculo']; ?>" />
+                            <?php  
+                                /*Variables para el name, id, title y value del input devuelve*/
+                                $name1 = "devuelve".$devuelve_name++; /*Variable para el NAME*/
+                                // if ($row_table['factor']==1) { $id1 = "lleva0".$devuelve_caja++; } else { $id1 = "lleva".$devuelve++; } /*Variable para el ID*/
+                                // $title1 = "Devuelve $row_table[cajas]CAJAS / $row_table[botellas]BOTELLAS"; /*Variable para el TITLE*/
+                                // if ($row_table['factor']==1) $value1 = $row_table['cajas']; else $value1 = $row_table['cajas']."/".$row_table['botellas']; /*Variable para el VALUE*/
+                            ?>
+                            <input type="text" name="<?=$name1?>" id="devuelve<?=$devuelve++?>" class="limpiarDevuelve" data-rel="tooltip" data-original-title="Devuelve" value="<?=$row_table['calculo']?>" />
                             <div class="space-6"></div>
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" data-rel="tooltip" data-original-title="Diferencia entre lleva y devuelve" name="totalX" id="totalX<?php echo $totalX++; ?>" value="0" readonly />
+                            <input type="text" data-rel="tooltip" data-original-title="Diferencia entre lleva y devuelve" name="totalX" id="totalX<?=$totalX++?>" value="0" readonly />
                         </div>                    
                     </div>
                 </div>
@@ -87,19 +101,19 @@
             <?php } else { ?>
                 <?php do { ?>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?php echo $row_table['producto']; ?></label>
-                    <input type="hidden" name="producto_id<?php echo $producto++; ?>" id="producto_id" value="<?php echo $row_table['producto_id']; ?>">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?=$row_table['producto']; ?></label>
+                    <input type="hidden" name="producto_id<?=$producto++?>" id="producto_id" value="<?=$row_table['producto_id']?>">
 
                     <div class="col-sm-9">
                         <div class="col-xs-3">
-                            <input type="text" name="lleva<?php echo $lleva_name++; ?>" id="lleva<?php echo $lleva++; ?>" data-rel="tooltip"  data-original-title="Lleva" value="<?php echo $row_table['lleva']; ?>" readonly />
+                            <input type="text" name="lleva<?=$lleva_name++?>" id="lleva<?=$lleva++?>" data-rel="tooltip"  data-original-title="Lleva" value="<?=$row_table['lleva']?>" readonly />
                         </div>
                         <div class="col-xs-4">
-                            <input type="text" name="devuelve<?php echo $devuelve_name++; ?>" id="devuelve<?php echo $devuelve++; ?>" class="limpiarDevuelve" data-rel="tooltip" data-original-title="Devuelve" value="<?php echo $row_table['devuelve']; ?>" />
+                            <input type="text" name="devuelve<?=$devuelve_name++?>" id="devuelve<?=$devuelve++?>" class="limpiarDevuelve" data-rel="tooltip" data-original-title="Devuelve" value="<?=$row_table['devuelve']?>" />
                             <div class="space-6"></div>
                         </div>
                         <div class="col-xs-3">
-                            <input type="text" data-rel="tooltip" data-original-title="Diferencia entre lleva y devuelve" name="totalX" id="totalX<?php echo $totalX++; ?>" value="<?php echo $row_table['debe'] ?>" readonly />
+                            <input type="text" data-rel="tooltip" data-original-title="Diferencia entre lleva y devuelve" name="totalX" id="totalX<?=$totalX++?>" value="<?=$row_table['debe'] ?>" readonly />
                         </div>                    
                     </div>
                 </div>

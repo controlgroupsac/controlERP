@@ -20,9 +20,9 @@
 
     /*id del producto ensamblado(kit)*/
     $query_almacen_det = "SELECT almacen_det.cantidad, almacen_det.almacendet_id
-                        FROM almacen_det
-                        WHERE almacen_det.transferencia_id = $_POST[transferencia_id] 
-                        AND almacen_det.producto_id = $_POST[producto_id] " ;
+                          FROM almacen_det
+                          WHERE almacen_det.transferencia_id = $_POST[transferencia_id] 
+                          AND almacen_det.producto_id = $_POST[producto_id] " ;
     mysql_select_db($database_fastERP, $fastERP);
     $almacen_det = mysql_query($query_almacen_det_det, $fastERP) or die(mysql_error());
     $row_almacen_det = mysql_fetch_assoc($almacen_det); 
@@ -63,16 +63,16 @@
                         <div class="row-fluid">
                             <div class="form-group">
                                 <span class="label label-lg arrowed-in arrowed-right"> Devolucion </span>
-                            <span class="label label-lg label-yellow arrowed-in arrowed-right"> Origen: <?php echo $row_almacen['origen']; ?> </span>
+                            <span class="label label-lg label-yellow arrowed-in arrowed-right"> Origen: <?=$row_almacen['origen']; ?> </span>
                                 <span class="fa fa-long-arrow-right"></span>
-                            <span class="label label-lg label-yellow arrowed-in arrowed-right"> Destino: <?php echo $row_almacen['destino']; ?> </span>
+                            <span class="label label-lg label-yellow arrowed-in arrowed-right"> Destino: <?=$row_almacen['destino']; ?> </span>
                             </div>
 
-                                <input type="text" id="origen" name="origen" value="<?php echo $_POST['origen']; ?>" />
-                                <input type="text" id="destino" name="destino" value="<?php echo $_POST['destino']; ?>" />
-                                <input type="text" id="transferencia_id" name="transferencia_id" value="<?php echo $_POST['transferencia_id']; ?>" />
-                                <input type="text" id="producto_id" name="producto_id" value="<?php echo $row_table['producto_id']; ?>">
-                                <input type="text" id="producto_ensamblado_id" name="producto_ensamblado_id" value="<?php echo $row_table['producto_ensamblado_id']; ?>">
+                                <input type="text" id="origen" name="origen" value="<?=$_POST['origen']; ?>" />
+                                <input type="text" id="destino" name="destino" value="<?=$_POST['destino']; ?>" />
+                                <input type="text" id="transferencia_id" name="transferencia_id" value="<?=$_POST['transferencia_id']; ?>" />
+                                <input type="text" id="producto_id" name="producto_id" value="<?=$row_table['producto_id']; ?>">
+                                <input type="text" id="producto_ensamblado_id" name="producto_ensamblado_id" value="<?=$row_table['producto_ensamblado_id']; ?>">
 
                                 <?php do { ?>
                                         
@@ -80,14 +80,14 @@
 
 
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?php echo $row_table['producto']; ?></label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?=$row_table['producto']; ?></label>
 
                                     <div class="col-sm-9">
                                         <div class="col-xs-3">
-                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="devuelto" id="devuelto" data-original-title="DEVUELTO" value="<?php echo abs($row_table['cantidad']); ?>" readonly />
+                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="devuelto" id="devuelto" data-original-title="DEVUELTO" value="<?=abs($row_table['cantidad']); ?>" readonly />
                                         </div>
                                         <div class="col-xs-3">
-                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="tiene" id="tiene" data-original-title="TIENE" value="<?php echo abs($row_table['faltante']); ?>" />
+                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="tiene" id="tiene" data-original-title="TIENE" value="<?=abs($row_table['faltante']); ?>" />
                                         </div>
                                         <div class="col-xs-3">
                                             <input type="text" class="col-xs-12" data-rel="tooltip" name="total" id="total" data-original-title="Diferencia entre lo devuelto y lo que tiene" value="0" readonly />
