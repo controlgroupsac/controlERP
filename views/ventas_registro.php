@@ -91,7 +91,7 @@
 								<div class="row">
 									<!-- Datos de los Clientes -->
 									<div class="col-xs-12 widget-container-col">
-										<div class="widget-box widget-color-blue">
+										<div class="widget-box widget-color-blue collapsed">
 											<div class="widget-header">
 												<i class="fa fa-table"></i>
 												<h5 class="widget-title"> Lista de clientes</h5>

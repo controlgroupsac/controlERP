@@ -97,12 +97,8 @@
                                             <input type="text" class="col-xs-12" data-rel="tooltip" name="lleva<?php echo $lleva_name++; ?>" id="lleva<?php if ($row_table['factor']==1) { echo "0".$lleva_caja++; } else {echo $lleva++;} ?>" data-original-title="Tiene <?php echo $row_table['cajas']; ?>CAJAS / <?php echo $row_table['botellas']; ?>BOTELLAS" value="<?php if ($row_table['factor']==1) echo $row_table['cajas']; else echo $row_table['cajas']."/".$row_table['botellas']; ?>" readonly />
                                         </div>
                                         <div class="col-xs-3">
-                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="devuelve<?php echo $devuelve_name++; ?>" id="devuelve<?php if ($row_table['factor']==1) { echo "0".$devuelve_caja++; } else { echo $devuelve++; }  ?>" data-original-title="Devuelve <?php echo $row_table['cajas']; ?>CAJAS / <?php echo $row_table['botellas']; ?>BOTELLAS" value="<?php if ($row_table['factor']==1) echo $row_table['cajas']; else echo $row_table['cajas']."/".$row_table['botellas']; ?>" />
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="total<?php echo $totalX_name++; ?>" id="total<?php if ($row_table['factor']==1){ echo "0".$total_caja++; } else {  echo $totalX++; } {
-                                                # code...
-                                            } ?>" data-original-title="Diferencia entre tiene y devuelve" value="0" readonly />
+                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="devuelve<?php echo $devuelve_name++; ?>" id="devuelve<?php if ($row_table['factor']==1) { echo "0".$devuelve_caja++; } else { echo $devuelve++; }  ?>" data-original-title="Devuelve <?php echo $row_table['cajas']; ?>CAJAS / <?php echo $row_table['botellas']; ?>BOTELLAS" value="<?php if ($row_table['factor']==1) echo $row_table['cajas']; else echo $row_table['cajas']."/".$row_table['botellas']; ?>" /div class="col-xs-3">
+                                            <input type="text" class="col-xs-12" data-rel="tooltip" name="total<?php echo $totalX_name++; ?>" id="total<?php if ($row_table['factor']==1){ echo "0".$total_caja++; } else {  echo $totalX++; } ?>" data-original-title="Diferencia entre tiene y devuelve" value="0" readonly />
                                         </div>  
                                     </div>
                                 </div>
