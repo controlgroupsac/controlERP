@@ -172,33 +172,33 @@
 
     /*BEGIN KEYUP de los input devuelve*/
     $("#devuelve0").keyup(function () {
-        var $factor = $("#factor0").val();
-        var $lleva = $("#lleva0").val();
-        var $devuelve = $(this).val();
-        var posicion_lleva = $lleva.indexOf('/');
+        var $factor           = $("#factor0").val();
+        var $lleva            = $("#lleva0").val();
+        var $devuelve         = $(this).val();
+        var posicion_lleva    = $lleva.indexOf('/');
         var posicion_devuelve = $devuelve.indexOf('/');
-        var lleva_caja = $lleva.substring(0,posicion_lleva);
-        var lleva_botella = $lleva.substring(posicion_lleva+1);
+        var lleva_caja        = $lleva.substring(0,posicion_lleva);
+        var lleva_botella     = $lleva.substring(posicion_lleva+1);
         
         console.log("factor: " +$factor);
         console.log("lleva: " +$lleva);
         console.log("devuelve: " +$devuelve);
-        if (posicion_devuelve==-1)
+        if (posicion_devuelve == -1)
         {    
             var devuelve_botella = 0;
-            var devuelve_caja = $devuelve.substring(0);
+            var devuelve_caja    = $devuelve.substring(0);
         }
         else
         {
-            devuelve_caja = $devuelve.substring(0,posicion_devuelve);
+            devuelve_caja    = $devuelve.substring(0,posicion_devuelve);
             devuelve_botella = $devuelve.substring(posicion_devuelve+1);
         }
-        var resta_caja = 0;
-        var resta_botella=0;
-        resta_caja = devuelve_caja - lleva_caja;
+        var resta_caja    = 0;
+        var resta_botella = 0;
+        resta_caja    = devuelve_caja - lleva_caja;
         resta_botella = devuelve_botella - lleva_botella;
 
-        if (resta_caja==0) 
+        if (resta_caja == 0) 
             resta_botella = devuelve_botella - lleva_botella;
         else
             if (resta_caja<0 && resta_botella>0)
