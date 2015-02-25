@@ -1127,7 +1127,7 @@ $("#nuevaDevolucion").click(function () {
     $.blockUI({
       message: $('#div_oculto_devolucions'),
       css:{
-        top: '10%',
+        top: '5%',
         width: '40%',
       }
     });
@@ -1196,8 +1196,9 @@ $("#nuevaDevolucion_producto").click(function () {
     $.blockUI({
       message: $('#div_oculto_devolucions_producto'),
       css:{
-        top: '10%',
-        width: '40%',
+        left: '20%',
+        top: '5%',
+        width: '50%',
       }
     });
     $('.blockOverlay').attr('title','Click to unblock').click($.unblockUI); 

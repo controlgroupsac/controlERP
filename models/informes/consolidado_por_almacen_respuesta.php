@@ -9,17 +9,12 @@
 			FORMAT(Sum(almacen_det.cantidad) div producto.factor,0) AS Cajas,
 			FORMAT(Sum(almacen_det.cantidad) mod producto.factor,0) AS Botellas,
 				almacen.almacen
-			FROM	
-			almacen_det ,
-			producto ,
-			unidad ,
-			almacen
-			WHERE
-			almacen_det.producto_id = producto.producto_id AND
-			producto.unidad_id = unidad.unidad_id AND
-			almacen.almacen_id = almacen_det.almacen_id AND
-			almacen.almacen_id = $_GET[almacen_id] AND 
-			producto.categoria_id <> 4
+			FROM almacen_det , producto , unidad , almacen
+			WHERE almacen_det.producto_id = producto.producto_id 
+			AND producto.unidad_id = unidad.unidad_id
+			AND almacen.almacen_id = almacen_det.almacen_id
+			AND almacen.almacen_id = $_GET[almacen_id]
+			AND producto.categoria_id <> 4
 			GROUP BY
 			almacen.almacen_id,
 			producto.producto_id" ;
@@ -28,45 +23,28 @@
 	$totalRows_table = mysql_num_rows($table);
 	$row_table = mysql_fetch_assoc($table);
 
-	$query1 = "SELECT
-			almacen.almacen,
-			almacen_det.producto_id,
-			almacen_det.producto_ensamblado_id,
-			sum(almacen_det.cantidad) AS cantidad,
-			(sum(almacen_det.cantidad)div producto.factor) AS cajas,
-			(sum(almacen_det.cantidad)mod producto.factor) AS botella,
-			producto.envase_id_bot,
-			producto.envase_id_cj,
-			producto.categoria_id,
-			producto.producto,
-			producto.factor
-			FROM
-			almacen ,
-			almacen_det ,
-			producto
-			WHERE
-			almacen.almacen_id = almacen_det.almacen_id AND
-			almacen_det.producto_id = producto.producto_id AND
-			producto.categoria_id <> 4 AND
-			almacen_det.almacen_id = $_GET[almacen_id]
-			GROUP BY
-			producto.envase_id_bot";
+	$query1 = "SELECT almacen.almacen, almacen_det.producto_id, almacen_det.producto_ensamblado_id,
+					SUM(almacen_det.cantidad) AS cantidad,
+					(SUM(almacen_det.cantidad)div producto.factor) AS cajas,
+					(SUM(almacen_det.cantidad)mod producto.factor) AS botella,
+					producto.envase_id_bot, producto.envase_id_cj, producto.categoria_id, producto.producto, producto.factor
+			  FROM almacen , almacen_det , producto
+			  WHERE almacen.almacen_id = almacen_det.almacen_id 
+			  AND almacen_det.producto_id = producto.producto_id
+			  AND producto.categoria_id <> 4
+			  AND almacen_det.almacen_id = $_GET[almacen_id]
+			  GROUP BY producto.envase_id_bot";
 
 	mysql_select_db($database_fastERP, $fastERP);
 	$table1 = mysql_query($query1, $fastERP) or die(mysql_error());
 	$totalRows_table1 = mysql_num_rows($table1);
 	$row_table1 = mysql_fetch_assoc($table1);
 
-	$envases = "SELECT
-producto.producto,
-SUM(ctacorriente_cliente_env.cantidad)
-FROM
-ctacorriente_cliente_env ,
-producto
-WHERE
-ctacorriente_cliente_env.producto_id = producto.producto_id
-GROUP BY
-ctacorriente_cliente_env.producto_id" ;
+	$envases = "SELECT producto.producto,
+					   SUM(ctacorriente_cliente_env.cantidad)
+				FROM ctacorriente_cliente_env , producto
+				WHERE ctacorriente_cliente_env.producto_id = producto.producto_id
+				GROUP BY ctacorriente_cliente_env.producto_id" ;
 	mysql_select_db($database_fastERP, $fastERP);
 	$envases = mysql_query($envases, $fastERP) or die(mysql_error());
 	$totalRows_envases = mysql_num_rows($envases);
@@ -166,64 +144,50 @@ ctacorriente_cliente_env.producto_id" ;
 								</thead>
 								<tbody>
 									<?php
+									if ($totalRows_table1 > 0){	/*Verificamos que haya algun registro para poder imprimir las filas*/
+										do {
+											/*Consulta para ver las botellas VACIAS*/
+										 	$cantidad = $row_table1['cantidad'];
+											$query2 = "SELECT (Sum(almacen_det.cantidad) - '$cantidad') AS cantidad,
+															  ((Sum(almacen_det.cantidad)- '$cantidad') DIV producto.factor) AS cajas,
+															  ((Sum(almacen_det.cantidad)- '$cantidad') MOD producto.factor) AS botellas,
+															  producto.producto
+													   FROM almacen , almacen_det , producto
+													   WHERE almacen.almacen_id    = almacen_det.almacen_id
+													   AND almacen.almacen_id	   = $_GET[almacen_id]
+													   AND almacen_det.producto_id ='$row_table1[envase_id_bot]'
+													   AND producto.producto_id    = almacen_det.producto_id";
+											mysql_select_db($database_fastERP, $fastERP);
+											$table2 = mysql_query($query2, $fastERP) or die(mysql_error());
+											$row_table2 = mysql_fetch_assoc($table2);
 
-									if ($row_table1 = mysql_fetch_assoc($table1))	
-									 do {
-
-									$query2 = "SELECT
-												(Sum(almacen_det.cantidad)-".$row_table1['cantidad'].") AS cantidad,
-												((Sum(almacen_det.cantidad)-".$row_table1['cantidad'].")div producto.factor) AS cajas,
-												((Sum(almacen_det.cantidad)-".$row_table1['cantidad'].")mod producto.factor) AS botellas,
-												producto.producto
-												FROM
-												almacen ,
-												almacen_det ,
-												producto
-												WHERE
-												almacen.almacen_id = almacen_det.almacen_id AND
-												almacen.almacen_id = $_GET[almacen_id] AND
-												almacen_det.producto_id =". $row_table1['envase_id_bot']." AND
-												producto.producto_id = almacen_det.producto_id";
-
-										mysql_select_db($database_fastERP, $fastERP);
-										$table2 = mysql_query($query2, $fastERP) or die(mysql_error());
-										$totalRows_table2 = mysql_num_rows($table2);
-										$row_table2 = mysql_fetch_assoc($table2);
-
-
-									$query3 = "SELECT
-												(Sum(almacen_det.cantidad)) AS cantidad,
-												((Sum(almacen_det.cantidad)div producto.factor)-".$row_table1['cajas'].") AS cajas,
-												(Sum(almacen_det.cantidad)mod producto.factor) AS botellas,
-												producto.producto
-												FROM
-												almacen ,
-												almacen_det ,
-												producto
-												WHERE
-												almacen.almacen_id = almacen_det.almacen_id AND
-												almacen.almacen_id = $_GET[almacen_id] AND
-												almacen_det.producto_id =". $row_table1['envase_id_cj']." AND
-												producto.producto_id = almacen_det.producto_id";
-
-										mysql_select_db($database_fastERP, $fastERP);
-										$table3 = mysql_query($query3, $fastERP) or die(mysql_error());
-										$totalRows_table3 = mysql_num_rows($table3);
-										$row_table3 = mysql_fetch_assoc($table3);
-
-
-									 ?>
+											/*Consulta para ver las botellas CAJAS*/
+											$cajas = $row_table1['cajas'];
+											$query3 = "SELECT (Sum(almacen_det.cantidad)) AS cantidad,
+															 ((Sum(almacen_det.cantidad) DIV producto.factor) - '$cajas') AS cajas,
+															  (Sum(almacen_det.cantidad) MOD producto.factor)  AS botellas,
+															producto.producto
+													   FROM almacen, almacen_det, producto
+													   WHERE almacen.almacen_id    = almacen_det.almacen_id 
+													   AND almacen.almacen_id	   = $_GET[almacen_id]
+													   AND almacen_det.producto_id ='$row_table1[envase_id_cj]'
+													   AND producto.producto_id    = almacen_det.producto_id";
+											mysql_select_db($database_fastERP, $fastERP);
+											$table3 = mysql_query($query3, $fastERP) or die(mysql_error());
+											$row_table3 = mysql_fetch_assoc($table3);
+										?>
 										<tr>
-											<td nowrap><?php echo $row_table2['producto']; ?></td>
+											<td><?php echo $row_table2['producto']; ?></td>
 											<td><?php echo $row_table2['cajas']; ?></td>
 											<td><?php echo $row_table2['botellas']; ?></td>
-											<td nowrap><?php echo $row_table3['producto']; ?></td>
+											<td><?php echo $row_table3['producto']; ?></td>
 											<td><?php echo $row_table3['cajas']; ?></td>
 											<td></td>
 											<td></td>
 											
 										</tr>
-									<?php } while ($row_table1 = mysql_fetch_assoc($table1)); ?>
+									<?php } while ($row_table1 = mysql_fetch_assoc($table1));
+									} ?>
 								</tbody>
 							</table>
 

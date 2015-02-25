@@ -185,7 +185,7 @@
             data: str,
             type: 'post',
             success: function(data){
-                alert(data);
+                // alert(data);
                 $("#practica_envases").html(data);
                 fn_cerrar_ventas();
 			}

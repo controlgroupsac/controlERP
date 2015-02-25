@@ -3,13 +3,14 @@
     include "../../queries/functions.php"; 
 
     /*id del producto ensamblado(kit)*/
-    $query = "SELECT almacen.almacen, 
+    $query = "SELECT almacen.almacen, almacen.almacen_id, 
                     producto.producto, 
                     producto.producto_id, 
                     Sum(almacen_det.cantidad) AS suma_cantidad,
                     Sum(almacen_det.cantidad) DIV producto.factor AS cajas,
                     Sum(almacen_det.cantidad) MOD producto.factor AS botellas,
                     almacen_det.producto_ensamblado_id,
+                    producto.categoria_id, 
                     producto.factor
               FROM almacen_det , almacen , producto
               WHERE almacen.almacen_id = almacen_det.almacen_id 
@@ -87,13 +88,20 @@
                                 <input type="hidden" id="destino" name="destino" value="<?=$_GET['destino']; ?>" />
                                 <input type="hidden" id="transferencia_id" name="transferencia_id" value="<?=$_GET['transferencia_id']; ?>" />
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-5"><?=$row_table['producto']; ?></label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-5">
+                                        <?php if ($row_table['categoria_id'] == 2 || $row_table['categoria_id'] == 4){ ?>
+                                                <span class="label label-lg label-purple"><?=$row_table['producto']; ?> </span>
+                                        <?php } else { 
+                                                echo $row_table['producto'];
+                                            }
+                                        ?>
+                                    </label>
                                     <input type="hidden" name="producto_id<?=$producto_name++; ?>" id="producto_id<?=$producto++; ?>" value="<?=$row_table['producto_id']; ?>">
                                     <input type="hidden" name="producto_ensamblado_id<?=$producto_ensamblado_name++; ?>" id="producto_ensamblado_id<?=$producto_ensamblado++; ?>" value="<?=$row_table['producto_ensamblado_id']; ?>">
                                     <input type="hidden" name="factor<?=$factor_name++; ?>" id="factor<?=$factor++; ?>" value="<?=$row_table['factor']; ?>">
 
                                     <div class="col-sm-9">
-                                        <div class="col-xs-3">
+                                        <div class="col-xs-2">
                                             <?php  
                                                 /*Variables para el name, id, title y value del input lleva*/
                                                 $name = "lleva".$lleva_name++; /*Variable para el NAME*/
@@ -103,7 +111,8 @@
                                             ?>
                                             <input type="text" class="col-xs-12" data-rel="tooltip" name="<?=$name; ?>" id="<?=$id; ?>" data-original-title="<?=$title; ?>" value="<?=$value; ?>" readonly />
                                         </div>
-                                        <div class="col-xs-3">
+                                        
+                                        <div class="col-xs-2">
                                             <?php  
                                                 /*Variables para el name, id, title y value del input devuelve*/
                                                 $name1 = "devuelve".$devuelve_name++; /*Variable para el NAME*/
@@ -113,7 +122,65 @@
                                             ?>
                                             <input type="text" class="col-xs-12" data-rel="tooltip" name="<?=$name1; ?>" id="<?=$id1; ?>" data-original-title="<?=$title1; ?>" value="<?=$value1; ?>" />
                                         </div>
-                                        <div class="col-xs-3">
+                                        
+                                        <!-- BEGIN Busqueda de envases vacios -->
+                                        <?php  
+                                            /*QUERY para la busqueda de los envases BOTELLAS*/
+                                            $query_bot = "SELECT almacen.almacen, producto.producto, producto.envase_id_bot,
+                                                                 (Sum(almacen_det.cantidad) DIV producto.factor) AS cantidad_cj, 
+                                                                 (Sum(almacen_det.cantidad) MOD producto.factor) AS cantidad_bot
+                                                          FROM almacen_det , almacen , producto
+                                                          WHERE almacen_det.almacen_id = almacen.almacen_id 
+                                                          AND almacen_det.almacen_id   = $row_table[almacen_id]
+                                                          AND producto.producto_id     = almacen_det.producto_id
+                                                          AND producto.categoria_id    <> 4
+                                                          AND producto.envase_id_bot   = $row_table[producto_id]
+                                                          GROUP BY almacen_det.producto_id, almacen.almacen, producto.producto" ;
+                                            mysql_select_db($database_fastERP, $fastERP);
+                                            $table_bot = mysql_query($query_bot, $fastERP) or die(mysql_error());
+                                            $totalRows_table_bot = mysql_num_rows($table_bot);
+                                            $row_table_bot = mysql_fetch_assoc($table_bot);  
+
+                                            /*QUERY para la busqueda de los envases CAJAS*/
+                                            $query_cj = "SELECT almacen.almacen, producto.producto, producto.envase_id_cj,
+                                                               (Sum(almacen_det.cantidad) DIV producto.factor) AS cantidad_cj, 
+                                                               (Sum(almacen_det.cantidad) MOD producto.factor) AS cantidad_bot
+                                                         FROM almacen_det , almacen , producto
+                                                         WHERE almacen_det.almacen_id = almacen.almacen_id 
+                                                         AND almacen_det.almacen_id   = $row_table[almacen_id]
+                                                         AND producto.producto_id     = almacen_det.producto_id
+                                                         AND producto.categoria_id    <> 4
+                                                         AND producto.envase_id_cj    = $row_table[producto_id]
+                                                         GROUP BY almacen_det.producto_id, almacen.almacen, producto.producto" ;
+                                            mysql_select_db($database_fastERP, $fastERP);
+                                            $table_cj = mysql_query($query_cj, $fastERP) or die(mysql_error());
+                                            $totalRows_table_cj = mysql_num_rows($table_cj);
+                                            $row_table_cj = mysql_fetch_assoc($table_cj); 
+                                            
+                                            if ($row_table['categoria_id'] == 2 || $row_table['categoria_id'] == 4){ /*Verificamos si el envase es botella o caja*/
+                                                $cantidad_bot = $row_table['botellas'] - $row_table_bot['cantidad_bot'];
+                                                $cantidad_cj  = $row_table['cajas']    - $row_table_bot['cantidad_cj'];
+                                                $botellas     = $cantidad_cj. "/" .$cantidad_bot; /*Envases de BOTELLAS vacios */
+
+                                                $cantidad_bot = $row_table['botellas'] - $row_table_cj['cantidad_bot'];
+                                                $cantidad_cj  = $row_table['cajas']    - $row_table_cj['cantidad_cj'];
+                                                $cajas     = $cantidad_cj. "/" .$cantidad_bot; /*Envases de CAJAS vacios */
+                                        ?>
+                                                <div class="col-xs-4 text-xsm">
+                                                    <?php if ($totalRows_table_bot > 0 ) { ?> <!-- Si existen botellas se imprime este input con el valor de la cantidad de BOTELLAS -->
+                                                        <input type="text" class="col-xs-6 text-xsm" data-rel="tooltip" name="<?=$name1?>" id="<?=$id1?>" data-original-title="<?=$title1?>" value="<?=$botellas?>" />
+                                                    <?php } else { ?><!-- Si no existen botellas se imprime este input con el valor de la cantidad de CAJAS -->
+                                                        <input type="text" class="col-xs-6 text-xsm" data-rel="tooltip" name="<?=$name1?>" id="<?=$id1?>" data-original-title="<?=$title1?>" value="<?=$cajas?>" />
+                                                    <?php } ?>
+
+                                                    <input type="text" class="col-xs-6 text-xsm" data-rel="tooltip" name="<?=$name1?>" id="<?=$id1?>" data-original-title="<?=$title1?>" value="" />
+                                                </div>
+                                        <?php } else{ ?>
+                                                <div class="col-xs-4 text-xsm"> </div>
+                                        <?php } ?>
+                                        <!-- END Busqueda de envases vacios -->
+
+                                        <div class="col-xs-2">
                                             <?php  
                                                 /*Variables para el name | id del input total*/
                                                 $name2 = "total".$totalX_name++; /*Variable para el NAME*/
@@ -180,16 +247,10 @@
         var lleva_caja        = $lleva.substring(0,posicion_lleva);
         var lleva_botella     = $lleva.substring(posicion_lleva+1);
         
-        console.log("factor: " +$factor);
-        console.log("lleva: " +$lleva);
-        console.log("devuelve: " +$devuelve);
-        if (posicion_devuelve == -1)
-        {    
+        if (posicion_devuelve == -1) {
             var devuelve_botella = 0;
             var devuelve_caja    = $devuelve.substring(0);
-        }
-        else
-        {
+        } else {
             devuelve_caja    = $devuelve.substring(0,posicion_devuelve);
             devuelve_botella = $devuelve.substring(posicion_devuelve+1);
         }
