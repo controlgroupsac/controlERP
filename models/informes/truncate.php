@@ -63,7 +63,10 @@
 			   (6, 1, 0, 1, 0, 45, 87, 200, 1),
 			   (7, 1, 0, 1, 0, 8, 92, 2400, 1),
 			   (8, 1, 0, 1, 0, 41, 92, 2400, 1),
-			   (9, 1, 0, 1, 0, 44, 92, 200, 1);";
+			   (9, 1, 0, 1, 0, 44, 92, 200, 1),
+			   (10, 1, 0, 1, 0, 7, 91, 2400, 1),
+			   (11, 1, 0, 1, 0, 40, 91, 2400, 1),
+			   (12, 1, 0, 1, 0, 43, 91, 200, 1);";
     $almacen_det_insert = mysql_query($almacen_det_insert, $fastERP) or die(mysql_error());
 
 	$compra_insert = "INSERT INTO `compra` (`compra_id`, `usuario_id`, `almacen_id`, `estado`, `proveedor_id`, `comprobtipo_id`, `serie`, `numero`, `guiaremision`, `fecha`, `fecha_doc`, `condic_pago`, `impuesto1`, `impuesto2`, `impuesto3`, `impuesto4`, `valor_neto`, `descuento`, `total`) 
@@ -75,7 +78,8 @@
 			   VALUES
 			   (1, 1, 85, 200, 60),
 			   (2, 1, 92, 200, 5),
-			   (3, 1, 87, 200, 3.5);";
+			   (3, 1, 87, 200, 3.5),
+    		   (4, 1, 91, 200, 3.5);";
     $compra_det_insert = mysql_query($compra_det_insert, $fastERP) or die(mysql_error());
 
 
