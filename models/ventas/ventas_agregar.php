@@ -158,10 +158,10 @@
 		    $totalRows_lleva_devuelve = mysql_num_rows($envase_lleva_devuelve);
 		    $row_envase_lleva_devuelve = mysql_fetch_assoc($envase_lleva_devuelve);
 
-		    if($totalRows_lleva_devuelve = 0) {
+		    if($totalRows_lleva_devuelve == 0) {
 		    	$lleva_devuelveX = 0;
 		    } else {
-		    	$lleva_devuelveX = $row_envase_lleva_devuelve['devuelve'];
+		    	$lleva_devuelveX = $row_envase_lleva_devuelve['devuelve']-$row_envase_lleva_devuelve['lleva'];
 		    }
 
 		    	if ($row_table['unidad_id']==2)
